@@ -1,0 +1,44 @@
+{
+  "name": "website-base",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve --mode test_tier",
+    "serve-test": "NODE_ENV=development vue-cli-service serve --mode test_tier",
+    "serve-beta": "NODE_ENV=development vue-cli-service serve --mode beta_tier",
+    "serve-prod": "NODE_ENV=development vue-cli-service serve --mode prod_tier",
+    "build": "NODE_ENV=production vue-cli-service build --mode prod_tier",
+    "build-test": "NODE_ENV=production vue-cli-service build --mode test_tier",
+    "build-beta": "NODE_ENV=production vue-cli-service build --mode beta_tier",
+    "build-prod": "NODE_ENV=production vue-cli-service build --mode prod_tier",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.30",
+    "@fortawesome/free-brands-svg-icons": "^5.14.0",
+    "@fortawesome/free-solid-svg-icons": "^5.14.0",
+    "@fortawesome/vue-fontawesome": "^0.1.10",
+    "core-js": "^3.6.5",
+    "dns": "^0.2.2",
+    "mapbox-gl": "^1.12.0",
+    "uswds": "^2.8.1",
+    "vue": "^2.6.12",
+    "vue-analytics": "^5.22.1",
+    "vue-browser-detect-plugin": "^0.1.13",
+    "vue-mapbox": "^0.4.1",
+    "vue-router": "^3.4.3",
+    "vuex": "^3.5.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.5.4",
+    "@vue/cli-plugin-eslint": "^4.5.4",
+    "@vue/cli-service": "^4.5.4",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.7.0",
+    "eslint-plugin-vue": "^6.2.2",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^9.0.3",
+    "vue-svg-loader": "^0.16.0",
+    "vue-template-compiler": "^2.6.12"
+  }
+}

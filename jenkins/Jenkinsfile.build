@@ -1,0 +1,94 @@
+pipeline {
+    agent {
+        node {
+            label 'team:makerspace-small'
+        }
+    }
+    triggers { pollSCM('*/5 * * * *') }
+    parameters {
+        choice(choices: ['test', 'beta', 'prod'], description: 's3 bucket that the build will target', name: 'BUILD_DEST')
+        choice(choices: ['test', 'beta', 'prod'], description: 'The mode selected will tell Vue which environment variables to use. Various feature flags will be disabled/enabled depending on mode. More importantly, the source of the tiles will change, with the development build loading tiles from the test S3 bucket and the production build loading tiles from the prod S3 bucket.', name: 'VUE_BUILD_MODE')
+        gitParameter(name: 'BRANCH_TAG',
+                     type: 'PT_BRANCH_TAG',
+                     selectedValue: 'DEFAULT',
+                     defaultValue: 'origin/master')
+    }
+
+    stages {
+        stage('clean workspace'){
+         steps{
+            cleanWs()
+         }
+        }
+        stage('checkout'){
+            steps{
+                checkout([$class: 'GitSCM',
+                          branches: [[name: "${params.BRANCH_TAG}"]],
+                          doGenerateSubmoduleConfigurations: false,
+                          extensions: [],
+                          gitTool: 'Default',
+                          submoduleCfg: [],
+                          userRemoteConfigs: [[url: 'https://github.com/usgs-makerspace/CHANGE_THIS_TO_NAME_OF_PROJECT.git']]
+                        ])
+                }
+        }
+
+        stage('build') {
+            steps {
+
+                sh """
+                    docker build . --tag="CHANGE_THIS_TO_NAME_OF_PROJECT-docker" --build-arg BUILDTARGET=${params.BUILD_DEST} --build-arg VUE_BUILD_MODE=${params.VUE_BUILD_MODE}
+                    docker run CHANGE_THIS_TO_NAME_OF_PROJECT-docker
+                    pathtemplate=":tmp/CHANGE_THIS_TO_NAME_OF_PROJECT/dist"
+                    dockerinstanceid=\$( docker ps -l -q )
+                    docker cp  "\${dockerinstanceid}\${pathtemplate}" "$WORKSPACE"
+                    docker rm "\${dockerinstanceid}"
+                """
+
+            }
+        }
+
+        stage('send to S3') {
+            steps {
+                script {
+                    if ("${params.BUILD_DEST}" == "prod") {
+                        targetDomain = "s3://water-visualizations-prod-website/visualizations/CHANGE_THIS_TO_NAME_OF_PROJECT"
+                    }
+                    else if ("${params.BUILD_DEST}" == "beta") {
+                        targetDomain = "s3://water-visualizations-beta-website/visualizations/CHANGE_THIS_TO_NAME_OF_PROJECT"
+                    }
+                    else {
+                        targetDomain = "s3://water-visualizations-test-website/visualizations/CHANGE_THIS_TO_NAME_OF_PROJECT"
+                    }
+                }
+                sh """
+                    aws s3 rm "${targetDomain}" --recursive
+                    aws s3 cp "$WORKSPACE/dist" "${targetDomain}" --recursive
+                """
+            }
+        }
+    }
+
+    post {
+        success {
+            mail to: 'cnell@usgs.gov, ebechtel@contractor.usgs.gov, lplatt@usgs.gov',
+            subject: "Success: ${currentBuild.fullDisplayName}",
+            body: "Pipeline finished successfully ${env.BUILD_URL}"
+        }
+        unstable {
+            mail to: 'cnell@usgs.gov, ebechtel@contractor.usgs.gov, lplatt@usgs.gov',
+            subject: "Unstable: ${currentBuild.fullDisplayName}",
+            body: "Pipeline is unstable ${env.BUILD_URL}"
+        }
+        failure {
+            mail to: 'cnell@usgs.gov, ebechtel@contractor.usgs.gov, lplatt@usgs.gov',
+            subject: "Failure: ${currentBuild.fullDisplayName}",
+            body: "Pipeline failed ${env.BUILD_URL}"
+        }
+        changed {
+            mail to: 'cnell@usgs.gov, ebechtel@contractor.usgs.gov, lplatt@usgs.gov',
+            subject: "Changes: ${currentBuild.fullDisplayName}",
+            body: "Pipeline detected changes ${env.BUILD_URL}"
+        }
+    }
+}

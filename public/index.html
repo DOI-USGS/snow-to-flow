@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <%= process.env.VUE_APP_TIER !== '' ? '<meta name="robots" content="noindex,nofollow">' : '' %><!-- an empty string in this case means the 'prod' version of the application   -->
+      <!-- Primary Meta Tags -->
+      <title><%= VUE_APP_TIER %><%= VUE_APP_TITLE %></title>
+      <meta name="title" content="FILL THIS OUT">
+      <meta name="description" content="FILL THIS OUT">
+      <!-- Open Graph / Facebook -->
+      <meta property="og:type" content="website">
+      <meta property="og:url" content="FILL THIS OUT">
+      <meta property="og:title" content="FILL THIS OUT">
+      <meta property="og:description" content="FILL THIS OUT">
+      <meta property="og:image" content="FILL THIS OUT">
+      <!-- Twitter -->
+      <meta property="twitter:card" content="summary_large_image">
+      <meta property="twitter:url" content="FILL THIS OUT">
+      <meta property="twitter:title" content="FILL THIS OUT">
+      <meta property="twitter:description" content="FILL THIS OUT">
+      <meta property="twitter:image" content="FILL THIS OUT">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <script type='application/ld+json'>
+      { "@context": "http://www.schema.org",
+        "@type": "WebSite", "name": "FILL THIS OUT",
+        "url": "FILL THIS OUT",
+        "about": "FILL THIS OUT",
+        "datePublished": "FILL THIS OUT",
+        "contributor": [
+          { "@type": "Person", "name": "DUPLICATE THIS OBJECT FOR EACH CONTRIBUTOR",
+            "email": "FILL THIS OUT",
+            "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
+          },
+          { "@type": "Person",
+            "name": "Aaron Briggs",
+            "email": "abriggs@contractor.usgs.gov",
+            "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
+          },
+          { "@type": "Person",
+            "name": "Marty Wernimont",
+            "email": "mwernimont@contractor.usgs.gov",
+            "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
+          }]
+      },
+      "audience": { "@context": "http://schema.org", "@type": "Audience", "audienceType": "General public"},
+      "publisher": { "@context": "http://schema.org", "@type": "Organization", "legalName": "U.S. Geological Survey" },
+      "keywords": "FILL THIS OUT WITH COMMA DELINIATED LIST" }
+    </script>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but this application doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+    <!--the next line is the required USGS Google Analytics Script -->
+    <script async src="https://www2.usgs.gov/scripts/analytics/usgs-analytics.js" type="application/javascript"></script>
+  </body>
+</html>
