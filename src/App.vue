@@ -7,6 +7,7 @@
     <router-view
       v-if="!isInternetExplorer & checkIfUSGSHeaderIsRendered"
     />
+    <Visualization />
     <PreFooterVisualizationsLinks v-if="!isInternetExplorer" />
     <PreFooterCodeLinks v-if="!isInternetExplorer" />
     <FooterUSGS />
@@ -16,12 +17,14 @@
 <script>
     import WindowSize from "./components/WindowSize";
     import HeaderUSGS from './components/HeaderUSGS';
+    import Visualization from './views/Visualization';
 
     export default {
         name: 'App',
         components: {
             WindowSize,
             HeaderUSGS,
+            Visualization,
             InternetExplorerPage: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "internet-explorer-page"*/ "./components/InternetExplorerPage"),
             WorkInProgressWarning: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "work-in-progress-warning"*/ "./components/WorkInProgressWarning"),
             PreFooterVisualizationsLinks: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "pre-footer-links-visualizations"*/ "./components/PreFooterVisualizationsLinks"),
@@ -63,14 +66,20 @@
 </script>
 
 <style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap'); //'Julius Sans One', sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Wire+One&display=swap'); //'Wire One', sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap'); //'Amatic SC', cursive;
 
  // IMPORT COLORS
 $nearBlack: #1a1b1c; //#1a1b1c;
 $frostyGreen: #5e8a76;
-$deepPurple: #281d31;
+$deepPurple: #301546;
 $lightGrey: #c2c4c5;
 $darkGrey: #212122;
-$familyMain: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+$familyMain: 'Source Sans Pro', sans-serif;
+$familySerif:  'Noto Serif', serif;
+$familyTest: 'Amatic SC', cursive;
 
 // Type
 body {
@@ -80,42 +89,41 @@ body {
       background-color: white;
       line-height: 1.5;
       font-size: 13pt;
-      font-family: $familyMain;
+      font-family: $familySerif;
       font-weight: 300;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       width: 100%;
   }
-
-
 h1{
-  font-size: 4em;
+  font-size: 7em;
   font-weight: 700;
+  font-family: $familyTest;
+  line-height: 1;
   text-align: left;
-  color: $nearBlack;
+  color: $deepPurple;
   @media screen and (max-width: 600px) {
     font-size: 3em;
   }
 
 }
-
-
-
 h2{
-  color: $nearBlack;
+  color: $darkGrey;
   font-weight: 700;
   text-align: center;
+  font-family:$familyTest;
   font-size: 3em;
   margin-top: 5px;
   line-height: 1.3;
   @media screen and (max-width: 600px) {
     font-size: 2em;
   }
-
 }
+
 h3{
   font-size: 2em;
   padding-top: .5em;
+  font-family: $familyTest;
   font-weight: 300;
   @media screen and (max-width: 600px) {
       font-size: 1.4em;
@@ -124,8 +132,9 @@ h3{
 
 .overall-title {
   padding-top: 0vh;
-  margin: 0 auto;
-  // background: $footerBlue;
+  margin: 0;
+  font-family: $familyTest;
+  line-height: 1;
   overflow-x: hidden;
   @media screen and (max-width: 600px) {
     padding: 0 20px 0 20px;
@@ -136,15 +145,9 @@ h3{
   font-style: italic;
   font-weight: 300;
   font-size: .8em;
-  color: $nearBlack; //#808080
+  color: $nearBlack; 
 }
 
-.chapter {
-  text-align: center;
-  font-weight: 300;
-  font-size: .8em;
-  font-style: italic;
-}
 
 .subheader {
 
