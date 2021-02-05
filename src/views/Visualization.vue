@@ -1,6 +1,5 @@
 <template>
   <div id="visualization">
-    <h1>{{ title }}</h1>
     <Intro />
   </div>
 </template>
@@ -10,16 +9,10 @@
         name: 'Visualization',
         components: {
           Intro: () => import(/* webpackPreload: true */ /*webpackChunkName: "intro"*/ "./intro/Intro")
-        },
-        props: {
-            title: {
-                type: String,
-                default: process.env.VUE_APP_TITLE
-            }
         }
     }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 
 </style>

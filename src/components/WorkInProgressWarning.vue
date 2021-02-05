@@ -1,7 +1,6 @@
 <template>
   <div class="usa-prose">
     <p
-      v-if="buttonText === 'I understand'"
       class="warning-open"
     >
       This page is in active development and subject to change. <br/>
@@ -15,7 +14,6 @@
         name: 'WorkInProgressWarning',
         data() {
             return {
-                buttonText: 'I understand'
             }
         }
     }
