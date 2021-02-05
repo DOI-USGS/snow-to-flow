@@ -26,8 +26,9 @@
     "vue": "^2.6.12",
     "vue-analytics": "^5.22.1",
     "vue-browser-detect-plugin": "^0.1.13",
-    "vue-mobile-detection": "^1.0.0",
     "vue-mapbox": "^0.4.1",
+    "vue-mobile-detection": "^1.0.0",
+    "vue-parallaxy": "^1.1.1",
     "vue-router": "^3.4.3",
     "vuex": "^3.5.1"
   },
