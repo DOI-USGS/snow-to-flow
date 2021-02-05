@@ -50,6 +50,6 @@
     margin-top:20vh;
 }
 #subheader {
-    font-size: 1.9em;
+    font-size: 1.4em;
 }
 </style>
