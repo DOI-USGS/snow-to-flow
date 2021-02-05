@@ -1,5 +1,5 @@
 {
-  "name": "website-base",
+  "name": "snow-to-flow",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -20,11 +20,13 @@
     "@fortawesome/vue-fontawesome": "^0.1.10",
     "core-js": "^3.6.5",
     "dns": "^0.2.2",
-    "mapbox-gl": "^1.12.0",
+    "lint": "^0.7.0",
+    "mobile-device-detect": "^0.4.3",
     "uswds": "^2.8.1",
     "vue": "^2.6.12",
     "vue-analytics": "^5.22.1",
     "vue-browser-detect-plugin": "^0.1.13",
+    "vue-mobile-detection": "^1.0.0",
     "vue-mapbox": "^0.4.1",
     "vue-router": "^3.4.3",
     "vuex": "^3.5.1"

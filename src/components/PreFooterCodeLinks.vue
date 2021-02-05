@@ -23,16 +23,16 @@
 
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
   #code-repository-link-container {
     display: flex;
     justify-content: center;
     width: 100%;
-    background-color: #00264c;
+    background-color: white;
     margin: 0 auto;
     padding-bottom: 0.4rem;
     a {
-      color: white;
+      color: #281d31;
       font-family: 'Source Sans Pro',sans-serif;
       font-size: 12px;
       text-decoration: none

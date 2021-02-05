@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <WindowSize v-if="checkTypeOfEnv === '-test build-'" />
-    <HeaderUSWDSBanner />
     <HeaderUSGS />
     <InternetExplorerPage v-if="isInternetExplorer" />
     <WorkInProgressWarning v-if="checkTypeOfEnv !== '' & !isInternetExplorer" /> <!-- an empty string in this case means the 'prod' version of the application   -->
@@ -16,14 +15,12 @@
 
 <script>
     import WindowSize from "./components/WindowSize";
-    import HeaderUSWDSBanner from './components/HeaderUSWDSBanner'
-    import HeaderUSGS from './components/HeaderUSGS'
+    import HeaderUSGS from './components/HeaderUSGS';
 
     export default {
         name: 'App',
         components: {
             WindowSize,
-            HeaderUSWDSBanner,
             HeaderUSGS,
             InternetExplorerPage: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "internet-explorer-page"*/ "./components/InternetExplorerPage"),
             WorkInProgressWarning: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "work-in-progress-warning"*/ "./components/WorkInProgressWarning"),
@@ -33,7 +30,9 @@
         },
         data() {
             return {
-                isInternetExplorer: false
+                isInternetExplorer: false,
+                title: process.env.VUE_APP_TITLE,
+                publicPath: process.env.BASE_URL, // this is need for the data files in the public folder
             }
         },
         computed: {
@@ -64,27 +63,210 @@
 </script>
 
 <style lang="scss">
-  body{
-    margin: 0;
-    padding: 0;
-  }
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    font-weight: 400;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    color: #2c3e50;
-    width: 100%;
+
+ // IMPORT COLORS
+$nearBlack: #1a1b1c; //#1a1b1c;
+$frostyGreen: #5e8a76;
+$deepPurple: #281d31;
+$lightGrey: #c2c4c5;
+$darkGrey: #212122;
+$familyMain: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+
+// Type
+body {
+      margin: 0;
+      padding: 0;
+      color: $nearBlack;
+      background-color: white;
+      line-height: 1.5;
+      font-size: 13pt;
+      font-family: $familyMain;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      width: 100%;
   }
 
-  @media screen and (min-width: 601px){
-    body{
-      height: 100vh;
-    }
-    #app{
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
+
+h1{
+  font-size: 4em;
+  font-weight: 700;
+  text-align: left;
+  color: $nearBlack;
+  @media screen and (max-width: 600px) {
+    font-size: 3em;
+  }
+
+}
+
+
+
+h2{
+  color: $nearBlack;
+  font-weight: 700;
+  text-align: center;
+  font-size: 3em;
+  margin-top: 5px;
+  line-height: 1.3;
+  @media screen and (max-width: 600px) {
+    font-size: 2em;
+  }
+
+}
+h3{
+  font-size: 2em;
+  padding-top: .5em;
+  font-weight: 300;
+  @media screen and (max-width: 600px) {
+      font-size: 1.4em;
+  }  
+}
+
+.overall-title {
+  padding-top: 0vh;
+  margin: 0 auto;
+  // background: $footerBlue;
+  overflow-x: hidden;
+  @media screen and (max-width: 600px) {
+    padding: 0 20px 0 20px;
+  }
+}
+
+.byline {
+  font-style: italic;
+  font-weight: 300;
+  font-size: .8em;
+  color: $nearBlack; //#808080
+}
+
+.chapter {
+  text-align: center;
+  font-weight: 300;
+  font-size: .8em;
+  font-style: italic;
+}
+
+.subheader {
+
+}
+  // General Layout  
+
+  .text-content {
+    min-width: 350px;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 2em;   
+    @media screen and (max-width: 600px) {
+        padding: 10px;
+    }  
+  }
+  .flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    align-content: space-around;
+    max-width: 30%;
+    margin: auto;
+    @media screen and (max-width: 600px) {
+        max-width: 100%;
     }
   }
+
+  .flex-item {
+    padding: 20px;
+    min-width: 400px;
+    flex: 0 0 auto;
+    align-self: center;
+  }
+
+
+  @media (max-width: 600px) {
+    .flex-container {
+      flex-direction: column;
+    }
+    .flex-item {
+      flex: none;
+      padding: 0 0 1em 0;
+      height: 100%;
+    }
+  }
+
+  .figure-content {
+    border: 1px white;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    align-content: space-around;
+    max-width: 100%;
+    // padding: 0 100px;
+    margin: auto;
+
+    @media screen and (max-width: 600px) {
+        padding: 0px; 
+    }
+
+  }
+
+
+.viz-title-wrapper {
+  max-width: 100%;
+  z-index: 100;
+  @media screen and (max-width: 600px) {
+        max-width: 90%;
+  }
+}
+
+.viz-title {
+  // box-shadow: -5px -5px $monotoneBlue5;
+  font-size: 1.4em;
+  font-weight: 700;
+  color: $darkGrey;
+  margin-bottom: 0;
+  @media screen and (max-width: 600px) {
+       font-size: 1.2em;
+       line-height: 1.2em;
+  }
+}
+
+.viz-subtitle {
+  color: $frostyGreen;
+  font-size: .8em;
+  text-align: left;
+  font-weight: 100;
+  margin-bottom: 0;
+  @media screen and (max-width: 600px) {
+        font-size: .6em;
+  }
+}
+
+.legend-text {
+    fill: $deepPurple;
+    font-family: $familyMain;
+    font-size: 16px;
+  }
+
+.viz-comment {
+  font-family: $familyMain;
+  font-size: 26px;
+  font-weight: 400;
+  fill:rgb(224, 222, 222);
+}
+.viz-emph {
+  font-weight:700;
+  fill: white;
+  font-family: $familyMain;
+  font-size: 26px;
+}
+
+.emph {
+  font-weight:700;
+  fill: white;
+  font-family: $familyMain;
+  background: linear-gradient(180deg,rgba(255,255,255,0) 60%, $frostyGreen 40%);
+  line-height: 1.3em;
+  padding: 0 5px;
+}
+
 </style>

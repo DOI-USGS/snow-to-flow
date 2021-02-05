@@ -14,10 +14,10 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
       apt-get install nodejs -y
 
 # Create temp directory for building viz app
-RUN mkdir -p /tmp/delaware-basin-story-CHANGE_THIS_TO_NAME_OF_PROJECT
+RUN mkdir -p /tmp/snow-to-flow
 
 # Copy source code
-WORKDIR /tmp/delaware-basin-story-CHANGE_THIS_TO_NAME_OF_PROJECT
+WORKDIR /tmp/snow-to-flow
 COPY . .
 # Set environment variables for build target and tile source and then run config.sh
 # to insert the correct S3 tile source URLs in the Mapbox configuration file.

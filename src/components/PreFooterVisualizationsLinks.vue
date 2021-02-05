@@ -1,28 +1,30 @@
 <template>
   <div class="pre-footer-links">
     <div class="inner-pre-footer-links-container">
-      <p>Other visualizations of interest</p>
+      <p>See our other visualizations:</p>
       <div class="footer-viz-links">
         <a
           :href="LinkOne"
+          target="_blank"
         >
           <figure>
-            <figcaption>Enter appropriate caption</figcaption>
             <img
-              src="@/assets/components/PreFooterVisualizationsLinks/images/thumbnailGeneric.png"
+              src="@/assets/components/PreFooterVisualizationsLinks/images/DRBthumb.png"
               alt=""
             >
+           <figcaption>Water science and management in the Delaware River Basin</figcaption>
           </figure>
         </a>
         <a
           :href="LinkTwo"
+          target="_blank"
         >
           <figure>
-            <figcaption>Enter appropriate caption</figcaption>
             <img
-              src="@/assets/components/PreFooterVisualizationsLinks/images/thumbnailGeneric.png"
+              src="@/assets/components/PreFooterVisualizationsLinks/images/fire-hydro.jpg"
               alt=""
             >
+             <figcaption>How wildfires threaten U.S. water supplies</figcaption>
           </figure>
         </a>
       </div>
@@ -50,17 +52,27 @@
     justify-content: center;
     text-align: center;
     font-family: 'Source Sans Pro',sans-serif;
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 400;
+    padding-top: .25em;
     p {
       color: white;
+      font-size: 1.3em;
     }
-    background-color: #00264c;
+    background-color: #292b30;
+
     .footer-viz-links {
       margin: 0 auto;
       display: flex;
       flex-direction: column;
       justify-content: center;
+
+      img {
+        width: 200px;
+        height: 200px;
+        top: 0;
+        left: 0;
+      }
       a {
         figcaption {
           color: white;
@@ -68,7 +80,7 @@
           padding-bottom: 0.5em;
         }
         padding: 0.5em;
-        max-width: 20rem;
+        max-width: 25rem;
       }
     }
   }

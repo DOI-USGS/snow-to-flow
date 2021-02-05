@@ -10,9 +10,6 @@ export const store = new Vuex.Store({
         windowHeight: 0,
     },
     mutations: {
-        changeBooleanStateWhenUSGSHeaderRendered(state) {
-            state.usgsHeaderRendered = true;
-        },
         recordWindowWidth (state, payload) {
             state.windowWidth = payload
         },

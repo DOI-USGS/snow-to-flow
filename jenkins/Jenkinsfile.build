@@ -28,7 +28,7 @@ pipeline {
                           extensions: [],
                           gitTool: 'Default',
                           submoduleCfg: [],
-                          userRemoteConfigs: [[url: 'https://github.com/usgs-makerspace/CHANGE_THIS_TO_NAME_OF_PROJECT.git']]
+                          userRemoteConfigs: [[url: 'https://github.com/usgs-makerspace/snow-to-flow.git']]
                         ])
                 }
         }
@@ -37,9 +37,9 @@ pipeline {
             steps {
 
                 sh """
-                    docker build . --tag="CHANGE_THIS_TO_NAME_OF_PROJECT-docker" --build-arg BUILDTARGET=${params.BUILD_DEST} --build-arg VUE_BUILD_MODE=${params.VUE_BUILD_MODE}
-                    docker run CHANGE_THIS_TO_NAME_OF_PROJECT-docker
-                    pathtemplate=":tmp/CHANGE_THIS_TO_NAME_OF_PROJECT/dist"
+                    docker build . --tag="snow-to-flow-docker" --build-arg BUILDTARGET=${params.BUILD_DEST} --build-arg VUE_BUILD_MODE=${params.VUE_BUILD_MODE}
+                    docker run snow-to-flow-docker
+                    pathtemplate=":tmp/snow-to-flow/dist"
                     dockerinstanceid=\$( docker ps -l -q )
                     docker cp  "\${dockerinstanceid}\${pathtemplate}" "$WORKSPACE"
                     docker rm "\${dockerinstanceid}"
@@ -52,13 +52,13 @@ pipeline {
             steps {
                 script {
                     if ("${params.BUILD_DEST}" == "prod") {
-                        targetDomain = "s3://water-visualizations-prod-website/visualizations/CHANGE_THIS_TO_NAME_OF_PROJECT"
+                        targetDomain = "s3://water-visualizations-prod-website/visualizations/snow-to-flow"
                     }
                     else if ("${params.BUILD_DEST}" == "beta") {
-                        targetDomain = "s3://water-visualizations-beta-website/visualizations/CHANGE_THIS_TO_NAME_OF_PROJECT"
+                        targetDomain = "s3://water-visualizations-beta-website/visualizations/snow-to-flow"
                     }
                     else {
-                        targetDomain = "s3://water-visualizations-test-website/visualizations/CHANGE_THIS_TO_NAME_OF_PROJECT"
+                        targetDomain = "s3://water-visualizations-test-website/visualizations/snow-to-flow"
                     }
                 }
                 sh """
@@ -71,22 +71,22 @@ pipeline {
 
     post {
         success {
-            mail to: 'cnell@usgs.gov, ebechtel@contractor.usgs.gov, lplatt@usgs.gov',
+            mail to: 'cnell@usgs.gov, ebechtel@contractor.usgs.gov',
             subject: "Success: ${currentBuild.fullDisplayName}",
             body: "Pipeline finished successfully ${env.BUILD_URL}"
         }
         unstable {
-            mail to: 'cnell@usgs.gov, ebechtel@contractor.usgs.gov, lplatt@usgs.gov',
+            mail to: 'cnell@usgs.gov, ebechtel@contractor.usgs.gov',
             subject: "Unstable: ${currentBuild.fullDisplayName}",
             body: "Pipeline is unstable ${env.BUILD_URL}"
         }
         failure {
-            mail to: 'cnell@usgs.gov, ebechtel@contractor.usgs.gov, lplatt@usgs.gov',
+            mail to: 'cnell@usgs.gov, ebechtel@contractor.usgs.gov',
             subject: "Failure: ${currentBuild.fullDisplayName}",
             body: "Pipeline failed ${env.BUILD_URL}"
         }
         changed {
-            mail to: 'cnell@usgs.gov, ebechtel@contractor.usgs.gov, lplatt@usgs.gov',
+            mail to: 'cnell@usgs.gov, ebechtel@contractor.usgs.gov',
             subject: "Changes: ${currentBuild.fullDisplayName}",
             body: "Pipeline detected changes ${env.BUILD_URL}"
         }

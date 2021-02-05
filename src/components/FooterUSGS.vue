@@ -26,9 +26,6 @@
           <!--/ footer nav links -->
         </div>
         <!-- /.footer-doi -->
-
-        <hr>
-
         <!-- .footer-utl-links -->
         <div class="footer-doi">
           <ul class="menu nav">
@@ -61,7 +58,7 @@
             </li>
             <li class="twitter">
               <a
-                href="https://twitter.com/usgs"
+                href="https://twitter.com/usgs_r"
                 target="_blank"
                 aria-label="twitter link"
               >
@@ -97,7 +94,7 @@
             </li>
             <li class="youtube">
               <a
-                href="http://youtube.com/usgs"
+                href="https://github.com/USGS-VIZLAB/snow-to-flow"
                 target="_blank"
                 aria-label="youtube link"
               >
@@ -106,7 +103,7 @@
             </li>
             <li class="instagram">
               <a
-                href="https://instagram.com/usgs"
+                href="https://instagram.com/usgs_streamgages"
                 target="_blank"
                 aria-label="instagram link"
               >
@@ -186,11 +183,10 @@
     content: none;
   }
   footer.footer {
-    background: #00264c;
+    background: #292b30;
     padding-bottom: 0;
     position: relative;
     width: 100%;
-    border-top: 1px solid #E5E5E5;
   }
 
   footer.footer .footer-doi {
