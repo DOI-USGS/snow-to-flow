@@ -1,7 +1,7 @@
 <template>
   <div id="visualization">
-    <Intro />
     <Scrubbable />
+    <Intro />
   </div>
 </template>
 

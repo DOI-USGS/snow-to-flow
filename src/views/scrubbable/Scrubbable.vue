@@ -11,7 +11,8 @@
                     </g>
                     </mask>
                     
-                    <image class="sky" xlink:href="https://assets.codepen.io/721952/sky.jpg"  width="100%" height="74%" />
+                    <image class="sky" xlink:href="@/assets/videos/sky_blue.png"  width="100%" height="74%" />
+                    <!-- this grabbed from codepen and same images cannot be used in the final product -->
                     <image class="mountBg" xlink:href="https://assets.codepen.io/721952/mountBg.png" width="100%" height="100%"/>    
                     <image class="mountMg" xlink:href="https://assets.codepen.io/721952/mountMg.png" width="100%" height="100%"/>    
                     <image class="cloud2" xlink:href="https://assets.codepen.io/721952/cloud2.png" width="100%" height="100%"/>    
@@ -19,14 +20,14 @@
                     <image class="cloud1" xlink:href="https://assets.codepen.io/721952/cloud1.png" width="100%" height="100%"/>
                     <image class="cloud3" xlink:href="https://assets.codepen.io/721952/cloud3.png" width="100%" height="100%"/>
                     <text class="overall-title" fill="#fff" x="600" y="200" text-anchor="middle">From Snow to Flow</text>
-                    <polyline class="arrow" fill="#fff" points="599,250 599,289 590,279 590,282 600,292 610,282 610,279 601,289 601,250" />
+                    <text class="byline" x="280" y="250" fill="#fff" text-anchor="left">U.S. Geological Survey<tspan dx="-145" dy="20">Water Resources Mission Area</tspan></text>
+
                     
                     <g mask="url(#m)">
                     <rect fill="#fff" width="100%" height="100%" />      
-                    <text  x="600" y="200" fill="#162a43" text-anchor="middle">Changes in the timing and magnitude of snowmelt have downstream consequences for water</text>
-                    </g>
+                    <text class="big-statement" x="600" y="400" fill="#162a43" text-anchor="middle">Changes in the timing and magnitude of snowmelt<tspan dx="-400" dy="50">have downstream consequences for water</tspan></text>
+                                        </g>
                     
-                    <rect id="arrowBtn" width="100" height="100" opacity="0" x="600" y="220" style="cursor:pointer"/>
                 </svg>
                 </div>
             </div>
@@ -35,8 +36,8 @@
 
 <script>
 import gsap from "gsap";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin"; // to trigger scroll events
+import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
 
     export default {
         name: 'Scrubbable',

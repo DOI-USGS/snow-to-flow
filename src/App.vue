@@ -74,6 +74,7 @@
  // IMPORT COLORS
 $nearBlack: #1a1b1c; //#1a1b1c;
 $frostyGreen: #5e8a76;
+$skyBlue: #0e64bb;
 $deepPurple: #301546;
 $lightGrey: #c2c4c5;
 $darkGrey: #212122;
@@ -143,6 +144,14 @@ h3{
     font-size: 5em;
     padding: 0 20px 0 20px;
   }
+}
+.big-statement {
+  font-size: 1.5em;
+  font-family: $familyMain;
+  font-weight: 700;
+  max-width: 500px;
+  color: $skyBlue;
+  fill: $skyBlue;
 }
 
 .byline {
