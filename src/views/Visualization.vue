@@ -1,7 +1,7 @@
 <template>
   <div id="visualization">
-    <Scrubbable />
-    <Intro />
+    <Header />
+    <Timing />
   </div>
 </template>
 
@@ -9,8 +9,8 @@
     export default {
         name: 'Visualization',
         components: {
-          Intro: () => import(/* webpackPreload: true */ /*webpackChunkName: "intro"*/ "./intro/Intro"),
-          Scrubbable: () => import(/* webpackPreload: true */ /*webpackChunkName: "Scrubbable"*/ "./scrubbable/Scrubbable")
+          Timing: () => import(/* webpackPreload: true */ /*webpackChunkName: "intro"*/ "./timing/Timing"),
+          Header: () => import(/* webpackPreload: true */ /*webpackChunkName: "Header"*/ "./header/Header")
         }
     }
 </script>
