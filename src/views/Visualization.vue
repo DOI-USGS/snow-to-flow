@@ -1,6 +1,7 @@
 <template>
   <div id="visualization">
-    <Intro />
+    <Header />
+    <Timing />
   </div>
 </template>
 
@@ -8,7 +9,8 @@
     export default {
         name: 'Visualization',
         components: {
-          Intro: () => import(/* webpackPreload: true */ /*webpackChunkName: "intro"*/ "./intro/Intro")
+          Timing: () => import(/* webpackPreload: true */ /*webpackChunkName: "intro"*/ "./timing/Timing"),
+          Header: () => import(/* webpackPreload: true */ /*webpackChunkName: "Header"*/ "./header/Header")
         }
     }
 </script>
