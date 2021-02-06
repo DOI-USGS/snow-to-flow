@@ -134,9 +134,13 @@ h3{
   padding-top: 0vh;
   margin: 0;
   font-family: $familyTest;
+  font-size: 7em;
+  font-weight: 700;
+  text-align: center;
   line-height: 1;
   overflow-x: hidden;
   @media screen and (max-width: 600px) {
+    font-size: 5em;
     padding: 0 20px 0 20px;
   }
 }

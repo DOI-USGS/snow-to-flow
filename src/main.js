@@ -6,6 +6,7 @@ import { store } from './store/store'
 import App from './App.vue';
 import uswds from 'uswds';
 import browserDetect from 'vue-browser-detect-plugin';
+import ScrubbableVideo from '@diracleo/vue-scrubbable-video';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -33,6 +34,7 @@ library.add(faInstagram);
 Vue.config.productionTip = false;
 Vue.use(uswds);
 Vue.use(browserDetect);
+Vue.use(ScrubbableVideo);
 
 const app = new Vue({
   router,
