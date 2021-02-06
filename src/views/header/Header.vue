@@ -25,7 +25,7 @@
                     
                     <g mask="url(#m)">
                     <rect fill="#fff" width="100%" height="100%" />      
-                    <text class="big-statement" x="600" y="400" fill="#162a43" text-anchor="middle">The timing and magnitude of snowmelt<tspan dx="-350" dy="50">is changing across the western U.S.</tspan></text>
+                    <text class="big-statement" x="600" y="400" fill="#162a43" text-anchor="middle">The timing and magnitude of snowmelt<tspan dx="-180" dy="50">is changing across the western U.S.</tspan></text>
                                         </g>
                     
                 </svg>
@@ -51,7 +51,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
             gsap.registerPlugin(ScrollToPlugin, ScrollTrigger); // register gsap plugins for scrollTrigger
 
             // define timeline of events
-            gsap.set('.main', {position:'fixed', background:'#fff', width:'100%', maxWidth:'1800px', height:'100%', top:0, left:'50%', x:'-50%'})
+            gsap.set('.main', {position:'absolute', background:'#fff', width:'100%', maxWidth:'1800px', height:'70%', top:0, left:'50%', x:'-50%'})
             gsap.set('.scrollDist', {width:'100%', height:'200%'})
             gsap.timeline({scrollTrigger:{trigger:'.scrollDist', start:'top top', end:'bottom bottom', scrub:1}})
                 .fromTo('.sky', {y:0},{y:-200}, 0)
