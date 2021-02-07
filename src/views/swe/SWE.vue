@@ -1,7 +1,9 @@
 <template>
-    <section id="timing">
-        <div id="timing-viz">
-            <!-- rigth now this is just spacing out between the header and end of page because ther eis some weird css happening -->
+    <section id="swe">
+        <div class="text-content">
+        <h2 class="big-statement consequences">Changes in snowmelt have downstream consequences for water</h2>
+        </div>
+        <div id="swe-viz">
             </div>
 
 
@@ -10,7 +12,7 @@
 
 <script>
     export default {
-        name: 'Intro',
+        name: 'SWE',
         data() {
             return {
               title: process.env.VUE_APP_TITLE
@@ -29,20 +31,13 @@
 
 <style scoped lang="scss">
 
-#header {
-    position: relative;
-    height: 80vh;
-    background-color:  white;
+#swe {
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(92, 91, 91);
 }
-#title {
-    margin:0;
-    margin-top:20vh;
-}
-#subheader {
-    font-size: 1.9em;
-}
-#timing-viz {
-    height: 500px;
+.consequences {
+    color: white;
 }
 
 </style>

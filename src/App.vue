@@ -146,12 +146,13 @@ h3{
   }
 }
 .big-statement {
-  font-size: 1.5em;
+  font-size: 1.75em;
   font-family: $familyMain;
   font-weight: 700;
-  max-width: 500px;
-  color: $skyBlue;
+  max-width: 670px;
   fill: $skyBlue;
+  color: $skyBlue;
+  text-align: left;
 }
 
 .byline {
@@ -161,10 +162,6 @@ h3{
   color: $nearBlack; 
 }
 
-
-.subheader {
-
-}
   // General Layout  
 
   .text-content {
