@@ -13,10 +13,12 @@
                     
                     <image class="sky" xlink:href="@/assets/videos/sky_blue.png"  width="100%" height="74%" />
                     <!-- this grabbed from codepen and same images cannot be used in the final product -->
-                    <image class="mountBg" xlink:href="https://assets.codepen.io/721952/mountBg.png" width="100%" height="100%"/>    
+                    <!-- <image class="mountBg" xlink:href="https://assets.codepen.io/721952/mountBg.png" width="100%" height="100%"/>   -->
+                    <!-- <image class="mountBg" xlink:href="https://assets.codepen.io/721952/mountBg.png" width="100%" height="100%"/>   -->  
                     <image class="mountMg" xlink:href="https://assets.codepen.io/721952/mountMg.png" width="100%" height="100%"/>    
                     <image class="cloud2" xlink:href="https://assets.codepen.io/721952/cloud2.png" width="100%" height="100%"/>    
-                    <image class="mountFg" xlink:href="https://assets.codepen.io/721952/mountFg.png" width="100%" height="100%"/>
+                    <image class="mountFg" xlink:href="@/assets/videos/mtn_fg2-01.png" width="100%" height="100%"/>
+                    <!-- <image class="mountFg" xlink:href="https://assets.codepen.io/721952/mountFg.png" width="100%" height="100%"/> -->
                     <image class="cloud1" xlink:href="https://assets.codepen.io/721952/cloud1.png" width="100%" height="100%"/>
                     <image class="cloud3" xlink:href="https://assets.codepen.io/721952/cloud3.png" width="100%" height="100%"/>
                     <text class="overall-title" fill="#fff" x="600" y="200" text-anchor="middle">From Snow to Flow</text>
@@ -47,7 +49,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
             }
         },
         mounted() { 
-            const { box } = this.$refs;
             gsap.registerPlugin(ScrollToPlugin, ScrollTrigger); // register gsap plugins for scrollTrigger
 
             // define timeline of events
