@@ -7,12 +7,12 @@
                     <mask id="m">
                     <g class="cloud1">
                         <rect fill="#fff" width="100%" height="801" y="799" />
-                        <image xlink:href="https://assets.codepen.io/721952/cloud1Mask.jpg" width="1200" height="800"/>
+                        <image xlink:href="@/assets/videos/cloudMask-01-01.png" width="1200" height="800"/>
                     </g>
                     </mask>
                     
                     <image class="sky" xlink:href="@/assets/videos/sky_blue.png"  width="100%" height="74%" />
-                    <!-- this grabbed from codepen and same images cannot be used in the final product -->
+                    <!-- this grabbed from codepen and need to be replaced with our own  -->
                     <!-- <image class="mountBg" xlink:href="https://assets.codepen.io/721952/mountBg.png" width="100%" height="100%"/>   -->
                     <!-- <image class="mountBg" xlink:href="https://assets.codepen.io/721952/mountBg.png" width="100%" height="100%"/>   -->  
                     <image class="mountMg" xlink:href="https://assets.codepen.io/721952/mountMg.png" width="100%" height="100%"/>    
@@ -27,7 +27,7 @@
                     
                     <g mask="url(#m)">
                     <rect fill="#fff" width="100%" height="100%" />      
-                    <text class="big-statement" x="600" y="400" fill="#162a43" text-anchor="middle">The timing and magnitude of snowmelt<tspan dx="-180" dy="50">is changing across the western U.S.</tspan></text>
+                    <text class="big-statement" x="600" y="500" fill="#162a43" text-anchor="middle">The timing of snowmelt and magnitude of runoff<tspan dx="-220" dy="50">is changing across the western U.S.</tspan></text>
                                         </g>
                     
                 </svg>
