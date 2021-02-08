@@ -14,12 +14,14 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@diracleo/vue-scrubbable-video": "0.0.8",
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-brands-svg-icons": "^5.14.0",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "@fortawesome/vue-fontawesome": "^0.1.10",
     "core-js": "^3.6.5",
     "dns": "^0.2.2",
+    "gsap": "^3.6.0",
     "lint": "^0.7.0",
     "mobile-device-detect": "^0.4.3",
     "uswds": "^2.8.1",
@@ -28,7 +30,6 @@
     "vue-browser-detect-plugin": "^0.1.13",
     "vue-mapbox": "^0.4.1",
     "vue-mobile-detection": "^1.0.0",
-    "vue-parallaxy": "^1.1.1",
     "vue-router": "^3.4.3",
     "vuetify": "^2.4.3",
     "vuex": "^3.5.1"

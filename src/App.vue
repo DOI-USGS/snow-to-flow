@@ -77,6 +77,7 @@ $frostyGreen: #76A28E; // good contrast against black (original was #5e8a76)
 $deepGreen: #2A4C40; // good contrast against white
 $frostyPurple: #C9ADE6;
 $deepPurple: #301546; // good contrast against black
+$skyBlue: #0e64bb;
 $lightGrey: #c2c4c5;
 $darkGrey: #212122;
 $familyMain: 'Source Sans Pro', sans-serif;
@@ -142,11 +143,23 @@ p {
   padding-top: 0vh;
   margin: 0;
   font-family: $familyTest;
+  font-size: 7em;
+  font-weight: 700;
+  text-align: center;
   line-height: 1;
   overflow-x: hidden;
   @media screen and (max-width: 600px) {
+    font-size: 5em;
     padding: 0 20px 0 20px;
   }
+}
+.big-statement {
+  font-size: 1.5em;
+  font-family: $familyMain;
+  font-weight: 700;
+  max-width: 500px;
+  color: $skyBlue;
+  fill: $skyBlue;
 }
 
 .byline {
