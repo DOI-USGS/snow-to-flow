@@ -12,7 +12,7 @@
               src="@/assets/components/PreFooterVisualizationsLinks/images/DRBthumb.png"
               alt=""
             >
-           <figcaption>Water science and management in the Delaware River Basin</figcaption>
+            <figcaption>Water science and management in the Delaware River Basin</figcaption>
           </figure>
         </a>
         <a
@@ -24,7 +24,7 @@
               src="@/assets/components/PreFooterVisualizationsLinks/images/fire-hydro.jpg"
               alt=""
             >
-             <figcaption>How wildfires threaten U.S. water supplies</figcaption>
+            <figcaption>How wildfires threaten U.S. water supplies</figcaption>
           </figure>
         </a>
       </div>

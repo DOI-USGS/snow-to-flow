@@ -31,6 +31,7 @@
     "vue-mapbox": "^0.4.1",
     "vue-mobile-detection": "^1.0.0",
     "vue-router": "^3.4.3",
+    "vuetify": "^2.4.3",
     "vuex": "^3.5.1"
   },
   "devDependencies": {
