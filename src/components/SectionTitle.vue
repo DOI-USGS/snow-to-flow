@@ -1,19 +1,23 @@
 <template>
   <div>
-    <div class="parallax-container">
-      <parallax 
-        :speed-Factor="0.3"
-        :fixed="true"
-        breakpoint="(min-width: 600px)"
+    <v-parallax
+      dark
+      :src="image"
+      height="400"
+    >
+      <v-row
+        align="center"
+        justify="center"
       >
-        <img
-          class="title-backing"
-          :src="image"
-          alt="Picture of snow"
-          loading="lazy"
+        <v-col
+          class="text-center"
+          cols="12"
         >
-      </parallax>
-    </div>
+          <h1 class="display-1 font-weight-thin mb-4" />
+          <h4 />
+        </v-col>
+      </v-row>
+    </v-parallax>
   </div>  
 </template>
 
@@ -22,14 +26,12 @@
     
     export default {
         name: "SectionTitle",
-        components: {
-          Parallax
-        },
         props: {
             image: {
                 type: String,
                 required: true
              }
+             // insert alt text dynamic binding here
         },
         data() {
             return {}
@@ -39,16 +41,5 @@
 
 
 <style scoped lang="scss">
-
-.parallax-container {
-  position: relative;
-}
-.parallax-title {
-  position: absolute;
-  top: 60%;
-  left: 0;
-  right: 0;
-  text-align: center;
-}
 
 </style>

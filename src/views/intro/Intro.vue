@@ -1,22 +1,24 @@
 <template>
-    <section id="intro">
-        <div id="header">
-            <div class="text-content">
-                <h1 id="title"> {{ title }} </h1>
-                <p id="subheader">
-                What changing snowmelt means for water
-                </p>
-            </div>
-             <div 
-      id="byline-wrapper" 
-      class="text-content"
-    >
-      <p class="byline">
-        U.S. Geological Survey<br>Water Resources Mission Area
-      </p>
+  <section id="intro">
+    <div id="header">
+      <div class="text-content">
+        <h1 id="title">
+          {{ title }}
+        </h1>
+        <p id="subheader">
+          What changing snowmelt means for water
+        </p>
+      </div>
+      <div 
+        id="byline-wrapper" 
+        class="text-content"
+      >
+        <p class="byline">
+          U.S. Geological Survey<br>Water Resources Mission Area
+        </p>
+      </div>
     </div>
-        </div>
-    </section>
+  </section>
 </template>
 
 <script>

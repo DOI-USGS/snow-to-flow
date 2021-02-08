@@ -1,5 +1,5 @@
 <template>
-  <section id="broadscale-impacts">       
+  <section id="references">       
     <SectionTitle
       :image="titleImage" 
     />
@@ -13,18 +13,18 @@
 </template>
 
 <script>
-    import broadscaleText from "./../../assets/text/broadscaleText";
+    import referencesText from "./../../assets/text/referencesText";
     import SectionTitle from "@/components/SectionTitle";
 
     export default {
-        name: 'Broadscale',
+        name: 'References',
         components: {
             SectionTitle
         },
         data() {
             return {
-                text: broadscaleText.textContents,
-                titleImage:require('@/assets/titleImages/image1.png'), // insert link to parallax image used for this section,
+                text: referencesText.textContents,
+                titleImage:require('@/assets/titleImages/image2.png'), // insert link to parallax image used for this section
             }
         }
     }

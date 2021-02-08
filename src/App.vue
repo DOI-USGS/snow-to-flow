@@ -134,6 +134,10 @@ h3{
   }  
 }
 
+p {
+  padding: 1em 0 0 0; 
+}
+
 .overall-title {
   padding-top: 0vh;
   margin: 0;
@@ -155,10 +159,12 @@ h3{
 
 
 
+
   // General Layout  
-  .content {
-    background-color: white;
+  section {
+    margin: 3em 0 3em 0;
   }
+
 
   .text-content {
     min-width: 300px;

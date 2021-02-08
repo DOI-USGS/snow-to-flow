@@ -1,8 +1,8 @@
 <template>
   <div id="visualization">
     <Intro />
-    <BroadscaleSectionTitle />
     <Broadscale />
+    <References />
   </div>
 </template>
 
@@ -12,8 +12,8 @@
         name: 'Visualization',
         components: {
           Intro: () => import(/* webpackPreload: true */ /*webpackChunkName: "intro"*/ "./intro/Intro"),
-          BroadscaleSectionTitle: () => import(/* webpackPreload: true */ /*webpackChunkName: "broadscaletitle"*/ "./1-Broadscale/BroadscaleSectionTitle"),
-          Broadscale: () => import(/* webpackPreload: true */ /*webpackChunkName: "broadscale"*/ "./1-Broadscale/Broadscale")
+          Broadscale: () => import(/* webpackPreload: true */ /*webpackChunkName: "broadscale"*/ "./1-Broadscale/Broadscale"),
+          References: () => import(/* webpackPreload: true */ /*webpackChunkName: "references"*/ "./4-References/References"),
         }
     }
 </script>
