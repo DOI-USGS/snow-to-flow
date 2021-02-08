@@ -1,16 +1,22 @@
 <template>
-  <section id="timing">
-    <div id="timing-viz">
-      <!-- rigth now this is just spacing out between the header and end of page because ther eis some weird css happening -->
+  <section id="in2021">
+    <div class="container">
+      <div class="text-content">
+        <h2 class="big-statement">
+          In 2021....
+        </h2>
+      </div>
     </div>
   </section>
 </template>
 
 <script>
+import * as d3Base from "d3";
     export default {
-        name: 'Intro',
+        name: 'In2021',
         data() {
             return {
+              d3: null,
               title: process.env.VUE_APP_TITLE
             }
         },
@@ -21,26 +27,26 @@
             }
         },
         mounted() {
+            this.d3 = Object.assign(d3Base);
+
+
         }
     }
 </script>
 
 <style scoped lang="scss">
 
-#header {
-    position: relative;
+.container {
+    background-color: grey;
     height: 80vh;
-    background-color:  white;
+    width: 100%;
 }
-#title {
-    margin:0;
-    margin-top:20vh;
+h2 {
+    color: white;
 }
-#subheader {
-    font-size: 1.9em;
+p {
+    color: black;
 }
-#timing-viz {
-    height: 00px;
-}
+
 
 </style>

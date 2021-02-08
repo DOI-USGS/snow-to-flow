@@ -1,45 +1,117 @@
 <template>
-    <section id="srubbable">
-        <div id="container">
-            <div class="scrollDist mtn">
-                <div class="main mtn">
-                <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
-                    <mask id="m">
-                        <g class="cloud1">
-                            <rect fill="#fff" width="100%" height="801" y="799" />
-                            <image xlink:href="@/assets/videos/cloudMask-01-01.png" width="1200" height="800"/>
-                        </g>
-                    </mask>
+  <section id="srubbable">
+    <div id="container">
+      <div class="scrollDist mtn">
+        <div class="main mtn">
+          <svg
+            viewBox="0 0 1200 800"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <mask id="m">
+              <g class="cloud1">
+                <rect
+                  fill="#fff"
+                  width="100%"
+                  height="801"
+                  y="799"
+                />
+                <image
+                  xlink:href="@/assets/videos/cloudMask-01-01.png"
+                  width="1200"
+                  height="800"
+                />
+              </g>
+            </mask>
                     
-                    <image class="sky" xlink:href="@/assets/videos/sky_blue.png"  width="100%" height="74%" />
-                    <!-- this grabbed from codepen and need to be replaced with our own images -->
-                    <!-- <image class="mountBg" xlink:href="https://assets.codepen.io/721952/mountBg.png" width="100%" height="100%"/>   -->
-                    <!-- <image class="mountBg" xlink:href="https://assets.codepen.io/721952/mountBg.png" width="100%" height="100%"/>   -->  
-                    <image class="mountMg" xlink:href="https://assets.codepen.io/721952/mountMg.png" width="100%" height="100%"/>    
-                    <image class="cloud2" xlink:href="https://assets.codepen.io/721952/cloud2.png" width="100%" height="100%"/>    
-                    <image class="mountFg" xlink:href="@/assets/videos/mtn_fg2-01.png" width="100%" height="100%"/>
-                    <!-- <image class="mountFg" xlink:href="https://assets.codepen.io/721952/mountFg.png" width="100%" height="100%"/> -->
-                    <image class="cloud1" xlink:href="https://assets.codepen.io/721952/cloud1.png" width="100%" height="100%"/>
-                    <image class="cloud3" xlink:href="https://assets.codepen.io/721952/cloud3.png" width="100%" height="100%"/>
-                    <text class="overall-title" fill="#fff" x="600" y="200" text-anchor="middle">From Snow to Flow</text>
-                    <text class="byline" x="280" y="250" fill="#fff" text-anchor="left">U.S. Geological Survey<tspan dx="-145" dy="20">Water Resources Mission Area</tspan></text>
+            <image
+              class="sky"
+              xlink:href="@/assets/videos/sky_blue.png"
+              width="100%"
+              height="74%"
+            />
+            <!-- this grabbed from codepen and need to be replaced with our own images -->
+            <!-- <image class="mountBg" xlink:href="https://assets.codepen.io/721952/mountBg.png" width="100%" height="100%"/>   -->
+            <!-- <image class="mountBg" xlink:href="https://assets.codepen.io/721952/mountBg.png" width="100%" height="100%"/>   -->  
+            <image
+              class="mountMg"
+              xlink:href="https://assets.codepen.io/721952/mountMg.png"
+              width="100%"
+              height="100%"
+            />    
+            <image
+              class="cloud2"
+              xlink:href="https://assets.codepen.io/721952/cloud2.png"
+              width="100%"
+              height="100%"
+            />    
+            <image
+              class="mountFg"
+              xlink:href="@/assets/videos/mtn_fg2-01.png"
+              width="100%"
+              height="100%"
+            />
+            <!-- <image class="mountFg" xlink:href="https://assets.codepen.io/721952/mountFg.png" width="100%" height="100%"/> -->
+            <image
+              class="cloud1"
+              xlink:href="https://assets.codepen.io/721952/cloud1.png"
+              width="100%"
+              height="100%"
+            />
+            <image
+              class="cloud3"
+              xlink:href="https://assets.codepen.io/721952/cloud3.png"
+              width="100%"
+              height="100%"
+            />
+            <text
+              class="overall-title"
+              fill="#fff"
+              x="600"
+              y="200"
+              text-anchor="middle"
+            >From Snow to Flow</text>
+            <text
+              class="byline"
+              x="280"
+              y="250"
+              fill="#fff"
+              text-anchor="left"
+            >U.S. Geological Survey<tspan
+              dx="-145"
+              dy="20"
+            >Water Resources Mission Area</tspan></text>
 
                     
-                    <g mask="url(#m)">
-                        <rect fill="#fff" width="100%" height="100%" />      
-                        <text class="big-statement" x="600" y="550" fill="#162a43" text-anchor="middle">The timing and magnitude of snowmelt is changing</text>
-                    </g>
+            <g mask="url(#m)">
+              <rect
+                fill="#fff"
+                width="100%"
+                height="100%"
+              />      
+              <text
+                class="big-statement"
+                x="600"
+                y="550"
+                fill="#162a43"
+                text-anchor="middle"
+              >The timing and magnitude of spring snowmelt is changing</text>
+            </g>
                     
-                </svg>
+          </svg>
 
-                    <div class="text-content" id="cheese">
-                        <p>I love cheese, especially danish fontina cow. Cottage cheese lancashire bocconcini danish fontina cheeseburger queso croque monsieur manchego. Brie fondue edam stinking bishop taleggio parmesan lancashire bocconcini. Smelly cheese airedale cheesy feet babybel the big cheese say cheese.
-                            <br><br>  Say cheese chalk and cheese gouda. Gouda cheesy grin cheesy grin pecorino boursin cheddar edam paneer. Halloumi fromage frais red leicester airedale edam melted cheese say cheese port-salut. Cheesy feet.
-</p> </div>
-                </div>
-                </div>
-            </div>
-    </section>
+          <div
+            id="cheese"
+            class="text-content"
+          >
+            <p>
+              I love cheese, especially danish fontina cow. Cottage cheese lancashire bocconcini danish fontina cheeseburger queso croque monsieur manchego. Brie fondue edam stinking bishop taleggio parmesan lancashire bocconcini. Smelly cheese airedale cheesy feet babybel the big cheese say cheese.
+              <br><br>  Say cheese chalk and cheese gouda. Gouda cheesy grin cheesy grin pecorino boursin cheddar edam paneer. Halloumi fromage frais red leicester airedale edam melted cheese say cheese port-salut. Cheesy feet.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -52,6 +124,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
         data() {
             return {
                 myVar: 50,
+            }
+        },
+        computed: {
+            windowHeight: function () {
+                const usgsBannerHeight = 85;
+                return Number(this.$store.state.windowHeight - this.$store.state.warningHeight - usgsBannerHeight) + 'px';
             }
         },
         mounted() { 
@@ -72,13 +150,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
             $('#arrowBtn').on('mouseenter', (e)=>{ gsap.to('.arrow', {y:10, duration:0.8, ease:'back.inOut(3)', overwrite:'auto'}); })
             $('#arrowBtn').on('mouseleave', (e)=>{ gsap.to('.arrow', {y:0, duration:0.5, ease:'power3.out', overwrite:'auto'}); })
             $('#arrowBtn').on('click', (e)=>{ gsap.to(window, {scrollTo:innerHeight, duration:1.5, ease:'power1.inOut'}); }) // scrollTo requires the ScrollTo plugin (not to be confused w/ ScrollTrigger)
-       */  },
-        computed: {
-            windowHeight: function () {
-                const usgsBannerHeight = 85;
-                return Number(this.$store.state.windowHeight - this.$store.state.warningHeight - usgsBannerHeight) + 'px';
-            }
-        }
+       */  }
     }
 </script>
 

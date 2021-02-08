@@ -73,7 +73,6 @@
 
  // IMPORT COLORS
 $nearBlack: #1a1b1c; //#1a1b1c;
-$frostyGreen: #5e8a76;
 $skyBlue: #0e64bb;
 $deepPurple: #301546;
 $lightGrey: #c2c4c5;
@@ -244,7 +243,7 @@ h3{
 }
 
 .viz-subtitle {
-  color: $frostyGreen;
+  color: $nearBlack;
   font-size: .8em;
   text-align: left;
   font-weight: 100;
@@ -277,7 +276,7 @@ h3{
   font-weight:700;
   fill: white;
   font-family: $familyMain;
-  background: linear-gradient(180deg,rgba(255,255,255,0) 60%, $frostyGreen 40%);
+  background: linear-gradient(180deg,rgba(255,255,255,0) 60%, $skyBlue 40%);
   line-height: 1.3em;
   padding: 0 5px;
 }

@@ -1,20 +1,21 @@
 <template>
-    <section id="swe">
-        <div class="text-content">
-        <h2 class="big-statement consequences">Changes in snowmelt have downstream consequences for water</h2>
-        </div>
-        <div id="swe-viz">
-            </div>
-
-
-    </section>
+  <section id="swe">
+    <div class="text-content">
+      <h2 class="big-statement consequences">
+        Changes in snowmelt have downstream consequences
+      </h2>
+    </div>
+  </section>
 </template>
 
 <script>
+import rough from 'roughjs';
+import * as d3Base from "d3";
     export default {
         name: 'SWE',
         data() {
             return {
+              d3: null,
               title: process.env.VUE_APP_TITLE
             }
         },
@@ -25,6 +26,14 @@
             }
         },
         mounted() {
+            this.d3 = Object.assign(d3Base);
+
+            let roughSvg = rough.svg(document.getElementById('svg'));
+            const line = roughSvg.line(60, 60, 190, 60);
+            svg.appendChild(line);
+
+            var svg = this.d3.select("#swe-svg")
+
         }
     }
 </script>
@@ -34,10 +43,19 @@
 #swe {
     height: 100vh;
     width: 100vw;
-    background-color: rgb(92, 91, 91);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-background-size:cover; 
+    background-image: url(../../assets/videos/river_above-01.png);
 }
 .consequences {
     color: white;
 }
+p {
+    color: white;
+}
+
 
 </style>

@@ -3,7 +3,7 @@
     <p
       class="warning-open"
     >
-      This page is in active development and subject to change. <br/>
+      This page is in active development and subject to change. <br>
       <strong>Do not use</strong> information contained in this application for <strong>any</strong> purpose.
     </p>
   </div>
