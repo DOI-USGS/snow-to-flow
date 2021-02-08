@@ -71,15 +71,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Wire+One&display=swap'); //'Wire One', sans-serif;
 @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap'); //'Amatic SC', cursive;
 
- // IMPORT COLORS
+ // IMPORT
 $nearBlack: #1a1b1c; //#1a1b1c;
+$frostyGreen: #76A28E; // good contrast against black (original was #5e8a76)
+$deepGreen: #2A4C40; // good contrast against white
+$frostyPurple: #C9ADE6;
+$deepPurple: #301546; // good contrast against black
 $skyBlue: #0e64bb;
-$deepPurple: #301546;
 $lightGrey: #c2c4c5;
 $darkGrey: #212122;
 $familyMain: 'Source Sans Pro', sans-serif;
 $familySerif:  'Noto Serif', serif;
 $familyTest: 'Amatic SC', cursive;
+
+
 
 // Type
 body {
@@ -87,7 +92,7 @@ body {
       padding: 0;
       color: $nearBlack;
       background-color: white;
-      line-height: 1.5;
+      line-height: 1.4;
       font-size: 13pt;
       font-family: $familySerif;
       font-weight: 300;
@@ -103,10 +108,10 @@ h1{
   text-align: left;
   color: $deepPurple;
   @media screen and (max-width: 600px) {
-    font-size: 3em;
+    font-size: 5em;
   }
-
 }
+
 h2{
   color: $darkGrey;
   font-weight: 700;
@@ -128,6 +133,10 @@ h3{
   @media screen and (max-width: 600px) {
       font-size: 1.4em;
   }  
+}
+
+p {
+  padding: 1em 0 0 0; 
 }
 
 .overall-title {
@@ -161,13 +170,18 @@ h3{
   color: $nearBlack; 
 }
 
+
   // General Layout  
+  section {
+    margin: 3em 0 3em 0;
+  }
+
 
   .text-content {
-    min-width: 350px;
+    min-width: 300px;
     max-width: 700px;
     margin: 0 auto;
-    padding: 2em;   
+    padding: 10px;   
     @media screen and (max-width: 600px) {
         padding: 10px;
     }  

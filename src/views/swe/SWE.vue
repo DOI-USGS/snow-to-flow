@@ -41,14 +41,14 @@ import * as d3Base from "d3";
 <style scoped lang="scss">
 
 #swe {
-    height: 100vh;
+    height: 80vh;
     width: 100vw;
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     -webkit-background-size:cover; 
-    background-image: url(../../assets/videos/river_above-01.png);
+    background-image: url(../../assets/titleImages/image3.png);
 }
 .consequences {
     color: white;

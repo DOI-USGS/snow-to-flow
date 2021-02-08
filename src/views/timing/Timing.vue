@@ -1,7 +1,7 @@
 <template>
   <section id="timing">
     <div id="timing-viz">
-      <!-- rigth now this is just spacing out between the header and end of page because ther eis some weird css happening -->
+      <!-- rigth now this is just spacing out between the header and end of page because there is some sketchy css in the header  -->
     </div>
   </section>
 </template>
