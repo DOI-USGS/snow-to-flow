@@ -103,10 +103,10 @@
             id="cheese"
             class="text-content"
           >
-            <p>
+            <!-- <p>
               I love cheese, especially danish fontina cow. Cottage cheese lancashire bocconcini danish fontina cheeseburger queso croque monsieur manchego. Brie fondue edam stinking bishop taleggio parmesan lancashire bocconcini. Smelly cheese airedale cheesy feet babybel the big cheese say cheese.
               <br><br>  Say cheese chalk and cheese gouda. Gouda cheesy grin cheesy grin pecorino boursin cheddar edam paneer. Halloumi fromage frais red leicester airedale edam melted cheese say cheese port-salut. Cheesy feet.
-            </p>
+            </p> -->
           </div>
         </div>
       </div>
