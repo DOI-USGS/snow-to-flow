@@ -85,7 +85,6 @@ $familySerif:  'Noto Serif', serif;
 $familyTest: 'Amatic SC', cursive;
 
 
-
 // Type
 body {
       margin: 0;
@@ -154,11 +153,11 @@ p {
   }
 }
 .big-statement {
-  font-size: 1.75em;
-  font-family: $familyMain;
+  font-size: 2.75em;
+  font-family: $familyTest;
   font-weight: 700;
   max-width: 670px;
-  fill: $skyBlue;
+  fill: black;
   color: $skyBlue;
   text-align: left;
 }

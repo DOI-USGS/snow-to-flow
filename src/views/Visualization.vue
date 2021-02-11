@@ -4,9 +4,10 @@
      -->
     <Header />
     <Timing />
+            <Broadscale />
     <SWE />
     <SWEanimation />
-    <Broadscale />
+<!--     <Broadscale /> -->
      <!-- <In2021 /> -->
     <References />
   </div>

@@ -29,7 +29,7 @@
 
 #header {
     position: relative;
-    height: 80vh;
+    height: 100vh;
     background-color:  white;
 }
 #title {
@@ -40,7 +40,7 @@
     font-size: 1.9em;
 }
 #timing-viz {
-    height: 00px;
+    height: 200px;
 }
 
 </style>

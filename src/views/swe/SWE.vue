@@ -2,7 +2,7 @@
   <section id="swe">
     <div class="text-content">
       <h2 class="big-statement consequences">
-        Changes in snowmelt have downstream consequences
+        
       </h2>
     </div>
   </section>
@@ -41,7 +41,7 @@ import * as d3Base from "d3";
 <style scoped lang="scss">
 
 #swe {
-    height: 80vh;
+    height: 60vh;
     width: 100vw;
     background-attachment: fixed;
     background-position: center;
