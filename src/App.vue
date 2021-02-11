@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <WindowSize v-if="checkTypeOfEnv === '-test build-'" />
+    <!-- <WindowSize v-if="checkTypeOfEnv === '-test build-'" /> -->
     <HeaderUSGS />
     <InternetExplorerPage v-if="isInternetExplorer" />
     <WorkInProgressWarning v-if="checkTypeOfEnv !== '' & !isInternetExplorer" /> <!-- an empty string in this case means the 'prod' version of the application   -->
@@ -22,7 +22,7 @@
     export default {
         name: 'App',
         components: {
-            WindowSize,
+            //WindowSize,
             HeaderUSGS,
             Visualization,
             InternetExplorerPage: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "internet-explorer-page"*/ "./components/InternetExplorerPage"),
@@ -83,7 +83,6 @@ $darkGrey: #212122;
 $familyMain: 'Source Sans Pro', sans-serif;
 $familySerif:  'Noto Serif', serif;
 $familyTest: 'Amatic SC', cursive;
-
 
 
 // Type
@@ -154,12 +153,13 @@ p {
   }
 }
 .big-statement {
-  font-size: 1.5em;
-  font-family: $familyMain;
+  font-size: 2.75em;
+  font-family: $familyTest;
   font-weight: 700;
-  max-width: 500px;
+  max-width: 670px;
+  fill: black;
   color: $skyBlue;
-  fill: $skyBlue;
+  text-align: left;
 }
 
 .byline {
@@ -168,9 +168,6 @@ p {
   font-size: .8em;
   color: $nearBlack; 
 }
-
-
-
 
 
   // General Layout  
@@ -259,7 +256,7 @@ p {
 }
 
 .viz-subtitle {
-  color: $frostyGreen;
+  color: $nearBlack;
   font-size: .8em;
   text-align: left;
   font-weight: 100;
@@ -292,7 +289,7 @@ p {
   font-weight:700;
   fill: white;
   font-family: $familyMain;
-  background: linear-gradient(180deg,rgba(255,255,255,0) 60%, $frostyGreen 40%);
+  background: linear-gradient(180deg,rgba(255,255,255,0) 60%, $skyBlue 40%);
   line-height: 1.3em;
   padding: 0 5px;
 }
