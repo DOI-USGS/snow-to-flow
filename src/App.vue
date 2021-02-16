@@ -5,9 +5,8 @@
     <InternetExplorerPage v-if="isInternetExplorer" />
     <WorkInProgressWarning v-if="checkTypeOfEnv !== '' & !isInternetExplorer" /> <!-- an empty string in this case means the 'prod' version of the application   -->
     <router-view
-      v-if="!isInternetExplorer & checkIfUSGSHeaderIsRendered"
+      v-if="!isInternetExplorer"
     />
-    <Visualization />
     <PreFooterVisualizationsLinks v-if="!isInternetExplorer" />
     <PreFooterCodeLinks v-if="!isInternetExplorer" />
     <FooterUSGS />
@@ -17,14 +16,12 @@
 <script>
     import WindowSize from "./components/WindowSize";
     import HeaderUSGS from './components/HeaderUSGS';
-    import Visualization from './views/Visualization';
 
     export default {
         name: 'App',
         components: {
             //WindowSize,
             HeaderUSGS,
-            Visualization,
             InternetExplorerPage: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "internet-explorer-page"*/ "./components/InternetExplorerPage"),
             WorkInProgressWarning: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "work-in-progress-warning"*/ "./components/WorkInProgressWarning"),
             PreFooterVisualizationsLinks: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "pre-footer-links-visualizations"*/ "./components/PreFooterVisualizationsLinks"),
@@ -39,9 +36,9 @@
             }
         },
         computed: {
-          checkIfUSGSHeaderIsRendered() {
-            return this.$store.state.usgsHeaderRendered;
-          },
+          // checkIfUSGSHeaderIsRendered() {
+          //   return this.$store.state.usgsHeaderRendered;
+          // },
           checkTypeOfEnv() {
               return process.env.VUE_APP_TIER
           }

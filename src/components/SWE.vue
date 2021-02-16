@@ -1,9 +1,7 @@
 <template>
   <section id="swe">
     <div class="text-content">
-      <h2 class="big-statement consequences">
-        
-      </h2>
+      <h2 class="big-statement consequences" />
     </div>
   </section>
 </template>

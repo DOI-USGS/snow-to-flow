@@ -13,7 +13,7 @@
 </template>
 
 <script>
-    import referencesText from "./../../assets/text/referencesText";
+    import referencesText from "@/assets/text/referencesText";
     import SectionTitle from "@/components/SectionTitle";
 
     export default {
