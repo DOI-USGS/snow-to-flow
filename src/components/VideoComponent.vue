@@ -2,7 +2,6 @@
   <div class="videoContainer">
     <video
       controls
-      autoplay
       muted
       preload="metadata"
     >
