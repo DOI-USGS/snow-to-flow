@@ -28,7 +28,7 @@ pipeline {
                           extensions: [],
                           gitTool: 'Default',
                           submoduleCfg: [],
-                          userRemoteConfigs: [[url: 'https://github.com/usgs-makerspace/snow-to-flow.git']]
+                          userRemoteConfigs: [[url: 'https://github.com/usgs-vizlab/snow-to-flow.git']]
                         ])
                 }
         }
