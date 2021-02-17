@@ -3,7 +3,6 @@
 </template>
 
 <script>
-   import Test from '@/components/TestFigure';
     export default {
         name: 'Visualization',
     }
