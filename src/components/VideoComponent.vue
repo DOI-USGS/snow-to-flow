@@ -41,7 +41,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .videoContainer{
-    margin: 3000px auto;
+    margin: 0 auto;
     video{
         width: 100%;
     }
