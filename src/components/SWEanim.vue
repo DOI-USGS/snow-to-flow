@@ -25,13 +25,13 @@
             <desc id="page-desc">An animated one-year time series of snow-water equivalent in  the upper colorado river basin</desc>
         
             <image
-              xlink:href="@/assets/videos/swe_2011.gif"
+              xlink:href="@/assets/SWEanim/swe_2011.gif"
               height="400px"
               x="0"
               y="50"
             />
             <image
-              xlink:href="@/assets/videos/swe_2012.gif"
+              xlink:href="@/assets/SWEanim/swe_2012.gif"
               height="400px"
               x="0"
               y="475"
@@ -386,13 +386,13 @@
             width="100%"
           >
             <image
-              xlink:href="@/assets/videos/mmd_2011.gif"
+              xlink:href="@/assets/SWEanim/mmd_2011.gif"
               height="450px"
               x="0"
               y="50"
             />
             <image
-              xlink:href="@/assets/videos/mmd_2012.gif"
+              xlink:href="@/assets/SWEanim/mmd_2012.gif"
               height="450px"
               x="0"
               y="475"
