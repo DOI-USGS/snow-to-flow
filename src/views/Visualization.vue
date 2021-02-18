@@ -1,6 +1,8 @@
 <template>
-  <div id="visualization" >
-  <Diagrams />
+  <div id="visualization">
+    <SNTLmap />
+    <Diagrams />
+    <SWEanim />
   </div>
 </template>
 
@@ -8,7 +10,9 @@
     export default {
         name: 'Visualization',
         components: {
-            Diagrams: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagrams"*/ "./../components/Diagrams")
+            Diagrams: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagrams"*/ "./../components/Diagrams"),
+            SNTLmap: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SNTLmap"*/ "./../components/SNTLmap"),
+            SWEanim: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SWEanim"*/ "./../components/SWEanim")
         }
     }
 </script>
