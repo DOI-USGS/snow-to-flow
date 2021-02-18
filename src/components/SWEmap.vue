@@ -887,18 +887,7 @@ import * as d3Base from "d3";
             const  self  = this;
 
             this.mmd_2011 = data[0];
-            this.mmd_2012 = data[1];
 
-            //trigger hydrograph animation
-            self.drawHydrographs();
-
-          },
-          drawHydrographs() {
-            const self = this;
-
-            this.svg  = this.d3.select("#swe-gifs")
-
-            
           }
         }
     }

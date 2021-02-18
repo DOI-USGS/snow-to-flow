@@ -866,6 +866,7 @@
 </template>
 <script>
 import VizSection from '@/components/VizSection';
+import * as d3Base from "d3";
 export default {
     name: "Test",
     components:{
@@ -873,9 +874,7 @@ export default {
     },
     data() {
             return {
-              title: process.env.VUE_APP_TITLE,
-              mmd_2011: null,
-              mmd_2012: null,
+              sntl_2021: null,
             }
         },
     mounted() {
@@ -887,34 +886,20 @@ export default {
       loadData() {
         const self = this;
         // read in data 
-        let promises = [self.d3.csv(self.publicPath + "gage_mmd_2011.csv", this.d3.autoType),
-        self.d3.csv(self.publicPath + 'gage_mmd_2012.csv'), this.d3.autotype];
+        let promises = [self.d3.csv(self.publicPath + "gage_mmd_2011.csv", this.d3.autoType)];
 
         Promise.all(promises).then(self.callback); 
       },
       callback(data) {
         const  self  = this;
 
-        this.mmd_2011 = data[0];
-        this.mmd_2012 = data[1];
-
-        //trigger hydrograph animation
-        self.drawHydrographs();
-
-      },
-      drawHydrographs() {
-        const self = this;
-
-        this.svg  = this.d3.select("#swe-gifs")
-
-        
-      }
+        this.sntl_2021 = data[0];
     }
+  }
 }
 </script>
 <style lang="scss" scoped>
 #sntl-map {
-  width: 80%;
   max-height: 80vh;
 }
 //map style

@@ -378,7 +378,7 @@
         </figure>
         <figure>
           <svg
-          id="swe-gifs"
+          id="mmd-gifs"
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
           viewBox="0 0 500 900"
@@ -398,12 +398,10 @@
             y="475"
           />
           <text
-            class="axis-label big-statement"
             x="0"
             y="100"
           >high snow (2011)</text>
           <text
-            class="axis-label big-statement"
             x="0"
             y="550"
           >low snow (2012)</text>
@@ -421,6 +419,7 @@
 </template>
 <script>
 import VizSection from '@/components/VizSection';
+import * as d3Base from "d3";
 export default {
     name: "SWEanim",
     components:{
@@ -441,7 +440,7 @@ export default {
     methods: {
       loadData() {
         const self = this;
-        // read in data 
+        // read in data to draw hydrographs - eventually want to animate with d3 over gif
         let promises = [self.d3.csv(self.publicPath + "gage_mmd_2011.csv", this.d3.autoType),
         self.d3.csv(self.publicPath + 'gage_mmd_2012.csv'), this.d3.autotype];
 
@@ -452,24 +451,10 @@ export default {
 
         this.mmd_2011 = data[0];
         this.mmd_2012 = data[1];
-
-        //trigger hydrograph animation
-        self.drawHydrographs();
-
-      },
-      drawHydrographs() {
-        const self = this;
-
-        this.svg  = this.d3.select("#swe-gifs")
-
-        
       }
     }
 }
 </script>
 <style lang="scss" scoped>
 
-figure {
-  
-}
 </style>
