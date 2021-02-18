@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <!-- <WindowSize v-if="checkTypeOfEnv === '-test build-'" /> -->
+    <WindowSize v-if="checkTypeOfEnv === '-test build-'" />
     <HeaderUSGS />
     <InternetExplorerPage v-if="isInternetExplorer" />
     <WorkInProgressWarning v-if="checkTypeOfEnv !== '' & !isInternetExplorer" /> <!-- an empty string in this case means the 'prod' version of the application   -->
@@ -20,7 +20,7 @@
     export default {
         name: 'App',
         components: {
-            //WindowSize,
+            WindowSize,
             HeaderUSGS,
             InternetExplorerPage: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "internet-explorer-page"*/ "./components/InternetExplorerPage"),
             WorkInProgressWarning: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "work-in-progress-warning"*/ "./components/WorkInProgressWarning"),

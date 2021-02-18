@@ -1,15 +1,18 @@
 <template>
-  <div id="visualization" />
+  <div id="visualization" >
+  <Diagrams />
+  </div>
 </template>
 
 <script>
     export default {
         name: 'Visualization',
+        components: {
+            Diagrams: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagrams"*/ "./../components/Diagrams")
+        }
     }
 </script>
 
 <style lang="scss">
-SWE {
-  z-index: 1;
-}
+
 </style>
