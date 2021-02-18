@@ -22,6 +22,7 @@ export default {
 #window-size-component {
   width: 100%;
   position: fixed;
+  top:0;
   z-index: 999;
   color: white;
   font-size: 8pt;
