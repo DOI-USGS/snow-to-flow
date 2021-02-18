@@ -4,6 +4,7 @@
       <div class="scrollDist mtn">
         <div class="main mtn">
           <svg
+            preserveAspectRatio="xMidYMid meet"
             viewBox="0 0 1200 800"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -103,7 +104,7 @@
             id="cheese"
             class="text-content"
           >
-            <img src="@/assets/videos/js_choroMath.png"><br><br><br>
+            <img src="@/assets/videos/js_choroMath.png">
             <p>
               I love cheese, especially danish fontina cow. Cottage cheese lancashire bocconcini danish fontina cheeseburger queso croque monsieur manchego. Brie fondue edam stinking bishop taleggio parmesan lancashire bocconcini. Smelly cheese airedale cheesy feet babybel the big cheese say cheese.
               <!-- <br><br>  Say cheese chalk and cheese gouda. Gouda cheesy grin cheesy grin pecorino boursin cheddar edam paneer. Halloumi fromage frais red leicester airedale edam melted cheese say cheese port-salut. Cheesy feet. -->
@@ -138,7 +139,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
 
             // define timeline of events
             gsap.set('.main', {position:'absolute', background:'#fff', width:'100%', maxWidth:'1800px', height:'70%', top:0, left:'50%', x:'-50%'})
-            gsap.set('.scrollDist', {width:'100%', height:'200%'})
+            gsap.set('.scrollDist', {width:'100%'})
             gsap.timeline({scrollTrigger:{trigger:'.scrollDist', start:'top top', end:'bottom bottom', scrub:1}})
                 .fromTo('.sky', {y:0},{y:-200}, 0)
                 .fromTo('.cloud1', {y:100},{y:-800}, 0)
@@ -156,7 +157,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
 </script>
 
 <style scoped lang="scss">
-
+#srubbable{
+  margin: 0;
+}
+.scrollDist{
+  height: 100%;
+}
 .mtn {
   position:relative;
 }
@@ -166,12 +172,17 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
     width: 100%;
 }
 #cheese {
-    position: fixed;
-    width: 80%;
-    top: 62%;
-    left: 25%;
-    margin:auto;
+    margin-top: 200px;
+    img{
+      width: 100%;
+    }
 }
+
+// @media screen and (min-width:1024px){
+//   #cheese{
+
+//   }
+// }
 
 
 </style>
