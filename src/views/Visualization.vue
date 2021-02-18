@@ -1,5 +1,5 @@
 <template>
-  <div id="visualization" >
+  <div id="visualization">
     <SNTLmap />
     <Diagrams />
     <SWEanim />

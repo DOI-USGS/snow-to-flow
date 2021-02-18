@@ -7,14 +7,13 @@
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
-     
       <div class="group two maxWidth">
         <figure id="fire-before">
           <img src="@/assets/diagrams/beforeFire_blank_500.png">
         </figure>
         <figure id="fire-after">
           <img src="@/assets/diagrams/afterFire_blank_500.png">
-         </figure>
+        </figure>
       </div>
     </template>
     <!-- FIGURE CAPTION -->
