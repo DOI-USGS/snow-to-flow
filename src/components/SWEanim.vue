@@ -1,16 +1,23 @@
 <template>
-  <section id="swe-animation">
-    <div class="text-content">
-      <div>
-        <h2 id="no-flow">
-          Changes in snowmelt have downstream consequences
-        </h2>
-        <p> Pepper jack melted cheese feta. Cheesy grin taleggio fromage edam boursin manchego cheese triangles parmesan. Fromage cheese and biscuits say cheese bocconcini gouda lancashire cheese slices ricotta. Rubber cheese melted cheese cheesy grin everyone loves mascarpone.</p><br><br>
-        <svg
+  <!---VizSection-->
+  <VizSection id="firstSection">
+    <!-- TAKEAWAY TITLE -->
+    <template v-slot:takeAway>
+      <h2>Changes in snowmelt have downstream consequences</h2>
+    </template>
+        <!-- EXPLANATION -->
+    <template v-slot:explanation>
+      <p>Stuff to explain.</p>
+    </template>
+    <!-- FIGURES -->
+    <template v-slot:figures>
+      <div class="group two maxWidth">
+        <figure>
+          <svg
           id="swe-gifs"
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
-          viewBox="0 0 1000 900"
+          viewBox="0 0 500 900"
           aria-labelledby="page-title page-desc"
           width="100%"
         >
@@ -367,152 +374,102 @@
               class="gage"
             />
           </g>
-          <image
+        </svg>
+        </figure>
+        <figure>
+          <svg
+          id="swe-gifs"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          viewBox="0 0 500 900"
+          aria-labelledby="page-title page-desc"
+          width="100%"
+        >
+           <image
             xlink:href="@/assets/videos/mmd_2011.gif"
             height="450px"
-            x="450"
+            x="0"
             y="50"
           />
           <image
             xlink:href="@/assets/videos/mmd_2012.gif"
             height="450px"
-            x="450"
+            x="0"
             y="475"
           />
           <text
             class="axis-label big-statement"
-            x="500"
+            x="0"
             y="100"
           >high snow (2011)</text>
           <text
             class="axis-label big-statement"
-            x="500"
+            x="0"
             y="550"
           >low snow (2012)</text>
-        </svg>
+                  </svg>
+        </figure>
       </div>
-      <div class="text-content">
-        <p>Who moved my cheese boursin babybel. Monterey jack jarlsberg port-salut cheesy feet croque monsieur babybel ricotta mascarpone. Halloumi roquefort stinking bishop say cheese hard cheese rubber cheese mascarpone cheesecake. Babybel the big cheese cow st. agur blue cheese.</p>
-      </div>
-    </div>
-  </section>
+      </template>
+    <!-- FIGURE CAPTION -->
+    <template v-slot:figureCaption>
+      <p>
+        Figure. The snow-water equivalent (left) and stream  discharge (right) through an entire water year in the Upper Colorado River Basin. Dots on map correspond to hydrographs on the right. Hydrographs are ordered and colored by elevation.
+      </p>
+    </template>
+  </VizSection>
 </template>
-
 <script>
-import * as d3Base from "d3";
-    export default {
-        name: 'SWEanim',
-        data() {
+import VizSection from '@/components/VizSection';
+export default {
+    name: "SWEanim",
+    components:{
+        VizSection
+    },
+    data() {
             return {
               title: process.env.VUE_APP_TITLE,
               mmd_2011: null,
               mmd_2012: null,
             }
         },
-        computed: {
-            windowHeight: function () {
-                const usgsBannerHeight = 85;
-                return Number(this.$store.state.windowHeight - this.$store.state.warningHeight - usgsBannerHeight) + 'px';
-            }
-        },
-        mounted() {
+    mounted() {
           const self = this;
           this.d3 = Object.assign(d3Base);
 
         },
-        methods: {
-          loadData() {
-            const self = this;
-            // read in data 
-            let promises = [self.d3.csv(self.publicPath + "gage_mmd_2011.csv", this.d3.autoType),
-            self.d3.csv(self.publicPath + 'gage_mmd_2012.csv'), this.d3.autotype];
+    methods: {
+      loadData() {
+        const self = this;
+        // read in data 
+        let promises = [self.d3.csv(self.publicPath + "gage_mmd_2011.csv", this.d3.autoType),
+        self.d3.csv(self.publicPath + 'gage_mmd_2012.csv'), this.d3.autotype];
 
-            Promise.all(promises).then(self.callback); 
-          },
-          callback(data) {
-            const  self  = this;
+        Promise.all(promises).then(self.callback); 
+      },
+      callback(data) {
+        const  self  = this;
 
-            this.mmd_2011 = data[0];
-            this.mmd_2012 = data[1];
+        this.mmd_2011 = data[0];
+        this.mmd_2012 = data[1];
 
-            //trigger hydrograph animation
-            self.drawHydrographs();
+        //trigger hydrograph animation
+        self.drawHydrographs();
 
-          },
-          drawHydrographs() {
-            const self = this;
+      },
+      drawHydrographs() {
+        const self = this;
 
-            this.svg  = this.d3.select("#swe-gifs")
+        this.svg  = this.d3.select("#swe-gifs")
 
-            
-          }
-        }
+        
+      }
     }
+}
 </script>
+<style lang="scss" scoped>
 
-<style scoped lang="scss">
-text.axis-label {
-  fill:black;
-  z-index:1;
-}
-
-#swe-animation-viz {
-    height: 1000px;
-}
-.sketchy {
-    stroke-width: 2px;
-    fill: none;
-    stroke: grey
-
-}
-.sketchy-blue {
-    stroke-width:10px;
-    fill: none;
-    stroke: #0e64bb;
-
-}
-.axes {
-    fill: none;
-    stroke-width: 1px;
-    stroke-dasharray: 2px;
-    stroke: grey;
-}
-#swe-viz {
-    position: relative;
-    width: 80%;
-}
-#no-flow {
-  margin: 50px;
-}
-line, polyline, polygon, path, rect, circle {
-      fill: none;
-      stroke: grey;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      stroke-miterlimit: 10.00;
-    }
-.gage {
-      //fill: #FF007F;
-      stroke: #FF007F;
-}
-.grey-box {
-      height: 500px;
-}
-h2.big-statement {
-  margin: 20px;
-      color: #0e64bb;
-      fill: white;
-    }
-.left {
- 
-
-}
-.right {
-  width:100%;
-}
-#swe-animation-viz {
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr;
+figure {
+  
 }
 </style>

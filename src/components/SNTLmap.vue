@@ -870,6 +870,45 @@ export default {
     name: "Test",
     components:{
         VizSection
+    },
+    data() {
+            return {
+              title: process.env.VUE_APP_TITLE,
+              mmd_2011: null,
+              mmd_2012: null,
+            }
+        },
+    mounted() {
+          const self = this;
+          this.d3 = Object.assign(d3Base);
+
+        },
+    methods: {
+      loadData() {
+        const self = this;
+        // read in data 
+        let promises = [self.d3.csv(self.publicPath + "gage_mmd_2011.csv", this.d3.autoType),
+        self.d3.csv(self.publicPath + 'gage_mmd_2012.csv'), this.d3.autotype];
+
+        Promise.all(promises).then(self.callback); 
+      },
+      callback(data) {
+        const  self  = this;
+
+        this.mmd_2011 = data[0];
+        this.mmd_2012 = data[1];
+
+        //trigger hydrograph animation
+        self.drawHydrographs();
+
+      },
+      drawHydrographs() {
+        const self = this;
+
+        this.svg  = this.d3.select("#swe-gifs")
+
+        
+      }
     }
 }
 </script>
