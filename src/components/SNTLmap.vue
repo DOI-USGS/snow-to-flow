@@ -855,7 +855,7 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        Figure 1. Mean weight of two species of ground squirrels prior to and following hibernation
+        Figure. A map of SNOTEL sites across the western US with a bivariate color scale showing peak snow-water equivalent in 2021 compared to the the period of record (1981-2010), and their difference.
       </p>
     </template>
     <!-- EXPLANATION -->

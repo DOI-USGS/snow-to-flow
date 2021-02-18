@@ -2,6 +2,7 @@
   <div id="visualization" >
     <SNTLmap />
     <Diagrams />
+    <SWEanim />
   </div>
 </template>
 
@@ -10,7 +11,8 @@
         name: 'Visualization',
         components: {
             Diagrams: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagrams"*/ "./../components/Diagrams"),
-            SNTLmap: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SNTLmap"*/ "./../components/SNTLmap")
+            SNTLmap: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SNTLmap"*/ "./../components/SNTLmap"),
+            SWEanim: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SWEanim"*/ "./../components/SWEanim")
         }
     }
 </script>
