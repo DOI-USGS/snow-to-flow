@@ -441,8 +441,8 @@ export default {
       loadData() {
         const self = this;
         // read in data to draw hydrographs - eventually want to animate with d3 over gif
-        let promises = [self.d3.csv(self.publicPath + "gage_mmd_2011.csv", this.d3.autoType),
-        self.d3.csv(self.publicPath + 'gage_mmd_2012.csv'), this.d3.autotype];
+        let promises = [self.d3.csv(self.publicPath + "data/gage_mmd_2011.csv", this.d3.autoType),
+        self.d3.csv(self.publicPath + 'data/gage_mmd_2012.csv'), this.d3.autotype];
 
         Promise.all(promises).then(self.callback); 
       },

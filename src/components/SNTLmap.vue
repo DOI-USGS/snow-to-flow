@@ -5766,7 +5766,7 @@ export default {
       loadData() {
         const self = this;
         // read in data 
-        let promises = [self.d3.csv(self.publicPath + "gage_mmd_2011.csv", this.d3.autoType)];
+        let promises = [self.d3.csv(self.publicPath + "data/swe_day.csv", this.d3.autoType)];
 
         Promise.all(promises).then(self.callback); 
       },
