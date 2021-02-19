@@ -31,8 +31,7 @@ export default {
 </script>
 <style scoped lang="scss">
 $spacing: 15px;
-$border: 1px solid #000;
-/*#####vizSection#####*/
+$border: 0px solid #000;
 .vizSection{
     p{
         padding: 0; 

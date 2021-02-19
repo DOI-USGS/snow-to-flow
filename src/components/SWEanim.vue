@@ -17,7 +17,7 @@
             id="swe-gifs"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
-            viewBox="0 0 500 900"
+            viewBox="0 0 400 900"
             aria-labelledby="page-title page-desc"
             width="100%"
           >
@@ -25,13 +25,13 @@
             <desc id="page-desc">An animated one-year time series of snow-water equivalent in  the upper colorado river basin</desc>
         
             <image
-              xlink:href="@/assets/videos/swe_2011.gif"
+              xlink:href="@/assets/SWEanim/swe_2011.gif"
               height="400px"
               x="0"
               y="50"
             />
             <image
-              xlink:href="@/assets/videos/swe_2012.gif"
+              xlink:href="@/assets/SWEanim/swe_2012.gif"
               height="400px"
               x="0"
               y="475"
@@ -381,18 +381,18 @@
             id="mmd-gifs"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
-            viewBox="0 0 550 900"
+            viewBox="0 0 450 900"
             aria-labelledby="page-title page-desc"
             width="100%"
           >
             <image
-              xlink:href="@/assets/videos/mmd_2011.gif"
+              xlink:href="@/assets/SWEanim/mmd_2011.gif"
               height="450px"
               x="0"
               y="50"
             />
             <image
-              xlink:href="@/assets/videos/mmd_2012.gif"
+              xlink:href="@/assets/SWEanim/mmd_2012.gif"
               height="450px"
               x="0"
               y="475"
@@ -456,5 +456,12 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+#mmd-gifs, #swe-gifs {
+  max-height: 80vh;
+  width: auto;
+}
 
+.maxWidth {
+  max-width:80vw;
+}
 </style>
