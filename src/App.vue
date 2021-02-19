@@ -46,9 +46,6 @@
             window.addEventListener('resize', this.handleResize);
             this.handleResize();
         },
-        mounted(){
-          this.doStuff();
-        },
         destroyed() {
             window.removeEventListener('resize', this.handleResize);
         },
