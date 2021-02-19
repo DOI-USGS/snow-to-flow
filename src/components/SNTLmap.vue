@@ -5741,16 +5741,20 @@
     <!-- EXPLANATION -->
     <template v-slot:explanation>
       <p>Stuff to explain.</p>
+      <Sidebar />
+      <Sidebar />
     </template>
   </VizSection>
 </template>
 <script>
 import VizSection from '@/components/VizSection';
 import * as d3Base from "d3";
+import Sidebar from "@/components/Sidebar";
 export default {
     name: "Test",
     components:{
-        VizSection
+        VizSection,
+        Sidebar
     },
     data() {
             return {
