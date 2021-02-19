@@ -1,92 +1,117 @@
 <template>
-  <div class="sidebar">
-    <div class="sidebarContent hidden">
+  <div class="sidebar collapsed">
+    <div class="sidebarContent">
       <div class="titleAndExit">
-        <div class="title">
-          <slot>Title</slot>
-        </div>
+        <button
+          class="reveal"
+          @click="toggle"
+        >
+          <slot name="sidebarTitle">
+            Reveal
+          </slot>
+        </button>
         <div
-          class="exit"
+          class="exit hidden"
           @click="toggle"
         >
           X
         </div>
       </div>
-      <div class="message">
-        <slot>Message Area</slot>
+      <div class="messageArea">
+        <div class="message">
+          <slot name="sidebarMessage">
+            Message
+          </slot>
+        </div>
       </div>
     </div>
-    <button
-      class="sidebarReveal"
-      @click="toggle"
-    >
-      <slot>Button Text</slot>
-    </button>
   </div>
 </template>
 <script>
 export default {
-    name: "Sidebar",
-    data() {
-        return {
-            visible: true
-        }
+    name: "SidebarTwo",
+    mounted(){
+        this.$nextTick(function(){
+            this.setDimensions();
+        });
     },
     methods:{
+        setDimensions(){
+            const sidebar = this.$el;
+            const button = this.$el.querySelector(".reveal").getBoundingClientRect();
+            sidebar.style.height = `${button.height}px`;
+            sidebar.style.width = `${button.width}px`;
+        },
         toggle(){
-            const sidebarContent = this.$el.children[0];
-            const sidebarReveal = this.$el.children[1];
-            if(sidebarContent.classList.contains("hidden")){
-                sidebarContent.classList.remove("hidden");
-                sidebarReveal.classList.add("hidden");
+            const exit = this.$el.querySelector(".exit");
+            exit.classList.toggle("hidden");
+            if(this.$el.classList.contains("expanded")){
                 
+                this.$el.classList.remove("expanded");
+                this.$el.classList.add("collapsed");
+                this.setDimensions();
             }else{
-                sidebarContent.classList.add("hidden");
-                sidebarReveal.classList.remove("hidden");
-            } 
+                this.$el.classList.remove("collapsed");
+                this.$el.classList.add("expanded");
+                this.$el.style.width = "auto";
+                this.$el.style.height = "auto";
+            }   
         }
     }
 }
 </script>
 <style lang="scss" scoped>
-.hidden{
-   display: none;
-   opacity: 0;
-}
 .sidebar{
+    display: flex;
+    flex-direction: column;
     margin-top: 15px;
+    transition: width 2s, height 2s, transform 2s;
+    will-change: width;
+    background: rgb(100,100,100);
 }
 .titleAndExit{
+    position: relative;
+    color:#fff;
+    font-weight: bold;
+}
+.reveal{
+    padding: 5px 10px;
+    outline: none;
+}
+.exit{
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
     display: flex;
     align-items: center;
-    border: 1px solid #000;
-}
-.title,
-.exit{
-    padding: 0 10px;
-}
-.message,
-.sidebarReveal{
-   padding: 10px;  
-}
-.title{
-    flex: 1;
-    font-size: 1.2em;
-}
-.exit{
-    text-align: center;
-    font-weight: bold;
+    justify-content: center;
     font-size: 1.5em;
+    padding: 10px;
     cursor: pointer;
     &:hover{
-        background: rgb(100,100,100);
-        color: #fff;
+        background: #fff;
+        color:#000;
     }
 }
-.message{
-    border: 1px solid #000;
+.messageArea{
+    padding:0 10px 10px 10px;
 }
-.sidebarReveal{
-    border: 1px solid #000;
+.message{
+    background: #fff;
+    padding: 10px;
+    p{
+        margin: 0;
+    }
+}
+.collapsed{
+    .message{
+        width: 0;
+        height: 0;
+        opacity: 0;
+    }
+}
+.hidden{
+    display: none;
 }
 </style>
