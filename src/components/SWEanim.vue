@@ -17,7 +17,7 @@
             id="swe-gifs"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
-            viewBox="0 0 500 900"
+            viewBox="0 0 400 900"
             aria-labelledby="page-title page-desc"
             width="100%"
           >
@@ -381,7 +381,7 @@
             id="mmd-gifs"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
-            viewBox="0 0 550 900"
+            viewBox="0 0 450 900"
             aria-labelledby="page-title page-desc"
             width="100%"
           >
@@ -456,5 +456,12 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+#mmd-gifs, #swe-gifs {
+  max-height: 80vh;
+  width: auto;
+}
 
+.maxWidth {
+  max-width:80vw;
+}
 </style>
