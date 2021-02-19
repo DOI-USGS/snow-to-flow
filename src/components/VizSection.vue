@@ -29,7 +29,7 @@ export default {
 </script>
 <style scoped lang="scss">
 $spacing: 15px;
-$border: 1px solid #000;
+$border: 0px solid #000;
 .vizSection{
     padding: 10px;
     p{
