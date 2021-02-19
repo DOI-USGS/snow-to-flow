@@ -7,7 +7,7 @@
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
-      <div class="group two maxWidth">
+      <div class="group two maxWidth center">
         <figure id="fire-before">
           <img src="@/assets/diagrams/beforeFire_blank_500.png">
         </figure>

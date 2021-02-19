@@ -16,7 +16,6 @@
 <script>
     import WindowSize from "./components/WindowSize";
     import HeaderUSGS from './components/HeaderUSGS';
-
     export default {
         name: 'App',
         components: {
@@ -36,9 +35,6 @@
             }
         },
         computed: {
-          // checkIfUSGSHeaderIsRendered() {
-          //   return this.$store.state.usgsHeaderRendered;
-          // },
           checkTypeOfEnv() {
               return process.env.VUE_APP_TIER
           }
@@ -49,6 +45,9 @@
             // Add window size tracking by adding a listener and a way to store the values in the Vuex state
             window.addEventListener('resize', this.handleResize);
             this.handleResize();
+        },
+        mounted(){
+          this.doStuff();
         },
         destroyed() {
             window.removeEventListener('resize', this.handleResize);
@@ -83,7 +82,9 @@ $familyTest: 'Amatic SC', cursive;
 
 
 // Type
+html,
 body {
+      height:100%;
       margin: 0;
       padding: 0;
       color: $nearBlack;
@@ -169,7 +170,7 @@ p {
 
   // General Layout  
   section {
-    margin: 3em 0 3em 0;
+    padding: 3em 0 3em 0;
   }
 
 

@@ -1,24 +1,26 @@
 <template>
   <section class="vizSection">
-    <div class="takeAway">
-      <slot name="takeAway">
-        Take Away Title
-      </slot>
-    </div>
-    <div class="figures">
-      <slot name="figures">
-        Figure(s)
-      </slot>
-    </div>
-    <div class="figureCaption maxWidth">
-      <slot name="figureCaption">
-        Figure Caption
-      </slot>
-    </div>
-    <div class="explanation maxWidth">
-      <slot name="explanation">
-        Explanation
-      </slot>
+    <div class="vizSectionContent">
+      <div class="takeAway">
+        <slot name="takeAway">
+          Take Away Title
+        </slot>
+      </div>
+      <div class="figures">
+        <slot name="figures">
+          Figure(s)
+        </slot>
+      </div>
+      <div class="figureCaption">
+        <slot name="figureCaption">
+          Figure Caption
+        </slot>
+      </div>
+      <div class="explanation">
+        <slot name="explanation">
+          Explanation
+        </slot>
+      </div>
     </div>
   </section>
 </template>
@@ -30,47 +32,67 @@ export default {
 <style scoped lang="scss">
 $spacing: 15px;
 $border: 1px solid #000;
+/*#####vizSection#####*/
 .vizSection{
-    padding: 10px;
     p{
         padding: 0; 
         margin: 0;
     }
 }
+/*#####vizSectionContent#####*/
+.vizSectionContent{
+  flex: 1;
+  padding: 0 15px;
+}
+/*#####TAKE AWAY#####*/
 .takeAway{
     h1{
         text-align: center;
     }
     margin-bottom: $spacing;
 }
+/*#####FIGURES#####*/
 .figures{
     &>*{
         margin-bottom: $spacing;
     }
     figure{
-        border: $border;
+      img{
+          width:100%;
+        }
     }
 }
+/*#####FIGURE CAPTION#####*/
+
+/*#####EXPLANATION#####*/
+/*#####SHARED CSS#####*/
+.figureCaption,
+.explanation{
+  max-width: 700px;
+  margin: 0 auto 15px auto;
+}
+/*#####CUSTOMIZATION CLASSES#####*/
 .maxWidth{
     max-width: 1500px;
     margin: 0 auto 15px auto;
 }
 .single{
-    width: 100%;
+    text-align: center;
     figure{
         min-height: 300px;
     }
 }
 .group{
+    align-items: center;
     figure{
         margin-bottom: $spacing;
     }
 }
-.figureCaption{
-    margin-bottom: $spacing;
+.center{
+  justify-items: center; 
 }
-
 @media screen and (min-width: 1024px){
+  /*#####CUSTOMIZATION CLASSES#####*/
     .group{
         display: grid;
         gap: 15px;
