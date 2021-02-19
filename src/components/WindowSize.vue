@@ -1,7 +1,7 @@
 <template>
-  <section id="window-size-component">
+  <div id="window-size-component">
     <p>window width {{ windowWidth }} -- height {{ windowHeight }}</p>
-  </section>
+  </div>
 </template>
 
 <script>

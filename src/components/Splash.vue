@@ -1,3 +1,4 @@
+  
 <template>
   <section id="srubbable">
     <div id="container">
@@ -119,7 +120,6 @@
 import gsap from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin"; // to trigger scroll events
 import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
-
     export default {
         name: 'Scrubbable',
         data() {
@@ -135,7 +135,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
         },
         mounted() { 
             gsap.registerPlugin(ScrollToPlugin, ScrollTrigger); // register gsap plugins for scrollTrigger
-
             // define timeline of events
             gsap.set('.main', {position:'absolute', background:'#fff', width:'100%', maxWidth:'1800px', height:'70%', top:0, left:'50%', x:'-50%'})
             gsap.set('.scrollDist', {width:'100%', height:'200%'})
@@ -156,7 +155,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
 </script>
 
 <style scoped lang="scss">
-
 .mtn {
   position:relative;
 }
@@ -172,6 +170,4 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
     left: 25%;
     margin:auto;
 }
-
-
 </style>
