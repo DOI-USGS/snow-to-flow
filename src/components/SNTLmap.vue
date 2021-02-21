@@ -9,8 +9,8 @@
     <template v-slot:figures>
       <div class="single maxWidth">
         <figure>
-          <img id="pre-map" src="@/assets/maps/anomaly_map-01.png" />
-       <!--    <svg
+         <!--  <img id="pre-map" src="@/assets/maps/anomaly_map-01.png" /> -->
+       <svg
             id="sntl-map"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 700 840"
@@ -5729,7 +5729,7 @@
                 class="SNTL"
               />
             </g>
-          </svg> -->
+          </svg>
         </figure>
       </div>
     </template>

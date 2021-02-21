@@ -1,9 +1,9 @@
 <template>
   <div id="visualization">
-    <Splash />
-<!--     <div
+<!--     <Splash /> -->
+       <div
       class="parallax1 parallax fullImage"
-    /> -->
+    />
     <SNTLmap class="parallax" />
     <div
       class="parallax2 parallax midImage"
@@ -28,7 +28,7 @@
     export default {
         name: 'Visualization',
         components: {
-            Splash: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagrams"*/ "./../components/Splash"),
+            //Splash: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagrams"*/ "./../components/Splash"),
             Diagrams: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagrams"*/ "./../components/Diagrams"),
             SNTLmap: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SNTLmap"*/ "./../components/SNTLmap"),
             SWEanim: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SWEanim"*/ "./../components/SWEanim"),
