@@ -1,7 +1,7 @@
 <template>
   <div id="visualization">
-<!--     <Splash /> -->
-       <div
+    <!--     <Splash /> -->
+    <div
       class="parallax1 parallax fullImage"
     />
     <SNTLmap class="parallax" />
