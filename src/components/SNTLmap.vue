@@ -310,6 +310,12 @@
               />
             </g>
           </svg>
+          <h3 id="sntl-var">Sites mapped to:  {{ picked }} </h3>
+          <form id="showData">
+            <input type='radio' id="inch_2020" v-model='picked' value="Value_inches" name="mode" checked/><label for="inch_2020"> Snow in 2021</label><br>
+            <input type='radio' id="inch_POR" v-model='picked' value="POR_Median_inches" name="mode"/><label for="inch_POR"> Period of Record</label><br>
+            <input type='radio' id="inch_diff" v-model='picked' value="POR_Median_Departure_inches" name="mode"/><label for="inch_diff"> 2021 x POR</label>
+          </form>
         </figure>
       </div>
     </template>
@@ -346,12 +352,21 @@ export default {
               sites: null,
               site_list: [],// for ids of site elements
 
-              site_vars: {},
+              site_vars: {
+                swe: "Value_inches", 
+                POR_Median: 'POR_Median_inches', 
+                POR_Average: 'POR_Average_inches', 
+                POR_diff: 'POR_Median_Departure_inches',
+                POR_Median_percent: 'Percent_of_POR_Median', 
+                POR_Peak_percent:'Percent_of_Median_Water_Year_Peak_POR',
+                Peak_percent:'Percent_of_Water_Year_Peak',
+                },
 
               // chart opts
               xScale: null,
               yScale:null,
               site_radius: 3,
+              colorValueInches: null,
             }
         },
     mounted() {
@@ -360,10 +375,6 @@ export default {
 
           // sntl site map
           this.sntl_map = this.d3.select("svg#sntl-map");
-
-          // grab sites from svg
-          this.sites.selectAll("circle.SNTL")
-              //.style("fill","pink");
 
           //  read in data and bind with svg sites
           this.loadData();
@@ -377,8 +388,6 @@ export default {
         self.d3.csv(self.publicPath + "data/sntl_data.csv", this.d3.autoType)];
 
         Promise.all(promises).then(self.callback); 
-        console.log(self.publicPath)
-
       },
       callback(data) {
         const self  = this;
@@ -386,15 +395,17 @@ export default {
         this.sntl_data = data[1];// has a key variable and x and y positioning
 
 
-        // set site colors
-        //this.grabSites();
+        this.site_vars.setColor = this.site_vars.POR_Peak_percent; // make this toggleable
+        console.log(this.site_vars.setColor);
+        
+        // draw sites on map
         this.addSites();
       },
       addSites() {
         const self = this;
         var sntl_sites = this.sntl_map.append("g").classed("sites", true)
 
-        // scales
+        // axis scales
         this.xScale = this.d3.scaleLinear()
           .range([0,  700])
           .domain([0, 700]);
@@ -402,6 +413,11 @@ export default {
           this.yScale = this.d3.scaleLinear()
           .range([840,  0])
           .domain([840, 0]);
+
+        // color scales
+        this.colorValueInches = this.d3.scaleSequential()
+          .domain(this.d3.extent(this.sntl_data, function(d) { return +d[self.site_vars.setColor]}))
+          .interpolator(this.d3.interpolateRainbow)
 
         sntl_sites.selectAll("SNTL")
         .data(this.sntl_data) // the key for each  site for updating data
@@ -411,9 +427,11 @@ export default {
           .attr("cy", function (d) { return self.yScale(d.y); } )
           .classed("SNTL",  true)
           .attr("r", this.site_radius)
-          .attr("stroke", "black")
+          
 
-          // initially draw with 20201 snow
+          // initially draw with 2021 snow/swe levels
+          sntl_sites.selectAll("circle.SNTL")
+          .attr("fill", function(d) { return self.colorValueInches(d[self.site_vars.setColor]) })
 
       }
   }
@@ -441,8 +459,7 @@ line, polyline, polygon, path, rect, circle {
   stroke-width: 1px;
 }
 #pre-map {
-
-  max-height: 80vh;
+  max-height: 70vh;
   width: auto;
 }
 </style>
