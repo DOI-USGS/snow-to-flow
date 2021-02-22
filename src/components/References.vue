@@ -1,8 +1,5 @@
 <template>
   <section id="references">       
-    <SectionTitle
-      :image="titleImage" 
-    />
     <div class="text-content">
       <h2 v-html="text.subtitle1" />
       <p v-html="text.p1" />
@@ -14,12 +11,10 @@
 
 <script>
     import referencesText from "@/assets/text/referencesText";
-    import SectionTitle from "@/components/SectionTitle";
 
     export default {
         name: 'References',
         components: {
-            SectionTitle
         },
         data() {
             return {

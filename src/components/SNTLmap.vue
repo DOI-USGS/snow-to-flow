@@ -9,10 +9,11 @@
     <template v-slot:figures>
       <div class="single maxWidth">
         <figure>
-          <svg
+          <img id="pre-map" src="@/assets/maps/anomaly_map-01.png" />
+       <!--    <svg
             id="sntl-map"
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 700 1000"
+            viewBox="0 0 700 840"
           >
             <g id="map-state">
               <path
@@ -5728,14 +5729,14 @@
                 class="SNTL"
               />
             </g>
-          </svg>
+          </svg> -->
         </figure>
       </div>
     </template>
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        Figure. A map of SNOTEL sites across the western US with a bivariate color scale showing peak snow-water equivalent in 2021 compared to the the period of record (1981-2010), and their difference.
+        Figure. A map of SNOTEL sites across the western US with a bivariate color scale showing peak snow-water equivalent in 2021 compared to the the period of record (1981-2010), and their difference. The idea is to show 2021 in snow, then with toggle options you can show the period of record in snow, and if both are selected they will show their interaction, i.e. answering the question of how is the mangitude of snow changing in the western U.S.?
       </p>
     </template>
     <!-- EXPLANATION -->
@@ -5817,5 +5818,10 @@ line, polyline, polygon, path, rect, circle {
   color: darkgrey;
   fill:none;
   stroke-width: 1px;
+}
+#pre-map {
+
+  max-height: 80vh;
+  width: auto;
 }
 </style>
