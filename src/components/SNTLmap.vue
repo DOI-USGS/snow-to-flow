@@ -310,11 +310,11 @@
               />
             </g>
           </svg>
-          <h3 id="sntl-var">Sites mapped to:  {{ picked }} </h3>
+          <h3 id="sntl-name">Colors mapped to:  {{ sntl_variable}} </h3>
           <form id="showData">
-            <input type='radio' id="inch_2020" v-model='picked' value="Value_inches" name="mode" checked/><label for="inch_2020"> Snow in 2021</label><br>
-            <input type='radio' id="inch_POR" v-model='picked' value="POR_Median_inches" name="mode"/><label for="inch_POR"> Period of Record</label><br>
-            <input type='radio' id="inch_diff" v-model='picked' value="POR_Median_Departure_inches" name="mode"/><label for="inch_diff"> 2021 x POR</label>
+            <input type='radio' id="inch_2020" v-model='sntl_variable' value="Value_inches" @change="setColor()" /><label for="inch_2020"> Snow in 2021</label><br>
+            <input type='radio' id="inch_POR" v-model='sntl_variable' value="POR_Median_inches" @change="setColor()" /><label for="inch_POR"> Period of Record</label><br>
+            <input type='radio' id="inch_diff" v-model='sntl_variable' value="POR_Median_Departure_inches" @change="setColor()" /><label for="inch_diff"> 2021 x POR</label>
           </form>
         </figure>
       </div>
@@ -344,14 +344,15 @@ export default {
               publicPath: process.env.BASE_URL,
               d3: null,
 
+              sntl_variable: "Value_inches", // starting variable to map site colors
+
               sntl_2021: [],// snotel data
               sntl_data: [], // also sntl data
-              sntl_test:[],
 
-              sntl_map: null,
-              sites: null,
-              site_list: [],// for ids of site elements
+              sntl_map: null, //  the svg
+              sntl_sites: null, // g for sites in svg
 
+            // variables that could be of interest for map
               site_vars: {
                 swe: "Value_inches", 
                 POR_Median: 'POR_Median_inches', 
@@ -378,6 +379,7 @@ export default {
 
           //  read in data and bind with svg sites
           this.loadData();
+          console.log(this.sntl_variable)
 
         },
     methods: {
@@ -394,16 +396,15 @@ export default {
         this.sntl_2021 = data[0];
         this.sntl_data = data[1];// has a key variable and x and y positioning
 
-
-        this.site_vars.setColor = this.site_vars.POR_Peak_percent; // make this toggleable
-        console.log(this.site_vars.setColor);
+        this.sntl_sites = this.sntl_map.append("g").classed("sites", true)
+        this.site_vars.setColor = this.sntl_variable; // set chart color to selected color
+        console.log(this.site_vars.setColor)
         
         // draw sites on map
         this.addSites();
       },
       addSites() {
         const self = this;
-        var sntl_sites = this.sntl_map.append("g").classed("sites", true)
 
         // axis scales
         this.xScale = this.d3.scaleLinear()
@@ -414,25 +415,31 @@ export default {
           .range([840,  0])
           .domain([840, 0]);
 
-        // color scales
-        this.colorValueInches = this.d3.scaleSequential()
-          .domain(this.d3.extent(this.sntl_data, function(d) { return +d[self.site_vars.setColor]}))
-          .interpolator(this.d3.interpolateRainbow)
-
-        sntl_sites.selectAll("SNTL")
+        this.sntl_sites.selectAll("SNTL")
         .data(this.sntl_data) // the key for each  site for updating data
         .enter()
         .append("circle")
           .attr("cx", function (d) { return self.xScale(d.x); })
           .attr("cy", function (d) { return self.yScale(d.y); } )
           .classed("SNTL",  true)
-          .attr("r", this.site_radius)
-          
+          .attr("r", this.site_radius);
 
-          // initially draw with 2021 snow/swe levels
-          sntl_sites.selectAll("circle.SNTL")
+        self.setColor(); // set initial site color
+      },
+      setColor() {
+        const self = this;
+        console.log(this.sntl_variable);
+
+        this.site_vars.setColor = this.sntl_variable; // set chart color to selected color
+
+        // color scales
+        this.colorValueInches = this.d3.scaleSequential()
+          .domain(this.d3.extent(this.sntl_data, function(d) { return +d[self.site_vars.setColor]}))
+          .interpolator(this.d3.interpolateRainbow)
+
+       // initially draw with 2021 snow/swe levels
+       this.sntl_sites.selectAll("circle.SNTL")
           .attr("fill", function(d) { return self.colorValueInches(d[self.site_vars.setColor]) })
-
       }
   }
 }
