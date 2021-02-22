@@ -3,7 +3,7 @@
   <VizSection id="firstSection">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>The timing and magnitude of snowmelt is changing across the western U.S.</h2>
+      <h2>The timing and magnitude of snowmelt is changing across the git commit -m "western U.S.</h2>
     </template>    
     <!-- EXPLANATION -->
     <template v-slot:explanation>
@@ -620,8 +620,7 @@ export default {
               d3: null,
 
               sntl_variable: "Value_inches", // starting variable to map site colors
-              sntl_2021: [],// snotel data
-              sntl_data: [], // also sntl data
+              sntl_data: [], // sntl data
 
               sntl_map: null, //  the svg
               sntl_sites: null, // g for sites in svg
@@ -660,15 +659,13 @@ export default {
       loadData() {
         const self = this;
         // read in data 
-        let promises = [self.d3.csv(self.publicPath + "data/swe_day.csv", this.d3.autoType),
-        self.d3.csv(self.publicPath + "data/sntl_data.csv", this.d3.autoType)];
+        let promises = [self.d3.csv(self.publicPath + "data/sntl_data.csv", this.d3.autoType)];
 
         Promise.all(promises).then(self.callback); 
       },
       callback(data) {
         const self  = this;
-        this.sntl_2021 = data[0];
-        this.sntl_data = data[1];// has a key variable and x and y positioning
+        this.sntl_data = data[0];// has a key variable and x and y positioning
 
         this.sntl_sites = this.sntl_map.append("g").classed("sites", true)
         this.site_vars.setColor = this.sntl_variable; // set chart color to selected color
