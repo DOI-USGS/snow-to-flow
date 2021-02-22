@@ -5742,7 +5742,19 @@
     <!-- EXPLANATION -->
     <template v-slot:explanation>
       <p>Stuff to explain.</p>
-      <Sidebar />
+      <Sidebar>
+        <template v-slot:sidebarTitle>
+          What is SWE?
+        </template>
+        <template v-slot:sidebarMessage>
+          Donec mattis ultrices pretium. Pellentesque auctor velit quis risus lacinia, quis lobortis mauris semper. 
+          Vestibulum euismod sapien velit, id malesuada eros feugiat id. Maecenas feugiat maximus porta. Maecenas 
+          ullamcorper mi et consectetur porttitor. Maecenas ut suscipit eros. Nulla imperdiet turpis ut nisl pulvinar 
+          fermentum. Nam vitae placerat mi. Maecenas ac felis lorem. Phasellus quis purus sit amet odio molestie tincidunt. 
+          Suspendisse potenti. Aliquam eu velit pretium, condimentum diam sed, eleifend ipsum. Suspendisse condimentum arcu 
+          vel egestas suscipit.
+        </template>
+      </Sidebar>
       <Sidebar />
     </template>
   </VizSection>
