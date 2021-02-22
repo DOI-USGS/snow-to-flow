@@ -3,7 +3,7 @@
   <VizSection id="firstSection">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>The timing and magnitude of snowmelt is changing across the git commit -m "western U.S.</h2>
+      <h2>The timing and magnitude of snowmelt is changing across the western U.S.</h2>
     </template>    
     <!-- EXPLANATION -->
     <template v-slot:explanation>
@@ -604,15 +604,23 @@
         Figure. Snow, measured as the daily snow-water equivalent (SWE) from snowpack telemetry (SNOTEL) sites across the western U.S.. The Preiod of Record dates as far back as 1978 for some sites.
       </p>
     </template>
+    <!-- EXPLANATION -->
+    <template v-slot:explanation>
+      <p>Stuff to explain.</p>
+      <Sidebar />
+      <Sidebar />
+    </template>
   </VizSection>
 </template>
 <script>
 import VizSection from '@/components/VizSection';
 import * as d3Base from "d3";
+import Sidebar from "@/components/Sidebar";
 export default {
     name: "Test",
     components:{
-        VizSection
+        VizSection,
+        Sidebar
     },
     data() {
             return {
