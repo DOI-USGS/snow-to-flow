@@ -16,7 +16,6 @@
 <script>
     import WindowSize from "./components/WindowSize";
     import HeaderUSGS from './components/HeaderUSGS';
-
     export default {
         name: 'App',
         components: {
@@ -36,9 +35,6 @@
             }
         },
         computed: {
-          // checkIfUSGSHeaderIsRendered() {
-          //   return this.$store.state.usgsHeaderRendered;
-          // },
           checkTypeOfEnv() {
               return process.env.VUE_APP_TIER
           }
@@ -53,20 +49,19 @@
         destroyed() {
             window.removeEventListener('resize', this.handleResize);
         },
-        methods: {
-            handleResize() {
+        methods:{
+          handleResize() {
                 this.$store.commit('recordWindowWidth', window.innerWidth);
                 this.$store.commit('recordWindowHeight', window.innerHeight);
-            }
+            },
         }
     }
 </script>
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap'); //'Julius Sans One', sans-serif;
-@import url('https://fonts.googleapis.com/css2?family=Wire+One&display=swap'); //'Wire One', sans-serif;
 @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap'); //'Amatic SC', cursive;
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@200;300;500;600;700;800&display=swap');//'Karla', sans-serif;
 
  // IMPORT
 $nearBlack: #1a1b1c; //#1a1b1c;
@@ -83,13 +78,19 @@ $familyTest: 'Amatic SC', cursive;
 
 
 // Type
+html,
 body {
+      height:100%;
       margin: 0;
       padding: 0;
       color: $nearBlack;
       background-color: white;
       line-height: 1.4;
+<<<<<<< HEAD
       font-size: 14pt;
+=======
+      font-size: 13pt;
+>>>>>>> c0a2fdbf7a42519f86eca3663e90c80b787268d2
       font-family: $familyMain;
       font-weight: 300;
       -webkit-font-smoothing: antialiased;
@@ -97,9 +98,9 @@ body {
       width: 100%;
   }
 h1{
-  font-size: 7em;
-  font-weight: 700;
-  font-family: $familyTest;
+  font-size: 5em;
+  font-weight: 400;
+  font-family: $familyMain;
   line-height: 1;
   text-align: left;
   color: $deepPurple;
@@ -110,10 +111,10 @@ h1{
 
 h2{
   color: $darkGrey;
-  font-weight: 700;
+  font-weight: 400;
   text-align: center;
-  font-family:$familyTest;
-  font-size: 3em;
+  font-family:$familyMain;
+  font-size: 2em;
   margin-top: 5px;
   line-height: 1.3;
   @media screen and (max-width: 600px) {
@@ -122,9 +123,9 @@ h2{
 }
 
 h3{
-  font-size: 2em;
+  font-size: 1.5em;
   padding-top: .5em;
-  font-family: $familyTest;
+  font-family: $familyMain;
   font-weight: 300;
   @media screen and (max-width: 600px) {
       font-size: 1.4em;
@@ -169,7 +170,7 @@ p {
 
   // General Layout  
   section {
-    margin: 3em 0 3em 0;
+    padding: 3em 0 3em 0;
   }
 
 
