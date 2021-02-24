@@ -645,7 +645,7 @@ export default {
               publicPath: process.env.BASE_URL,
               d3: null,
 
-              sntl_variable: "Value_inches", // starting variable to map site colors
+              sntl_variable: "POR_Median_Departure_inches", // starting variable to map site colors
               sntl_data: [], // sntl data
               ak_data: [],
 
@@ -705,22 +705,23 @@ export default {
         this.site_vars.setColor = this.sntl_variable; // set chart color to selected color
         
         // draw sites on map
-        this.addSites();
+        this.addSites(700, 840, this.sntl_sites, this.sntl_data); // add westen sites
+        this.addSites(606.9, 476.2, this.ak_sites, this.ak_data); // add ak sites
       },
-      addSites() {
+      addSites(x_max, y_max, sites, data) {
         const self = this;
 
         // axis scales
         this.xScale = this.d3.scaleLinear()
-          .range([0,  700])
-          .domain([0, 700]);
+          .range([0,  x_max])
+          .domain([0, x_max]);
 
           this.yScale = this.d3.scaleLinear()
-          .range([840,  0])
-          .domain([840, 0]);
+          .range([y_max,  0])
+          .domain([y_max, 0]);
 
-        this.sntl_sites.selectAll("SNTL")
-        .data(this.sntl_data) // the key for each  site for updating data
+        sites.selectAll("SNTL")
+        .data(data) // the key for each  site for updating data
         .enter()
         .append("circle")
           .attr("cx", function (d) { return self.xScale(d.x); })
@@ -729,9 +730,9 @@ export default {
           .attr("opacity", .8)
           .attr("r", this.site_radius);
 
-        self.setColor(); // set initial site color
+        self.setColor(data, sites); // set initial site color
       },
-      setColor() {
+      setColor(sites) {
         const self = this;
         console.log(this.sntl_variable);
 
@@ -739,13 +740,16 @@ export default {
 
         // color scales
         this.colorValueInches = this.d3.scaleSequential()
-          .domain(this.d3.extent(this.sntl_data, function(d) { return +d[self.site_vars.setColor]}))
+          .domain([-16, 16])
           .interpolator(this.d3.interpolateBrBG)
 
-       // initially draw with 2021 snow/swe levels
+       // this is currently scaled to the snow anomaly only
        this.sntl_sites.selectAll("circle.SNTL")
           .attr("fill", function(d) { return self.colorValueInches(d[self.site_vars.setColor]) })
-          //.attr("stroke","lightgrey")
+
+          this.ak_sites.selectAll("circle.SNTL")
+          .attr("fill", function(d) { return self.colorValueInches(d[self.site_vars.setColor]) })
+          
       }
   }
 }
@@ -804,8 +808,9 @@ line, polyline, polygon, path, rect, circle {
   max-height: 750px;
 }
 #ak-sntl {
-  width: 100%;
+  width: 110%;
   min-width: 450px;
+  max-width: 700px;
 }
 #sntl-text {
   grid-column:  2 / 5;
