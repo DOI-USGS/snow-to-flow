@@ -96,9 +96,6 @@ body {
       -moz-osx-font-smoothing: grayscale;
       width: 100%;
   }
-#app{
-  position: relative;
-}
 h1{
   font-size: 5em;
   font-weight: 400;
