@@ -93,7 +93,6 @@
             </g>
                     
           </svg>
-
         </div>
       </div>
     </div>
@@ -101,7 +100,6 @@
 </template>
 
 <script>
-import gsap from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin"; // to trigger scroll events
 import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
     export default {
@@ -118,6 +116,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
             }
         },
         mounted() { 
+            const gsap = this.$gsap;
             gsap.registerPlugin(ScrollToPlugin, ScrollTrigger); // register gsap plugins for scrollTrigger
             // define timeline of events
             gsap.set('.main', {position:'absolute', background:'#fff', width:'100%', maxWidth:'1800px', height:'70%', top:0, left:'50%', x:'-50%'})

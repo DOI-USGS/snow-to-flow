@@ -1,82 +1,80 @@
 <template>
   <div id="visualization">
-    <!--     <Splash /> -->
-    <div
-      class="parallax1 parallax fullImage"
+    <Chapter
+      id="chapter1"
+      class="block"
+      image="image2.png"
+    >
+      <template v-slot:chapterTitle>
+        The First Chapter Title
+      </template>
+    </Chapter>
+    <SNTLMap
+      id="section1"
+      class="block"
     />
-    <SNTLmap class="parallax" />
-    <div
-      class="parallax2 parallax midImage"
+    <Chapter
+      id="chapter2"
+      class="block"
+      :height="40"
+    >
+      <template v-slot:chapterTitle>
+        The Second Chapter Title
+      </template>
+    </Chapter>
+    <Diagrams
+      id="section2"
+      class="block"
     />
-    <Diagrams class="parallax" />
-    <div
-      class="parallax3 parallax midImage"
+    <Chapter
+      id="chapter3"
+      class="block"
+      image="image3.png"
+      :height="70"
+    >
+      <template v-slot:chapterTitle>
+        The Third Chapter Title
+      </template>
+    </Chapter>
+    <SWEanim
+      id="section3"
+      class="block"
     />
-    <SWEanim class="parallax" />
-    <div
-      class="parallax4 parallax fullImage"
-    />
-    <Elevation />
-    <div
-      class="parallax4 parallax fullImage"
+    <Chapter
+      id="chapter4"
+      class="block"
+      image="image4.png"
+    >
+      <template v-slot:chapterTitle>
+        The Fourth Chapter Title
+      </template>
+    </Chapter>
+    <Elevation
+      id="section4"
+      class="block"
     />
     <References />
   </div>
 </template>
 
 <script>
-    export default {
-        name: 'Visualization',
-        components: {
-            //Splash: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagrams"*/ "./../components/Splash"),
-            Diagrams: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagrams"*/ "./../components/Diagrams"),
-            SNTLmap: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SNTLmap"*/ "./../components/SNTLmap"),
-            SWEanim: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SWEanim"*/ "./../components/SWEanim"),
-            Elevation: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SWEanim"*/ "./../components/Elevation"),
-            References: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "References"*/ "./../components/References")
-        }
+import Chapter from "@/components/SectionTitle";
+export default {
+    name: 'Visualization',
+    components: {
+      // Splash: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "section"*/ "./../components/Splash"),
+      SNTLMap: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "section"*/ "./../components/SNTLmap"),
+      Diagrams: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "section"*/ "./../components/Diagrams"),
+      SWEanim: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "section"*/ "./../components/SWEanim"),
+      Elevation: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "section"*/ "./../components/Elevation"),
+      References: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "References"*/ "./../components/References"),
+      Chapter
     }
+} 
 </script>
 
 <style lang="scss">
 SNTLmap {
   z-index: 1;
-}
-  .parallax1{
-    background: url(~@/assets/titleImages/image1.png);
-  }
-  .parallax2{
-    background: url(~@/assets/titleImages/image2.png);
-  }
-  .parallax3{
-    background: url(~@/assets/titleImages/image3.png);
-  }
-  .parallax4{
-    background: url(~@/assets/titleImages/image4.png);
-  }
-  .parallax5{
-    background: url(~@/assets/titleImages/image5.png);
-  }
-  .parallax1,.parallax2, .parallax3, .parallax4{
-    position: relative;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment:fixed;
-  }
-  .fullImage{
-    min-height: 100vh;
-  }
-  .midImage{
-    min-height: 60vh;
-  }
-  /* Portrait and Landscape */
-@media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 667px) 
-  and (-webkit-min-device-pixel-ratio: 2) { 
-    .parallax1,.parallax2, .parallax3, .parallax4{
-      background-attachment:scroll;
-    }
 }
 </style>
