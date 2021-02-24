@@ -1408,17 +1408,17 @@
                 v-model="sntl_variable"
                 type="radio"
                 align="left"
-                value="Value_inches"
+                value="Percent_of_POR_Median"
                 @change="setColor()"
-              ><label for="inch_2020"> In 2021</label><br>
+              ><label for="inch_2020"> Percent of POR Median</label><br>
               <input
                 id="inch_POR"
                 v-model="sntl_variable"
                 type="radio"
                 align="left"
-                value="POR_Median_inches"
+                value="Percent_of_Median_Water_Year_Peak_POR"
                 @change="setColor()"
-              ><label for="inch_POR"> POR</label><br>
+              ><label for="inch_POR"> Percent of Water Year Peak POR</label><br>
               <input
                 id="inch_diff"
                 v-model="sntl_variable"
@@ -1426,7 +1426,7 @@
                 align="left"
                 value="POR_Median_Departure_inches"
                 @change="setColor()"
-              ><label for="inch_diff"> Snow anomaly</label>
+              ><label for="inch_diff"> Snow anomaly (inch difference)</label>
             </form>
           </div>
         </figure>
@@ -1555,9 +1555,16 @@ export default {
         this.site_vars.setColor = this.sntl_variable; // set chart color to selected color
 
         // color scales
-        this.colorValueInches = this.d3.scaleSequential()
+        if (this.site_vars.setColor == this.site_vars.POR_diff) {
+          this.colorValueInches = this.d3.scaleSequential()
           .domain([-16, 16])
           .interpolator(this.d3.interpolateBrBG)
+        } else {
+        this.colorValueInches = this.d3.scaleSequential()
+          .domain([0, 200])
+          .interpolator(this.d3.interpolateBrBG)
+        }
+
 
        // this is currently scaled to the snow anomaly only
        this.sntl_sites.selectAll("circle.SNTL")
@@ -1638,7 +1645,7 @@ line, polyline, polygon, path, rect, circle {
 @media screen and (max-width: 1024px){
   #ak {
   grid-column: 1 / 4;
-  grid-row: 4 / 6;
+  grid-row: 3 / 6;
 }
 #usa {
   grid-column: 1 / 7;
