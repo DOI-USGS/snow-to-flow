@@ -7,7 +7,6 @@
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
-     
       <div class="group two maxWidth">
         <figure id="fire-before">
           <img src="@/assets/diagrams/Diagrams_snow-good.png">

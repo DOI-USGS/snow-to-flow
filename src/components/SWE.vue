@@ -9,7 +9,7 @@
     <template v-slot:figures>
       <div class="group single maxWidth">
         <figure id="swe-chart-container">
-           <img src="@/assets/diagrams/SWE-sketch.png">
+          <img src="@/assets/diagrams/SWE-sketch.png">
           <!-- <svg
             id="swe-chart"
             xmlns="http://www.w3.org/2000/svg"
