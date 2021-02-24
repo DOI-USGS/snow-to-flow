@@ -16,6 +16,9 @@
 <script>
     import WindowSize from "./components/WindowSize";
     import HeaderUSGS from './components/HeaderUSGS';
+    import gsap from "gsap";
+    import { ScrollToPlugin } from "gsap/ScrollToPlugin"; // to trigger scroll events
+    import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
     export default {
         name: 'App',
         components: {
@@ -49,11 +52,11 @@
         destroyed() {
             window.removeEventListener('resize', this.handleResize);
         },
-        methods: {
-            handleResize() {
+        methods:{
+          handleResize() {
                 this.$store.commit('recordWindowWidth', window.innerWidth);
                 this.$store.commit('recordWindowHeight', window.innerHeight);
-            }
+            },
         }
     }
 </script>
@@ -94,6 +97,9 @@ body {
       -moz-osx-font-smoothing: grayscale;
       width: 100%;
   }
+#app{
+  position: relative;
+}
 h1{
   font-size: 7em;
   font-weight: 700;
