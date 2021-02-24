@@ -16,9 +16,6 @@
 <script>
     import WindowSize from "./components/WindowSize";
     import HeaderUSGS from './components/HeaderUSGS';
-    import gsap from "gsap";
-    import { ScrollToPlugin } from "gsap/ScrollToPlugin"; // to trigger scroll events
-    import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
     export default {
         name: 'App',
         components: {
