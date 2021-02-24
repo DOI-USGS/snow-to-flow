@@ -22,7 +22,6 @@ import { faYoutubeSquare } from "@fortawesome/free-brands-svg-icons";
 import { faInstagram } from "@fortawesome/free-brands-svg-icons";
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
-Vue.prototype.$gsap = gsap;
 
 // social icons
 library.add(faTwitterSquare);
