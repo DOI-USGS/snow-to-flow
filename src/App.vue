@@ -86,11 +86,7 @@ body {
       color: $nearBlack;
       background-color: white;
       line-height: 1.4;
-<<<<<<< HEAD
       font-size: 14pt;
-=======
-      font-size: 13pt;
->>>>>>> c0a2fdbf7a42519f86eca3663e90c80b787268d2
       font-family: $familyMain;
       font-weight: 300;
       -webkit-font-smoothing: antialiased;
