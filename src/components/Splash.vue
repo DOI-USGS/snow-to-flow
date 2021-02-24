@@ -116,7 +116,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
             }
         },
         mounted() { 
-            const gsap = this.$root.$gsap
+            const gsap = this.$gsap;
             gsap.registerPlugin(ScrollToPlugin, ScrollTrigger); // register gsap plugins for scrollTrigger
             // define timeline of events
             gsap.set('.main', {position:'absolute', background:'#fff', width:'100%', maxWidth:'1800px', height:'70%', top:0, left:'50%', x:'-50%'})
