@@ -1,7 +1,9 @@
 <template>
   <div id="visualization">
     <SNTLmap />
-    <Diagrams />
+    <SWE />
+    <DiagramsGood />
+    <DiagramsBad />
     <SWEanim />
   </div>
 </template>
@@ -10,7 +12,9 @@
     export default {
         name: 'Visualization',
         components: {
-            Diagrams: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagrams"*/ "./../components/Diagrams"),
+            DiagramsGood: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagramsgood"*/ "./../components/DiagramsGood"),
+            DiagramsBad: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagramsbad"*/ "./../components/DiagramsBad"),
+            SWE: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SWE"*/ "./../components/SWE"),
             SNTLmap: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SNTLmap"*/ "./../components/SNTLmap"),
             SWEanim: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SWEanim"*/ "./../components/SWEanim")
         }

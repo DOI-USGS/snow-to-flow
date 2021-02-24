@@ -50,6 +50,9 @@ $border: 1px solid #000;
     figure{
         border: $border;
     }
+    img{
+      width: 100%;
+    }
 }
 .maxWidth{
     max-width: 1500px;
