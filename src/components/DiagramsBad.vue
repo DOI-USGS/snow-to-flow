@@ -7,11 +7,11 @@
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
-      <div class="group two maxWidth">
-        <figure id="fire-before">
+      <div class="group two maxWidth diagram">
+        <figure id="bad-snow">
           <img src="@/assets/diagrams/Diagrams_snow-bad.png">
         </figure>
-        <figure id="fire-after">
+        <figure id="bad-flow">
           <img src="@/assets/diagrams/Diagrams_flow-bad.png">
         </figure>
       </div>
@@ -38,5 +38,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-
+.diagram figure img { 
+    width: 100%;
+  }
 </style>
