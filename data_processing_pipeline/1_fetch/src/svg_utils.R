@@ -1,3 +1,14 @@
+
+# preliminaries -----------------------------------------------------------
+
+
+library(tidyverse);library(sf);library(maps);library(rmapshaper)
+library(xml2);
+
+
+# svg utility functions ---------------------------------------------------
+
+
 init_svg <- function(viewbox_dims) {
   # create the main "parent" svg node. This is the top-level part of the svg
   svg_root <- xml_new_root('svg', viewBox = paste(viewbox_dims, collapse=" "), 
@@ -8,32 +19,35 @@ init_svg <- function(viewbox_dims) {
   return(svg_root)
 }
 
-build_svg_map <- function(svg_fp, svg_height, svg_width) {
+build_svg_map <- function(svg_fp, svg_height, svg_width, proj_str, state_ext, sntl_fp) {
   
   ##### Create whole SVG #####
   svg_root <- init_svg(viewbox_dims = c(0, 0, svg_width, svg_height))
   
-  ##### Add the SVG nodes #####
+  ##### Add the SVG nodes #####svg, svg_width, proj_str, state_ext, outline, state_path
+  get_census_boundaries(mainDir= '1_fetch/out/', subDir= 'cb_2018_us_state_5m')
+  states_map <- get_map_extent(proj_str, state_ext, state_path)
   
-  add_background_map(svg_root, svg_width, outline=FALSE)
-  add_background_map(svg_root, svg_width, outline=TRUE)
-  add_pts(svg_root, svg_width, shape_in = 'data/SNOTEL_sites.shp')
+  add_background_map(svg_root, svg_width, proj_str, state_ext, outline=FALSE, states_map)
+  add_background_map(svg_root, svg_width, proj_str, state_ext, outline=TRUE, states_map)
+  #add_shapes(svg_root, svg_width, shape_in = 'data/wbd_west.shp')
+  add_pts(svg_root, svg_width, bbox=states_map, sntl_fp, proj_str)
   
   ##### Write out final SVG to file #####
   xml2::write_xml(svg_root, svg_root, file = svg_fp)
   
 }
 
-add_pts <- function(svg=svg_root, svg_width, shape_in){
+add_pts <- function(svg=svg_root, svg_width, bbox, sntl_fp, proj_str){
   
-  site_data <- st_read(shape_in) %>%st_transform(proj_str)
+  site_data <- st_read(sntl_fp) %>%st_transform(proj_str)
   
   add_grp <- xml_add_child(svg, 'g', id = "sites")
   
   purrr::map(site_data$ID, function(ID_in, site_data, svg_width) {
     d <- site_data %>%
       filter(ID == ID_in)%>%
-      convert_coords_to_svg(view_bbox = st_bbox(states_sf), svg_width)
+      convert_coords_to_svg(view_bbox = st_bbox(bbox), svg_width)
     
     d$x <- round(d$x, 2)
     d$y <- round(d$y, 2)
@@ -45,38 +59,62 @@ add_pts <- function(svg=svg_root, svg_width, shape_in){
   }, site_data, svg_width)
   
 }
-generate_usa_map_data <- function(state_path = 'data/cb_2018_us_state_5m/cb_2018_us_state_5m.shp', 
-                                  proj_str = NULL, 
-                                  outline_states) {
-  if(is.null(proj_str)) {
-    # Albers Equal Area
-    proj_str <- "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"
+
+get_census_boundaries <- function(mainDir= '1_fetch/out/', subDir= 'cb_2018_us_state_5m'){
+  # download shapefile zip
+  download.file(url = sprintf("https://www2.census.gov/geo/tiger/GENZ2018/shp/%s.zip", subDir), 
+              destfile= sprintf('1_fetch/out/%s.zip', subDir))
+  # check to see if subdirectory already exists, if not make one
+  ifelse(!dir.exists(file.path(mainDir, subDir)), dir.create(file.path(mainDir, subDir)), FALSE)
+  #unzip file there
+  unzip(sprintf('1_fetch/out/%s.zip', subDir), exdir=sprintf('1_fetch/out/%s', subDir))
+
+}
+
+get_map_extent <- function(proj_str, state_ext, state_path){
+  ## get map of states
+  state_shp <- sprintf('1_fetch/out/%s/%s.shp', state_path, state_path)
+  map_in <- st_read(state_shp)
+  states <- unique(map_in$NAME)
+  
+  ## areas spatially separated from CONUS
+  state_no <- c('Alaska','Guam','Hawaii','Puerto Rico','American Samoa', 'Commonwealth of the Northern Mariana Islands', "United States Virgin Islands")
+  if (state_ext == 'all') {
+    state_list <- setdiff(states, state_no)
+  } else if (state_ext == 'west') {
+    ## western states
+    state_list <- c('Arizona','California','Colorado','Idaho','Montana','New Mexico','Nevada','Oregon','Utah','Washington','Wyoming')
+  } else if (!(state_ext %in% c('all','west'))) {
+    state_list <- state_ext
   }
   
-  state_list <- c('Arizona','California','Colorado','Idaho','Montana','New Mexico','Nevada','Oregon','Utah','Washington','Wyoming')
+  states_map <- map_in %>%
+    filter(NAME %in% state_list) %>%
+    sf::st_as_sf()%>%
+    st_transform(proj_str)
+  return(states_map)
   
+}
+#state_ext is either 'all' ,'west', or a list of states
+generate_usa_map_data <- function(outline_states, states_map) {
+
+  ## outline_states is logical, whether or not want the state outlines or the aggregate border around the selected states
   if (outline_states == TRUE) {
-    states_sf <- st_read(state_path) %>%
-      filter(NAME %in% state_list) %>%
-      sf::st_as_sf() %>% 
+    states_sf <- states_map %>%
       group_by() %>%
       summarize() %>%
-      st_transform(proj_str) %>% 
       st_buffer(0) %>%
       mutate(STUSPS = 'USA')
   } else {
-    states_sf <- st_read(state_path) %>%
-      filter(NAME %in% state_list) %>%
-      sf::st_as_sf() %>% 
-      st_transform(proj_str) %>% 
+    states_sf <- states_map %>% 
       st_buffer(0) 
   }
   
   return(states_sf)
 }
 
-add_background_map <- function(svg, svg_width, outline) {
-  map_data <- generate_usa_map_data(outline_states = outline)%>% 
+add_background_map <- function(svg, svg_width, proj_str, state_ext, outline, states_map) {
+  map_data <- generate_usa_map_data(outline_states = outline, states_map)%>% 
     st_cast('MULTIPOLYGON')%>%
     st_cast(to='POLYGON', do_split=TRUE)%>%
     mutate(poly_id = paste0(STUSPS, '-', rownames(.)))
@@ -162,13 +200,33 @@ convert_coords_to_svg <- function(sf_obj, svg_width, view_bbox = NULL) {
 }
 
 
-### make the svg
-svg_height <- 1000
-svg_width <- 700
+# generate svg maps --------------------------------------------------------
 
-proj_str <- "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"
+### make the CONUS svg
 
-svg_root <- init_svg(viewbox_dims = c(0, 0, svg_width, svg_height))
-svg_root
+# define scale
+conus_height <- 600
+conus_width <- 900
 
-build_svg_map(svg_fp = 'out/sntl_sites.svg', svg_width=700, svg_height=1000)
+proj_conus <- "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"
+
+
+build_svg_map(svg_fp = '6_visualize/out/sntl_sites.svg', 
+              svg_width=conus_width, svg_height=conus_height, 
+              proj_str = proj_conus, state_ext = 'all',
+              sntl_fp = '1_fetch/out/SNOTEL_sites.shp')
+
+
+## make Alaksa svg
+
+# define scale
+ak_height <- 600*.7937283 # adjusted to draw on same pixel-distance scale
+ak_width <- 900900*0.6742866
+
+proj_ak <- '+proj=aea +lat_1=55 +lat_2=65 +lat_0=50 +lon_0=-154 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs '
+
+
+build_svg_map(svg_fp = '6_visualize/out/ak_sites.svg', 
+              svg_width=conus_width, svg_height=conus_height, 
+              proj_str = proj_ak, state_ext = 'Alaska',
+              sntl_fp = '1_fetch/out/SNOTEL_sites_ak.shp')
