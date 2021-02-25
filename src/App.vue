@@ -49,11 +49,11 @@
         destroyed() {
             window.removeEventListener('resize', this.handleResize);
         },
-        methods: {
-            handleResize() {
+        methods:{
+          handleResize() {
                 this.$store.commit('recordWindowWidth', window.innerWidth);
                 this.$store.commit('recordWindowHeight', window.innerHeight);
-            }
+            },
         }
     }
 </script>
