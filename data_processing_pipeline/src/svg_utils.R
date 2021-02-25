@@ -1,3 +1,14 @@
+
+# preliminaries -----------------------------------------------------------
+
+
+library(tidyverse);library(sf);library(maps);library(rmapshaper)
+library(xml2);
+
+
+# svg utility functions ---------------------------------------------------
+
+
 init_svg <- function(viewbox_dims) {
   # create the main "parent" svg node. This is the top-level part of the svg
   svg_root <- xml_new_root('svg', viewBox = paste(viewbox_dims, collapse=" "), 
@@ -14,26 +25,27 @@ build_svg_map <- function(svg_fp, svg_height, svg_width) {
   svg_root <- init_svg(viewbox_dims = c(0, 0, svg_width, svg_height))
   
   ##### Add the SVG nodes #####
-  
+  get_census_boundaries()
   add_background_map(svg_root, svg_width, outline=FALSE)
   add_background_map(svg_root, svg_width, outline=TRUE)
-  add_pts(svg_root, svg_width, shape_in = 'data/SNOTEL_sites.shp')
+  #add_shapes(svg_root, svg_width, shape_in = 'data/wbd_west.shp')
+  add_pts(svg_root, svg_width, bbox=states_sf, shape_in = 'data/SNOTEL_sites.shp')
   
   ##### Write out final SVG to file #####
   xml2::write_xml(svg_root, svg_root, file = svg_fp)
   
 }
 
-add_pts <- function(svg=svg_root, svg_width, shape_in){
+add_pts <- function(svg=svg_root, svg_width, shape_in, bbox=states_sf, proj=proj_str){
   
-  site_data <- st_read(shape_in) %>%st_transform(proj_str)
+  site_data <- st_read(shape_in) %>%st_transform(proj)
   
   add_grp <- xml_add_child(svg, 'g', id = "sites")
   
   purrr::map(site_data$ID, function(ID_in, site_data, svg_width) {
     d <- site_data %>%
       filter(ID == ID_in)%>%
-      convert_coords_to_svg(view_bbox = st_bbox(states_sf), svg_width)
+      convert_coords_to_svg(view_bbox = st_bbox(bbox), svg_width)
     
     d$x <- round(d$x, 2)
     d$y <- round(d$y, 2)
@@ -45,15 +57,38 @@ add_pts <- function(svg=svg_root, svg_width, shape_in){
   }, site_data, svg_width)
   
 }
-generate_usa_map_data <- function(state_path = 'data/cb_2018_us_state_5m/cb_2018_us_state_5m.shp', 
-                                  proj_str = NULL, 
+
+get_census_boundaries <- function(mainDir= '1_fetch/out/', subDir= 'cb_2018_us_state_5m'){
+  download.file(url = sprintf("https://www2.census.gov/geo/tiger/GENZ2018/shp/%s.zip", subDir), 
+              destfile= sprintf('1_fetch/out/%s.zip', subDir))
+ifelse(!dir.exists(file.path(mainDir, subDir)), dir.create(file.path(mainDir, subDir)), FALSE)
+unzip(sprintf('1_fetch/out/%s.zip', subDir), exdir=sprintf('1_fetch/out/%s', subDir))
+
+}
+
+generate_usa_map_data <- function(proj_str = NULL, state_ext = "all",
                                   outline_states) {
   if(is.null(proj_str)) {
     # Albers Equal Area
     proj_str <- "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"
   }
   
+  ## get map of states
+  map_in <- maps::map("state", fill=TRUE, plot=FALSE) %>%
+    st_as_sf() %>%
+    st_transform(proj_str) %>%
+    ms_simplify(keep=0.2) %>%
+    st_buffer(0) ## fix CO corner
+  
+  state_list <- unique(map_in$ID)
+  
+  ## western states
   state_list <- c('Arizona','California','Colorado','Idaho','Montana','New Mexico','Nevada','Oregon','Utah','Washington','Wyoming')
+  ## areas spatially separated from CONUS
+  state_no <- c('Alaska','Guam','Hawaii','Puerto Rico','American Samoa', 'Commonwealth of the Northern Mariana Islands', "United States Virgin Islands")
+  if (state_ext == 'all') {
+    state_list <- 
+  }
   
   if (outline_states == TRUE) {
     states_sf <- st_read(state_path) %>%
@@ -160,6 +195,9 @@ convert_coords_to_svg <- function(sf_obj, svg_width, view_bbox = NULL) {
     y = round(approx(y_extent_pixels, c(svg_height, 0), y_pixels)$y, 6)
   )
 }
+
+
+# generate svg map --------------------------------------------------------
 
 
 ### make the svg
