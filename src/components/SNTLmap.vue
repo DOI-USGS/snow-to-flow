@@ -12,19 +12,56 @@
     <!-- FIGURES -->
     <template v-slot:figures>
       <div class="two group map-grid">
-        <figure>
+        <div id="grid-left">
           <div id="sntl-text">
             <p>Pepper jack melted cheese feta. Cheesy grin taleggio fromage edam boursin manchego cheese triangles parmesan. Fromage cheese and biscuits say cheese bocconcini gouda lancashire cheese slices ricotta. Rubber cheese melted cheese cheesy grin everyone loves mascarpone.</p>
             <Sidebar />
+            <div id="toggle-container">
+            <h3 id="sntl-name">
+              Show snow:
+            </h3>
+            <form
+              id="showData"
+              align="left"
+            >
+              <input
+                id="inch_2020"
+                v-model="sntl_variable"
+                type="radio"
+                align="left"
+                value="Percent_of_POR_Median"
+                @change="setColor()"
+              ><label for="inch_2020"> Percent of POR Median</label><br>
+              <input
+                id="inch_POR"
+                v-model="sntl_variable"
+                type="radio"
+                align="left"
+                value="Percent_of_Median_Water_Year_Peak_POR"
+                @change="setColor()"
+              ><label for="inch_POR"> Percent of Water Year Peak POR</label><br>
+              <input
+                id="inch_diff"
+                v-model="sntl_variable"
+                type="radio"
+                align="left"
+                value="POR_Median_Departure_inches"
+                @change="setColor()"
+              ><label for="inch_diff"> Snow anomaly (inch difference)</label>
+            </form>
+          </div>
           </div>
           <div
             id="ak"
             class="map-container"
           >
+        <!-- the y dimension was edited outside of R -->
+        <!-- because this is 2/3 the width of conus and they are drawn on the same pixel scale, grid needs to allocate 2/3 page widtrh to conus -->
             <svg
               id="ak-sntl"
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 606.9 476.2"
+              viewBox="0 0 606.9 356.2" 
+
               preserveAspectRatio="xMaxYMax slice"
             >
               <g id="map-alaska">
@@ -51,8 +88,8 @@
               </g>
             </svg>
           </div>
-        </figure>
-        <figure>
+        </div>
+        <div  id="grid-right">
           <div
             id="usa"
             class="map-container"
@@ -60,7 +97,7 @@
             <svg
               id="usa-sntl"
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="-0 0 900 570"
+              viewBox="0 0 900 570"
               preserveAspectRatio="xMaxYMax slice"
             >
               <g id="map-state">
@@ -1393,49 +1430,14 @@
                 />
               </g>
             </svg>
-           
           </div>
-          <div id="toggle-container">
-            <h3 id="sntl-name">
-              Show snow:
-            </h3>
-            <form
-              id="showData"
-              align="left"
-            >
-              <input
-                id="inch_2020"
-                v-model="sntl_variable"
-                type="radio"
-                align="left"
-                value="Percent_of_POR_Median"
-                @change="setColor()"
-              ><label for="inch_2020"> Percent of POR Median</label><br>
-              <input
-                id="inch_POR"
-                v-model="sntl_variable"
-                type="radio"
-                align="left"
-                value="Percent_of_Median_Water_Year_Peak_POR"
-                @change="setColor()"
-              ><label for="inch_POR"> Percent of Water Year Peak POR</label><br>
-              <input
-                id="inch_diff"
-                v-model="sntl_variable"
-                type="radio"
-                align="left"
-                value="POR_Median_Departure_inches"
-                @change="setColor()"
-              ><label for="inch_diff"> Snow anomaly (inch difference)</label>
-            </form>
-          </div>
-        </figure>
+        </div>
       </div>
     </template>
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p id="explain-bottom">
-        Figure. Snow, measured as the daily snow-water equivalent (SWE) from snowpack telemetry (SNOTEL) sites across the western U.S.. The Preiod of Record dates as far back as 1978 for some sites.
+        Snow, measured as the daily snow-water equivalent (SWE) from snowpack telemetry (SNOTEL) sites across the western U.S.. The Preiod of Record dates as far back as 1978 for some sites.
       </p>
     </template>
     <!-- EXPLANATION -->
@@ -1600,17 +1602,25 @@ line, polyline, polygon, path, rect, circle {
 }
 // map positioning
 // using grid within the figure elements 
-.map-grid {
-  margin-top: 1.5em;
-  height: 70vh;
-
-  figure {
+#grid-left {
   display: grid;
-  height: 70vh;
-  grid-template-rows: 20% 20% 20% 20% 20%;
-  grid-template-columns:repeat(5, 1fr);
+  width: 40vw; // careful editing this, it's sizing the maps to the same scale
+  height: 100%;
+  margin-left: 5vw;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr;
+
+  #sntl-text {
+
   }
 }
+#grid-right {
+  display: grid;
+  width: 50vw;// careful editing this, it's sizing the maps to the same scale
+  margin-right: 5vw;
+
+}
+
 #explain-bottom {
   margin-top: 4em;
 }
@@ -1619,36 +1629,41 @@ line, polyline, polygon, path, rect, circle {
 #toggle-container {
   grid-column: 1 / 3;
   grid-row: 5 / 5;
-}
-
-#ak {
-  grid-column: 1 / 6;
-  grid-row: 3 / 5;
-}
-#usa {
-  grid-column: 1 / 7;
-    grid-row: 1 / 6;
+  margin-top: 2em;
 }
 #sntl-name,input {
   text-align:left;
 }
+#ak {
+
+}
+#usa {
+
+}
 #usa-sntl {
-  height: 150%;
-  max-height: 750px;
+
 }
 #ak-sntl {
-  width: 110%;
-  min-width: 450px;
-  max-width: 700px;
+
 }
-#sntl-text {
-  grid-column:  2 / 5;
-  grid-row: 1 /1;
+@media screen and (max-width: 1024px){
+ #grid-left {
+   width: 90vw;
+   margin-rightt: 5vw;
+ }
+ #grid-right {
+   width: 90vw;
+   margin-left: 5vw;
+ }
+ #ak {
+   width: 60vw;// careful editing this, it's sizing the maps to be on the same scale
+ }
 }
+
 
 // breaks for tweaking map positions
 //
-@media screen and (max-width: 1024px){
+/* @media screen and (max-width: 1024px){
   #ak {
   grid-column: 1 / 4;
   grid-row: 3 / 6;
@@ -1681,5 +1696,5 @@ line, polyline, polygon, path, rect, circle {
   grid-column: 4 / 6;
   grid-row: 1 / 1;
 }
-}
+} */
 </style>
