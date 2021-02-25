@@ -60,7 +60,7 @@
             <svg
               id="ak-sntl"
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 606.9 356.2" 
+              viewBox="100 0 606.9 325" 
 
               preserveAspectRatio="xMaxYMax slice"
             >
@@ -97,8 +97,8 @@
             <svg
               id="usa-sntl"
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 900 570"
-              preserveAspectRatio="xMaxYMax slice"
+              viewBox="-100 0 900 570"
+              preserveAspectRatio="xMinYMin slice"
             >
               <g id="map-state">
                 <path
@@ -1580,7 +1580,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-#sntl-map {
+.map-grid {
   max-height: 80vh;
 }
 //map style
@@ -1606,95 +1606,59 @@ line, polyline, polygon, path, rect, circle {
   display: grid;
   width: 40vw; // careful editing this, it's sizing the maps to the same scale
   height: 100%;
-  margin-left: 5vw;
-  grid-template-rows: 1fr 1fr;
-  grid-template-columns: 1fr;
+  margin-left: 2.5vw;
+  grid-template-rows: 35% 1fr;
+  grid-template-columns: (10, 1fr);
 
   #sntl-text {
+    grid-column: 1/5;
 
   }
+  #ak {
+   width: 80vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
+   //grid-column:6/16;
+   grid-column: 1/5;
+  }
+
 }
 #grid-right {
   display: grid;
-  width: 50vw;// careful editing this, it's sizing the maps to the same scale
-  margin-right: 5vw;
+  width: 60vw;// careful editing this, it's sizing the maps to the same scale
+  margin-right: 2.5vw;
+  grid-template-rows: 1fr;
+  grid-template-columns: (10, 1fr);
+
+  #usa {
+    grid-column:6/16;
+    width: 100vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
+
+  }
 
 }
-
 #explain-bottom {
   margin-top: 4em;
 }
 
-//things that get reshuffled 
-#toggle-container {
-  grid-column: 1 / 3;
-  grid-row: 5 / 5;
-  margin-top: 2em;
-}
 #sntl-name,input {
   text-align:left;
 }
-#ak {
 
-}
-#usa {
-
-}
-#usa-sntl {
-
-}
-#ak-sntl {
-
-}
 @media screen and (max-width: 1024px){
  #grid-left {
    width: 90vw;
-   margin-rightt: 5vw;
+   margin-right: 2.5vw;
  }
  #grid-right {
    width: 90vw;
-   margin-left: 5vw;
+   margin-left: 40vw;
  }
  #ak {
    width: 60vw;// careful editing this, it's sizing the maps to be on the same scale
  }
+ #sntl-text {
+    grid-column: 3/6;
+
+  }
 }
 
-
-// breaks for tweaking map positions
-//
-/* @media screen and (max-width: 1024px){
-  #ak {
-  grid-column: 1 / 4;
-  grid-row: 3 / 6;
-}
-#usa {
-  grid-column: 1 / 7;
-    grid-row: 1 / 6;
-}
-#usa-sntl {
-  height: 100%;
-  max-height: 750px;
-}
-#toggle-container {
-  grid-column: 3 / 5;
-  grid-row: 1 / 1;
-}
-}
-
-@media screen and (max-width: 824px){
-  #ak {
-  grid-column: 1 / 4;
-  grid-row: 4 / 6;
-}
-#usa {
-  grid-column: 1 / 7;
-    grid-row: 1 / 6;
-}
-
-#toggle-container {
-  grid-column: 4 / 6;
-  grid-row: 1 / 1;
-}
-} */
 </style>
