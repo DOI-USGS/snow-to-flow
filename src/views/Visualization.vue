@@ -24,8 +24,13 @@
         The Second Chapter Title
       </template>
     </Chapter>
-    <Diagrams
-      id="section2"
+    <SWE />
+    <DiagramsGood 
+      id="diagrams-good"
+      class="block" 
+    />
+    <DiagramsBad 
+      id="diagrams-bad"
       class="block"
     />
     <Chapter
@@ -66,7 +71,9 @@ export default {
     components: {
       // Splash: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "section"*/ "./../components/Splash"),
       SNTLMap: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "section"*/ "./../components/SNTLmap"),
-      Diagrams: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "section"*/ "./../components/Diagrams"),
+      SWE: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SWE"*/ "./../components/SWE"),
+      DiagramsGood: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagramsgood"*/ "./../components/DiagramsGood"),
+      DiagramsBad: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagramsbad"*/ "./../components/DiagramsBad"),
       SWEanim: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "section"*/ "./../components/SWEanim"),
       Elevation: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "section"*/ "./../components/Elevation"),
       References: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "References"*/ "./../components/References"),

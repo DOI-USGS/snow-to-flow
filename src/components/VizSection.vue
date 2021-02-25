@@ -60,6 +60,9 @@ $border: 10px solid #000;
           width:100%;
         }
     }
+    img{
+      width: 100%;
+    }
 }
 /*#####FIGURE CAPTION#####*/
 
@@ -74,6 +77,14 @@ $border: 10px solid #000;
 .maxWidth{
     max-width: 1500px;
     margin: 0 auto 15px auto;
+    p {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+}
+.text-content{
+  max-width: 700px;
+  margin: 0 auto;
 }
 .single{
     text-align: center;

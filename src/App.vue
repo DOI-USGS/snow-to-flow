@@ -86,7 +86,7 @@ body {
       color: $nearBlack;
       background-color: white;
       line-height: 1.4;
-      font-size: 13pt;
+      font-size: 14pt;
       font-family: $familyMain;
       font-weight: 300;
       -webkit-font-smoothing: antialiased;
