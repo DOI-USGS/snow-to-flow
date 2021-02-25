@@ -3,10 +3,11 @@
     <Chapter
       id="chapter1"
       class="block"
-      image="image2.png"
+      image="chapter1"
+      :overlay-opacity=".5"
     >
       <template v-slot:chapterTitle>
-        The First Chapter Title
+        The timing and magnitude of snowmelt is changing across the western U.S.
       </template>
     </Chapter>
     <SNTLMap
@@ -17,6 +18,7 @@
       id="chapter2"
       class="block"
       :height="40"
+      image="chapter2"
     >
       <template v-slot:chapterTitle>
         The Second Chapter Title
@@ -29,8 +31,8 @@
     <Chapter
       id="chapter3"
       class="block"
-      image="image3.png"
       :height="70"
+      image="chapter3"
     >
       <template v-slot:chapterTitle>
         The Third Chapter Title
@@ -43,10 +45,10 @@
     <Chapter
       id="chapter4"
       class="block"
-      image="image4.png"
+      image="chapter4"
     >
       <template v-slot:chapterTitle>
-        The Fourth Chapter Title
+        Elevation
       </template>
     </Chapter>
     <Elevation

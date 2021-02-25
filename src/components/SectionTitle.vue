@@ -11,9 +11,20 @@
     </div>
     <div
       class="bg"
-      :image="image"
       :style="cssVars"
     >
+      <picture>
+        <!--Media size suggestions https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images-->
+        <source
+          media="(max-width: 799px)"
+          :srcset="require(`@/assets/titleImages/1x/${image}-1x.jpg`)"
+        >
+        <source
+          media="(min-width: 800px)"
+          :srcset="require(`@/assets/titleImages/2x/${image}-2x.jpg`)"
+        >
+        <img :src="require(`@/assets/titleImages/2x/${image}-2x.jpg`)">
+      </picture>
       <div
         v-if="overlay"
         class="overlay"
@@ -31,18 +42,22 @@ export default {
         },
         image: {
             type: String,
-            default: `image1.png`
+            default: `chapter1`
         },
         height:{
             type: Number,
             default: 100
+        },
+        overlayOpacity:{
+            type: Number,
+            default: .5
         }
     },
     computed:{
         cssVars(){
             return{
-                "--bg-image": `url(${require(`@/assets/titleImages/${this.image}`)})`,
-                "--height": `${this.height}vh`
+                "--height": `${this.height}vh`,
+                "--overlay-opacity": `${this.overlayOpacity}`
             }
         }
     }
@@ -62,19 +77,28 @@ export default {
     width: 100%;
     height: 100%;
     background: #000;
-    opacity: .3;
+    opacity: var(--overlay-opacity);
     z-index: 1;
+    top:0;
+    left: 0;
 }
 .bg{
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: var(--bg-image);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+    width:100%;
+    height:100%;
+    img{
+      object-fit: cover;
+      object-position: center center;
+      width: 100%;
+      height: 100%;
+    }
+    
+    // background-image: var(--bg-image);
+    // background-position: center;
+    // background-size: cover;
+    // background-repeat: no-repeat;
 }
 .chapterTitle{
     position: relative;
