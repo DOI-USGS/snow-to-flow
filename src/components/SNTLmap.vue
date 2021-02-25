@@ -17,46 +17,46 @@
             <p>Pepper jack melted cheese feta. Cheesy grin taleggio fromage edam boursin manchego cheese triangles parmesan. Fromage cheese and biscuits say cheese bocconcini gouda lancashire cheese slices ricotta. Rubber cheese melted cheese cheesy grin everyone loves mascarpone.</p>
             <Sidebar />
             <div id="toggle-container">
-            <h3 id="sntl-name">
-              Show snow:
-            </h3>
-            <form
-              id="showData"
-              align="left"
-            >
-              <input
-                id="inch_2020"
-                v-model="sntl_variable"
-                type="radio"
+              <h3 id="sntl-name">
+                Show snow:
+              </h3>
+              <form
+                id="showData"
                 align="left"
-                value="Percent_of_POR_Median"
-                @change="setColor()"
-              ><label for="inch_2020"> Percent of POR Median</label><br>
-              <input
-                id="inch_POR"
-                v-model="sntl_variable"
-                type="radio"
-                align="left"
-                value="Percent_of_Median_Water_Year_Peak_POR"
-                @change="setColor()"
-              ><label for="inch_POR"> Percent of Water Year Peak POR</label><br>
-              <input
-                id="inch_diff"
-                v-model="sntl_variable"
-                type="radio"
-                align="left"
-                value="POR_Median_Departure_inches"
-                @change="setColor()"
-              ><label for="inch_diff"> Snow anomaly (inch difference)</label>
-            </form>
-          </div>
+              >
+                <input
+                  id="inch_2020"
+                  v-model="sntl_variable"
+                  type="radio"
+                  align="left"
+                  value="Percent_of_POR_Median"
+                  @change="setColor()"
+                ><label for="inch_2020"> Percent of POR Median</label><br>
+                <input
+                  id="inch_POR"
+                  v-model="sntl_variable"
+                  type="radio"
+                  align="left"
+                  value="Percent_of_Median_Water_Year_Peak_POR"
+                  @change="setColor()"
+                ><label for="inch_POR"> Percent of Water Year Peak POR</label><br>
+                <input
+                  id="inch_diff"
+                  v-model="sntl_variable"
+                  type="radio"
+                  align="left"
+                  value="POR_Median_Departure_inches"
+                  @change="setColor()"
+                ><label for="inch_diff"> Snow anomaly (inch difference)</label>
+              </form>
+            </div>
           </div>
           <div
             id="ak"
             class="map-container"
           >
-        <!-- the y dimension was edited outside of R -->
-        <!-- because this is 2/3 the width of conus and they are drawn on the same pixel scale, grid needs to allocate 2/3 page widtrh to conus -->
+            <!-- the y dimension was edited outside of R -->
+            <!-- because this is 2/3 the width of conus and they are drawn on the same pixel scale, grid needs to allocate 2/3 page widtrh to conus -->
             <svg
               id="ak-sntl"
               xmlns="http://www.w3.org/2000/svg"
@@ -89,7 +89,7 @@
             </svg>
           </div>
         </div>
-        <div  id="grid-right">
+        <div id="grid-right">
           <div
             id="usa"
             class="map-container"
@@ -1592,9 +1592,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.map-grid {
-  max-height: 80vh;
-}
 //map style
 line, polyline, polygon, path, rect, circle {
       fill: none;
