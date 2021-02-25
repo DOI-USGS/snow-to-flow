@@ -7,14 +7,14 @@
     </template>    
     <!-- EXPLANATION -->
     <template v-slot:explanation>
-      <p>Text here</p>
+      <p>Pepper jack melted cheese feta. Cheesy grin taleggio fromage edam boursin manchego cheese triangles parmesan. Fromage cheese and biscuits say cheese bocconcini gouda lancashire cheese slices ricotta. Rubber cheese melted cheese cheesy grin everyone loves mascarpone.</p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
       <div class="two group map-grid">
         <figure>
           <div id="sntl-text">
-            <p>Stuff to explain.</p>
+            <p>Pepper jack melted cheese feta. Cheesy grin taleggio fromage edam boursin manchego cheese triangles parmesan. Fromage cheese and biscuits say cheese bocconcini gouda lancashire cheese slices ricotta. Rubber cheese melted cheese cheesy grin everyone loves mascarpone.</p>
             <Sidebar />
           </div>
           <div
@@ -1434,7 +1434,7 @@
     </template>
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
-      <p>
+      <p id="explain-bottom">
         Figure. Snow, measured as the daily snow-water equivalent (SWE) from snowpack telemetry (SNOTEL) sites across the western U.S.. The Preiod of Record dates as far back as 1978 for some sites.
       </p>
     </template>
@@ -1558,15 +1558,15 @@ export default {
         if (this.site_vars.setColor == this.site_vars.POR_diff) {
           this.colorValueInches = this.d3.scaleSequential()
           .domain([-16, 16])
-          .interpolator(this.d3.interpolateBrBG)
+          .interpolator(this.d3.interpolateRainbow)
         } else {
         this.colorValueInches = this.d3.scaleSequential()
           .domain([0, 200])
-          .interpolator(this.d3.interpolateBrBG)
+          .interpolator(this.d3.interpolateRainbow)
         }
 
 
-       // this is currently scaled to the snow anomaly only
+       // set color for both maps using the same color scale
        this.sntl_sites.selectAll("circle.SNTL")
           .attr("fill", function(d) { return self.colorValueInches(d[self.site_vars.setColor]) })
 
@@ -1601,7 +1601,8 @@ line, polyline, polygon, path, rect, circle {
 // map positioning
 // using grid within the figure elements 
 .map-grid {
-  height: 100vh;
+  margin-top: 1.5em;
+  height: 70vh;
 
   figure {
   display: grid;
@@ -1610,6 +1611,11 @@ line, polyline, polygon, path, rect, circle {
   grid-template-columns:repeat(5, 1fr);
   }
 }
+#explain-bottom {
+  margin-top: 4em;
+}
+
+//things that get reshuffled 
 #toggle-container {
   grid-column: 1 / 3;
   grid-row: 5 / 5;

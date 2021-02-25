@@ -8,13 +8,13 @@
     <!-- FIGURES -->
     <template v-slot:figures>
       <div class="group two maxWidth">
-        <figure><img src="@/assets/maps/rayrender.png" />
-         </figure>
-  <!--       <figure>Figure 6</figure>
+        <figure>
+          <img src="@/assets/maps/rayrender.png">
+        </figure>
+        <!--       <figure>Figure 6</figure>
         <figure>Figure 7</figure>
         <figure>Figure 8</figure> -->
       </div>
-
     </template>
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
@@ -24,7 +24,7 @@
     </template>
     <!-- EXPLANATION -->
     <template v-slot:explanation>
-      <p></p>
+      <p />
     </template>
   </VizSection>
 </template>
