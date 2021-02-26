@@ -13,8 +13,11 @@
           <svg
             id="swe-chart"
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 700 400"
-          >              
+            viewBox="0 0 750 400"
+          >   
+            <g
+              id="group">
+            </g>           
           </svg>
         </figure>
       </div>
@@ -34,10 +37,24 @@
 
 <script>
 import VizSection from '@/components/VizSection';
+import * as d3 from 'd3';
+
 export default {
     name: "SWE",
     components:{
         VizSection
+    },
+    data() {
+      return {
+         publicPath: process.env.BASE_URL,
+         message: "hey"
+      }      
+    },
+    mounted() {
+      
+    },
+    methods: {
+      
     }
 }
 </script>
