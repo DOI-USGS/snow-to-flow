@@ -9,13 +9,13 @@
     <template v-slot:figures>
       <div class="group single maxWidth">
         <figure id="swe-chart-container">
-          <img src="@/assets/diagrams/SWE-sketch.png">
-          <!-- <svg
+          <!-- <img src="@/assets/diagrams/SWE-sketch.png"> -->
+          <svg
             id="swe-chart"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 700 400"
           >              
-          </svg> -->
+          </svg>
         </figure>
       </div>
     </template>
@@ -31,6 +31,7 @@
     </template>
   </VizSection>
 </template>
+
 <script>
 import VizSection from '@/components/VizSection';
 export default {
@@ -40,14 +41,10 @@ export default {
     }
 }
 </script>
-<style lang="scss" scoped>
-    // #timing-chart {
-    //     background-color: aqua;
-    //     width: 100%;
-    //     height: 100%;
-    // }
 
-    #swe-chart-container img {
+<style lang="scss" scoped>
+    #swe-chart {
       width: 100%;
+      background-color: coral;
     }
 </style>
