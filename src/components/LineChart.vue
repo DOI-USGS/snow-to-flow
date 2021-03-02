@@ -116,12 +116,44 @@ export default {
                 .duration(this.duration)
                 .call(this.yAxis);    
                
-            // // Create an update selection: bind to the data
-            // let lineGroup = this.svg.append("g")
-            //     .attr("class","line-group")
-            //     .selectAll(".lineTest");
+            // Create an update selection: bind to the data
+            let lineGroup = this.svg.append("g")
+                .attr("class","line-group");
             
-            
+            // create groups for each line
+            let groupedData = [{
+                key: "discharge",
+                values: []
+                },{
+                key: "SWEin",
+                values: []
+                }
+            ];
+            filteredData.forEach(function (day){
+                groupedData[0].values.push(day.discharge);
+                groupedData[1].values.push(day.SWEin);
+            })
+
+            console.log("groupedData", groupedData);
+
+         
+            // Draw the lines
+            lineGroup.selectAll(".line")
+                .data(groupedData)
+                .enter()
+                .append("path")
+                    .attr("class", "line")
+                    .attr("id", function(l) { return l.key; })
+                    .attr("fill","none")
+                    .attr("stroke","black")
+                    .attr("stroke-width", 1.5)
+                    .attr("d",function(l) {
+                        return this.d3.line()
+                            .x(function(d) { return xScale(d.dateObj); })
+                            .y(this.height/2)
+                    })
+
+
             // // Create Line generator
             // let line = this.d3.line() 
             //     .x(function(d) { return this.x(d.dateObj); })
@@ -151,29 +183,25 @@ export default {
             // TEST: pick a random data point and see if it gives a number for x position in the svg
             console.log("outside",this.xScale(filteredData[500].dateObj)); 
                 // this returns a digit, yay!
+            
 
-            // append path
-            this.svg.append("path")
-                .datum(filteredData) 
-                .attr("class", "line") 
-                .attr("d", this.d3.line()
-                    .x(function(d) { 
-                        console.log("inside",this.xScale(d.dateObj));
-                            // this does not return anything and stops the code. Arg!
-                        return this.xScale(d.dateObj); }) // set the x values for the line generator
-                    .y(function(d) { return this.yScale(d.SWEin); }) // set the y values for the line generator 
-                    .curve(this.d3.curveMonotoneX)); // 11. Calls the line generator 
+            // // append path
+            // lineGroup
+            //     .enter()
+            //     .append("path")
+            //     .data(filteredData) 
+            //     .attr("class", "line") 
+            //     .merge()
+            //     .transition()
+            //     .duration(this.duration)
+            //     .attr("d", this.d3.line()
+            //         .x(function(d){ console.log('inside', d); return this.xScale(d.dateObj); })
+            //         .y(this.height/2)
+            //         .curve(this.d3.curveMonotoneX)); // 11. Calls the line generator 
 
     
 
 
-            //this.calculatePath(filteredData)
-
-
-        },
-        calculatePath(filteredData) {
-            const self=this;
-            
         }
     }
 }
@@ -182,6 +210,11 @@ export default {
 <style scoped>
     #swe-chart {
         background-color: coral;
+    }
+
+    .line {
+        stroke: black;
+        stroke-width: 2px;
     }
 
  
