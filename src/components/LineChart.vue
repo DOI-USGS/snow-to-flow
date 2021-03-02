@@ -28,7 +28,7 @@ export default {
             svg: null, // not sure
             width: null,
             height: null,
-            margin: { top: 10, right: 50, bottom: 10, left: 50 },
+            margin: { top: 50, right: 50, bottom: 50, left: 50 },
             timeFormat: "%Y",
             x: null,
             y: null,
@@ -63,57 +63,117 @@ export default {
             // set chart defaults
 
             // draw the chart
-            this.initChart();
+            this.initChart(this.sweAndDischarge);
         }, 
-        initChart() {
+        initChart(data) {
             const self=this;
+            console.log(data, "aaaand we can access the data from here too yay!")
 
-            console.log(this.sweAndDischarge, "aaaand we can access the data from here too yay!")
-
+            // Set dimensions of SVG for chart
             this.svg = this.d3.select("#swe-chart")
                 .attr("width", this.width)
                 .attr("height", this.height);
 
-            // initialize x axis
-            this.x = this.d3.scaleTime().range(0,this.width);
-            this.xAxis = this.d3.axisBottom(this.x).tickFormat(this.d3.timeFormat(this.timeFormat));
-            this.svg.append("g")
-                .attr("transform", `translate(0,${this.height-50})`)
-                .attr("class","xAxis");
-
-            // initialize Y axis
-            this.y = d3.scaleLinear().range([this.height, 0]);
-            this.yAxis = this.d3.axisBottom(this.y);
-            this.svg.append("g")
-                .attr("class","yAxis");
-            
-            this.drawChart();
-        },
-        drawChart() {
-            console.log(this.sweAndDischarge, "what about here?")
-
-            // do something to select data and process time
-            let filteredData = this.sweAndDischarge;
+            // make a copy of the dataset for editing
+            let filteredData = data;
+            console.log(filteredData, "what about here?")
 
             // add a date object to each date in the array
             let parseTime = this.d3.timeParse("%m/%d/%Y");
             filteredData.forEach(function(day){
-                day.dateObj = parseTime(day.date);
-            })
+                    day.dateObj = parseTime(day.date);
+                })
 
-            // // compute the date range
-            // let dates = filteredData.map(function(day){
-            //     return day.dateObj;
-            // })
-
-            console.log(this.width, "this.x")
+            // create data accessors, haven't implemented them yet
+            const yAccessor = (d) => parseInt(d.SWEin); 
+            const xAccessor = (d) => parseTime(d.dateObj);            
+            
                 
-            // populate the x axis
-            this.x.domain(this.d3.extent(filteredData, function(d) { return d.dateObj; })); // calculates min and max of the array of possible dates in the filtered dataset
-            this.svg.selectAll(".xAxis").transition()
+            // Create X Axis
+            this.xScale = this.d3.scaleTime()
+                .domain(this.d3.extent(filteredData, function(d) { return d.dateObj; })) // calculates min and max of the array of possible dates in the filtered dataset
+                .range([0,this.width-this.margin.left-this.margin.right]);
+            this.xAxis = this.d3.axisBottom(this.xScale).tickFormat(this.d3.timeFormat(this.timeFormat));
+            this.svg.append("g")
+                .attr("transform", `translate(${this.margin.left},${this.height-this.margin.top})`)
+                .attr("class","xAxis");       
+            this.svg.selectAll(".xAxis")
+                .transition()
                 .duration(this.duration)
                 .call(this.xAxis);
 
+
+            // Create Y Axis
+            this.yScale = this.d3.scaleLinear()
+                .domain(this.d3.extent(filteredData, function(d) { return d.SWEin; }))
+                .range([this.height-this.margin.bottom, this.margin.top]);
+            this.yAxis = this.d3.axisLeft(this.yScale);
+            this.svg.append("g")
+                .attr("transform", `translate(${this.margin.left},0)`)
+                .attr("class","yAxis");   
+            this.svg.selectAll(".yAxis")
+                .transition()
+                .duration(this.duration)
+                .call(this.yAxis);    
+               
+            // // Create an update selection: bind to the data
+            // let lineGroup = this.svg.append("g")
+            //     .attr("class","line-group")
+            //     .selectAll(".lineTest");
+            
+            
+            // // Create Line generator
+            // let line = this.d3.line() 
+            //     .x(function(d) { return this.x(d.dateObj); })
+            //     .y(function(d) { return this.y(d.SWEin); })
+            //     .curve(this.d3.curveCardinal);
+
+            // // Update Line
+            // lineGroup.enter()
+            //     .append("path")
+            //     .datum(filteredData)
+            //     .attr("class","lineTest")
+            //     .merge(update)
+            //     .transition()
+            //     .duration(this.duration)
+            //     .attr("d",line)
+            //     .attr("fill", "none")
+            //     .attr("stroke", "steelblue")
+            //     .attr("stroke-width", 2.5) 
+        
+
+            // // line generator
+            // let line = this.d3.line()
+            //     .x(function(d) { console.log(this.xScale(d.dateObj)); return this.xScale(d.dateObj); }) // set the x values for the line generator
+            //     .y(function(d) { return this.yScale(d.SWEin); }) // set the y values for the line generator 
+            //     .curve(this.d3.curveMonotoneX) // apply smoothing to the line
+
+            // TEST: pick a random data point and see if it gives a number for x position in the svg
+            console.log("outside",this.xScale(filteredData[500].dateObj)); 
+                // this returns a digit, yay!
+
+            // append path
+            this.svg.append("path")
+                .datum(filteredData) 
+                .attr("class", "line") 
+                .attr("d", this.d3.line()
+                    .x(function(d) { 
+                        console.log("inside",this.xScale(d.dateObj));
+                            // this does not return anything and stops the code. Arg!
+                        return this.xScale(d.dateObj); }) // set the x values for the line generator
+                    .y(function(d) { return this.yScale(d.SWEin); }) // set the y values for the line generator 
+                    .curve(this.d3.curveMonotoneX)); // 11. Calls the line generator 
+
+    
+
+
+            //this.calculatePath(filteredData)
+
+
+        },
+        calculatePath(filteredData) {
+            const self=this;
+            
         }
     }
 }
