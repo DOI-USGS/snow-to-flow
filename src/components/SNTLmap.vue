@@ -17,46 +17,38 @@
             <p>Pepper jack melted cheese feta. Cheesy grin taleggio fromage edam boursin manchego cheese triangles parmesan. Fromage cheese and biscuits say cheese bocconcini gouda lancashire cheese slices ricotta. Rubber cheese melted cheese cheesy grin everyone loves mascarpone.</p>
             <Sidebar />
             <div id="toggle-container">
-              <h3 id="sntl-name">
-                Show snow:
-              </h3>
-              <form
-                id="showData"
+            <h3 id="sntl-name">
+              Show snow:
+            </h3>
+            <form
+              id="showData"
+              align="left"
+            >
+              <input
+                id="inch_2020"
+                v-model="sntl_variable"
+                type="radio"
                 align="left"
-              >
-                <input
-                  id="inch_2020"
-                  v-model="sntl_variable"
-                  type="radio"
-                  align="left"
-                  value="Percent_of_POR_Median"
-                  @change="setColor()"
-                ><label for="inch_2020"> Percent of POR Median</label><br>
-                <input
-                  id="inch_POR"
-                  v-model="sntl_variable"
-                  type="radio"
-                  align="left"
-                  value="Percent_of_Median_Water_Year_Peak_POR"
-                  @change="setColor()"
-                ><label for="inch_POR"> Percent of Water Year Peak POR</label><br>
-                <input
-                  id="inch_diff"
-                  v-model="sntl_variable"
-                  type="radio"
-                  align="left"
-                  value="POR_Median_Departure_inches"
-                  @change="setColor()"
-                ><label for="inch_diff"> Snow anomaly (inch difference)</label>
-              </form>
-            </div>
+                value="perd_peak"
+                @change="setColor()"
+              ><label for="inch_2020"> Peak SWE - Magnitude</label><br>
+              <input
+                id="inch_POR"
+                v-model="sntl_variable"
+                type="radio"
+                align="left"
+                value="perd_sm50"
+                @change="setColor()"
+              ><label for="inch_POR"> SM50 - Timing</label><br>
+            </form>
+          </div>
           </div>
           <div
             id="ak"
             class="map-container"
           >
-            <!-- the y dimension was edited outside of R -->
-            <!-- because this is 2/3 the width of conus and they are drawn on the same pixel scale, grid needs to allocate 2/3 page widtrh to conus -->
+        <!-- the y dimension was edited outside of R -->
+        <!-- because this is 2/3 the width of conus and they are drawn on the same pixel scale, grid needs to allocate 2/3 page widtrh to conus -->
             <svg
               id="ak-sntl"
               xmlns="http://www.w3.org/2000/svg"
@@ -89,7 +81,7 @@
             </svg>
           </div>
         </div>
-        <div id="grid-right">
+        <div  id="grid-right">
           <div
             id="usa"
             class="map-container"
@@ -1437,25 +1429,12 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p id="explain-bottom">
-        Snow, measured as the daily snow-water equivalent (SWE) from snowpack telemetry (SNOTEL) sites across the western U.S.. The Preiod of Record dates as far back as 1978 for some sites.
+        Snow, measured as the daily snow-water equivalent (SWE) from snowpack telemetry (SNOTEL) sites across the western U.S.. The Period of Record dates as far back as 1978 at most, but not all sites. Each site shows the percent change in snow magnitude (peak SWE) and timing (SM50) between this year and the past. 
       </p>
     </template>
     <!-- EXPLANATION -->
     <template v-slot:explanation>
-      <p>Stuff to explain.</p>
-      <Sidebar>
-        <template v-slot:sidebarTitle>
-          What is SWE?
-        </template>
-        <template v-slot:sidebarMessage>
-          Donec mattis ultrices pretium. Pellentesque auctor velit quis risus lacinia, quis lobortis mauris semper. 
-          Vestibulum euismod sapien velit, id malesuada eros feugiat id. Maecenas feugiat maximus porta. Maecenas 
-          ullamcorper mi et consectetur porttitor. Maecenas ut suscipit eros. Nulla imperdiet turpis ut nisl pulvinar 
-          fermentum. Nam vitae placerat mi. Maecenas ac felis lorem. Phasellus quis purus sit amet odio molestie tincidunt. 
-          Suspendisse potenti. Aliquam eu velit pretium, condimentum diam sed, eleifend ipsum. Suspendisse condimentum arcu 
-          vel egestas suscipit.
-        </template>
-      </Sidebar>
+      <p></p>
       <Sidebar />
     </template>
   </VizSection>
@@ -1475,7 +1454,7 @@ export default {
               publicPath: process.env.BASE_URL,
               d3: null,
 
-              sntl_variable: "POR_Median_Departure_inches", // starting variable to map site colors
+              sntl_variable: "perd_peak", // starting variable to map site colors
               sntl_data: [], // sntl data
               ak_data: [],
 
@@ -1493,12 +1472,20 @@ export default {
                 POR_Median_percent: 'Percent_of_POR_Median', 
                 POR_Peak_percent:'Percent_of_Median_Water_Year_Peak_POR',
                 Peak_percent:'Percent_of_Water_Year_Peak',
+                diff_peak: 'diff_peak',
+                diff_sm50: 'diff_sm50',
+                perd_peak: 'perd_peak',
+                perd_sm50: 'perd_sm50',
+                perpast_peak: 'perpast_peak',
+                perpast_sm50: 'perpast_sm50',
+                anom_peak: 'anom_peak',
+                anom_sm50: 'anom_sm50'
                 },
 
               // chart opts
               xScale: null,
               yScale: null,
-              site_radius: 3,
+              site_radius: 2.2,
               colorValueInches: null,
             }
         },
@@ -1519,8 +1506,8 @@ export default {
       loadData() {
         const self = this;
         // read in data 
-        let promises = [self.d3.csv(self.publicPath + "data/sntl_data.csv", this.d3.autoType),
-        self.d3.csv(self.publicPath + "data/ak_data.csv", this.d3.autoType)];
+        let promises = [self.d3.csv(self.publicPath + "data/conus_por_2020.csv", this.d3.autoType),
+        self.d3.csv(self.publicPath + "data/ak_por_2020.csv", this.d3.autoType)];
 
         Promise.all(promises).then(self.callback); 
       },
@@ -1592,6 +1579,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.map-grid {
+  max-height: 80vh;
+}
 //map style
 line, polyline, polygon, path, rect, circle {
       fill: none;
@@ -1650,6 +1640,7 @@ line, polyline, polygon, path, rect, circle {
 
 #sntl-name,input {
   text-align:left;
+  z-index: 1;
 }
 
 @media screen and (max-width: 1024px){
@@ -1664,10 +1655,6 @@ line, polyline, polygon, path, rect, circle {
  #ak {
    width: 60vw;// careful editing this, it's sizing the maps to be on the same scale
  }
- #sntl-text {
-    grid-column: 3/6;
-
-  }
 }
 
 </style>
