@@ -115,10 +115,24 @@ export default {
                 .transition()
                 .duration(this.duration)
                 .call(this.yAxis);    
+
+            // Create Second Y Axis for Discharge
+            this.yScaleDisch = this.d3.scaleLinear()
+                .domain(this.d3.extent(filteredData, function(d) { return d.discharge; }))
+                .range([this.height-this.margin.bottom, this.margin.top]);
+            this.yAxisDisch = this.d3.axisRight(this.yScaleDisch);
+            this.svg.append("g")
+                .attr("transform", `translate(${this.width-this.margin.right},0)`)
+                .attr("class","yAxisDisch");   
+            this.svg.selectAll(".yAxisDisch")
+                .transition()
+                .duration(this.duration)
+                .call(this.yAxisDisch);    
                
             // Create an update selection: bind to the data
             let lineGroup = this.svg.append("g")
-                .attr("class","line-group");
+                .attr("class","line-group")
+                .attr("transform", `translate(${this.margin.left},0})`);
             
             // create groups for each line
             let groupedData = [{
@@ -138,7 +152,7 @@ export default {
                     dateObj: day.dateObj,
                     n: day.SWEin
                 }
-                groupedData[0].values.push(todaysDischarge);
+                // groupedData[0].values.push(todaysDischarge);
                 groupedData[1].values.push(todaysSWE);
             })
 
@@ -180,15 +194,16 @@ export default {
                 .append("path")
                     .attr("class","line")
                     .attr("fill", "none")
-                    .attr("stroke", "steelblue")
-                    .attr("stroke-width", 2.5) 
+                    .attr("stroke", "white")
+                    .attr("stroke-width", 1) 
                     .attr("d", function(d){
                         console.log("inside", d)
                         return d3.line()
+                            // .curve(this.d3.curveMonotoneX)
                             .x(function(d) { return self.xScale(d.dateObj)})
                             .y(function(d) { return self.yScale(d.n)})
                             (d.values)
-
+                            
                     })
                 .merge()
                 .transition()
