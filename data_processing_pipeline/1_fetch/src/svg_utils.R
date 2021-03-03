@@ -238,6 +238,9 @@ build_svg_map(svg_fp = '6_visualize/out/ak_sites.svg',
               sntl_fp = '1_fetch/out/SNOTEL_sites_ak.shp')
 
 
+## get AK bbox
+states_map <- get_map_extent(proj_str=proj_ak, state_ext="Alaska", state_path= 'cb_2018_us_state_5m')
+st_bbox(states_map)
 
 # to be finished ----------------------------------------------------------
 
