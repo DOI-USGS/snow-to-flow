@@ -7,7 +7,7 @@
                     x="20"
                     y="35"
                     >
-                    words!
+                    lines!
                 </text>
             </g>
         </svg>
@@ -130,48 +130,71 @@ export default {
                 }
             ];
             filteredData.forEach(function (day){
-                groupedData[0].values.push(day.discharge);
-                groupedData[1].values.push(day.SWEin);
+                var todaysDischarge = {
+                    dateObj: day.dateObj,
+                    n: day.discharge
+                }
+                var todaysSWE = {
+                    dateObj: day.dateObj,
+                    n: day.SWEin
+                }
+                groupedData[0].values.push(todaysDischarge);
+                groupedData[1].values.push(todaysSWE);
             })
 
             console.log("groupedData", groupedData);
 
          
-            // Draw the lines
+            // // Draw the lines
+            // lineGroup.selectAll(".line")
+            //     .data(groupedData)
+            //     .enter()
+            //     .append("path")
+            //         .attr("class", "line")
+            //         .attr("id", function(l) { return l.key; })
+            //         .attr("fill","none")
+            //         .attr("stroke","black")
+            //         .attr("stroke-width", 1.5)
+            //         .attr("d",function(l) {
+            //             return this.d3.line()
+            //                 .x(function(d) { return xScale(d.dateObj); })
+            //                 .y(this.height/2)
+            //         })
+
+
+            // // For just one line
+            // console.log("outside",this.xScale(filteredData[500].dateObj))
+            // // Create Line generator
+            // let line = this.d3.line() 
+            //     .x(function(d) { console.log("inside", self.xScale(filteredData[500].dateObj)); return self.xScale(d.dateObj); })
+            //     .y(function(d) { return self.yScale(d.SWEin); })
+            //     .curve(this.d3.curveCardinal);
+
+
+        
+
+            // Update Line
             lineGroup.selectAll(".line")
                 .data(groupedData)
                 .enter()
                 .append("path")
-                    .attr("class", "line")
-                    .attr("id", function(l) { return l.key; })
-                    .attr("fill","none")
-                    .attr("stroke","black")
-                    .attr("stroke-width", 1.5)
-                    .attr("d",function(l) {
-                        return this.d3.line()
-                            .x(function(d) { return xScale(d.dateObj); })
-                            .y(this.height/2)
+                    .attr("class","line")
+                    .attr("fill", "none")
+                    .attr("stroke", "steelblue")
+                    .attr("stroke-width", 2.5) 
+                    .attr("d", function(d){
+                        console.log("inside", d)
+                        return d3.line()
+                            .x(function(d) { return self.xScale(d.dateObj)})
+                            .y(function(d) { return self.yScale(d.n)})
+                            (d.values)
+
                     })
-
-
-            // // Create Line generator
-            // let line = this.d3.line() 
-            //     .x(function(d) { return this.x(d.dateObj); })
-            //     .y(function(d) { return this.y(d.SWEin); })
-            //     .curve(this.d3.curveCardinal);
-
-            // // Update Line
-            // lineGroup.enter()
-            //     .append("path")
-            //     .datum(filteredData)
-            //     .attr("class","lineTest")
-            //     .merge(update)
-            //     .transition()
-            //     .duration(this.duration)
-            //     .attr("d",line)
-            //     .attr("fill", "none")
-            //     .attr("stroke", "steelblue")
-            //     .attr("stroke-width", 2.5) 
+                .merge()
+                .transition()
+                .duration(this.duration)
+                
+                
         
 
             // // line generator
