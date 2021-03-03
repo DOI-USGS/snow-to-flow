@@ -29,9 +29,10 @@ export default {
             width: null,
             height: null,
             margin: { top: 50, right: 50, bottom: 50, left: 50 },
-            timeFormat: "%Y",
+            timeFormat: "%B",
             x: null,
             y: null,
+            selectedYear: null, // this can be selected by a button
 
             // animation elements
             duration: 1000 // 1 second
@@ -74,15 +75,21 @@ export default {
                 .attr("width", this.width)
                 .attr("height", this.height);
 
-            // make a copy of the dataset for editing
-            let filteredData = data;
-            console.log(filteredData, "what about here?")
-
-            // add a date object to each date in the array
+             // add a date object to each date in the array
             let parseTime = this.d3.timeParse("%m/%d/%Y");
-            filteredData.forEach(function(day){
+        
+            // make a copy of the dataset for editing
+            data.forEach(function(day){
                     day.dateObj = parseTime(day.date);
                 })
+    
+            let filteredData = data.filter(function(day){
+                return day.dateObj.getFullYear() === 2011 // make this a variable selected by interaction
+            })
+
+            console.log(filteredData, "what about here?")
+
+            
 
             // create data accessors, haven't implemented them yet
             const yAccessor = (d) => parseInt(d.SWEin); 
@@ -157,34 +164,6 @@ export default {
             })
 
             console.log("groupedData", groupedData);
-
-         
-            // // Draw the lines
-            // lineGroup.selectAll(".line")
-            //     .data(groupedData)
-            //     .enter()
-            //     .append("path")
-            //         .attr("class", "line")
-            //         .attr("id", function(l) { return l.key; })
-            //         .attr("fill","none")
-            //         .attr("stroke","black")
-            //         .attr("stroke-width", 1.5)
-            //         .attr("d",function(l) {
-            //             return this.d3.line()
-            //                 .x(function(d) { return xScale(d.dateObj); })
-            //                 .y(this.height/2)
-            //         })
-
-
-            // // For just one line
-            // console.log("outside",this.xScale(filteredData[500].dateObj))
-            // // Create Line generator
-            // let line = this.d3.line() 
-            //     .x(function(d) { console.log("inside", self.xScale(filteredData[500].dateObj)); return self.xScale(d.dateObj); })
-            //     .y(function(d) { return self.yScale(d.SWEin); })
-            //     .curve(this.d3.curveCardinal);
-
-
         
 
             // Update Line
