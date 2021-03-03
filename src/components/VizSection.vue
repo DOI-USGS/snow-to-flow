@@ -6,6 +6,9 @@
           Take Away Title
         </slot>
       </div>
+      <div class="aboveExplanation explanation">
+        <slot name="aboveExplanation" />
+      </div>
       <div class="figures">
         <slot name="figures">
           Figure(s)
@@ -16,8 +19,8 @@
           Figure Caption
         </slot>
       </div>
-      <div class="explanation">
-        <slot name="explanation">
+      <div class="belowExplanation explanation">
+        <slot name="belowExplanation">
           Explanation
         </slot>
       </div>

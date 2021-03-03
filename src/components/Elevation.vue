@@ -7,8 +7,8 @@
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
-      <div class="group two maxWidth">
-        <figure>
+      <div class="group maxWidth center">
+        <figure class="elevation">
           <img src="@/assets/maps/rayrender.png">
         </figure>
         <!--       <figure>Figure 6</figure>
@@ -37,6 +37,8 @@ export default {
     }
 }
 </script>
-<style lang="sass" scoped>
-
+<style lang="scss" scoped>
+.elevation{
+  max-width: 730px;
+}
 </style>
