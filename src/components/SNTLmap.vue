@@ -6,49 +6,48 @@
       <h2>The timing and magnitude of snowmelt is changing across the western U.S.</h2>
     </template>    
     <!-- EXPLANATION -->
-    <template v-slot:explanation>
+    <template v-slot:aboveExplanation>
       <p>Pepper jack melted cheese feta. Cheesy grin taleggio fromage edam boursin manchego cheese triangles parmesan. Fromage cheese and biscuits say cheese bocconcini gouda lancashire cheese slices ricotta. Rubber cheese melted cheese cheesy grin everyone loves mascarpone.</p>
+      <Sidebar />
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
       <div class="two group map-grid">
         <div id="grid-left">
           <div id="sntl-text">
-            <p>Pepper jack melted cheese feta. Cheesy grin taleggio fromage edam boursin manchego cheese triangles parmesan. Fromage cheese and biscuits say cheese bocconcini gouda lancashire cheese slices ricotta. Rubber cheese melted cheese cheesy grin everyone loves mascarpone.</p>
-            <Sidebar />
             <div id="toggle-container">
-            <h3 id="sntl-name">
-              Show snow:
-            </h3>
-            <form
-              id="showData"
-              align="left"
-            >
-              <input
-                id="inch_2020"
-                v-model="sntl_variable"
-                type="radio"
+              <h3 id="sntl-name">
+                Show snow:
+              </h3>
+              <form
+                id="showData"
                 align="left"
-                value="perd_peak"
-                @change="setColor()"
-              ><label for="inch_2020"> Peak SWE - Magnitude</label><br>
-              <input
-                id="inch_POR"
-                v-model="sntl_variable"
-                type="radio"
-                align="left"
-                value="perd_sm50"
-                @change="setColor()"
-              ><label for="inch_POR"> SM50 - Timing</label><br>
-            </form>
-          </div>
+              >
+                <input
+                  id="inch_2020"
+                  v-model="sntl_variable"
+                  type="radio"
+                  align="left"
+                  value="perd_peak"
+                  @change="setColor()"
+                ><label for="inch_2020"> Peak SWE - Magnitude</label><br>
+                <input
+                  id="inch_POR"
+                  v-model="sntl_variable"
+                  type="radio"
+                  align="left"
+                  value="perd_sm50"
+                  @change="setColor()"
+                ><label for="inch_POR"> SM50 - Timing</label><br>
+              </form>
+            </div>
           </div>
           <div
             id="ak"
             class="map-container"
           >
-        <!-- the y dimension was edited outside of R -->
-        <!-- because this is 2/3 the width of conus and they are drawn on the same pixel scale, grid needs to allocate 2/3 page widtrh to conus -->
+            <!-- the y dimension was edited outside of R -->
+            <!-- because this is 2/3 the width of conus and they are drawn on the same pixel scale, grid needs to allocate 2/3 page widtrh to conus -->
             <svg
               id="ak-sntl"
               xmlns="http://www.w3.org/2000/svg"
@@ -81,7 +80,7 @@
             </svg>
           </div>
         </div>
-        <div  id="grid-right">
+        <div id="grid-right">
           <div
             id="usa"
             class="map-container"
@@ -1434,7 +1433,7 @@
     </template>
     <!-- EXPLANATION -->
     <template v-slot:explanation>
-      <p></p>
+      <p />
       <Sidebar />
     </template>
   </VizSection>
@@ -1579,9 +1578,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.map-grid {
-  max-height: 80vh;
-}
 //map style
 line, polyline, polygon, path, rect, circle {
       fill: none;
