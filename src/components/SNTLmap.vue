@@ -7,7 +7,7 @@
     </template>    
     <!-- EXPLANATION -->
     <template v-slot:aboveExplanation>
-     <p>Historically, April 1st has been an important date for assessing annual snow accumulation across the western U.S. Compared to the historical record for this date, 2021 is shaping to be considerably dry. While interannual variation in peak SWE is normal and fluctuates with natural climatological patterns, an exceptionally dry or wet season can have dramatic impacts to the water supply.</p>
+     <p>General concept: Historically, April 1st has been an important date for assessing annual snow accumulation. Compared to the historical record for this date, 2021 is shaping to be considerably dry in many regions of the western U.s.. While interannual variation in peak SWE is normal and fluctuates with natural climatological patterns, an exceptionally dry or wet season can have dramatic impacts to the water supply in locations where snowmelt is a major source of freshwater.</p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
@@ -1429,13 +1429,13 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p id="explain-bottom">
-        Snow, measured as the daily snow-water equivalent (SWE) from snowpack telemetry (SNOTEL) sites across the western U.S.. The Period of Record dates as far back as 1978 at most, but not all sites. Each site shows the percent change in snow magnitude (peak SWE) and timing (SM50) between this year and the past. 
+        The map above shows the percent change of snow on April 1st, 2021 compared to the historic record (1981-2010). Snow quantity is measured as the daily snow-water equivalent (SWE) from <a href="https://www.wcc.nrcs.usda.gov/snow/" target ="_blank" >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the western U.S.</a>.  
       </p>
     </template>
     <!-- EXPLANATION -->
-    <template v-slot:explanation>
+ <!--    <template v-slot:explanation>
       <p />
-    </template>
+    </template> -->
   </VizSection>
 </template>
 <script>
@@ -1483,7 +1483,7 @@ export default {
               // chart opts
               xScale: null,
               yScale: null,
-              site_radius: 2.2,
+              site_radius: 2,
               colorValueInches: null,
             }
         },
@@ -1504,8 +1504,8 @@ export default {
       loadData() {
         const self = this;
         // read in data 
-        let promises = [self.d3.csv(self.publicPath + "data/conus_por_2020.csv", this.d3.autoType),
-        self.d3.csv(self.publicPath + "data/ak_por_2020.csv", this.d3.autoType)];
+        let promises = [self.d3.csv(self.publicPath + "data/conus_por_2021.csv", this.d3.autoType),
+        self.d3.csv(self.publicPath + "data/ak_por_2021.csv", this.d3.autoType)];
 
         Promise.all(promises).then(self.callback); 
       },
@@ -1542,7 +1542,9 @@ export default {
           .attr("cx", function (d) { return self.xScale(d.x); })
           .attr("cy", function (d) { return self.yScale(d.y); } )
           .classed("SNTL",  true)
-          .attr("opacity", .6)
+          .attr("opacity", .8)
+          .attr("stroke", "black")
+          .attr("stroke-width", .5)
           .attr("r", this.site_radius);
 
         self.setColor(data, sites); // set initial site color
@@ -1557,11 +1559,11 @@ export default {
         if (this.site_vars.setColor == this.site_vars.POR_diff) {
           this.colorValueInches = this.d3.scaleSequential()
           .domain([-16, 16])
-          .interpolator(this.d3.interpolateRainbow)
+          .interpolator(this.d3.interpolateBrBG)
         } else {
         this.colorValueInches = this.d3.scaleSequential()
-          .domain([0, 200])
-          .interpolator(this.d3.interpolateRainbow)
+          .domain([-50, 50])
+          .interpolator(this.d3.interpolateBrBG)
         }
 
 
@@ -1571,8 +1573,10 @@ export default {
 
           this.ak_sites.selectAll("circle.SNTL")
           .attr("fill", function(d) { return self.colorValueInches(d[self.site_vars.setColor]) })
-          
-      }
+
+
+      
+    }
   }
 }
 </script>
@@ -1603,7 +1607,7 @@ line, polyline, polygon, path, rect, circle {
 // using grid within the figure elements 
 #grid-left {
   display: grid;
-  width: 40vw; // careful editing this, it's sizing the maps to the same scale
+  width: 30vw; // careful editing this, it's sizing the maps to the same scale
   height: 100%;
   margin-left: 2.5vw;
   grid-template-rows: 35% 1fr;
@@ -1621,14 +1625,14 @@ line, polyline, polygon, path, rect, circle {
 }
 #grid-right {
   display: grid;
-  width: 60vw;// careful editing this, it's sizing the maps to the same scale
+  width: 70vw;// careful editing this, it's sizing the maps to the same scale
   margin-right: 2.5vw;
   grid-template-rows: 1fr;
   grid-template-columns: (10, 1fr);
 
   #usa {
     grid-column:6/16;
-    width: 75vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
+    width: 90vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
 
   }
 
@@ -1645,7 +1649,12 @@ line, polyline, polygon, path, rect, circle {
 @media screen and (max-width: 1024px){
  #grid-left {
    width: 90vw;
-   margin-right: 2.5vw;
+   margin-right: 2.5vw; 
+    #sntl-text {
+    grid-column:4/6;
+    grid-row:1/3;
+
+  }
  }
  #grid-right {
    width: 90vw;
@@ -1654,6 +1663,7 @@ line, polyline, polygon, path, rect, circle {
  #ak {
    width: 60vw;// careful editing this, it's sizing the maps to be on the same scale
  }
+
 }
 
 </style>
