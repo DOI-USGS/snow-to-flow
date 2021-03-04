@@ -3,12 +3,11 @@
   <VizSection id="firstSection">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>The timing and magnitude of snowmelt is changing across the western U.S.</h2>
+      <h2>2021 is on track to be a low snow year</h2>
     </template>    
     <!-- EXPLANATION -->
     <template v-slot:aboveExplanation>
-      <p>Pepper jack melted cheese feta. Cheesy grin taleggio fromage edam boursin manchego cheese triangles parmesan. Fromage cheese and biscuits say cheese bocconcini gouda lancashire cheese slices ricotta. Rubber cheese melted cheese cheesy grin everyone loves mascarpone.</p>
-      <Sidebar />
+     <p>Historically, April 1st has been an important date for assessing annual snow accumulation across the western U.S. Compared to the historical record for this date, 2021 is shaping to be considerably dry. While interannual variation in peak SWE is normal and fluctuates with natural climatological patterns, an exceptionally dry or wet season can have dramatic impacts to the water supply.</p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
@@ -89,7 +88,7 @@
             <svg
               id="usa-sntl"
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="-100 0 900 570"
+              viewBox="-200 0 900 570"
               preserveAspectRatio="xMinYMin slice"
             >
             <image href="@/assets/maps/conus_hillshade_10-01.png"  height="100%" width="100%"/>
@@ -1436,19 +1435,17 @@
     <!-- EXPLANATION -->
     <template v-slot:explanation>
       <p />
-      <Sidebar />
     </template>
   </VizSection>
 </template>
 <script>
 import VizSection from '@/components/VizSection';
 import * as d3Base from "d3";
-import Sidebar from "@/components/Sidebar";
+
 export default {
     name: "Test",
     components:{
-        VizSection,
-        Sidebar
+        VizSection
     },
     data() {
             return {
@@ -1580,8 +1577,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.map-container {
-  
+.grid-left, .grid-right {
+  max-height: 70vh;
 }
 //map style
 line, polyline, polygon, path, rect, circle {
@@ -1613,12 +1610,11 @@ line, polyline, polygon, path, rect, circle {
   grid-template-columns: (10, 1fr);
 
   #sntl-text {
-    grid-column: 1/5;
+    grid-column: 2/3;
 
   }
   #ak {
-   width: 80vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
-   //grid-column:6/16;
+   width: 60vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
    grid-column: 1/5;
   }
 
@@ -1632,7 +1628,7 @@ line, polyline, polygon, path, rect, circle {
 
   #usa {
     grid-column:6/16;
-    width: 100vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
+    width: 75vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
 
   }
 
@@ -1641,7 +1637,7 @@ line, polyline, polygon, path, rect, circle {
   margin-top: 4em;
 }
 
-#sntl-name,input {
+#sntl-name, input {
   text-align:left;
   z-index: 1;
 }
