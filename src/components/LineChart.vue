@@ -161,11 +161,8 @@ export default {
                 }
                 // groupedData[0].values.push(todaysDischarge);
                 groupedData[1].values.push(todaysSWE);
-            })
-
-            console.log("groupedData", groupedData);
-        
-
+            })        
+  
             // Update Line
             lineGroup.selectAll(".line")
                 .data(groupedData)
@@ -176,48 +173,26 @@ export default {
                     .attr("stroke", "white")
                     .attr("stroke-width", 1) 
                     .attr("d", function(d){
-                        console.log("inside", d)
                         return d3.line()
                             // .curve(this.d3.curveMonotoneX)
                             .x(function(d) { return self.xScale(d.dateObj)})
                             .y(function(d) { return self.yScale(d.n)})
                             (d.values)
-                            
-                    })
-                .merge()
-                .transition()
-                .duration(this.duration)
-                
-                
-        
-
-            // // line generator
-            // let line = this.d3.line()
-            //     .x(function(d) { console.log(this.xScale(d.dateObj)); return this.xScale(d.dateObj); }) // set the x values for the line generator
-            //     .y(function(d) { return this.yScale(d.SWEin); }) // set the y values for the line generator 
-            //     .curve(this.d3.curveMonotoneX) // apply smoothing to the line
-
-            // TEST: pick a random data point and see if it gives a number for x position in the svg
-            console.log("outside",this.xScale(filteredData[500].dateObj)); 
-                // this returns a digit, yay!
+                    });
+                // .merge()
+                // .transition()
+                // .duration(this.duration);
+                 console.log("what's happening??!");
+            // add annotation
             
-
-            // // append path
-            // lineGroup
-            //     .enter()
-            //     .append("path")
-            //     .data(filteredData) 
-            //     .attr("class", "line") 
-            //     .merge()
-            //     .transition()
-            //     .duration(this.duration)
-            //     .attr("d", this.d3.line()
-            //         .x(function(d){ console.log('inside', d); return this.xScale(d.dateObj); })
-            //         .y(this.height/2)
-            //         .curve(this.d3.curveMonotoneX)); // 11. Calls the line generator 
-
-    
-
+            // find date of peak swe
+           
+            // let peakSWE = filteredData.reduce((acc, day) => {
+            //     return acc + day.SWEin;
+            // });
+            let peakSWE = Math.max.apply(Math.filteredData.map(function(o){return o.SWEin;}));
+            console.log(peakSWE,"Peak")
+            
 
         }
     }
