@@ -8,10 +8,10 @@
     <!-- FIGURES -->
     <template v-slot:figures>
       <div class="group two maxWidth">
-        <figure id="fire-before">
+        <figure id="good-snow">
           <img src="@/assets/diagrams/Diagrams_snow-good.png">
         </figure>
-        <figure id="fire-after">
+        <figure id="good-flow">
           <img src="@/assets/diagrams/Diagrams_flow-good.png">
         </figure>
       </div>
