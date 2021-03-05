@@ -3,7 +3,7 @@
   <VizSection id="firstSection">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>Timing and Magnitude of Peak SWE help cue scientists as to whether it's a "good" or "bad" snow year.</h2>
+      <h2>Snow-water equivalent (SWE)</h2>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
@@ -22,7 +22,9 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        Figs. Wildfires affect the timing and magnitude of runoff and groundwater recharge.
+        The snow-water equivalent (SWE) include both snow depth and snow density to approximate the amount of water stored in snowpack. 
+        
+        While peak SWE gives us a snapshot of interannual variation in snow, intra-annual variation in the timing and magnitude is much more complex.
       </p>
     </template>
     <!-- EXPLANATION -->

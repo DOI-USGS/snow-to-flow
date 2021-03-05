@@ -19,7 +19,7 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        Figs. Wildfires affect the timing and magnitude of runoff and groundwater recharge. We are going to build off these diagrams from the fire page to show specific processes relating to snowmelt.
+        Typical snow accumulation during winter months forms snowpack, which acts as water storage until warmer temperatures in the spring and summer months lead to snowmeltand ultimately streamflow that flow through the landscape.
       </p>
     </template>
     <!-- EXPLANATION -->

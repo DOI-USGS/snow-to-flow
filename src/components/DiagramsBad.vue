@@ -19,7 +19,7 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        Figs. Wildfires affect the timing and magnitude of runoff and groundwater recharge.
+      With global changes in precipitation and temperature, snowmelt and sublimintation can occur at accelerated rates leading to lower levels of streamflow.
       </p>
     </template>
     <!-- EXPLANATION -->
