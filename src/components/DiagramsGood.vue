@@ -39,11 +39,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-#fire-before {
-  max-width:  530px;
-}
- #fire-after {
-  max-width:  600px;
-}
+
 
 </style>

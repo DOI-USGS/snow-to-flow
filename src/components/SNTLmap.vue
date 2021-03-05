@@ -7,40 +7,12 @@
     </template>    
     <!-- EXPLANATION -->
     <template v-slot:aboveExplanation>
-     <p>General concept: Historically, April 1st has been an important date for assessing annual snow accumulation. Compared to the historical record for this date, 2021 is shaping to be considerably dry in many regions of the western U.s.. While interannual variation in peak SWE is normal and fluctuates with natural climatological patterns, an exceptionally dry or wet season can have dramatic impacts to the water supply in locations where snowmelt is a major source of freshwater.</p>
+     <p>Historically, April 1st has been an important date for assessing annual snow accumulation. Compared to the historical record for this date, 2021 is shaping to be considerably dry in many regions of the western U.S.. While interannual variation in peak SWE is normal and fluctuates with natural climatological patterns, an exceptionally dry or wet season can have dramatic impacts to the water supply in locations where snowmelt is a major source of freshwater.</p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
       <div class="two group map-grid">
         <div id="grid-left">
-          <div id="sntl-text">
-            <div id="toggle-container">
-              <h3 id="sntl-name">
-                Show snow:
-              </h3>
-              <form
-                id="showData"
-                align="left"
-              >
-                <input
-                  id="inch_2020"
-                  v-model="sntl_variable"
-                  type="radio"
-                  align="left"
-                  value="perd_peak"
-                  @change="setColor()"
-                ><label for="inch_2020"> Peak SWE - Magnitude</label><br>
-                <input
-                  id="inch_POR"
-                  v-model="sntl_variable"
-                  type="radio"
-                  align="left"
-                  value="perd_sm50"
-                  @change="setColor()"
-                ><label for="inch_POR"> SM50 - Timing</label><br>
-              </form>
-            </div>
-          </div>
           <div
             id="ak"
             class="map-container"
@@ -1429,7 +1401,7 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p id="explain-bottom">
-        The map above shows the percent change of snow on April 1st, 2021 compared to the historic record (1981-2010). Snow quantity is measured as the daily snow-water equivalent (SWE) from <a href="https://www.wcc.nrcs.usda.gov/snow/" target ="_blank" >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the western U.S.</a>.  
+        The map above shows the percent change of snow TODAY (use April 1st for release) compared to this date in the historic record (1981-2010). Snow is quantified as the daily snow-water equivalent (SWE) from <a href="https://www.wcc.nrcs.usda.gov/snow/" target ="_blank" >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the western U.S.</a>.  
       </p>
     </template>
     <!-- EXPLANATION -->
@@ -1443,7 +1415,7 @@ import VizSection from '@/components/VizSection';
 import * as d3Base from "d3";
 
 export default {
-    name: "Test",
+    name: "SNTLmap",
     components:{
         VizSection
     },
@@ -1452,7 +1424,9 @@ export default {
               publicPath: process.env.BASE_URL,
               d3: null,
 
-              sntl_variable: "perd_peak", // starting variable to map site colors
+              sntl_variable: "perc_ch", // starting variable to map site colors
+
+
               sntl_data: [], // sntl data
               ak_data: [],
 
@@ -1463,13 +1437,8 @@ export default {
 
             // variables of interest for map
               site_vars: {
-                swe: "Value_inches", 
-                POR_Median: 'POR_Median_inches', 
-                POR_Average: 'POR_Average_inches', 
-                POR_diff: 'POR_Median_Departure_inches',
-                POR_Median_percent: 'Percent_of_POR_Median', 
-                POR_Peak_percent:'Percent_of_Median_Water_Year_Peak_POR',
-                Peak_percent:'Percent_of_Water_Year_Peak',
+                swe: 'swe',
+                NRCS: 'mean',
                 diff_peak: 'diff_peak',
                 diff_sm50: 'diff_sm50',
                 perd_peak: 'perd_peak',
@@ -1477,8 +1446,12 @@ export default {
                 perpast_peak: 'perpast_peak',
                 perpast_sm50: 'perpast_sm50',
                 anom_peak: 'anom_peak',
-                anom_sm50: 'anom_sm50'
+                anom_sm50: 'anom_sm50',
+                ptile: 'ptile', 
+                today_diff: 'today_diff',
+                today_anomaly: 'today_anomaly'
                 },
+
 
               // chart opts
               xScale: null,
@@ -1490,6 +1463,7 @@ export default {
     mounted() {
           const self = this;
           this.d3 = Object.assign(d3Base);
+          
 
           // sntl site map
           this.sntl_map = this.d3.select("svg#usa-sntl");
@@ -1545,9 +1519,10 @@ export default {
           .attr("opacity", .8)
           .attr("stroke", "black")
           .attr("stroke-width", .5)
-          .attr("r", this.site_radius);
+          .attr("r", this.site_radius)
 
         self.setColor(data, sites); // set initial site color
+        
       },
       setColor() {
         const self = this;
@@ -1556,13 +1531,17 @@ export default {
         this.site_vars.setColor = this.sntl_variable; // set chart color to selected color
 
         // color scales
-        if (this.site_vars.setColor == this.site_vars.POR_diff) {
+        if (this.site_vars.setColor == 'ptile') {
           this.colorValueInches = this.d3.scaleSequential()
-          .domain([-16, 16])
+          .domain([0, 1])
           .interpolator(this.d3.interpolateBrBG)
-        } else {
+        } else if (this.site_vars.setColor == 'perc_ch') {
         this.colorValueInches = this.d3.scaleSequential()
           .domain([-50, 50])
+          .interpolator(this.d3.interpolateBrBG)
+        } else if (this.site_vars.setColor == 'anomaly') {
+          this.colorValueInches = this.d3.scaleSequential()
+          .domain([-2, 2])
           .interpolator(this.d3.interpolateBrBG)
         }
 

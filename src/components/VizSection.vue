@@ -21,7 +21,7 @@
       </div>
       <div class="belowExplanation explanation">
         <slot name="belowExplanation">
-          Explanation
+          
         </slot>
       </div>
     </div>
@@ -50,6 +50,7 @@ $border: 10px solid #000;
 .takeAway{
     h1{
         text-align: center;
+        max-width: 80vw;
     }
     margin-bottom: $spacing;
 }
