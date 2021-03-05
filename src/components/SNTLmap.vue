@@ -3,19 +3,17 @@
   <VizSection id="firstSection">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>The timing and magnitude of snowmelt is changing across the western U.S.</h2>
+      <h2>2021 is on track to be a low snow year</h2>
     </template>    
     <!-- EXPLANATION -->
-    <template v-slot:explanation>
-      <p>Pepper jack melted cheese feta. Cheesy grin taleggio fromage edam boursin manchego cheese triangles parmesan. Fromage cheese and biscuits say cheese bocconcini gouda lancashire cheese slices ricotta. Rubber cheese melted cheese cheesy grin everyone loves mascarpone.</p>
+    <template v-slot:aboveExplanation>
+     <p>Historically, April 1st has been an important date for assessing annual snow accumulation across the western U.S. Compared to the historical record for this date, 2021 is shaping to be considerably dry. While interannual variation in peak SWE is normal and fluctuates with natural climatological patterns, an exceptionally dry or wet season can have dramatic impacts to the water supply.</p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
       <div class="two group map-grid">
         <div id="grid-left">
           <div id="sntl-text">
-            <p>Pepper jack melted cheese feta. Cheesy grin taleggio fromage edam boursin manchego cheese triangles parmesan. Fromage cheese and biscuits say cheese bocconcini gouda lancashire cheese slices ricotta. Rubber cheese melted cheese cheesy grin everyone loves mascarpone.</p>
-            <Sidebar />
             <div id="toggle-container">
               <h3 id="sntl-name">
                 Show snow:
@@ -29,25 +27,17 @@
                   v-model="sntl_variable"
                   type="radio"
                   align="left"
-                  value="Percent_of_POR_Median"
+                  value="perd_peak"
                   @change="setColor()"
-                ><label for="inch_2020"> Percent of POR Median</label><br>
+                ><label for="inch_2020"> Peak SWE - Magnitude</label><br>
                 <input
                   id="inch_POR"
                   v-model="sntl_variable"
                   type="radio"
                   align="left"
-                  value="Percent_of_Median_Water_Year_Peak_POR"
+                  value="perd_sm50"
                   @change="setColor()"
-                ><label for="inch_POR"> Percent of Water Year Peak POR</label><br>
-                <input
-                  id="inch_diff"
-                  v-model="sntl_variable"
-                  type="radio"
-                  align="left"
-                  value="POR_Median_Departure_inches"
-                  @change="setColor()"
-                ><label for="inch_diff"> Snow anomaly (inch difference)</label>
+                ><label for="inch_POR"> SM50 - Timing</label><br>
               </form>
             </div>
           </div>
@@ -64,6 +54,7 @@
 
               preserveAspectRatio="xMaxYMax slice"
             >
+            <image href="@/assets/maps/ak_hillshade-01.png"  height="100%" width="100%"/>
               <g id="map-alaska">
                 <path
                   d="M252.2 93l1.4-1 3.7-1 1.9-.8 4.2-2.3 8.5-3.7 3.2-1 5.4-1.4 2.4-.4 4.2.5.5 1.5-.4 1-1 1.1v2.2l-.9 1.4.8 2.5 1 .2 1-.3 1.2.1 1.3.7 3.1-.2.9 1.1 1.3-.2.4.6 2-.4 2.1 1 1.4-1.5 1.2-2.2h1.6l1 .8 1.5-.6-.8-1.6-2.8-1.4-1.2-.2-1.8.7.6-1.6.1-1.3-1.4-2-.4-1.5-.6-.7-1.5-.4-.8-2.3.3-.9 2.3-.3.3 1.3 1.3 2.1-.6 1.2v.8l1.9 3 1.3 1.3 1.9-.6.3-.7-1.4-.3v-.6l-1.3-1.3-1.2-1.9 1-3 1-1.3v-1l-.8-.7-2.3.1-.9.5h-2l-1.2-1-1.1.5-1-.7-3.5-1.7-1.7-1 .3-2.4-.4-3-1-3.3-.7-1-2-2-3.6-4.6-1-1.6-1-1-2.5-1.3-.9-1.9-1-1.5-1.9-1.4-1.7-.8 3-.7.7-.6.8-1.8 1-3.8.2-1.8 3.6 1 2.2.4 4.7-.2h2.7l2-.6 3.3-2.4 2.2-2.5 1.2-2.8.3-2.9 1.5-3.5 2.3-2.5 1.8-2.6 1-1.1 3.2-2.1 2.2.8 1.5.2 3.2-1.2 2.2-1.4 1.8-1.5 4-4 3-1.1v.7l1.3.8 1.8.3 1.8-.5h2.1l1.7-.7 1.7-1.3 1.7-1.8 2.8-4 1.6-1.2.1 1 1 .7 1.8.4.7 1h1.2l1 .3.4 1.4-.2.7L348 7l-1 .3.7 2.2 1.4.1 1-.6-.1-1.5 1-1.1.5-1L353 4l2.5 2.2.3 3.6 1.4-.1 1 1.2 1.2-1 .6-1.2h2.5l1.6-.7 2 .7h1.9l2.4 1-1 2-.5.5.3 1.4 2 .4 1.9.7.6.9-1.2.4.3.8 2-.2 2.6 1 1.2-1.6 2.7-.5 1 1.2 1.8-.6 1.3-1.4 4.3.2 1.5 1 1 .3 1.2-.5 1.4 2.1 1.9-.9 2 1 1 1.4h2l.7-.7.6 1.1h1.1l.6-.7 3.9-.3 1.2.5 2-.3 1.1 1 3 1.2h3.7l.9-1.3 3-1.7.4-.4 1.6-.5h1.3l.8-.7 3.7 1.4 1.8 1 .8.9h.9L437 21l1.7.3 2.1 1.3h1.5l1.4.4 29.5 148.4 1.3 6.7 2.8 13.9 4.6.7.2-1.7 4.8 1.3 2-3.3 5.4-1.5.1.6-.1 4.4 1.6 1.4 3.5.9 1.3 2.3 11.6 7.2 2.2 4.4v1.4l.8-.2 1.2-2 3-3.5.3-.4 2.2-.7.5-2.5-1-3.2 1.6-.4.1-1.8-1.2-.5 1.2-1.1 2.1-1 3.5-3.6 2.6 1.2 1.2 1 1.5.8.5 1.6-.5 1 1.3.4-.2.9 1 1 2.5-.2.5 1 1.3.7.8-.2 1.4 1.4v1.1l2 1.7 4.6 1.1 1.9 1.7 4 2.3-.5 1 1.5 1.4 2.3 1.7 2 2.6 2.8 2 1.9 2.2 1.4 1.2 1.7 1.8 2.7 2 1.9 2-.5 2.5 3.4-.2.2 3.2 2.8.4v1l.8.7.9 1.8 2.3-1.1 1.5.7 3.4.7 1.1.5 3.2-.4 2.2 1.2 1.6-.1 1 1.6 2.1.1 1.2-1 1.7 1.7.5 1.7v1.8l-.3 1.2.9 1.3.5 1.8 1.7 2 1 1.8.8.8-.7 2v2.6l-.3 1.8-1 2.9-1.3 1.8-.2 1.3-1-1.3-1 1-.7-.1-1.4-2.4-.9-.9-.2-1.3-1-.6-.8-1.2.7-1.3.3-2.3-.8-1-.2-2.1-1.3-2.7-.7-.9-2.4-1.9 1.3 2.1 1.2 1 1 1.9-.3.8.8 2.5.4 2.1-.7 2-1.6-.2-1.4.4-1.2-1.4-.3.9-1.9-.6-2-1.2-.4-1.2 1.4-1.6-1-.9-.6-1.5v-1.1l-.8-1.8-1 .7 1 1 .3 2.6-.6 3.5-2.5-.9-1-1.8-.2-2 .7-.8-.3-2.3-.8-1.5.6-1.5-.8-.1-.9 1.8 1 1.6v.7l-1.2.3h-1.9l-1-1.7-.8.2-.5.8-1.4-1.7-.4-1.2 1-.8.1-2 1.8-.7-1.3-2.3-.3-1.6-.8.4-1.5-.8-.6-2.2-2.5-.8-1.5-1.2-1.1-1.9-1.8-.2-1 .2-1-.6-.5.6-2.2-.5-.6-1 .1-1.4.7.2.5-1-1.1-.2-1.4-2.1-.4-1.6-1 .3-.8-.6-.3-1.7 1.4.2 2-.3-2.9-1.3-.5-1.4-1 1.6-2-2.1-2.6-1.7-1-2-1.7.4h-3.7l-2.2-2.3-.6-1.6-2-1.7-.2-1.3-.7-1.8-.8.3-1.5-.8-1.7-4-1.3-1.8-1.5-1.5-.8.4 1.5 1 1.2 1.8-.7.4.4 2 2.7 3.9 1.5 1.8-.2.9 1.7 2.4 1 2-.5.4.6 1.6h-1.9l-1.6-1.4-.7-1.2-.7.4-1.3-.4-.7.8-1.6.8-.3-1.3-.9-2.1v-.9l-1.4-1.4-1.3-1.6-.2 1.2-.9.3-2.7-1-.7-1.4-.8.9.7.8 1.4.7 1.9 1.6.9-.2.6 1.5 1.2 1 1.2 2.2-.4.9-1.3.9-1-1-.1 1.6h-1.5v2l-1 .2-1.2-1-2-1.5-1.5.4-4.4-2-2-.8-.2-.7-2.8-1.6-.4-1.5-1.6-1.3-2.5-1.3-3.5-.6-3.1-1.5-5.2-1.3-4.6-2 .8-2.1 1.3-.4-.5-2.4-1-1.7.8-1.4.1-1-.8-.7-.1 1.8-.7.5-.3 2-3.2 2.3-1 1.1-3.3.4-2.3-.2-5.3-1.5-.1-.7 1-.6.1-1.2-1.4-1.8-1.8-.5 2.2 2-1.9 1.6-1.3.2-1.7-.6h-2l-4-.3-3.3.5-1.4.6-3 .8-2.6.9-1.7 1-1.3-.4-1.4.6-1.8 2.2-.3-.8 1.8-2.1 1.5-.3-.7-1-1.7-.5-.5 1-2-1.5-3.4-.2 1.4-1-2.1-.5.8-2.6-1.7 1v.8l-.5 1.1H439l-2.4-1.2-1-1-1.3-.2-1 .6-.6-.8-2.7 1.1-1.2.1.1.9 2-.7v1.2l-.9.7-1.3.3-1.8 1.8-.8-.7 1-.8-1.4-.4-.1-.8.6-1.4 1-.6.6.4 1.4-1 1.2-.4 1.7-1.2 1.4-.5-2.2-1-1 .7-1.2-.1.8-1.6-3 1.2h-1.4l-.5-1 3-1 1.5-1.4-.8-.3-.5 1-2 .4-.7-1-.8 1.1-.4-1.2V188l.9-2.5 3-.4-.3-.6-2.8.4-.6 1.1-.8.5-.6 1.3-.9.9-.6-2.5-.9 1.8-2 2.1-1.5-.4-.3.6-1.6-.5-.2.7.6 1H414l-1 .9-1-.7.5-2.1.9-1.8-.1-.8 1.4-2.1.1-1.7-2 3.6-.6 1.6-.8.1-.8 1.6-.4 2.2.7.8 1.6.2.2 1.4-1.3 1.4-.6 1.2.7.6.5-1.2.9-.8 1 1.3.5 1.4-.4 3.1-1 .9 2.3 1.7 1 1.3-.4 1.3-1.5 1.1-1.7-.5-1-1-1 1.8h-1.2l-.5.6-1.2-.7-1 .7-.5-.8-.9.4-1-.4-.5-.8-.7 2.8-1.3.5.7-2.3-.6-2.6-.7.4.3 2.1-.3 1.2-.8.2-.3 2.1.9.5-.1 1.2-1-.5-.5-2-.7-.2.3 3h-1l-.8.6-2.2 2.6-1.5 2.3-.8.3 1-3.4-.9.6-.8 1.7-2.1.8-.2 1-1.3 1.2-.2 1.5-1.6-.5v.8l-1.8.3-1.3-.8-1.3 1.1-.1.7h-1.5l-.9-.8-1.3-.8-.2-1.1.8-1 .2-1 2.3-1.3.8.2.3-1 1-.3 1.1-1 2.6-3.7-1.2.2-2 1.8-1.5 1-1.3-.2-1.8-1.3-.4-1 1-2.7.4-2.1 2.4-3.5.3-2.7.7-.5.2-3-.5-.5-1-2.7 1.8-1.2 1.4-.2 3-2.9 2.9-2 1.7 2.4 1.8.6 1-1.8 1-.2 1.2.6.6-.2 2 .7 2.2.1-.9-1-1.1.3-1.7-1-.8.1-1.3-.5-1-1-2.2-1.4.5-1 .8-.1.9-2 .7-.4.2-1 1.4-.5.9-.8-1.7-.7-2.2 2.1-.2 2.3-.6.5-2-.3-2.3.4-1.6-.9-.5 1-2.7 1.4-1.2 2.5-1.7.7h-1l-1.3 1.1-1.5 2 1 2.2h-1.4l-1.5 1.2-.7 1.5-.8.4-1 1.2-.2 1.2 1 1-1.3.7-.2 1-1.2 1-2 .3.1 1 1.6 2-1.2 2.9-1 .7-1.7-.1-2 .4-.6.8 2.4-.3.3.8-.5 1.9-1.5 1-1.2.3-1.3-.4-.7.7-.3 1-1.6.2.6 1.5-.3.5-3 .9-.5.8-.3 2.5-.8 1 .5 1 1 .5 2 .4 1.4-.4.8 1.2 1.3.2.8.6 1 1.8-.5.4-.5 2-1.5 1-1.2 1.4h-2l-.4 2.1-1.2.1-.1 1 .6 1.1-1.7 1 .7.8-.4 1.3-.7.5-1.2 1.7-1-1-.2 1.6-1.1.7-1.3-.7-.5 1-1.3-.5-1 .3-1.2 1 .5 1-.3.7-1.4.7-.9-.1.2 2-.7.2-1.9-1.5-.5.4-.1 2-1 .5-.1 1.5h-2.3l-.8-.4.2 2.4-1.2-.7-2 1-1.5 1.4h1.5l-.1 3-1 .9-.1.8-1 .6-.2 1.2-1.2-.3-2.2.7-1.2.9-1.5 2-.6.4-1.7-1.8-1 .5.5 1.2h-1l-.6 1.1.8.7.1.9-2 .1-.6-1.3-2 .5-.6.8 1.4.8.2.9-.6.7-2.4-1-.2 1-2-.5-.9.5-1 1.3v.7l1.7.4 1.2.7-.7 1.5-1.3 1.3-.5 1.2v1l-1.9-.7-.6 1.6h-1v-1h-1l-.7 1.2-5 .8-.4 1.5-1 .4-.6 1 .2.8-1 1.2-1.3.4.7-1.6.6-3.2-1.6-.6-.5 1H297l-.6 1.3-1.5 1-1 .2-1.3-.5.1 1.1-.9 1.7-.8.5-.3-1.7-1 .3-.1 1.6h-1.2l-.8-1.5-.8.3-.9 1.3-2.4 1.1-1.3-.6-1.6.2.7-2.4 1.4-1.9-.6-.5h-1.8l-1.3 1.7-.2 2-2.3 2.7-1.8.3.7 1.4v.9l-1.1.4-1.1-1.6-.6.9-.2 1.3-2.6-.7.3-1.3-.2-2.4-.7-1h-.8l-.7 1.3.7.5.5 1.2-.5.7.3 1.5-.8.3-1.5 1-1.5-.6-.4-1-.2-1.5-.7-.6-1.2.2-.5.8 1.6 1.6.1.5-2 1.5-1.9.6.5 1 1.4-.2.8.8.3 1.4-1.7-.5-1-1.5-1 .5-.9 1-1.1.6-1.7-.6-3.6-.3-1.7.4-1.2.8-.4 1.2-1.2.6-2 .2-2.1-.8-.7-3 .4-.6 2.4-.6 2.1-3.2.3-.7 1.4-.6.8.9 2-.8 1.4-.1 1.7-1 1.3-.2 2.5.5.7 1.6.3 1.3 1.4-1 .2-1.2-.1-1.8 2.3-.7 1.5.4 1.4-.8-.4-.9 1-.6.7.2.9-1 .9.4.8-.6v-1.4l.4-.9 2.8-2.9 2.3-1.5 1.8-.7 1-1 7.2-1.4h3.2l-.4.6.2 1.6-1.1.2-.2 1.5 1.2 1.5.5-.8.1-1.8 1.3.6h1.5l.1 1.4h1l1.5-.9-2.9-2-.5-.8 1.3-1.6 1.7-3.6 2.3-2 2.3-1.2 1.2-1.2 3-1.2 1.7-1 1.3-.6 2.6-1.5.6-.6 1 1.2h1.8l.4-.9-.4-.8.2-1.8 1.6-2.5 1.6-2 1.7-1.4 1.5-.6 1.7-2 2.3-1.5.5 1.2.8-.3-.3-1.8h-.8v-2l.7-2.8.9-4.6.5-.7 1.3-.2-1.3-2 .2-2 1-2.1.8-.5.8-1.2 2-1.9 1-2.3-.4-1.5-.8.8-1.5.5-2.7 1.4-1.4.4-1.6.9-2.8 1-.9-.2-.9-.9v-1.1l-.7-.9-1.3-.7.5-1 .5-2.6h-.4l-1 1.6-1.5.8-.1 1.8-1 1.2.2 1.3 1 2.7-1 1.4-1 .2-1.5-.7-1.4-3.8-1.2-2.7-1-1.2-1.3-.5.6-1-.2-.6-1.1-.1-.4 1.4-.5.8-1 .4-1.2-2-1 .2-1.2-1.5.4-1-.4-1.4-1.6.7-2.8 1.9-2.5.8-3.4 1.7-.5 1.3-2.6 1-.6.6-1.6-1.6-2 .1-.8-.6 1.7-.6.5.7 1.9-2 .2-1V224l-1.4-3.6-.5-2.3 1.3-1.8.7-.3 1-1.2.8-.3-1.2-3.1-.2-1.7-1.3-2.8v-1.6l-2-4-1 .3-.2 1.8-.3.8-1.4.4-.5-.4-1 .9-2.8 1-2.5.4h-2l-3.4-.5-1.6-.9-.5-2.1.8-.2-.4-1.2-1.7-1.2-.8-2.5-1-1-.3-1-1.4-.4-.9-.8-1.2-2 1.7-1-.7-.9-1.3.7-1.6-.5.1-1.3 1 .2 2.2-1.7.9-.3-.4-1 .4-2.6-1.1-.9v-.8l.7-.5v-2.5l-1.3-.6-.7 1.5-1.6-.5-.4-1.4.4-2-2-1.5-.1-1.6 1.4-.4.3-.8-1.2-1.3-2.2.4V170l.5-.7 3-.2-1.5-1.4-.5-1.4 1.2-.4 1.7.4 1.1-.2-.5-2.2.3-2 .9-1.2 3.8-3.8.5-.8 1.7-1.5 1.1-2 1.6-.6V150l1.2-2.8.8-1 1.2-.8-.3-.8 2-1.8 2.5-.5h.9l1.1 1 1.3.3.7 1.5 2.2 2.3 2.4-.2 1.8-1.4.4-1 1.3-.2 2.2-2.5.2-.6 1.4-1.3.3-1 1.6 1.2v.8l1.6.2 1.4-.1.7.4 2.3-.2 1.5-.5.3-.7 1.9-2 1.3-2 .1-1-.7-3-.3-1.9.1-2.7-2-3.2-1.8-.7.4-1.5.7-.4 1.2.7 1.6.2 2-1.9.4-1.9-1-2-1-1-1.1-.4-.7.5-.8 1.4-1.1.2-1.1-.8-1.9 1.3-2.3.2-.7 1.1-2.6 1.3-.7 1-.3 1.6-1.5.4v-2.7l-1.4-1.9-1.2-1-.8.7 2 2.4-.9 1.2h-.5l-.5-1.3-1.3-1.4-1.1-.7-1.8-.5-1.2.3-1.3-.5h-2.2l-3.4 1.3H272l-3-1.7-6.1-2.7-1-1.2-.4-1.9.2-1.2.8-1.2-.7-1.4-1-1v-1l-1-1.3h1.8l1.5-1 .1-.8 1.2-.8-.9-1.2-2.3-.5-1.6-1.2-3.3-1.2-1.4-2-1.3-1.2-1.2-.7V93z"
@@ -97,9 +88,10 @@
             <svg
               id="usa-sntl"
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="-100 0 900 570"
+              viewBox="-200 0 900 570"
               preserveAspectRatio="xMinYMin slice"
             >
+            <image href="@/assets/maps/conus_hillshade_10-01.png"  height="100%" width="100%"/>
               <g id="map-state">
                 <path
                   id="NE-1"
@@ -1437,45 +1429,30 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p id="explain-bottom">
-        Snow, measured as the daily snow-water equivalent (SWE) from snowpack telemetry (SNOTEL) sites across the western U.S.. The Preiod of Record dates as far back as 1978 for some sites.
+        Snow, measured as the daily snow-water equivalent (SWE) from snowpack telemetry (SNOTEL) sites across the western U.S.. The Period of Record dates as far back as 1978 at most, but not all sites. Each site shows the percent change in snow magnitude (peak SWE) and timing (SM50) between this year and the past. 
       </p>
     </template>
     <!-- EXPLANATION -->
     <template v-slot:explanation>
-      <p>Stuff to explain.</p>
-      <Sidebar>
-        <template v-slot:sidebarTitle>
-          What is SWE?
-        </template>
-        <template v-slot:sidebarMessage>
-          Donec mattis ultrices pretium. Pellentesque auctor velit quis risus lacinia, quis lobortis mauris semper. 
-          Vestibulum euismod sapien velit, id malesuada eros feugiat id. Maecenas feugiat maximus porta. Maecenas 
-          ullamcorper mi et consectetur porttitor. Maecenas ut suscipit eros. Nulla imperdiet turpis ut nisl pulvinar 
-          fermentum. Nam vitae placerat mi. Maecenas ac felis lorem. Phasellus quis purus sit amet odio molestie tincidunt. 
-          Suspendisse potenti. Aliquam eu velit pretium, condimentum diam sed, eleifend ipsum. Suspendisse condimentum arcu 
-          vel egestas suscipit.
-        </template>
-      </Sidebar>
-      <Sidebar />
+      <p />
     </template>
   </VizSection>
 </template>
 <script>
 import VizSection from '@/components/VizSection';
 import * as d3Base from "d3";
-import Sidebar from "@/components/Sidebar";
+
 export default {
     name: "Test",
     components:{
-        VizSection,
-        Sidebar
+        VizSection
     },
     data() {
             return {
               publicPath: process.env.BASE_URL,
               d3: null,
 
-              sntl_variable: "POR_Median_Departure_inches", // starting variable to map site colors
+              sntl_variable: "perd_peak", // starting variable to map site colors
               sntl_data: [], // sntl data
               ak_data: [],
 
@@ -1493,12 +1470,20 @@ export default {
                 POR_Median_percent: 'Percent_of_POR_Median', 
                 POR_Peak_percent:'Percent_of_Median_Water_Year_Peak_POR',
                 Peak_percent:'Percent_of_Water_Year_Peak',
+                diff_peak: 'diff_peak',
+                diff_sm50: 'diff_sm50',
+                perd_peak: 'perd_peak',
+                perd_sm50: 'perd_sm50',
+                perpast_peak: 'perpast_peak',
+                perpast_sm50: 'perpast_sm50',
+                anom_peak: 'anom_peak',
+                anom_sm50: 'anom_sm50'
                 },
 
               // chart opts
               xScale: null,
               yScale: null,
-              site_radius: 3,
+              site_radius: 2.2,
               colorValueInches: null,
             }
         },
@@ -1519,8 +1504,8 @@ export default {
       loadData() {
         const self = this;
         // read in data 
-        let promises = [self.d3.csv(self.publicPath + "data/sntl_data.csv", this.d3.autoType),
-        self.d3.csv(self.publicPath + "data/ak_data.csv", this.d3.autoType)];
+        let promises = [self.d3.csv(self.publicPath + "data/conus_por_2020.csv", this.d3.autoType),
+        self.d3.csv(self.publicPath + "data/ak_por_2020.csv", this.d3.autoType)];
 
         Promise.all(promises).then(self.callback); 
       },
@@ -1557,7 +1542,7 @@ export default {
           .attr("cx", function (d) { return self.xScale(d.x); })
           .attr("cy", function (d) { return self.yScale(d.y); } )
           .classed("SNTL",  true)
-          .attr("opacity", .8)
+          .attr("opacity", .6)
           .attr("r", this.site_radius);
 
         self.setColor(data, sites); // set initial site color
@@ -1592,6 +1577,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.grid-left, .grid-right {
+  max-height: 70vh;
+}
 //map style
 line, polyline, polygon, path, rect, circle {
       fill: none;
@@ -1602,7 +1590,9 @@ line, polyline, polygon, path, rect, circle {
     }
 
 .state {
-  stroke: rgb(189, 189, 189);
+  stroke: white;
+  stroke-width: 2px;
+  opacity: .5;
 }
 .usa {
   color: darkgrey;
@@ -1620,12 +1610,11 @@ line, polyline, polygon, path, rect, circle {
   grid-template-columns: (10, 1fr);
 
   #sntl-text {
-    grid-column: 1/5;
+    grid-column: 2/3;
 
   }
   #ak {
-   width: 80vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
-   //grid-column:6/16;
+   width: 60vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
    grid-column: 1/5;
   }
 
@@ -1639,7 +1628,7 @@ line, polyline, polygon, path, rect, circle {
 
   #usa {
     grid-column:6/16;
-    width: 100vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
+    width: 75vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
 
   }
 
@@ -1648,8 +1637,9 @@ line, polyline, polygon, path, rect, circle {
   margin-top: 4em;
 }
 
-#sntl-name,input {
+#sntl-name, input {
   text-align:left;
+  z-index: 1;
 }
 
 @media screen and (max-width: 1024px){
@@ -1664,10 +1654,6 @@ line, polyline, polygon, path, rect, circle {
  #ak {
    width: 60vw;// careful editing this, it's sizing the maps to be on the same scale
  }
- #sntl-text {
-    grid-column: 3/6;
-
-  }
 }
 
 </style>

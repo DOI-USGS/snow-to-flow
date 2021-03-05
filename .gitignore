@@ -20,3 +20,7 @@ yarn-error.log*
 *.sln
 *.sw?
 .Rproj.user
+
+# data  processing files
+/data_processing_pipeline/1_fetch/out
+*.Rproj
