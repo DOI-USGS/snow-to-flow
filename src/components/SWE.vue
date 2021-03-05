@@ -10,12 +10,7 @@
       <div class="group single maxWidth">
         <figure id="swe-chart-container">
           <!-- <img src="@/assets/diagrams/SWE-sketch.png"> -->
-          <svg
-            id="swe-chart"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 700 400"
-          >              
-          </svg>
+          <LineChart />
         </figure>
       </div>
     </template>
@@ -34,17 +29,33 @@
 
 <script>
 import VizSection from '@/components/VizSection';
+import LineChart from '@/components/LineChart';
+import * as d3 from 'd3';
+
 export default {
     name: "SWE",
     components:{
-        VizSection
+        VizSection,
+        LineChart
+    },
+    data() {
+      return {
+         publicPath: process.env.BASE_URL,
+        //  message: "hey"
+      }      
+    },
+    mounted() {
+      
+    },
+    methods: {
+      
     }
 }
 </script>
 
 <style lang="scss" scoped>
-    #swe-chart {
-      width: 100%;
-      background-color: coral;
-    }
+  #swe-chart-container {
+    width: 100%;
+    height: auto;
+  }
 </style>
