@@ -1554,6 +1554,11 @@ export default {
           .attr("fill", function(d) { return self.colorValueInches(d[self.site_vars.setColor]) })
 
 
+          // make color ramp legend
+
+          //max value 
+
+
       
     }
   }

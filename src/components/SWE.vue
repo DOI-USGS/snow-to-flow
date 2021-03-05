@@ -9,13 +9,8 @@
     <template v-slot:figures>
       <div class="group single maxWidth">
         <figure id="swe-chart-container">
-          <img src="@/assets/diagrams/SWE-sketch.png">
-          <!-- <svg
-            id="swe-chart"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 700 400"
-          >              
-          </svg> -->
+          <!-- <img src="@/assets/diagrams/SWE-sketch.png"> -->
+          <LineChart />
         </figure>
       </div>
     </template>
@@ -33,23 +28,36 @@
     </template>
   </VizSection>
 </template>
+
 <script>
 import VizSection from '@/components/VizSection';
+import LineChart from '@/components/LineChart';
+import * as d3 from 'd3';
+
 export default {
     name: "SWE",
     components:{
-        VizSection
+        VizSection,
+        LineChart
+    },
+    data() {
+      return {
+         publicPath: process.env.BASE_URL,
+        //  message: "hey"
+      }      
+    },
+    mounted() {
+      
+    },
+    methods: {
+      
     }
 }
 </script>
-<style lang="scss" scoped>
-    // #timing-chart {
-    //     background-color: aqua;
-    //     width: 100%;
-    //     height: 100%;
-    // }
 
-    #swe-chart-container img {
-      width: 100%;
-    }
+<style lang="scss" scoped>
+  #swe-chart-container {
+    width: 100%;
+    height: auto;
+  }
 </style>
