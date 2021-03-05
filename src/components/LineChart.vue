@@ -1,17 +1,17 @@
 <template>
-    <div id="swe-chart-container">
-        <svg id="swe-chart">
-            <g id="title">
-               <text
-                    class="demo-text"
-                    x="20"
-                    y="35"
-                    >
-                    lines!
-                </text>
-            </g>
-        </svg>
-    </div>
+  <div id="swe-chart-container">
+    <svg id="swe-chart">
+      <g id="title">
+        <text
+          class="demo-text"
+          x="20"
+          y="35"
+        >
+          lines!
+        </text>
+      </g>
+    </svg>
+  </div>
 </template>
 
 <script>

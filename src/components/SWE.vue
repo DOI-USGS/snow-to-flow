@@ -10,7 +10,7 @@
       <div class="group single maxWidth">
         <figure id="swe-chart-container">
           <!-- <img src="@/assets/diagrams/SWE-sketch.png"> -->
-         <LineChart />
+          <LineChart />
         </figure>
       </div>
     </template>
