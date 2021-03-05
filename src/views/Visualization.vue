@@ -5,9 +5,23 @@
     <Chapter
       id="chapter2"
       image="chapter2"
-      :height="40"
-    />
+      :height="50"
+    >
+      <template v-slot:chapterTitle>
+        The Critical Measurement: Peak SWE
+      </template>
+    </Chapter>
     <SWE />
+    <ImgCarousel />
+    <Chapter
+      id="chapter2-5"
+      image="chapter4"
+      :height="50"
+    >
+      <template v-slot:chapterTitle>
+        From Snow to Flow to Water Supply
+      </template>
+    </Chapter>
     <DiagramsGood 
       id="diagrams-good"
     />
@@ -53,6 +67,7 @@ export default {
       Splash: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "section"*/ "./../components/TestSplash"),
       SNTLMap: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SNTLMap"*/ "./../components/SNTLmap"),
       SWE: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SWE"*/ "./../components/SWE"),
+      ImgCarousel: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "imgcarousel"*/ "./../components/ImgCarousel"),
       DiagramsGood: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagramsgood"*/ "./../components/DiagramsGood"),
       DiagramsBad: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagramsbad"*/ "./../components/DiagramsBad"),
       SWEanim: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "section"*/ "./../components/SWEanim"),
