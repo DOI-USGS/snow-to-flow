@@ -44,7 +44,6 @@ $border: 10px solid #000;
 /*#####vizSectionContent#####*/
 .vizSectionContent{
   flex: 1;
-  padding: 0 15px;
 }
 /*#####TAKE AWAY#####*/
 .takeAway{
