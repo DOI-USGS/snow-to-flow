@@ -1,16 +1,7 @@
 <template>
   <div id="visualization">
-    <Chapter
-      id="chapter1"
-      class="parallax"
-    >
-      <template v-slot:chapterTitle>
-        The timing and magnitude of snowmelt is changing across the western U.S.
-      </template>
-    </Chapter>
-    <SNTLMap
-      id="section1"
-    />
+    <Splash />
+    <SNTLMap />
     <Chapter
       id="chapter2"
       image="chapter2"
@@ -59,8 +50,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
 export default {
     name: 'Visualization',
     components: {
-      // Splash: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "section"*/ "./../components/Splash"),
-      SNTLMap: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "section"*/ "./../components/SNTLmap"),
+      Splash: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "section"*/ "./../components/TestSplash"),
+      SNTLMap: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SNTLMap"*/ "./../components/SNTLmap"),
       SWE: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SWE"*/ "./../components/SWE"),
       DiagramsGood: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagramsgood"*/ "./../components/DiagramsGood"),
       DiagramsBad: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagramsbad"*/ "./../components/DiagramsBad"),
@@ -72,17 +63,16 @@ export default {
     mounted(){
       //Waits until the first DOM paint is complete
       //Allows us to only run the functionality when we know the DOM elements are loaded
+      this.$gsap.registerPlugin(ScrollToPlugin, ScrollTrigger); // register gsap plugins for scrollTrigger
       this.$nextTick(() => {
         this.parallaxScroll();
       })
     },
     methods:{
       parallaxScroll(){
-        const gsap = this.$gsap;
-        gsap.registerPlugin(ScrollToPlugin, ScrollTrigger); // register gsap plugins for scrollTrigger
-        gsap.utils.toArray(".parallax").forEach((chapter, i) => {
+        this.$gsap.utils.toArray(".parallax").forEach((chapter, i) => {
           chapter.bg = chapter.querySelector(".bg");
-          gsap.to(chapter.bg, {
+          this.$gsap.to(chapter.bg, {
             ease: "none",
             scrollTrigger: {
               trigger: chapter,
