@@ -8,7 +8,7 @@
       :height="50"
     >
       <template v-slot:chapterTitle>
-        The Critical Measurement: Peak SWE
+        Measuring snow
       </template>
     </Chapter>
     <SWE />
@@ -35,7 +35,7 @@
       :height="70"
     >
       <template v-slot:chapterTitle>
-        The Third Chapter Title
+        Changes in snowmelt have downstream consequences
       </template>
     </Chapter>
     <SWEanim
@@ -47,7 +47,7 @@
       :height="50"
     >
       <template v-slot:chapterTitle>
-        Elevation
+        Elevation matters
       </template>
     </Chapter>
     <Elevation
@@ -70,6 +70,7 @@ export default {
       ImgCarousel: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "imgcarousel"*/ "./../components/ImgCarousel"),
       DiagramsGood: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagramsgood"*/ "./../components/DiagramsGood"),
       DiagramsBad: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagramsbad"*/ "./../components/DiagramsBad"),
+      //Carousel: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "carousel"*/ "./../components/Carousel"),
       SWEanim: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "section"*/ "./../components/SWEanim"),
       Elevation: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "section"*/ "./../components/Elevation"),
       References: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "References"*/ "./../components/References"),
