@@ -3,11 +3,11 @@
   <VizSection id="firstSection">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>Changes in snowmelt have downstream consequences</h2>
+      <h2>The magnitude of SWE affects  runoff</h2>
     </template>
     <!-- EXPLANATION -->
     <template v-slot:explanation>
-      <p>Stuff to explain.</p>
+      <p>Global changes in temperature and precipitation affect the timing and rate of snowmelt. </p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>

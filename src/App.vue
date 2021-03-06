@@ -86,7 +86,7 @@ body {
       color: $nearBlack;
       background-color: white;
       line-height: 1.4;
-      font-size: 14pt;
+      font-size: 12pt;
       font-family: $familyMain;
       font-weight: 300;
       -webkit-font-smoothing: antialiased;
@@ -110,7 +110,7 @@ h2{
   font-weight: 400;
   text-align: center;
   font-family:$familyMain;
-  font-size: 2em;
+  font-size: 1.8em;
   margin-top: 5px;
   line-height: 1.3;
   @media screen and (max-width: 600px) {
