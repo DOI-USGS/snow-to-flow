@@ -20,6 +20,8 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { faFlickr } from "@fortawesome/free-brands-svg-icons";
 import { faYoutubeSquare } from "@fortawesome/free-brands-svg-icons";
 import { faInstagram } from "@fortawesome/free-brands-svg-icons";
+import VueCarousel from 'vue-carousel';
+import VueImg from 'v-img'
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.prototype.$gsap = gsap;
@@ -37,6 +39,8 @@ Vue.use(uswds);
 Vue.use(browserDetect);
 Vue.use(Vuetify);
 Vue.use(ScrubbableVideo);
+Vue.use(VueCarousel);
+Vue.use(VueImg)
 
 const app = new Vue({
   router,

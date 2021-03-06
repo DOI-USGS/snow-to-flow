@@ -1,34 +1,36 @@
 <template>
-  <div
-    class="chapter"
-    :height="height"
-    :style="cssVars"
-  >
-    <div class="chapterTitle">
-      <slot name="chapterTitle">
-        Chapter Title
-      </slot>
-    </div>
+  <div class="chapterContainer">
     <div
-      class="bg"
-      :style="cssVars"
+      class="chapter"
+      :height="height"
+      :style="chaptersVars"
     >
-      <picture>
-        <!--Media size suggestions https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images-->
-        <source
-          media="(max-width: 799px)"
-          :srcset="require(`@/assets/titleImages/1x/${image}-1x.jpg`)"
-        >
-        <source
-          media="(min-width: 800px)"
-          :srcset="require(`@/assets/titleImages/2x/${image}-2x.jpg`)"
-        >
-        <img :src="require(`@/assets/titleImages/2x/${image}-2x.jpg`)">
-      </picture>
+      <div class="chapterTitle">
+        <slot name="chapterTitle">
+          Chapter Title
+        </slot>
+      </div>
       <div
-        v-if="overlay"
-        class="overlay"
-      />
+        class="bg"
+        :style="overlayVars"
+      >
+        <picture>
+          <!--Media size suggestions https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images-->
+          <source
+            media="(max-width: 799px)"
+            :srcset="require(`@/assets/titleImages/1x/${image}-1x.jpg`)"
+          >
+          <source
+            media="(min-width: 800px)"
+            :srcset="require(`@/assets/titleImages/2x/${image}-2x.jpg`)"
+          >
+          <img :src="require(`@/assets/titleImages/2x/${image}-2x.jpg`)">
+        </picture>
+        <div
+          v-if="overlay"
+          class="overlay"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -54,9 +56,13 @@ export default {
         }
     },
     computed:{
-        cssVars(){
+        chaptersVars(){
             return{
                 "--height": `${this.height}vh`,
+            }
+        },
+        overlayVars(){
+            return{
                 "--overlay-opacity": `${this.overlayOpacity}`
             }
         }
@@ -78,7 +84,6 @@ export default {
     height: 100%;
     background: #000;
     opacity: var(--overlay-opacity);
-    z-index: 1;
     top:0;
     left: 0;
 }
@@ -88,9 +93,9 @@ export default {
     left: 0;
     width:100%;
     height:100%;
+    overflow: hidden;
     img{
       object-fit: cover;
-      object-position: center center;
       width: 100%;
       height: 100%;
     }

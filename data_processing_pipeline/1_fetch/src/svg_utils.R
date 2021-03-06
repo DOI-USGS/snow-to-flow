@@ -26,7 +26,7 @@ build_svg_map <- function(svg_fp, svg_height, svg_width, proj_str, state_ext, sn
   
   ##### Add the SVG nodes #####svg, svg_width, proj_str, state_ext, outline, state_path
   get_census_boundaries(mainDir= '1_fetch/out/', subDir= 'cb_2018_us_state_5m')
-  states_map <- get_map_extent(proj_str, state_ext, state_path)
+  states_map <- get_map_extent(proj_str, state_ext, state_path= 'cb_2018_us_state_5m')
   
   add_background_map(svg_root, svg_width, proj_str, state_ext, outline=FALSE, states_map)
   add_background_map(svg_root, svg_width, proj_str, state_ext, outline=TRUE, states_map)
@@ -216,12 +216,18 @@ build_svg_map(svg_fp = '6_visualize/out/sntl_sites.svg',
               proj_str = proj_conus, state_ext = 'all',
               sntl_fp = '1_fetch/out/SNOTEL_sites.shp')
 
+## aspositioning coordinates todata
+nrcs <- read.csv('out/data/NRCS_diff_20_21.csv')
+por <- read.csv('out/data/POR_diff_20_21.csv')
+
+por_sites <- st_read('data/SNOTEL_conus_por.shp')
+por_sites
 
 ## make Alaksa svg
 
 # define scale
 ak_height <- 600*.7937283 # adjusted to draw on same pixel-distance scale
-ak_width <- 900900*0.6742866
+ak_width <- 900*0.6742866
 
 proj_ak <- '+proj=aea +lat_1=55 +lat_2=65 +lat_0=50 +lon_0=-154 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs '
 
@@ -230,3 +236,71 @@ build_svg_map(svg_fp = '6_visualize/out/ak_sites.svg',
               svg_width=conus_width, svg_height=conus_height, 
               proj_str = proj_ak, state_ext = 'Alaska',
               sntl_fp = '1_fetch/out/SNOTEL_sites_ak.shp')
+
+
+## get AK bbox
+states_map <- get_map_extent(proj_str=proj_ak, state_ext="Alaska", state_path= 'cb_2018_us_state_5m')
+st_bbox(states_map)
+
+# to be finished ----------------------------------------------------------
+
+
+## export site coordinates as related to within svg positioning
+site_data <- st_read('data/SNOTEL_conus_por.shp') %>%st_transform(proj_conus)
+glimpse(site_data)
+plot(site_data)
+
+conus_d <- site_data %>%
+  convert_coords_to_svg(view_bbox = st_bbox(usa), svg_width) %>%
+  mutate(site_id = site_data$site_id,
+         x=round(x, 2), y=round(y, 2))# 
+conus_d %>%
+  left_join(por%>%filter(water_year== 2020))%>%
+  write.csv('C:/Users/cnell/Documents/Projects/snow-to-flow/public/data/conus_por_2020.csv', row.names=FALSE)
+conus_d %>%
+  left_join(por%>%filter(water_year== 2021))%>%
+  write.csv('C:/Users/cnell/Documents/Projects/snow-to-flow/public/data/conus_por_2021.csv', row.names=FALSE)
+
+site_data <- st_read('data/SNOTEL_conus_nrcs.shp') %>%st_transform(proj_conus)
+plot(site_data)
+
+conus_d <- site_data %>%
+  convert_coords_to_svg(view_bbox = st_bbox(usa), svg_width) %>%
+  mutate(site_id = site_data$site_id,
+         x=round(x, 2), y=round(y, 2))# 
+conus_d %>%
+  left_join(nrcs%>%filter(water_year== 2020))%>%
+  write.csv('C:/Users/cnell/Documents/Projects/snow-to-flow/public/data/conus_nrcs_2020.csv', row.names=FALSE)
+conus_d %>%
+  left_join(nrcs%>%filter(water_year== 2021))%>%
+  write.csv('C:/Users/cnell/Documents/Projects/snow-to-flow/public/data/conus_nrcs_2021.csv', row.names=FALSE)
+
+site_data <- st_read('data/SNOTEL_ak_por.shp') %>%st_transform(proj_ak)
+glimpse(site_data)
+plot(site_data)
+
+conus_d <- site_data %>%
+  convert_coords_to_svg(view_bbox = st_bbox(alaska), svg_width) %>%
+  mutate(site_id = site_data$site_id,
+         x=round(x, 2), y=round(y, 2))# 
+conus_d %>%
+  left_join(por%>%filter(water_year== 2020))%>%
+  write.csv('C:/Users/cnell/Documents/Projects/snow-to-flow/public/data/ak_por_2020.csv', row.names=FALSE)
+conus_d %>%
+  left_join(por%>%filter(water_year== 2021))%>%
+  write.csv('C:/Users/cnell/Documents/Projects/snow-to-flow/public/data/ak_por_2021.csv', row.names=FALSE)
+
+site_data <- st_read('data/SNOTEL_ak_nrcs.shp') %>%st_transform(proj_ak)
+plot(site_data)
+
+conus_d <- site_data %>%
+  convert_coords_to_svg(view_bbox = st_bbox(usa), svg_width) %>%
+  mutate(site_id = site_data$site_id,
+         x=round(x, 2), y=round(y, 2))#
+conus_d %>%
+  left_join(nrcs%>%filter(water_year== 2020))%>%
+  write.csv('C:/Users/cnell/Documents/Projects/snow-to-flow/public/data/ak_nrcs_2020.csv', row.names=FALSE)
+conus_d %>%
+  left_join(nrcs%>%filter(water_year== 2021))%>%
+  write.csv('C:/Users/cnell/Documents/Projects/snow-to-flow/public/data/ak_nrcs_2021.csv', row.names=FALSE)
+
