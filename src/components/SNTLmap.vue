@@ -1,6 +1,8 @@
 <template>
   <!---VizSection-->
-  <VizSection id="firstSection">
+  <VizSection
+    id="SNTLMap"
+  >
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
       <h2>2021 is on track to be a low snow year</h2>
@@ -1449,7 +1451,8 @@
 <script>
 import VizSection from '@/components/VizSection';
 import * as d3Base from "d3";
-
+import { ScrollToPlugin } from "gsap/ScrollToPlugin"; // to trigger scroll events
+import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
 export default {
     name: "Test",
     components:{
@@ -1506,9 +1509,23 @@ export default {
           //  read in data and bind with svg sites
           this.loadData();
           console.log(this.sntl_variable)
-
+          this.$nextTick(() => {
+            this.gsapOpacity();
+          });
         },
     methods: {
+      gsapOpacity(){
+        this.$gsap.from("#SNTLMap", {
+          scrollTrigger:{
+            trigger: "#SNTLMap",
+            start: "-200px center",
+            end: "top center",
+            scrub: true,
+            toggleOptions: "restart pause reverse pause"
+          },
+          opacity: 0
+        });
+      },
       loadData() {
         const self = this;
         // read in data 
@@ -1585,6 +1602,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.map-grid{
+  overflow: hidden;
+}
 .grid-left, .grid-right {
   max-height: 70vh;
 }
