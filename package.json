@@ -35,7 +35,8 @@
     "vue-parallaxy": "^1.1.1",
     "vue-router": "^3.4.3",
     "vuetify": "^2.4.3",
-    "vuex": "^3.5.1"
+    "vuex": "^3.5.1",
+    "webpack": "^4.42.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.4",
