@@ -45,11 +45,10 @@ $border: 10px solid #000;
 }
 /*#####TAKE AWAY#####*/
 .takeAway{
-    h1{
-        text-align: center;
-        max-width: 80vw;
-    }
-    margin-bottom: $spacing;
+    font-size: 1.4em;
+    margin: 0 auto 20px auto;
+    max-width: 960px;
+    margin: 0 auto;
 }
 /*#####FIGURES#####*/
 .figures{
@@ -66,14 +65,31 @@ $border: 10px solid #000;
     }
 }
 /*#####FIGURE CAPTION#####*/
-
+.figureCaption{
+  display: flex;
+  justify-content: center;
+  font-size: 1em;
+  line-height: 1.5em; 
+  font-style: italic;
+}
 /*#####EXPLANATION#####*/
+.explanation{
+  font-size: 1.125em;
+  line-height: 1.75em;
+}
 /*#####SHARED CSS#####*/
+.takeAway,
+.figureCaption,
+.explanation{
+  padding: 0 10px;
+}
+
 .figureCaption,
 .explanation{
   max-width: 700px;
-  margin: 0 auto 15px auto;
+  margin: 0 auto $spacing auto;
 }
+
 /*#####CUSTOMIZATION CLASSES#####*/
 .maxWidth{
     max-width: 1500px;
@@ -82,10 +98,6 @@ $border: 10px solid #000;
       max-width: 700px;
       margin: 0 auto;
     }
-}
-.text-content{
-  max-width: 700px;
-  margin: 0 auto;
 }
 .single{
     text-align: center;
@@ -103,6 +115,9 @@ $border: 10px solid #000;
   justify-items: center; 
 }
 @media screen and (min-width: 1024px){
+  .takeAway{
+    font-size: 1.7em
+  }
   /*#####CUSTOMIZATION CLASSES#####*/
     .group{
         display: grid;
