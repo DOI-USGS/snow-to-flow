@@ -1698,6 +1698,7 @@ export default {
 <style lang="scss" scoped>
 .map-grid{
   overflow: hidden;
+  margin-top: 25px;
 }
 .grid-left, .grid-right {
   max-height: 70vh;
