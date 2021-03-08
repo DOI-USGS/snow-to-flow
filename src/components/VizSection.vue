@@ -20,9 +20,7 @@
         </slot>
       </div>
       <div class="belowExplanation explanation">
-        <slot name="belowExplanation">
-          Explanation
-        </slot>
+        <slot name="belowExplanation" />
       </div>
     </div>
   </section>
@@ -44,12 +42,12 @@ $border: 10px solid #000;
 /*#####vizSectionContent#####*/
 .vizSectionContent{
   flex: 1;
-  padding: 0 15px;
 }
 /*#####TAKE AWAY#####*/
 .takeAway{
     h1{
         text-align: center;
+        max-width: 80vw;
     }
     margin-bottom: $spacing;
 }

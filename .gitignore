@@ -24,3 +24,5 @@ yarn-error.log*
 # data  processing files
 /data_processing_pipeline/1_fetch/out
 *.Rproj
+*.RData
+*.Rhistory

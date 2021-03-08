@@ -1,46 +1,20 @@
 <template>
   <!---VizSection-->
-  <VizSection id="firstSection">
+  <VizSection
+    id="SNTLMap"
+  >
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
       <h2>2021 is on track to be a low snow year</h2>
     </template>    
     <!-- EXPLANATION -->
     <template v-slot:aboveExplanation>
-      <p>Historically, April 1st has been an important date for assessing annual snow accumulation across the western U.S. Compared to the historical record for this date, 2021 is shaping to be considerably dry. While interannual variation in peak SWE is normal and fluctuates with natural climatological patterns, an exceptionally dry or wet season can have dramatic impacts to the water supply.</p>
+      <p>Historically, April 1st has been an important date for assessing annual snow accumulation. Compared to the historical record for this date, 2021 is shaping to be considerably dry in many regions of the western U.S.. While interannual variation in peak SWE is normal and fluctuates with natural climatological patterns, an exceptionally dry or wet season can have dramatic impacts to the water supply in locations where snowmelt is a major source of freshwater.</p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
       <div class="two group map-grid">
         <div id="grid-left">
-          <div id="sntl-text">
-            <div id="toggle-container">
-              <h3 id="sntl-name">
-                Show snow:
-              </h3>
-              <form
-                id="showData"
-                align="left"
-              >
-                <input
-                  id="inch_2020"
-                  v-model="sntl_variable"
-                  type="radio"
-                  align="left"
-                  value="perd_peak"
-                  @change="setColor()"
-                ><label for="inch_2020"> Peak SWE - Magnitude</label><br>
-                <input
-                  id="inch_POR"
-                  v-model="sntl_variable"
-                  type="radio"
-                  align="left"
-                  value="perd_sm50"
-                  @change="setColor()"
-                ><label for="inch_POR"> SM50 - Timing</label><br>
-              </form>
-            </div>
-          </div>
           <div
             id="ak"
             class="map-container"
@@ -1437,21 +1411,25 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p id="explain-bottom">
-        Snow, measured as the daily snow-water equivalent (SWE) from snowpack telemetry (SNOTEL) sites across the western U.S.. The Period of Record dates as far back as 1978 at most, but not all sites. Each site shows the percent change in snow magnitude (peak SWE) and timing (SM50) between this year and the past. 
+        The map above shows the percent change of snow TODAY (use April 1st for release) compared to this date in the historic record (1981-2010). Snow is quantified as the daily snow-water equivalent (SWE) from <a
+          href="https://www.wcc.nrcs.usda.gov/snow/"
+          target="_blank"
+        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the western U.S.</a>.  
       </p>
     </template>
     <!-- EXPLANATION -->
-    <template v-slot:explanation>
+    <!--    <template v-slot:explanation>
       <p />
-    </template>
+    </template> -->
   </VizSection>
 </template>
 <script>
 import VizSection from '@/components/VizSection';
 import * as d3Base from "d3";
-
+import { ScrollToPlugin } from "gsap/ScrollToPlugin"; // to trigger scroll events
+import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
 export default {
-    name: "Test",
+    name: "SNTLmap",
     components:{
         VizSection
     },
@@ -1460,7 +1438,9 @@ export default {
               publicPath: process.env.BASE_URL,
               d3: null,
 
-              sntl_variable: "perd_peak", // starting variable to map site colors
+              sntl_variable: "perc_ch", // starting variable to map site colors
+
+
               sntl_data: [], // sntl data
               ak_data: [],
 
@@ -1471,13 +1451,8 @@ export default {
 
             // variables of interest for map
               site_vars: {
-                swe: "Value_inches", 
-                POR_Median: 'POR_Median_inches', 
-                POR_Average: 'POR_Average_inches', 
-                POR_diff: 'POR_Median_Departure_inches',
-                POR_Median_percent: 'Percent_of_POR_Median', 
-                POR_Peak_percent:'Percent_of_Median_Water_Year_Peak_POR',
-                Peak_percent:'Percent_of_Water_Year_Peak',
+                swe: 'swe',
+                NRCS: 'mean',
                 diff_peak: 'diff_peak',
                 diff_sm50: 'diff_sm50',
                 perd_peak: 'perd_peak',
@@ -1485,19 +1460,24 @@ export default {
                 perpast_peak: 'perpast_peak',
                 perpast_sm50: 'perpast_sm50',
                 anom_peak: 'anom_peak',
-                anom_sm50: 'anom_sm50'
+                anom_sm50: 'anom_sm50',
+                ptile: 'ptile', 
+                today_diff: 'today_diff',
+                today_anomaly: 'today_anomaly'
                 },
+
 
               // chart opts
               xScale: null,
               yScale: null,
-              site_radius: 2.2,
+              site_radius: 2,
               colorValueInches: null,
             }
         },
     mounted() {
           const self = this;
           this.d3 = Object.assign(d3Base);
+          
 
           // sntl site map
           this.sntl_map = this.d3.select("svg#usa-sntl");
@@ -1506,14 +1486,28 @@ export default {
           //  read in data and bind with svg sites
           this.loadData();
           console.log(this.sntl_variable)
-
+          this.$nextTick(() => {
+            this.gsapOpacity();
+          });
         },
     methods: {
+      gsapOpacity(){
+        this.$gsap.from("#SNTLMap", {
+          scrollTrigger:{
+            trigger: "#SNTLMap",
+            start: "-200px center",
+            end: "top center",
+            scrub: true,
+            toggleOptions: "restart pause reverse pause"
+          },
+          opacity: 0
+        });
+      },
       loadData() {
         const self = this;
         // read in data 
-        let promises = [self.d3.csv(self.publicPath + "data/conus_por_2020.csv", this.d3.autoType),
-        self.d3.csv(self.publicPath + "data/ak_por_2020.csv", this.d3.autoType)];
+        let promises = [self.d3.csv(self.publicPath + "data/conus_por_2021.csv", this.d3.autoType),
+        self.d3.csv(self.publicPath + "data/ak_por_2021.csv", this.d3.autoType)];
 
         Promise.all(promises).then(self.callback); 
       },
@@ -1550,10 +1544,13 @@ export default {
           .attr("cx", function (d) { return self.xScale(d.x); })
           .attr("cy", function (d) { return self.yScale(d.y); } )
           .classed("SNTL",  true)
-          .attr("opacity", .6)
-          .attr("r", this.site_radius);
+          .attr("opacity", .8)
+          .attr("stroke", "black")
+          .attr("stroke-width", .5)
+          .attr("r", this.site_radius)
 
         self.setColor(data, sites); // set initial site color
+        
       },
       setColor() {
         const self = this;
@@ -1562,14 +1559,18 @@ export default {
         this.site_vars.setColor = this.sntl_variable; // set chart color to selected color
 
         // color scales
-        if (this.site_vars.setColor == this.site_vars.POR_diff) {
+        if (this.site_vars.setColor == 'ptile') {
           this.colorValueInches = this.d3.scaleSequential()
-          .domain([-16, 16])
-          .interpolator(this.d3.interpolateRainbow)
-        } else {
+          .domain([0, 1])
+          .interpolator(this.d3.interpolateBrBG)
+        } else if (this.site_vars.setColor == 'perc_ch') {
         this.colorValueInches = this.d3.scaleSequential()
-          .domain([0, 200])
-          .interpolator(this.d3.interpolateRainbow)
+          .domain([-50, 50])
+          .interpolator(this.d3.interpolateBrBG)
+        } else if (this.site_vars.setColor == 'anomaly') {
+          this.colorValueInches = this.d3.scaleSequential()
+          .domain([-2, 2])
+          .interpolator(this.d3.interpolateBrBG)
         }
 
 
@@ -1579,12 +1580,22 @@ export default {
 
           this.ak_sites.selectAll("circle.SNTL")
           .attr("fill", function(d) { return self.colorValueInches(d[self.site_vars.setColor]) })
-          
-      }
+
+
+          // make color ramp legend
+
+          //max value 
+
+
+      
+    }
   }
 }
 </script>
 <style lang="scss" scoped>
+.map-grid{
+  overflow: hidden;
+}
 .grid-left, .grid-right {
   max-height: 70vh;
 }
@@ -1611,7 +1622,7 @@ line, polyline, polygon, path, rect, circle {
 // using grid within the figure elements 
 #grid-left {
   display: grid;
-  width: 40vw; // careful editing this, it's sizing the maps to the same scale
+  width: 30vw; // careful editing this, it's sizing the maps to the same scale
   height: 100%;
   margin-left: 2.5vw;
   grid-template-rows: 35% 1fr;
@@ -1629,14 +1640,14 @@ line, polyline, polygon, path, rect, circle {
 }
 #grid-right {
   display: grid;
-  width: 60vw;// careful editing this, it's sizing the maps to the same scale
+  width: 70vw;// careful editing this, it's sizing the maps to the same scale
   margin-right: 2.5vw;
   grid-template-rows: 1fr;
   grid-template-columns: (10, 1fr);
 
   #usa {
     grid-column:6/16;
-    width: 75vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
+    width: 90vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
 
   }
 
@@ -1653,7 +1664,12 @@ line, polyline, polygon, path, rect, circle {
 @media screen and (max-width: 1024px){
  #grid-left {
    width: 90vw;
-   margin-right: 2.5vw;
+   margin-right: 2.5vw; 
+    #sntl-text {
+    grid-column:4/6;
+    grid-row:1/3;
+
+  }
  }
  #grid-right {
    width: 90vw;
@@ -1662,6 +1678,7 @@ line, polyline, polygon, path, rect, circle {
  #ak {
    width: 60vw;// careful editing this, it's sizing the maps to be on the same scale
  }
+
 }
 
 </style>

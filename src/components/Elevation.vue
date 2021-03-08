@@ -3,7 +3,7 @@
   <VizSection id="firstSection">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>Differences in snow persistence mediate snowmelt</h2>
+      <h2>Snow persistence at different elevations shapes snowmelt</h2>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
@@ -19,7 +19,7 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        Figure. 3d model of elevational range in study in Upper Colorado showing gage locations, and corresponding data with the interaction of snow persistence and discharge. In this section we highlight the work being done in the Upper Colorado to expand the SNOTEL network.
+        Mountains act as "water towers" and play a critical role in water storage in the western U.S. At high elevations, snow persistence - the amount of time snow remains on the ground - snowmelt occurs later and acts like a reservoir, whereas at lower elevations with low snow persistence sthe translation of snow to flow occurs earlier and is more readily available to streams. With changing climates, changes in snow persistence can have implciations for the amount of water stored in these high elevation "water towers".  
       </p>
     </template>
     <!-- EXPLANATION -->

@@ -1,6 +1,6 @@
 <template>
   <!---VizSection-->
-  <VizSection id="firstSection">
+  <VizSection id="SWEtoDischarge">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
       <h2>Snow-water equivalent (SWE)</h2>
@@ -10,35 +10,33 @@
       <div class="group single maxWidth">
         <figure id="swe-chart-container">
           <!-- <img src="@/assets/diagrams/SWE-sketch.png"> -->
-          <LineChart />
+          <LineChartSWEandDischarge />
         </figure>
       </div>
     </template>
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        The snow-water equivalent (SWE) include both snow depth and snow density to approximate the amount of water stored in snowpack. 
-        
-        While peak SWE gives us a snapshot of interannual variation in snow, intra-annual variation in the timing and magnitude is much more complex.
+        A second line chart using the original SWE line, but adding discharge.
       </p>
     </template>
     <!-- EXPLANATION -->
     <template v-slot:explanation>
-      <p>Stuff to explain.</p>
+      <p>Look! We're layering on information</p>
     </template>
   </VizSection>
 </template>
 
 <script>
 import VizSection from '@/components/VizSection';
-import LineChart from '@/components/LineChart';
+import LineChartSWEandDischarge from '@/components/LineChartSWEandDischarge';
 import * as d3 from 'd3';
 
 export default {
-    name: "SWE",
+    name: "SWEtoDischarge",
     components:{
         VizSection,
-        LineChart
+        LineChartSWEandDischarge
     },
     data() {
       return {
