@@ -20,9 +20,7 @@
         </slot>
       </div>
       <div class="belowExplanation explanation">
-        <slot name="belowExplanation">
-          
-        </slot>
+        <slot name="belowExplanation" />
       </div>
     </div>
   </section>

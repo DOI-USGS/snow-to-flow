@@ -1,6 +1,6 @@
 <template>
   <div id="swe-chart-container">
-    <svg id="swe-chart">
+    <svg id="swe-and-discharge-chart">
       <g id="title">
         <text
           class="demo-text"
@@ -71,7 +71,7 @@ export default {
             console.log(data, "aaaand we can access the data from here too yay!")
 
             // Set dimensions of SVG for chart
-            this.svg = this.d3.select("#swe-chart")
+            this.svg = this.d3.select("#swe-and-discharge-chart")
                 .attr("width", this.width)
                 .attr("height", this.height);
 
@@ -170,7 +170,7 @@ export default {
                 .append("path")
                     .attr("class","line")
                     .attr("fill", "none")
-                    .attr("stroke", "coral")
+                    .attr("stroke", "white")
                     .attr("stroke-width", 1) 
                     .attr("d", function(d){
                         return d3.line()
@@ -182,7 +182,7 @@ export default {
                 // .merge()
                 // .transition()
                 // .duration(this.duration);
-                
+                 console.log("what's happening??!");
             // add annotation
             
             // find date of peak swe
@@ -201,7 +201,7 @@ export default {
 
 <style scoped>
     #swe-chart {
-        /* background-color: coral; */
+        /* background-color: orchid; */
     }
 
     .line {
