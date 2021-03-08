@@ -16,8 +16,7 @@
             >
             <img 
               id="field1"
-              v-img:
-              group-1
+              v-img:group
               src="@/assets/images/snow-img1.png"
               alt="Collecting snow depth data in the field"
               loading="lazy"
@@ -34,9 +33,8 @@
               type="image/png"
             >
             <img 
-              id="field1"
-              v-img:
-              group-1
+              id="field2"
+              v-img:group
               src="@/assets/images/snow-img2.png"
               alt="Collecting snow depth data in the field"
               loading="lazy"
@@ -53,10 +51,27 @@
               type="image/png"
             >
             <img 
-              id="field1"
-              v-img:
-              group-1
+              id="field3"
+              v-img:group
               src="@/assets/images/snow-img3.png"
+              alt="Collecting snow depth data in the field"
+              loading="lazy"
+            >
+          </picture>
+        </div>
+      </slide>
+       <slide class="slide">
+        <div class="slider-image-container">
+          <picture>
+            <source
+              srcset="@/assets/images/snow-img1.png"
+              media="(max-width: 992px)"
+              type="image/png"
+            >
+            <img 
+              id="field4"
+              v-img:group
+              src="@/assets/images/snow-img1.png"
               alt="Collecting snow depth data in the field"
               loading="lazy"
             >

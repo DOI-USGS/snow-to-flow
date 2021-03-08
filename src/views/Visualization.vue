@@ -12,7 +12,8 @@
       </template>
     </Chapter>
     <SWE />
-    <ImgCarousel />
+    <MeasuringSWE />
+    <SWEtoDischarge />
     <Chapter
       id="chapter2-5"
       image="chapter4"
@@ -42,10 +43,10 @@ export default {
       Splash: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "section"*/ "./../components/TestSplash"),
       SNTLMap: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SNTLMap"*/ "./../components/SNTLmap"),
       SWE: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SWE"*/ "./../components/SWE"),
-      ImgCarousel: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "imgcarousel"*/ "./../components/ImgCarousel"),
+      MeasuringSWE: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SWE"*/ "./../components/MeasuringSWE"),
+      SWEtoDischarge: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SWE"*/ "./../components/SWEtoDischarge"),
       DiagramsGood: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagramsgood"*/ "./../components/DiagramsGood"),
       DiagramsBad: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagramsbad"*/ "./../components/DiagramsBad"),
-      //Carousel: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "carousel"*/ "./../components/Carousel"),
       References: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "References"*/ "./../components/References"),
       Chapter
     },
