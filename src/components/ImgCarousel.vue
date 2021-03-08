@@ -60,7 +60,7 @@
           </picture>
         </div>
       </slide>
-       <slide class="slide">
+      <slide class="slide">
         <div class="slider-image-container">
           <picture>
             <source
