@@ -46,7 +46,7 @@ $border: 10px solid #000;
 /*#####TAKE AWAY#####*/
 .takeAway{
     font-size: 1.4em;
-    margin: 0 auto $spacing auto;
+    margin: 0 auto 20px auto;
     max-width: 960px;
     margin: 0 auto;
 }
