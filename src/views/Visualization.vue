@@ -28,31 +28,6 @@
     <DiagramsBad 
       id="diagrams-bad"
     />
-    <Chapter
-      id="chapter3"
-      class="parallax"
-      image="chapter3"
-      :height="70"
-    >
-      <template v-slot:chapterTitle>
-        Changes in snowmelt have downstream consequences
-      </template>
-    </Chapter>
-    <SWEanim
-      id="section3"
-    />
-    <Chapter
-      id="chapter4"
-      image="chapter4"
-      :height="50"
-    >
-      <template v-slot:chapterTitle>
-        Elevation matters
-      </template>
-    </Chapter>
-    <Elevation
-      id="section4"
-    />
     <References />
   </div>
 </template>
@@ -71,8 +46,6 @@ export default {
       DiagramsGood: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagramsgood"*/ "./../components/DiagramsGood"),
       DiagramsBad: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagramsbad"*/ "./../components/DiagramsBad"),
       //Carousel: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "carousel"*/ "./../components/Carousel"),
-      SWEanim: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "section"*/ "./../components/SWEanim"),
-      Elevation: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "section"*/ "./../components/Elevation"),
       References: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "References"*/ "./../components/References"),
       Chapter
     },
