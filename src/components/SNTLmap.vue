@@ -5,11 +5,11 @@
   >
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>2021 is on track to be a low snow year</h2>
+      <h2>Snow in 2021</h2>
     </template>    
     <!-- EXPLANATION -->
     <template v-slot:aboveExplanation>
-      <p>Historically, April 1st has been an important date for assessing annual snow accumulation. Compared to the historical record for this date, 2021 is shaping to be considerably dry in many regions of the western U.S.. While interannual variation in peak SWE is normal and fluctuates with natural climatological patterns, an exceptionally dry or wet season can have dramatic impacts to the water supply in locations where snowmelt is a major source of freshwater.</p>
+      <p>Historically, April 1st has been an important date for assessing annual snow accumulation. Compared to the historical record for this date, 2021 is shaping to be considerably dry in many regions of the western U.S.. While interannual variation in peak SWE is normal and fluctuates with natural climatological patterns, an exceptionally dry or wet season can have dramatic impacts to the water supply in locations where snowmelt is a major source of water.</p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
@@ -24,7 +24,7 @@
             <svg
               id="ak-sntl"
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="100 0 606.9 325" 
+              viewBox="100 -100 606.9 325" 
 
               preserveAspectRatio="xMaxYMax slice"
             >
@@ -57,6 +57,14 @@
               </g>
             </svg>
           </div>
+          <div id="legend-grid">
+            <svg
+            id="legend-sntl"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 500 300"
+              preserveAspectRatio="xMinYMin slice">
+              </svg>
+            </div>
         </div>
         <div id="grid-right">
           <div
@@ -1405,6 +1413,7 @@
               </g>
             </svg>
           </div>
+          
         </div>
       </div>
     </template>
@@ -1438,7 +1447,7 @@ export default {
               publicPath: process.env.BASE_URL,
               d3: null,
 
-              sntl_variable: "perc_ch", // starting variable to map site colors
+              sntl_variable: "ptile", // starting variable to map site colors
 
 
               sntl_data: [], // sntl data
@@ -1482,10 +1491,11 @@ export default {
           // sntl site map
           this.sntl_map = this.d3.select("svg#usa-sntl");
           this.ak_map = this.d3.select("svg#ak-sntl");
+          this.legend_map = this.d3.select("svg#legend-sntl");
 
           //  read in data and bind with svg sites
           this.loadData();
-          console.log(this.sntl_variable)
+
           this.$nextTick(() => {
             this.gsapOpacity();
           });
@@ -1558,7 +1568,7 @@ export default {
 
         this.site_vars.setColor = this.sntl_variable; // set chart color to selected color
 
-        // color scales
+        // color scales - continuous color scale
         if (this.site_vars.setColor == 'ptile') {
           this.colorValueInches = this.d3.scaleSequential()
           .domain([0, 1])
@@ -1573,19 +1583,112 @@ export default {
           .interpolator(this.d3.interpolateBrBG)
         }
 
+        // make threshold color scale for percentile data
+        var threshold = this.d3.scaleThreshold()
+          .domain([0, 0.1, 0.25,0.5, 0.75, .9, 1])
+          .range(["white","#5C3406", "#C28D3D", "#ECD8A6", "#F0F0E6", "#AADDD6","#2A8C83", "#004439"]);
+
+          var x = this.d3.scaleLinear()
+            .domain([0, 1])
+            .range([0, 240]);
+
+            var xAxis = this.d3.axisBottom(x)
+              .tickSize(13)
+              .tickValues(threshold.domain());
+
+          var g = this.d3.select("svg").append("g").classed("thresh-legend", true).call(xAxis)
+          .attr("transform", "translate(" + (100) + "," + 100 + ")");
+
+          g.select(".domain")
+              .remove();
+
+              g.selectAll("rect")
+              .data(threshold.range().map(function(color) {
+                var d = threshold.invertExtent(color);
+                if (d[0] == null) d[0] = x.domain()[0];
+                if (d[1] == null) d[1] = x.domain()[1];
+                return d;
+              }))
+              .enter().insert("rect", ".tick")
+                .attr("height", 8)
+                .attr("x", function(d) { return x(d[0]); })
+                .attr("width", function(d) { return x(d[1]) - x(d[0]); })
+                .attr("fill", function(d) { return threshold(d[0]); });
+
+                g.append("text")
+                  .attr("fill", "#000")
+                  .attr("font-weight", "bold")
+                  .attr("text-anchor", "start")
+                  .attr("y", -6)
+                  .text("Snow-water equivalent (SWE) percentile");
+
 
        // set color for both maps using the same color scale
        this.sntl_sites.selectAll("circle.SNTL")
-          .attr("fill", function(d) { return self.colorValueInches(d[self.site_vars.setColor]) })
+          .attr("fill", function(d) { return threshold(d[self.site_vars.setColor]) })
 
           this.ak_sites.selectAll("circle.SNTL")
-          .attr("fill", function(d) { return self.colorValueInches(d[self.site_vars.setColor]) })
+          .attr("fill", function(d) { return threshold(d[self.site_vars.setColor]) })
 
 
           // make color ramp legend
 
-          //max value 
+          //generate range of values
+          function range(start, end, step = 1) {
+            const len = Math.floor((end - start) / step) + 1
+            return Array(len).fill().map((_, idx) => start + (idx * step))
+          }
+           
+          var result =  range(0, 1, 0.01);
 
+/*           // add color ramp legend to map
+          let defs = this.legend_map.append("defs")
+            .append("linearGradient")
+            .attr("id", "gradient")
+            .attr("x1", 0).attr("y1", "0%")
+            .attr("x2", 1).attr("y2", "0%")
+            .selectAll("stop")
+            .data(result)
+            .enter().append("stop")
+            .attr("offset", function(d,i) {
+              return i/(result.length-1);
+            })
+            .attr("stop-color", function(d) {
+              return self.colorValueInches(d)
+            })
+
+            let legendsvg = this.legend_map.append("g")
+              .classed("legend", true)
+
+            let legendGroup = legendsvg.append("g")
+              .attr("class", "legendColor")
+              .attr("width", 200)
+              .attr("transform", "translate(" + (100) + "," + 100 + ")")
+
+          // append legend text
+          legendGroup.append("text")
+              .attr("class", "legendAxis")
+              .attr("text-anchor", "end")
+              .attr("x", 90)
+              .attr("y", 17)
+              .text("1")
+
+          // append legend rectangle
+          legendGroup.append("rect")
+              .attr("class", "matrixLegend")
+              .attr("width", 150)
+              .attr("height", 20)
+              .attr("fill", "url(#gradient)")
+              .attr("x", 100)
+
+          // append legend text
+          legendGroup.append("text")
+              .attr("class", "legendAxis")
+              .attr("text-anchor", "start")
+              .attr("x", 260)
+              .attr("y", 17)
+              .text("100")
+ */
 
       
     }
@@ -1628,9 +1731,9 @@ line, polyline, polygon, path, rect, circle {
   grid-template-rows: 35% 1fr;
   grid-template-columns: (10, 1fr);
 
-  #sntl-text {
-    grid-column: 2/3;
-
+  #legend-grid {
+    grid-column: 1/5;
+    grid-row: 2/3;
   }
   #ak {
    width: 60vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
@@ -1652,6 +1755,7 @@ line, polyline, polygon, path, rect, circle {
   }
 
 }
+
 #explain-bottom {
   margin-top: 4em;
 }
