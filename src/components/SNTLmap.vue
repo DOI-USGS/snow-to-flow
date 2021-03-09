@@ -1423,7 +1423,7 @@
         <svg
               id="elev-corr"
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 100 100"
+              viewBox="0 -25 100 125"
               preserveAspectRatio="xMinYMin slice"
             >
             </svg>
@@ -1666,10 +1666,10 @@ export default {
         // add hover effect
       this.d3.selectAll(".SNTL")
         .on("mouseover", function(data) {
-          self.hover(data, 11, "orchid");
+          self.hover(data, self.site_radius*1.8, "orchid");
         })
         .on("mouseout", function(data){
-          self.hoverOut(data, self.radius);
+          self.hoverOut(data, self.site_radius);
         }) 
         
       },
@@ -1684,6 +1684,7 @@ export default {
 
           //console.log(data.d_peak) // use this to draw the line
 
+        // draw trendline for site
         var trendy = this.corr.append("g").classed("trend", true)
           trendy.append("path").attr("id", 'circle#sntl_' + data.site_id)
             .attr("d", data.d_peak)
@@ -1691,7 +1692,7 @@ export default {
             .attr("stroke", "black")
 
       },
-      hoverOut(data, to, color){
+      hoverOut(data, to){
         const self = this;
 
         self.d3.select('circle#sntl_' + data.site_id)
