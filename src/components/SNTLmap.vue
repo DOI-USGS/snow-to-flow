@@ -1528,8 +1528,8 @@ export default {
       loadData() {
         const self = this;
         // read in data 
-        let promises = [self.d3.csv(self.publicPath + "data/conus_coords.csv", this.d3.autoType), // conus 
-        self.d3.csv(self.publicPath + "data/ak_coords.csv", this.d3.autoType),
+        let promises = [self.d3.csv(self.publicPath + "data/conus_coord.csv", this.d3.autoType), // conus 
+        self.d3.csv(self.publicPath + "data/ak_coord.csv", this.d3.autoType),
         self.d3.csv(self.publicPath + "data/sntl_svg_coords.csv", this.d3.autoType), // sparkline paths
         self.d3.csv(self.publicPath + "data/diff_20210304.csv", this.d3.autoType)]; // aggregate trend metics
         Promise.all(promises).then(self.callback); 
@@ -1666,7 +1666,7 @@ export default {
         // add hover effect
       this.d3.selectAll(".SNTL")
         .on("mouseover", function(data) {
-          self.hover(data, self.site_radius*1.8, "orchid");
+          self.hover(data, self.site_radius*2, "orchid");
         })
         .on("mouseout", function(data){
           self.hoverOut(data, self.site_radius);
@@ -1846,9 +1846,9 @@ line, polyline, polygon, path, rect, circle {
 }
 #elev-corr {
   position: relative;
-  top: -300px;
+  top: -60vh;
   left: 25vw;
-  width: 25vw;
+  width: 20vw;
   min-width: 200px;
 
 }
@@ -1892,6 +1892,13 @@ line, polyline, polygon, path, rect, circle {
 #explain-bottom {
   position: relative;
   top:-70px;
+}
+#elev-corr {
+  top: -30vh;
+  left: 15vw;
+  width: 20vw;
+  min-width: 150px;
+
 }
 
 }
