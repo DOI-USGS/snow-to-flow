@@ -1563,9 +1563,8 @@ export default {
         this.ak_sites.attr("transform", "translate(0,100)")
       },
       trendPlot(data){
+        //styling for time series pop up?
          const self = this;
-
-
 
       },
       makeCorr(data){
@@ -1688,8 +1687,9 @@ export default {
         var trendy = this.corr.append("g").classed("trend", true)
           trendy.append("path").attr("id", 'circle#sntl_' + data.site_id)
             .attr("d", data.d_peak)
-            .attr("fill", "none")
+            .attr("fill", "transparent")
             .attr("stroke", "black")
+            .attr("stroke-width", .5)
 
       },
       hoverOut(data, to){
@@ -1846,7 +1846,7 @@ line, polyline, polygon, path, rect, circle {
 }
 #elev-corr {
   position: relative;
-  top: -60vh;
+  top: -40vh;
   left: 25vw;
   width: 20vw;
   min-width: 200px;
