@@ -1528,7 +1528,7 @@ export default {
       loadData() {
         const self = this;
         // read in data 
-        let promises = [self.d3.csv(self.publicPath + "data/conus_por_2021.csv", this.d3.autoType), // conus 
+        let promises = [self.d3.csv(self.publicPath + "data/conus_coords.csv", this.d3.autoType), // conus 
         self.d3.csv(self.publicPath + "data/ak_por_2021.csv", this.d3.autoType),
         self.d3.csv(self.publicPath + "data/sntl_svg_coords.csv", this.d3.autoType), // sparkline paths
         self.d3.csv(self.publicPath + "data/diff_20210304.csv", this.d3.autoType)]; // aggregate trend metics
@@ -1589,44 +1589,44 @@ export default {
             .attr("r", this.site_radius)
             .attr("fill",  function(d) { return self.threshold(d[self.site_vars.setColor]) })
 
-             var xAxis = this.d3.axisBottom(xCorr)
-              .tickSize(13)
-              .tickValues(xCorr.domain());
+        var xAxis = this.d3.axisBottom(xCorr)
+          .tickSize(13)
+          .tickValues(xCorr.domain());
 
-              var yAxis = this.d3.axisLeft(yCorr)
-              .tickSize(13)
-              .tickValues(yCorr.domain());
+        var yAxis = this.d3.axisLeft(yCorr)
+          .tickSize(13)
+          .tickValues(yCorr.domain());
 
-          var g = this.d3.select("svg#elev-corr")
+        var g = this.d3.select("svg#elev-corr")
           .append("g")
           .classed("corr-legend", true).call(xAxis)
           .attr("transform", "translate(" + (0) + "," + 250 + ")");
 
-           this.d3.select("svg#elev-corr")
+        this.d3.select("svg#elev-corr")
           .append("g")
           .classed("corr-legend", true).call(yAxis)
           .attr("transform", "translate(" + (50) + "," + 0 + ")");
 
-          // position axis labels
-          this.d3.select("svg#elev-corr").append("text")
-                  .attr("fill", "#000")
-                  .attr("font-size", "1.5em")
-                  .attr("text-anchor", "start")
-                  .attr("font-weight", "bold")
-                  .attr("y", 285)
-                  .attr("x", 95)
-                  .text("Elevation");
+        // position axis labels
+        this.d3.select("svg#elev-corr").append("text")
+          .attr("fill", "#000")
+          .attr("font-size", "1.5em")
+          .attr("text-anchor", "start")
+          .attr("font-weight", "bold")
+          .attr("y", 285)
+          .attr("x", 95)
+          .text("Elevation");
 
-           this.d3.select("svg#elev-corr").append("text")
-                .classed("ele", true)
-                  .attr("fill", "#000")
-                  .attr("font-size", "1.5em")
-                  .attr("font-weight", "bold")
-                  .attr("text-anchor", "start")
-                  .attr("y", 140)
-                  .attr("x", 25)
-                  .attr("transform", "rotate(-90) translate(-200, -110)")
-                  .text("SWE");
+        this.d3.select("svg#elev-corr").append("text")
+          .classed("ele", true)
+            .attr("fill", "#000")
+            .attr("font-size", "1.5em")
+            .attr("font-weight", "bold")
+            .attr("text-anchor", "start")
+            .attr("y", 140)
+            .attr("x", 25)
+            .attr("transform", "rotate(-90) translate(-200, -110)")
+            .text("SWE");
       },
       addSites(x_max, y_max, sites, data) {
         // adds sites to AK and CONUS maps, triggers color function
@@ -1643,36 +1643,38 @@ export default {
 
         // draw sites
         sites.selectAll("SNTL")
-        .data(data) // the key for each  site for updating data
+        .data(data, function(d, i) { return d.site_id; }) // the key for each  site for updating data
         .enter()
         .append("circle")
           .attr("cx", function (d) { return self.xScale(d.x); })
           .attr("cy", function (d) { return self.yScale(d.y); } )
           .classed("SNTL",  true)
+          .attr("id", function(d) { return 'sntl_' + d.site_id })
           .attr("opacity", .7)
           .attr("stroke", "black")
           .attr("stroke-width", .5)
           .attr("r", this.site_radius)
 
         // add hover effect
-      sites
-        .on("mouseover", function(d) {
-          this.hover(d)
+      this.d3.selectAll(".SNTL")
+        .on("mouseover", function(data) {
+          self.hover(data, 20);
         })
-        .on("mouseout", function(d){
-          console.log(d);
+        .on("mouseout", function(data){
+          self.hover(data, 5);
         }) 
         
       },
-      hover(d){
+      hover(data, to){
         const self = this;
 
-        self.d3.select(d)
-          .select(".SNTL")
+        self.d3.select('circle#sntl_' + data.site_id)
           .transition()
           .duration(100)
-          .attr("r", 20)
+          .attr("r", to)
           .attr('fill', '#ff0000');
+
+          console.log(data.d_peak)
 
       },
       setColor() {
