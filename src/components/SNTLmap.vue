@@ -1423,7 +1423,7 @@
         <svg
               id="elev-corr"
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 100 50"
+              viewBox="0 0 100 100"
               preserveAspectRatio="xMinYMin slice"
             >
             </svg>
@@ -1666,35 +1666,44 @@ export default {
         // add hover effect
       this.d3.selectAll(".SNTL")
         .on("mouseover", function(data) {
-          self.hover(data, 20, "orchid", "in");
+          self.hover(data, 11, "orchid");
         })
         .on("mouseout", function(data){
-          self.hover(data, this.radius, self.threshold(data[self.site_vars.setColor]), "out");
+          self.hoverOut(data, self.radius);
         }) 
         
       },
-      hover(data, to, color, dir){
+      hover(data, to, color){
         const self = this;
 
         self.d3.select('circle#sntl_' + data.site_id)
           .transition()
-          .duration(100)
+          .duration(50)
           .attr("r", to)
-          .attr('fill', function(d) { return color } );
+          .attr('fill', color);
 
           //console.log(data.d_peak) // use this to draw the line
 
         var trendy = this.corr.append("g").classed("trend", true)
-
-        if (dir == "in") {
           trendy.append("path").attr("id", 'circle#sntl_' + data.site_id)
             .attr("d", data.d_peak)
             .attr("fill", "none")
-            .attr("stroke", "blue")
-        } else if (dir == "out") {
-          trendy.select("path").remove();
-        }
+            .attr("stroke", "black")
 
+      },
+      hoverOut(data, to, color){
+        const self = this;
+
+        self.d3.select('circle#sntl_' + data.site_id)
+          .transition()
+          .duration(50)
+          .attr("r", to);
+
+
+          //console.log(data.d_peak) // use this to draw the line
+
+        this.d3.select(".trend").remove() // take off prior line
+          self.setColor();
       },
       setColor() {
         const self = this;
