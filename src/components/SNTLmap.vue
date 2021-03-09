@@ -5,11 +5,21 @@
   >
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>2021 is on track to be a low snow year</h2>
+      <p />
     </template>    
     <!-- EXPLANATION -->
     <template v-slot:aboveExplanation>
-      <p>Historically, April 1st has been an important date for assessing annual snow accumulation. Compared to the historical record for this date, 2021 is shaping to be considerably dry in many regions of the western U.S.. While interannual variation in peak SWE is normal and fluctuates with natural climatological patterns, an exceptionally dry or wet season can have dramatic impacts to the water supply in locations where snowmelt is a major source of freshwater.</p>
+      <!--   <p class="byline" >
+        U.S. Geological Survey<br>Water Resources Mission Area</p><br><br> -->
+      <p>Historically, April 1st has been an important date for assessing peak annual snow accumulation. Compared to the historical record for this date, 2021 is shaping to be considerably dry in many regions of the western U.S.. While interannual variation in peak SWE is normal and fluctuates with natural climatological patterns, an exceptionally dry or wet season can have dramatic impacts to the water supply in locations where snowmelt is a major source of water.</p>
+      <svg
+        id="legend-percentile"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 400 150" 
+        preserveAspectRatio="xMaxYMax"
+        width="100%"
+        height="100%"
+      />
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
@@ -24,7 +34,7 @@
             <svg
               id="ak-sntl"
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="100 0 606.9 325" 
+              viewBox="100 100 606.9 325" 
 
               preserveAspectRatio="xMaxYMax slice"
             >
@@ -32,8 +42,12 @@
                 href="@/assets/maps/ak_hillshade-01.png"
                 height="100%"
                 width="100%"
+                transform="translate(0, 100)"
               />
-              <g id="map-alaska">
+              <g
+                id="map-alaska"
+                transform="translate(0, 100)"
+              >
                 <path
                   d="M252.2 93l1.4-1 3.7-1 1.9-.8 4.2-2.3 8.5-3.7 3.2-1 5.4-1.4 2.4-.4 4.2.5.5 1.5-.4 1-1 1.1v2.2l-.9 1.4.8 2.5 1 .2 1-.3 1.2.1 1.3.7 3.1-.2.9 1.1 1.3-.2.4.6 2-.4 2.1 1 1.4-1.5 1.2-2.2h1.6l1 .8 1.5-.6-.8-1.6-2.8-1.4-1.2-.2-1.8.7.6-1.6.1-1.3-1.4-2-.4-1.5-.6-.7-1.5-.4-.8-2.3.3-.9 2.3-.3.3 1.3 1.3 2.1-.6 1.2v.8l1.9 3 1.3 1.3 1.9-.6.3-.7-1.4-.3v-.6l-1.3-1.3-1.2-1.9 1-3 1-1.3v-1l-.8-.7-2.3.1-.9.5h-2l-1.2-1-1.1.5-1-.7-3.5-1.7-1.7-1 .3-2.4-.4-3-1-3.3-.7-1-2-2-3.6-4.6-1-1.6-1-1-2.5-1.3-.9-1.9-1-1.5-1.9-1.4-1.7-.8 3-.7.7-.6.8-1.8 1-3.8.2-1.8 3.6 1 2.2.4 4.7-.2h2.7l2-.6 3.3-2.4 2.2-2.5 1.2-2.8.3-2.9 1.5-3.5 2.3-2.5 1.8-2.6 1-1.1 3.2-2.1 2.2.8 1.5.2 3.2-1.2 2.2-1.4 1.8-1.5 4-4 3-1.1v.7l1.3.8 1.8.3 1.8-.5h2.1l1.7-.7 1.7-1.3 1.7-1.8 2.8-4 1.6-1.2.1 1 1 .7 1.8.4.7 1h1.2l1 .3.4 1.4-.2.7L348 7l-1 .3.7 2.2 1.4.1 1-.6-.1-1.5 1-1.1.5-1L353 4l2.5 2.2.3 3.6 1.4-.1 1 1.2 1.2-1 .6-1.2h2.5l1.6-.7 2 .7h1.9l2.4 1-1 2-.5.5.3 1.4 2 .4 1.9.7.6.9-1.2.4.3.8 2-.2 2.6 1 1.2-1.6 2.7-.5 1 1.2 1.8-.6 1.3-1.4 4.3.2 1.5 1 1 .3 1.2-.5 1.4 2.1 1.9-.9 2 1 1 1.4h2l.7-.7.6 1.1h1.1l.6-.7 3.9-.3 1.2.5 2-.3 1.1 1 3 1.2h3.7l.9-1.3 3-1.7.4-.4 1.6-.5h1.3l.8-.7 3.7 1.4 1.8 1 .8.9h.9L437 21l1.7.3 2.1 1.3h1.5l1.4.4 29.5 148.4 1.3 6.7 2.8 13.9 4.6.7.2-1.7 4.8 1.3 2-3.3 5.4-1.5.1.6-.1 4.4 1.6 1.4 3.5.9 1.3 2.3 11.6 7.2 2.2 4.4v1.4l.8-.2 1.2-2 3-3.5.3-.4 2.2-.7.5-2.5-1-3.2 1.6-.4.1-1.8-1.2-.5 1.2-1.1 2.1-1 3.5-3.6 2.6 1.2 1.2 1 1.5.8.5 1.6-.5 1 1.3.4-.2.9 1 1 2.5-.2.5 1 1.3.7.8-.2 1.4 1.4v1.1l2 1.7 4.6 1.1 1.9 1.7 4 2.3-.5 1 1.5 1.4 2.3 1.7 2 2.6 2.8 2 1.9 2.2 1.4 1.2 1.7 1.8 2.7 2 1.9 2-.5 2.5 3.4-.2.2 3.2 2.8.4v1l.8.7.9 1.8 2.3-1.1 1.5.7 3.4.7 1.1.5 3.2-.4 2.2 1.2 1.6-.1 1 1.6 2.1.1 1.2-1 1.7 1.7.5 1.7v1.8l-.3 1.2.9 1.3.5 1.8 1.7 2 1 1.8.8.8-.7 2v2.6l-.3 1.8-1 2.9-1.3 1.8-.2 1.3-1-1.3-1 1-.7-.1-1.4-2.4-.9-.9-.2-1.3-1-.6-.8-1.2.7-1.3.3-2.3-.8-1-.2-2.1-1.3-2.7-.7-.9-2.4-1.9 1.3 2.1 1.2 1 1 1.9-.3.8.8 2.5.4 2.1-.7 2-1.6-.2-1.4.4-1.2-1.4-.3.9-1.9-.6-2-1.2-.4-1.2 1.4-1.6-1-.9-.6-1.5v-1.1l-.8-1.8-1 .7 1 1 .3 2.6-.6 3.5-2.5-.9-1-1.8-.2-2 .7-.8-.3-2.3-.8-1.5.6-1.5-.8-.1-.9 1.8 1 1.6v.7l-1.2.3h-1.9l-1-1.7-.8.2-.5.8-1.4-1.7-.4-1.2 1-.8.1-2 1.8-.7-1.3-2.3-.3-1.6-.8.4-1.5-.8-.6-2.2-2.5-.8-1.5-1.2-1.1-1.9-1.8-.2-1 .2-1-.6-.5.6-2.2-.5-.6-1 .1-1.4.7.2.5-1-1.1-.2-1.4-2.1-.4-1.6-1 .3-.8-.6-.3-1.7 1.4.2 2-.3-2.9-1.3-.5-1.4-1 1.6-2-2.1-2.6-1.7-1-2-1.7.4h-3.7l-2.2-2.3-.6-1.6-2-1.7-.2-1.3-.7-1.8-.8.3-1.5-.8-1.7-4-1.3-1.8-1.5-1.5-.8.4 1.5 1 1.2 1.8-.7.4.4 2 2.7 3.9 1.5 1.8-.2.9 1.7 2.4 1 2-.5.4.6 1.6h-1.9l-1.6-1.4-.7-1.2-.7.4-1.3-.4-.7.8-1.6.8-.3-1.3-.9-2.1v-.9l-1.4-1.4-1.3-1.6-.2 1.2-.9.3-2.7-1-.7-1.4-.8.9.7.8 1.4.7 1.9 1.6.9-.2.6 1.5 1.2 1 1.2 2.2-.4.9-1.3.9-1-1-.1 1.6h-1.5v2l-1 .2-1.2-1-2-1.5-1.5.4-4.4-2-2-.8-.2-.7-2.8-1.6-.4-1.5-1.6-1.3-2.5-1.3-3.5-.6-3.1-1.5-5.2-1.3-4.6-2 .8-2.1 1.3-.4-.5-2.4-1-1.7.8-1.4.1-1-.8-.7-.1 1.8-.7.5-.3 2-3.2 2.3-1 1.1-3.3.4-2.3-.2-5.3-1.5-.1-.7 1-.6.1-1.2-1.4-1.8-1.8-.5 2.2 2-1.9 1.6-1.3.2-1.7-.6h-2l-4-.3-3.3.5-1.4.6-3 .8-2.6.9-1.7 1-1.3-.4-1.4.6-1.8 2.2-.3-.8 1.8-2.1 1.5-.3-.7-1-1.7-.5-.5 1-2-1.5-3.4-.2 1.4-1-2.1-.5.8-2.6-1.7 1v.8l-.5 1.1H439l-2.4-1.2-1-1-1.3-.2-1 .6-.6-.8-2.7 1.1-1.2.1.1.9 2-.7v1.2l-.9.7-1.3.3-1.8 1.8-.8-.7 1-.8-1.4-.4-.1-.8.6-1.4 1-.6.6.4 1.4-1 1.2-.4 1.7-1.2 1.4-.5-2.2-1-1 .7-1.2-.1.8-1.6-3 1.2h-1.4l-.5-1 3-1 1.5-1.4-.8-.3-.5 1-2 .4-.7-1-.8 1.1-.4-1.2V188l.9-2.5 3-.4-.3-.6-2.8.4-.6 1.1-.8.5-.6 1.3-.9.9-.6-2.5-.9 1.8-2 2.1-1.5-.4-.3.6-1.6-.5-.2.7.6 1H414l-1 .9-1-.7.5-2.1.9-1.8-.1-.8 1.4-2.1.1-1.7-2 3.6-.6 1.6-.8.1-.8 1.6-.4 2.2.7.8 1.6.2.2 1.4-1.3 1.4-.6 1.2.7.6.5-1.2.9-.8 1 1.3.5 1.4-.4 3.1-1 .9 2.3 1.7 1 1.3-.4 1.3-1.5 1.1-1.7-.5-1-1-1 1.8h-1.2l-.5.6-1.2-.7-1 .7-.5-.8-.9.4-1-.4-.5-.8-.7 2.8-1.3.5.7-2.3-.6-2.6-.7.4.3 2.1-.3 1.2-.8.2-.3 2.1.9.5-.1 1.2-1-.5-.5-2-.7-.2.3 3h-1l-.8.6-2.2 2.6-1.5 2.3-.8.3 1-3.4-.9.6-.8 1.7-2.1.8-.2 1-1.3 1.2-.2 1.5-1.6-.5v.8l-1.8.3-1.3-.8-1.3 1.1-.1.7h-1.5l-.9-.8-1.3-.8-.2-1.1.8-1 .2-1 2.3-1.3.8.2.3-1 1-.3 1.1-1 2.6-3.7-1.2.2-2 1.8-1.5 1-1.3-.2-1.8-1.3-.4-1 1-2.7.4-2.1 2.4-3.5.3-2.7.7-.5.2-3-.5-.5-1-2.7 1.8-1.2 1.4-.2 3-2.9 2.9-2 1.7 2.4 1.8.6 1-1.8 1-.2 1.2.6.6-.2 2 .7 2.2.1-.9-1-1.1.3-1.7-1-.8.1-1.3-.5-1-1-2.2-1.4.5-1 .8-.1.9-2 .7-.4.2-1 1.4-.5.9-.8-1.7-.7-2.2 2.1-.2 2.3-.6.5-2-.3-2.3.4-1.6-.9-.5 1-2.7 1.4-1.2 2.5-1.7.7h-1l-1.3 1.1-1.5 2 1 2.2h-1.4l-1.5 1.2-.7 1.5-.8.4-1 1.2-.2 1.2 1 1-1.3.7-.2 1-1.2 1-2 .3.1 1 1.6 2-1.2 2.9-1 .7-1.7-.1-2 .4-.6.8 2.4-.3.3.8-.5 1.9-1.5 1-1.2.3-1.3-.4-.7.7-.3 1-1.6.2.6 1.5-.3.5-3 .9-.5.8-.3 2.5-.8 1 .5 1 1 .5 2 .4 1.4-.4.8 1.2 1.3.2.8.6 1 1.8-.5.4-.5 2-1.5 1-1.2 1.4h-2l-.4 2.1-1.2.1-.1 1 .6 1.1-1.7 1 .7.8-.4 1.3-.7.5-1.2 1.7-1-1-.2 1.6-1.1.7-1.3-.7-.5 1-1.3-.5-1 .3-1.2 1 .5 1-.3.7-1.4.7-.9-.1.2 2-.7.2-1.9-1.5-.5.4-.1 2-1 .5-.1 1.5h-2.3l-.8-.4.2 2.4-1.2-.7-2 1-1.5 1.4h1.5l-.1 3-1 .9-.1.8-1 .6-.2 1.2-1.2-.3-2.2.7-1.2.9-1.5 2-.6.4-1.7-1.8-1 .5.5 1.2h-1l-.6 1.1.8.7.1.9-2 .1-.6-1.3-2 .5-.6.8 1.4.8.2.9-.6.7-2.4-1-.2 1-2-.5-.9.5-1 1.3v.7l1.7.4 1.2.7-.7 1.5-1.3 1.3-.5 1.2v1l-1.9-.7-.6 1.6h-1v-1h-1l-.7 1.2-5 .8-.4 1.5-1 .4-.6 1 .2.8-1 1.2-1.3.4.7-1.6.6-3.2-1.6-.6-.5 1H297l-.6 1.3-1.5 1-1 .2-1.3-.5.1 1.1-.9 1.7-.8.5-.3-1.7-1 .3-.1 1.6h-1.2l-.8-1.5-.8.3-.9 1.3-2.4 1.1-1.3-.6-1.6.2.7-2.4 1.4-1.9-.6-.5h-1.8l-1.3 1.7-.2 2-2.3 2.7-1.8.3.7 1.4v.9l-1.1.4-1.1-1.6-.6.9-.2 1.3-2.6-.7.3-1.3-.2-2.4-.7-1h-.8l-.7 1.3.7.5.5 1.2-.5.7.3 1.5-.8.3-1.5 1-1.5-.6-.4-1-.2-1.5-.7-.6-1.2.2-.5.8 1.6 1.6.1.5-2 1.5-1.9.6.5 1 1.4-.2.8.8.3 1.4-1.7-.5-1-1.5-1 .5-.9 1-1.1.6-1.7-.6-3.6-.3-1.7.4-1.2.8-.4 1.2-1.2.6-2 .2-2.1-.8-.7-3 .4-.6 2.4-.6 2.1-3.2.3-.7 1.4-.6.8.9 2-.8 1.4-.1 1.7-1 1.3-.2 2.5.5.7 1.6.3 1.3 1.4-1 .2-1.2-.1-1.8 2.3-.7 1.5.4 1.4-.8-.4-.9 1-.6.7.2.9-1 .9.4.8-.6v-1.4l.4-.9 2.8-2.9 2.3-1.5 1.8-.7 1-1 7.2-1.4h3.2l-.4.6.2 1.6-1.1.2-.2 1.5 1.2 1.5.5-.8.1-1.8 1.3.6h1.5l.1 1.4h1l1.5-.9-2.9-2-.5-.8 1.3-1.6 1.7-3.6 2.3-2 2.3-1.2 1.2-1.2 3-1.2 1.7-1 1.3-.6 2.6-1.5.6-.6 1 1.2h1.8l.4-.9-.4-.8.2-1.8 1.6-2.5 1.6-2 1.7-1.4 1.5-.6 1.7-2 2.3-1.5.5 1.2.8-.3-.3-1.8h-.8v-2l.7-2.8.9-4.6.5-.7 1.3-.2-1.3-2 .2-2 1-2.1.8-.5.8-1.2 2-1.9 1-2.3-.4-1.5-.8.8-1.5.5-2.7 1.4-1.4.4-1.6.9-2.8 1-.9-.2-.9-.9v-1.1l-.7-.9-1.3-.7.5-1 .5-2.6h-.4l-1 1.6-1.5.8-.1 1.8-1 1.2.2 1.3 1 2.7-1 1.4-1 .2-1.5-.7-1.4-3.8-1.2-2.7-1-1.2-1.3-.5.6-1-.2-.6-1.1-.1-.4 1.4-.5.8-1 .4-1.2-2-1 .2-1.2-1.5.4-1-.4-1.4-1.6.7-2.8 1.9-2.5.8-3.4 1.7-.5 1.3-2.6 1-.6.6-1.6-1.6-2 .1-.8-.6 1.7-.6.5.7 1.9-2 .2-1V224l-1.4-3.6-.5-2.3 1.3-1.8.7-.3 1-1.2.8-.3-1.2-3.1-.2-1.7-1.3-2.8v-1.6l-2-4-1 .3-.2 1.8-.3.8-1.4.4-.5-.4-1 .9-2.8 1-2.5.4h-2l-3.4-.5-1.6-.9-.5-2.1.8-.2-.4-1.2-1.7-1.2-.8-2.5-1-1-.3-1-1.4-.4-.9-.8-1.2-2 1.7-1-.7-.9-1.3.7-1.6-.5.1-1.3 1 .2 2.2-1.7.9-.3-.4-1 .4-2.6-1.1-.9v-.8l.7-.5v-2.5l-1.3-.6-.7 1.5-1.6-.5-.4-1.4.4-2-2-1.5-.1-1.6 1.4-.4.3-.8-1.2-1.3-2.2.4V170l.5-.7 3-.2-1.5-1.4-.5-1.4 1.2-.4 1.7.4 1.1-.2-.5-2.2.3-2 .9-1.2 3.8-3.8.5-.8 1.7-1.5 1.1-2 1.6-.6V150l1.2-2.8.8-1 1.2-.8-.3-.8 2-1.8 2.5-.5h.9l1.1 1 1.3.3.7 1.5 2.2 2.3 2.4-.2 1.8-1.4.4-1 1.3-.2 2.2-2.5.2-.6 1.4-1.3.3-1 1.6 1.2v.8l1.6.2 1.4-.1.7.4 2.3-.2 1.5-.5.3-.7 1.9-2 1.3-2 .1-1-.7-3-.3-1.9.1-2.7-2-3.2-1.8-.7.4-1.5.7-.4 1.2.7 1.6.2 2-1.9.4-1.9-1-2-1-1-1.1-.4-.7.5-.8 1.4-1.1.2-1.1-.8-1.9 1.3-2.3.2-.7 1.1-2.6 1.3-.7 1-.3 1.6-1.5.4v-2.7l-1.4-1.9-1.2-1-.8.7 2 2.4-.9 1.2h-.5l-.5-1.3-1.3-1.4-1.1-.7-1.8-.5-1.2.3-1.3-.5h-2.2l-3.4 1.3H272l-3-1.7-6.1-2.7-1-1.2-.4-1.9.2-1.2.8-1.2-.7-1.4-1-1v-1l-1-1.3h1.8l1.5-1 .1-.8 1.2-.8-.9-1.2-2.3-.5-1.6-1.2-3.3-1.2-1.4-2-1.3-1.2-1.2-.7V93z"
                   class="alaska"
@@ -66,7 +80,7 @@
             <svg
               id="usa-sntl"
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="-200 0 900 570"
+              viewBox="-250 0 900 570"
               preserveAspectRatio="xMinYMin slice"
             >
               <image
@@ -1406,12 +1420,19 @@
             </svg>
           </div>
         </div>
+        <!-- <svg
+              id="elev-corr"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 300 300"
+              preserveAspectRatio="xMinYMin slice"
+            >
+            </svg> -->
       </div>
     </template>
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p id="explain-bottom">
-        The map above shows the percent change of snow TODAY (use April 1st for release) compared to this date in the historic record (1981-2010). Snow is quantified as the daily snow-water equivalent (SWE) from <a
+        The map above shows snow TODAY (use April 1st for release) as the percentile of this date in the historic record (1981-2010). Snow is quantified as the daily snow-water equivalent (SWE) from <a
           href="https://www.wcc.nrcs.usda.gov/snow/"
           target="_blank"
         >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the western U.S.</a>.  
@@ -1438,7 +1459,7 @@ export default {
               publicPath: process.env.BASE_URL,
               d3: null,
 
-              sntl_variable: "perc_ch", // starting variable to map site colors
+              sntl_variable: "ptile", // starting variable to map site colors
 
 
               sntl_data: [], // sntl data
@@ -1448,6 +1469,7 @@ export default {
               ak_map: null,
               sntl_sites: null, // g for sites in svg
               ak_sites: null,
+              corr_plot: null,
 
             // variables of interest for map
               site_vars: {
@@ -1470,22 +1492,23 @@ export default {
               // chart opts
               xScale: null,
               yScale: null,
-              site_radius: 2,
+              site_radius: 2.5,
               colorValueInches: null,
             }
         },
     mounted() {
           const self = this;
           this.d3 = Object.assign(d3Base);
-          
 
           // sntl site map
           this.sntl_map = this.d3.select("svg#usa-sntl");
           this.ak_map = this.d3.select("svg#ak-sntl");
+          this.legend_map = this.d3.select("svg#legend-sntl");
+           this.corr = this.d3.select("svg#elev-corr");
 
           //  read in data and bind with svg sites
           this.loadData();
-          console.log(this.sntl_variable)
+
           this.$nextTick(() => {
             this.gsapOpacity();
           });
@@ -1507,7 +1530,9 @@ export default {
         const self = this;
         // read in data 
         let promises = [self.d3.csv(self.publicPath + "data/conus_por_2021.csv", this.d3.autoType),
-        self.d3.csv(self.publicPath + "data/ak_por_2021.csv", this.d3.autoType)];
+        self.d3.csv(self.publicPath + "data/ak_por_2021.csv", this.d3.autoType),
+        self.d3.csv(self.publicPath + "data/sntl_svg_coords.csv", this.d3.autoType),
+        self.d3.csv(self.publicPath + "data/diff_20210304.csv", this.d3.autoType)];
 
         Promise.all(promises).then(self.callback); 
       },
@@ -1515,15 +1540,90 @@ export default {
         const self  = this;
         this.sntl_data = data[0];// has a key variable and x and y positioning
         this.ak_data = data[1];
+        this.coord_data = data[2];
+        this.diff = data[3];
 
         this.sntl_sites = this.sntl_map.append("g").classed("sites", true)
         this.ak_sites = this.ak_map.append("g").classed("sites", true)
+        this.corr_plot = this.corr.append("g").classed("sites", true)
 
         this.site_vars.setColor = this.sntl_variable; // set chart color to selected color
         
         // draw sites on map
         this.addSites(700, 840, this.sntl_sites, this.sntl_data); // add westen sites
         this.addSites(606.9, 476.2, this.ak_sites, this.ak_data); // add ak sites
+
+        //this.makeCorr(this.diff);
+
+        // nudge ak sites for repositioning 
+        this.ak_sites
+          .attr("transform", "translate(0,100)")
+      },
+      makeCorr(data){
+        const self = this;
+
+        // axis scales
+        self.setColor();
+
+        var yCorr = this.d3.scaleLinear()
+          .range([250,  50])
+          .domain([0, 1]);
+
+        var xCorr = this.d3.scaleLinear()
+          .range([50,  250])
+          .domain([0, 12000]);
+
+         this.corr_plot
+         .selectAll("dots")
+          .data(data) // the key for each  site for updating data
+          .enter()
+          .append("circle")
+            .attr("cx", function (d) { return xCorr(d.el); })
+            .attr("cy", function (d) { return yCorr(d.ptile); } )
+            .classed("dots",  true)
+            .attr("opacity", .7)
+            .attr("stroke", "black")
+            .attr("stroke-width", .5)
+            .attr("r", this.site_radius)
+            .attr("fill",  function(d) { return self.threshold(d[self.site_vars.setColor]) })
+
+             var xAxis = this.d3.axisBottom(xCorr)
+              .tickSize(13)
+              .tickValues(xCorr.domain());
+
+              var yAxis = this.d3.axisLeft(yCorr)
+              .tickSize(13)
+              .tickValues(yCorr.domain());
+
+          var g = this.d3.select("svg#elev-corr")
+          .append("g")
+          .classed("corr-legend", true).call(xAxis)
+          .attr("transform", "translate(" + (0) + "," + 250 + ")");
+
+           this.d3.select("svg#elev-corr")
+          .append("g")
+          .classed("corr-legend", true).call(yAxis)
+          .attr("transform", "translate(" + (50) + "," + 0 + ")");
+
+          this.d3.select("svg#elev-corr").append("text")
+                  .attr("fill", "#000")
+                  .attr("font-size", "1.5em")
+                  .attr("text-anchor", "start")
+                  .attr("font-weight", "bold")
+                  .attr("y", 285)
+                  .attr("x", 95)
+                  .text("Elevation");
+
+           this.d3.select("svg#elev-corr").append("text")
+                .classed("ele", true)
+                  .attr("fill", "#000")
+                  .attr("font-size", "1.5em")
+                  .attr("font-weight", "bold")
+                  .attr("text-anchor", "start")
+                  .attr("y", 140)
+                  .attr("x", 25)
+                  .attr("transform", "rotate(-90) translate(-200, -110)")
+                  .text("SWE");
       },
       addSites(x_max, y_max, sites, data) {
         const self = this;
@@ -1544,50 +1644,93 @@ export default {
           .attr("cx", function (d) { return self.xScale(d.x); })
           .attr("cy", function (d) { return self.yScale(d.y); } )
           .classed("SNTL",  true)
-          .attr("opacity", .8)
+          .attr("opacity", .7)
           .attr("stroke", "black")
           .attr("stroke-width", .5)
           .attr("r", this.site_radius)
 
         self.setColor(data, sites); // set initial site color
+
+        // add hover effect
+       /*  sites
+        .on("mouseover", function(d) {
+          self.hover(d)
+        })
+        .on("mouseout", function(d,i){
+          console.log(data[i]), i;
+        }) */
         
+      },
+      hover(d){
+        const self = this;
+        this.d3.select(e).select("circle").transition().duration(100).attr("r", 20).attr('fill', '#ff0000');
+
       },
       setColor() {
         const self = this;
-        console.log(this.sntl_variable);
+        //console.log(this.sntl_variable);
 
         this.site_vars.setColor = this.sntl_variable; // set chart color to selected color
 
-        // color scales
-        if (this.site_vars.setColor == 'ptile') {
-          this.colorValueInches = this.d3.scaleSequential()
-          .domain([0, 1])
-          .interpolator(this.d3.interpolateBrBG)
-        } else if (this.site_vars.setColor == 'perc_ch') {
-        this.colorValueInches = this.d3.scaleSequential()
-          .domain([-50, 50])
-          .interpolator(this.d3.interpolateBrBG)
-        } else if (this.site_vars.setColor == 'anomaly') {
-          this.colorValueInches = this.d3.scaleSequential()
-          .domain([-2, 2])
-          .interpolator(this.d3.interpolateBrBG)
-        }
+        // make threshold color scale for percentile data
+        this.threshold = this.d3.scaleThreshold()
+          .domain([0, 0.1, 0.25,0.4,0.6, 0.75, .9, 1])
+          .range(["white","#5C3406", "#C28D3D", "#ECD8A6", "#F0F0E6", "#AADDD6","#2A8C83", "#004439"]);
 
+          var x = this.d3.scaleLinear()
+            .domain([0, 1])
+            .range([0, 240]);
+
+            var xAxis = this.d3.axisBottom(x)
+              .tickSize(13)
+              .tickValues(self.threshold.domain());
+
+          var g = this.d3.select("svg#legend-percentile").append("g")
+          .classed("thresh-legend", true).call(xAxis)
+          .attr("transform", "translate(" + (10) + "," + 100 + ")");
+
+          g.select(".domain")
+              .remove();
+
+              g.selectAll("rect")
+              .data(self.threshold.range().map(function(color) {
+                var d = self.threshold.invertExtent(color);
+                if (d[0] == null) d[0] = x.domain()[0];
+                if (d[1] == null) d[1] = x.domain()[1];
+                return d;
+              }))
+              .enter().insert("rect", ".tick")
+                .attr("height", 8)
+                .attr("x", function(d) { return x(d[0]); })
+                .attr("width", function(d) { return x(d[1]) - x(d[0]); })
+                .attr("fill", function(d) { return self.threshold(d[0]); });
+
+                g.append("text")
+                  .attr("fill", "#000")
+                  .attr("font-size", "1.15em")
+                  .attr("text-anchor", "start")
+                  .attr("y", -10)
+                  .text("Percentile, historic mean (1981-2010)");
+
+                  g.append("text")
+                  .attr("fill", "#000")
+                  .attr("font-size", "1.5em")
+                  .attr("font-weight", "bold")
+                  .attr("text-anchor", "start")
+                  .attr("x", 0)
+                  .attr("y", -30)
+                  .text("Snow-water equivalent: March 3rd, 2021");
 
        // set color for both maps using the same color scale
        this.sntl_sites.selectAll("circle.SNTL")
-          .attr("fill", function(d) { return self.colorValueInches(d[self.site_vars.setColor]) })
+          .attr("fill", function(d) { return self.threshold(d[self.site_vars.setColor]) })
 
           this.ak_sites.selectAll("circle.SNTL")
-          .attr("fill", function(d) { return self.colorValueInches(d[self.site_vars.setColor]) })
+          .attr("fill", function(d) { return self.threshold(d[self.site_vars.setColor]) })
 
+          this.corr.selectAll("circle.dots")
+          .attr("fill", function(d) { return self.threshold(d[self.site_vars.setColor]) })
 
-          // make color ramp legend
-
-          //max value 
-
-
-      
     }
   }
 }
@@ -1595,7 +1738,11 @@ export default {
 <style lang="scss" scoped>
 .map-grid{
   overflow: hidden;
-  margin-top: 25px;
+  margin-top: 10px;
+}
+#legend-percentile {
+  width: 100%;
+  max-width: 50vw;
 }
 .grid-left, .grid-right {
   max-height: 70vh;
@@ -1614,6 +1761,10 @@ line, polyline, polygon, path, rect, circle {
   stroke-width: 2px;
   opacity: .5;
 }
+.ele {
+  transform-origin: center center;
+  transform: rotate(-90deg);
+}
 .usa {
   color: darkgrey;
   fill:none;
@@ -1626,12 +1777,12 @@ line, polyline, polygon, path, rect, circle {
   width: 30vw; // careful editing this, it's sizing the maps to the same scale
   height: 100%;
   margin-left: 2.5vw;
-  grid-template-rows: 35% 1fr;
-  grid-template-columns: (10, 1fr);
+  grid-template-rows: 1fr;
+  grid-template-columns: (1, 1fr);
 
-  #sntl-text {
-    grid-column: 2/3;
-
+  #legend-grid {
+    grid-column: 1/5;
+    grid-row: 2/3;
   }
   #ak {
    width: 60vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
@@ -1653,10 +1804,20 @@ line, polyline, polygon, path, rect, circle {
   }
 
 }
-#explain-bottom {
-  margin-top: 4em;
-}
+#elev-corr {
+  position: relative;
+  top: -400px;
+  left: 25vw;
+  width: 15vw;
+  height: auto;
+  min-width: 200px;
 
+}
+#explain-bottom {
+  position: relative;
+  top:-150px;
+  height: 0px;
+}
 #sntl-name, input {
   text-align:left;
   z-index: 1;
@@ -1664,21 +1825,35 @@ line, polyline, polygon, path, rect, circle {
 
 @media screen and (max-width: 1024px){
  #grid-left {
-   width: 90vw;
+   width: 190vw;
    margin-right: 2.5vw; 
-    #sntl-text {
-    grid-column:4/6;
-    grid-row:1/3;
+    .map-container {
+      width: 100vw;
+    }
+    #ak {
+      width: 90vw;// careful editing this, it's sizing the maps to be on the same scale
+    }
 
-  }
  }
  #grid-right {
-   width: 90vw;
-   margin-left: 40vw;
+   width: 190vw;
+   margin-left: 0vw;
+    .map-container {
+      width: 100vw;
+    }
+   #usa {
+     width: 120vw;// careful editing this, it's sizing the maps to be on the same scale
+   }
  }
- #ak {
-   width: 60vw;// careful editing this, it's sizing the maps to be on the same scale
- }
+ #legend-percentile {
+  width: 100%;
+  max-width: 80vw;
+  min-width: 500px;
+}
+#explain-bottom {
+  position: relative;
+  top:-70px;
+}
 
 }
 

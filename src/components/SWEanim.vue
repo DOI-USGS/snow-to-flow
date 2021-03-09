@@ -11,32 +11,34 @@
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
-      <div class="group two maxWidth" id="figs">
-          <svg
-            id="swe-gifs"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            viewBox="0 0 550 450"
-            aria-labelledby="page-title page-desc"
-            width="100%"
-          >
-            <title id="page-title">not all snow is flow</title>
-            <desc id="page-desc">An animated one-year time series of snow-water equivalent in Colorado.</desc>
-             <text
-              x="0"
-              y="40"
-            >Snow-water equivalent (SWE)</text>
+      <div
+        id="figs"
+        class="group two maxWidth"
+      >
+        <svg
+          id="swe-gifs"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          viewBox="0 0 550 450"
+          aria-labelledby="page-title page-desc"
+          width="100%"
+        >
+          <title id="page-title">not all snow is flow</title>
+          <desc id="page-desc">An animated one-year time series of snow-water equivalent in Colorado.</desc>
+          <text
+            x="0"
+            y="40"
+          >Snow-water equivalent (SWE)</text>
         
-            <image
-              xlink:href="@/assets/SWEanim/co_2011_30fps.gif"
-              height="400px"
-              x="0"
-              y="50"
-            />
-            <g id="gages_2011">
-              </g>
-          </svg>
-          <div id="mmd-container">
+          <image
+            xlink:href="@/assets/SWEanim/co_2011_30fps.gif"
+            height="400px"
+            x="0"
+            y="50"
+          />
+          <g id="gages_2011" />
+        </svg>
+        <div id="mmd-container">
           <svg
             id="mmd-line"
             xmlns="http://www.w3.org/2000/svg"
@@ -51,7 +53,7 @@
               y="40"
             >Discharge</text>
           </svg>
-          </div>
+        </div>
       </div>
     </template>
     <!-- FIGURE CAPTION -->
