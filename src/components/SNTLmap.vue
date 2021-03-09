@@ -35,7 +35,7 @@
             <svg
               id="ak-sntl"
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="100 -100 606.9 525" 
+              viewBox="100 100 606.9 325" 
 
               preserveAspectRatio="xMaxYMax slice"
             >
@@ -43,6 +43,7 @@
                 href="@/assets/maps/ak_hillshade-01.png"
                 height="100%"
                 width="100%"
+                 transform="translate(0, 100)"
               />
               <g id="map-alaska" transform="translate(0, 100)">
                 <path
@@ -77,7 +78,7 @@
             <svg
               id="usa-sntl"
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="-200 0 900 570"
+              viewBox="-250 0 900 570"
               preserveAspectRatio="xMinYMin slice"
             >
               <image
@@ -1482,7 +1483,7 @@ export default {
               // chart opts
               xScale: null,
               yScale: null,
-              site_radius: 2,
+              site_radius: 2.5,
               colorValueInches: null,
             }
         },
@@ -1544,6 +1545,7 @@ export default {
       },
       addSites(x_max, y_max, sites, data) {
         const self = this;
+        let _this = this;
 
         // axis scales
         this.xScale = this.d3.scaleLinear()
@@ -1567,28 +1569,22 @@ export default {
           .attr("r", this.site_radius)
 
         self.setColor(data, sites); // set initial site color
+
+        // add hover effect
+        sites.on("mouseover",this.hover)
+        sites.on("mouseout", (e) => this.d3.select(e.currentTarget).attr("r", 5));
         
+      },
+      hover(e,  d){
+        this.d3.select(e).attr("r", 20);
+
+
       },
       setColor() {
         const self = this;
-        console.log(this.sntl_variable);
+        //console.log(this.sntl_variable);
 
         this.site_vars.setColor = this.sntl_variable; // set chart color to selected color
-
- /*        // color scales - continuous color scale
-        if (this.site_vars.setColor == 'ptile') {
-          this.colorValueInches = this.d3.scaleSequential()
-          .domain([0, 1])
-          .interpolator(this.d3.interpolateBrBG)
-        } else if (this.site_vars.setColor == 'perc_ch') {
-        this.colorValueInches = this.d3.scaleSequential()
-          .domain([-50, 50])
-          .interpolator(this.d3.interpolateBrBG)
-        } else if (this.site_vars.setColor == 'anomaly') {
-          this.colorValueInches = this.d3.scaleSequential()
-          .domain([-2, 2])
-          .interpolator(this.d3.interpolateBrBG)
-        } */
 
         // make threshold color scale for percentile data
         var threshold = this.d3.scaleThreshold()
@@ -1628,7 +1624,7 @@ export default {
                   .attr("font-size", "1.15em")
                   .attr("text-anchor", "start")
                   .attr("y", -10)
-                  .text("Percentile of historic mean (1981-2010)");
+                  .text("Percentile, historic mean (1981-2010)");
 
                   g.append("text")
                   .attr("fill", "#000")
@@ -1639,7 +1635,6 @@ export default {
                   .attr("y", -30)
                   .text("Snow-water equivalent: March 3rd, 2021");
 
-
        // set color for both maps using the same color scale
        this.sntl_sites.selectAll("circle.SNTL")
           .attr("fill", function(d) { return threshold(d[self.site_vars.setColor]) })
@@ -1647,67 +1642,6 @@ export default {
           this.ak_sites.selectAll("circle.SNTL")
           .attr("fill", function(d) { return threshold(d[self.site_vars.setColor]) })
 
-
-          // make color ramp legend
-
-/*           //generate range of values
-          function range(start, end, step = 1) {
-            const len = Math.floor((end - start) / step) + 1
-            return Array(len).fill().map((_, idx) => start + (idx * step))
-          }
-           
-          var result =  range(0, 1, 0.01); */
-
-/*           // add color ramp legend to map
-          let defs = this.legend_map.append("defs")
-            .append("linearGradient")
-            .attr("id", "gradient")
-            .attr("x1", 0).attr("y1", "0%")
-            .attr("x2", 1).attr("y2", "0%")
-            .selectAll("stop")
-            .data(result)
-            .enter().append("stop")
-            .attr("offset", function(d,i) {
-              return i/(result.length-1);
-            })
-            .attr("stop-color", function(d) {
-              return self.colorValueInches(d)
-            })
-
-            let legendsvg = this.legend_map.append("g")
-              .classed("legend", true)
-
-            let legendGroup = legendsvg.append("g")
-              .attr("class", "legendColor")
-              .attr("width", 200)
-              .attr("transform", "translate(" + (100) + "," + 100 + ")")
-
-          // append legend text
-          legendGroup.append("text")
-              .attr("class", "legendAxis")
-              .attr("text-anchor", "end")
-              .attr("x", 90)
-              .attr("y", 17)
-              .text("1")
-
-          // append legend rectangle
-          legendGroup.append("rect")
-              .attr("class", "matrixLegend")
-              .attr("width", 150)
-              .attr("height", 20)
-              .attr("fill", "url(#gradient)")
-              .attr("x", 100)
-
-          // append legend text
-          legendGroup.append("text")
-              .attr("class", "legendAxis")
-              .attr("text-anchor", "start")
-              .attr("x", 260)
-              .attr("y", 17)
-              .text("100")
- */
-
-      
     }
   }
 }
@@ -1776,10 +1710,6 @@ line, polyline, polygon, path, rect, circle {
 
   }
 
-}
-
-#explain-bottom {
-  margin-top: 4em;
 }
 
 #sntl-name, input {
