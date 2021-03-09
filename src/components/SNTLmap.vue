@@ -1852,7 +1852,7 @@ line, polyline, polygon, path, rect, circle {
 }
 #explain-bottom {
   position: relative;
-  top:-50px;
+  top:-70px;
 }
 
 }
