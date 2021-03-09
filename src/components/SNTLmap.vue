@@ -1420,13 +1420,13 @@
             </svg>
           </div>
         </div>
-        <!-- <svg
+        <svg
               id="elev-corr"
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 300 300"
+              viewBox="0 0 100 50"
               preserveAspectRatio="xMinYMin slice"
             >
-            </svg> -->
+            </svg>
       </div>
     </template>
     <!-- FIGURE CAPTION -->
@@ -1529,7 +1529,7 @@ export default {
         const self = this;
         // read in data 
         let promises = [self.d3.csv(self.publicPath + "data/conus_coords.csv", this.d3.autoType), // conus 
-        self.d3.csv(self.publicPath + "data/ak_por_2021.csv", this.d3.autoType),
+        self.d3.csv(self.publicPath + "data/ak_coords.csv", this.d3.autoType),
         self.d3.csv(self.publicPath + "data/sntl_svg_coords.csv", this.d3.autoType), // sparkline paths
         self.d3.csv(self.publicPath + "data/diff_20210304.csv", this.d3.autoType)]; // aggregate trend metics
         Promise.all(promises).then(self.callback); 
@@ -1555,10 +1555,18 @@ export default {
         self.setColor(this.sntl_data, this.sntl_sites); // set initial site color
         self.setColor(this.ak_data, this.ak_sites); // set initial site color
 
+        self.trendPlot();
+
         //this.makeCorr(this.diff); // makes a scatterplot of elevation and SWE percentile
 
         // nudge ak sites for repositioning 
         this.ak_sites.attr("transform", "translate(0,100)")
+      },
+      trendPlot(data){
+         const self = this;
+
+
+
       },
       makeCorr(data){
         // scatterplot
@@ -1658,23 +1666,34 @@ export default {
         // add hover effect
       this.d3.selectAll(".SNTL")
         .on("mouseover", function(data) {
-          self.hover(data, 20);
+          self.hover(data, 20, "orchid", "in");
         })
         .on("mouseout", function(data){
-          self.hover(data, 5);
+          self.hover(data, this.radius, self.threshold(data[self.site_vars.setColor]), "out");
         }) 
         
       },
-      hover(data, to){
+      hover(data, to, color, dir){
         const self = this;
 
         self.d3.select('circle#sntl_' + data.site_id)
           .transition()
           .duration(100)
           .attr("r", to)
-          .attr('fill', '#ff0000');
+          .attr('fill', function(d) { return color } );
 
-          console.log(data.d_peak)
+          //console.log(data.d_peak) // use this to draw the line
+
+        var trendy = this.corr.append("g").classed("trend", true)
+
+        if (dir == "in") {
+          trendy.append("path").attr("id", 'circle#sntl_' + data.site_id)
+            .attr("d", data.d_peak)
+            .attr("fill", "none")
+            .attr("stroke", "blue")
+        } else if (dir == "out") {
+          trendy.select("path").remove();
+        }
 
       },
       setColor() {
@@ -1817,10 +1836,9 @@ line, polyline, polygon, path, rect, circle {
 }
 #elev-corr {
   position: relative;
-  top: -400px;
+  top: -300px;
   left: 25vw;
-  width: 15vw;
-  height: auto;
+  width: 25vw;
   min-width: 200px;
 
 }
