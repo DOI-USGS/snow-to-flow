@@ -5,12 +5,23 @@
   >
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>Snow in 2021</h2>
+      <h2></h2>
     </template>    
     <!-- EXPLANATION -->
     <template v-slot:aboveExplanation>
       <p>Historically, April 1st has been an important date for assessing peak annual snow accumulation. Compared to the historical record for this date, 2021 is shaping to be considerably dry in many regions of the western U.S.. While interannual variation in peak SWE is normal and fluctuates with natural climatological patterns, an exceptionally dry or wet season can have dramatic impacts to the water supply in locations where snowmelt is a major source of water.</p>
-    </template>
+   <svg
+              id="legend-percentile"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 400 150" 
+              preserveAspectRatio="xMaxYMax"
+              width ="100%"
+              height="100%"
+            >
+            </svg>
+   
+   
+   </template>
     <!-- FIGURES -->
     <template v-slot:figures>
       <div class="two group map-grid">
@@ -57,14 +68,6 @@
               </g>
             </svg>
           </div>
-          <div id="legend-grid">
-            <svg
-            id="legend-sntl"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 500 300"
-              preserveAspectRatio="xMinYMin slice">
-              </svg>
-            </div>
         </div>
         <div id="grid-right">
           <div
@@ -1558,7 +1561,7 @@ export default {
           .attr("cx", function (d) { return self.xScale(d.x); })
           .attr("cy", function (d) { return self.yScale(d.y); } )
           .classed("SNTL",  true)
-          .attr("opacity", .8)
+          .attr("opacity", .7)
           .attr("stroke", "black")
           .attr("stroke-width", .5)
           .attr("r", this.site_radius)
@@ -1600,8 +1603,9 @@ export default {
               .tickSize(13)
               .tickValues(threshold.domain());
 
-          var g = this.d3.select("svg").append("g").classed("thresh-legend", true).call(xAxis)
-          .attr("transform", "translate(" + (300) + "," + 50 + ")");
+          var g = this.d3.select("svg#legend-percentile").append("g")
+          .classed("thresh-legend", true).call(xAxis)
+          .attr("transform", "translate(" + (0) + "," + 100 + ")");
 
           g.select(".domain")
               .remove();
@@ -1646,13 +1650,13 @@ export default {
 
           // make color ramp legend
 
-          //generate range of values
+/*           //generate range of values
           function range(start, end, step = 1) {
             const len = Math.floor((end - start) / step) + 1
             return Array(len).fill().map((_, idx) => start + (idx * step))
           }
            
-          var result =  range(0, 1, 0.01);
+          var result =  range(0, 1, 0.01); */
 
 /*           // add color ramp legend to map
           let defs = this.legend_map.append("defs")
@@ -1711,7 +1715,11 @@ export default {
 <style lang="scss" scoped>
 .map-grid{
   overflow: hidden;
-  margin-top: 25px;
+  margin-top: 10px;
+}
+#legend-percentile {
+  width: 100%;
+  max-width: 50vw;
 }
 .grid-left, .grid-right {
   max-height: 70vh;
@@ -1742,7 +1750,7 @@ line, polyline, polygon, path, rect, circle {
   width: 30vw; // careful editing this, it's sizing the maps to the same scale
   height: 100%;
   margin-left: 2.5vw;
-  grid-template-rows: 35% 1fr;
+  grid-template-rows: 1fr;
   grid-template-columns: (10, 1fr);
 
   #legend-grid {
@@ -1796,6 +1804,11 @@ line, polyline, polygon, path, rect, circle {
  #ak {
    width: 60vw;// careful editing this, it's sizing the maps to be on the same scale
  }
+ #legend-percentile {
+  width: 100%;
+  max-width: 80vw;
+  min-width: 500px;
+}
 
 }
 
