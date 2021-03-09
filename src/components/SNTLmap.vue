@@ -1459,19 +1459,19 @@ export default {
               publicPath: process.env.BASE_URL,
               d3: null,
 
-              sntl_variable: "ptile", // starting variable to map site colors
-
+              sntl_variable: "ptile", // map site colors
 
               sntl_data: [], // sntl data
               ak_data: [],
 
+              // set up chart elements
               sntl_map: null, //  the svg
               ak_map: null,
               sntl_sites: null, // g for sites in svg
               ak_sites: null,
               corr_plot: null,
 
-            // variables of interest for map
+            // variables of interest for map - could toggle
               site_vars: {
                 swe: 'swe',
                 NRCS: 'mean',
@@ -1488,7 +1488,6 @@ export default {
                 today_anomaly: 'today_anomaly'
                 },
 
-
               // chart opts
               xScale: null,
               yScale: null,
@@ -1504,9 +1503,9 @@ export default {
           this.sntl_map = this.d3.select("svg#usa-sntl");
           this.ak_map = this.d3.select("svg#ak-sntl");
           this.legend_map = this.d3.select("svg#legend-sntl");
-           this.corr = this.d3.select("svg#elev-corr");
+          this.corr = this.d3.select("svg#elev-corr");
 
-          //  read in data and bind with svg sites
+          // read in data and bind with svg sites
           this.loadData();
 
           this.$nextTick(() => {
@@ -1529,20 +1528,20 @@ export default {
       loadData() {
         const self = this;
         // read in data 
-        let promises = [self.d3.csv(self.publicPath + "data/conus_por_2021.csv", this.d3.autoType),
+        let promises = [self.d3.csv(self.publicPath + "data/conus_por_2021.csv", this.d3.autoType), // conus 
         self.d3.csv(self.publicPath + "data/ak_por_2021.csv", this.d3.autoType),
-        self.d3.csv(self.publicPath + "data/sntl_svg_coords.csv", this.d3.autoType),
-        self.d3.csv(self.publicPath + "data/diff_20210304.csv", this.d3.autoType)];
-
+        self.d3.csv(self.publicPath + "data/sntl_svg_coords.csv", this.d3.autoType), // sparkline paths
+        self.d3.csv(self.publicPath + "data/diff_20210304.csv", this.d3.autoType)]; // aggregate trend metics
         Promise.all(promises).then(self.callback); 
       },
       callback(data) {
         const self  = this;
-        this.sntl_data = data[0];// has a key variable and x and y positioning
-        this.ak_data = data[1];
-        this.coord_data = data[2];
-        this.diff = data[3];
-
+        // org data
+        this.sntl_data = data[0]; // has key and x and y positioning
+        this.ak_data = data[1]; // has key and x and y positioning
+        this.coord_data = data[2]; // trend d paths
+        this.diff = data[3]; // combined trend metrics and site vars
+        // site groupings for svgs 
         this.sntl_sites = this.sntl_map.append("g").classed("sites", true)
         this.ak_sites = this.ak_map.append("g").classed("sites", true)
         this.corr_plot = this.corr.append("g").classed("sites", true)
@@ -1552,14 +1551,17 @@ export default {
         // draw sites on map
         this.addSites(700, 840, this.sntl_sites, this.sntl_data); // add westen sites
         this.addSites(606.9, 476.2, this.ak_sites, this.ak_data); // add ak sites
+        
+        self.setColor(this.sntl_data, this.sntl_sites); // set initial site color
+        self.setColor(this.ak_data, this.ak_sites); // set initial site color
 
-        //this.makeCorr(this.diff);
+        //this.makeCorr(this.diff); // makes a scatterplot of elevation and SWE percentile
 
         // nudge ak sites for repositioning 
-        this.ak_sites
-          .attr("transform", "translate(0,100)")
+        this.ak_sites.attr("transform", "translate(0,100)")
       },
       makeCorr(data){
+        // scatterplot
         const self = this;
 
         // axis scales
@@ -1575,7 +1577,7 @@ export default {
 
          this.corr_plot
          .selectAll("dots")
-          .data(data) // the key for each  site for updating data
+          .data(data)
           .enter()
           .append("circle")
             .attr("cx", function (d) { return xCorr(d.el); })
@@ -1605,6 +1607,7 @@ export default {
           .classed("corr-legend", true).call(yAxis)
           .attr("transform", "translate(" + (50) + "," + 0 + ")");
 
+          // position axis labels
           this.d3.select("svg#elev-corr").append("text")
                   .attr("fill", "#000")
                   .attr("font-size", "1.5em")
@@ -1626,6 +1629,7 @@ export default {
                   .text("SWE");
       },
       addSites(x_max, y_max, sites, data) {
+        // adds sites to AK and CONUS maps, triggers color function
         const self = this;
 
         // axis scales
@@ -1637,6 +1641,7 @@ export default {
           .range([y_max,  0])
           .domain([y_max, 0]);
 
+        // draw sites
         sites.selectAll("SNTL")
         .data(data) // the key for each  site for updating data
         .enter()
@@ -1649,21 +1654,25 @@ export default {
           .attr("stroke-width", .5)
           .attr("r", this.site_radius)
 
-        self.setColor(data, sites); // set initial site color
-
         // add hover effect
-       /*  sites
+      sites
         .on("mouseover", function(d) {
-          self.hover(d)
+          this.hover(d)
         })
-        .on("mouseout", function(d,i){
-          console.log(data[i]), i;
-        }) */
+        .on("mouseout", function(d){
+          console.log(d);
+        }) 
         
       },
       hover(d){
         const self = this;
-        this.d3.select(e).select("circle").transition().duration(100).attr("r", 20).attr('fill', '#ff0000');
+
+        self.d3.select(d)
+          .select(".SNTL")
+          .transition()
+          .duration(100)
+          .attr("r", 20)
+          .attr('fill', '#ff0000');
 
       },
       setColor() {
