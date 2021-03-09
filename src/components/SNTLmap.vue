@@ -1605,7 +1605,7 @@ export default {
 
           var g = this.d3.select("svg#legend-percentile").append("g")
           .classed("thresh-legend", true).call(xAxis)
-          .attr("transform", "translate(" + (0) + "," + 100 + ")");
+          .attr("transform", "translate(" + (10) + "," + 100 + ")");
 
           g.select(".domain")
               .remove();
@@ -1751,7 +1751,7 @@ line, polyline, polygon, path, rect, circle {
   height: 100%;
   margin-left: 2.5vw;
   grid-template-rows: 1fr;
-  grid-template-columns: (10, 1fr);
+  grid-template-columns: (1, 1fr);
 
   #legend-grid {
     grid-column: 1/5;
@@ -1789,20 +1789,25 @@ line, polyline, polygon, path, rect, circle {
 
 @media screen and (max-width: 1024px){
  #grid-left {
-   width: 90vw;
+   width: 190vw;
    margin-right: 2.5vw; 
-    #sntl-text {
-    grid-column:4/6;
-    grid-row:1/3;
+    .map-container {
+      width: 100vw;
+    }
+    #ak {
+      width: 90vw;// careful editing this, it's sizing the maps to be on the same scale
+    }
 
-  }
  }
  #grid-right {
-   width: 90vw;
-   margin-left: 40vw;
- }
- #ak {
-   width: 60vw;// careful editing this, it's sizing the maps to be on the same scale
+   width: 190vw;
+   margin-left: 0vw;
+    .map-container {
+      width: 100vw;
+    }
+   #usa {
+     width: 120vw;// careful editing this, it's sizing the maps to be on the same scale
+   }
  }
  #legend-percentile {
   width: 100%;
