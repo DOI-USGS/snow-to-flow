@@ -64,7 +64,7 @@
               width="100%"
               height="100%"
             />
-            <text
+ <!--            <text
               class="overall-title"
               fill="#fff"
               x="600"
@@ -80,7 +80,7 @@
             >U.S. Geological Survey<tspan
               dx="-145"
               dy="20"
-            >Water Resources Mission Area</tspan></text>
+            >Water Resources Mission Area</tspan></text> -->
 
                     
             <g mask="url(#m)">
