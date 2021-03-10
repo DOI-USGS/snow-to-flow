@@ -3,9 +3,10 @@
   <VizSection id="firstSection">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>Snow-water equivalent (SWE)</h2>
+      <h2>Snowpack is measured as "snow-water equivalent" or SWE</h2>
     </template>
     <!-- FIGURES -->
+    
     <template v-slot:figures>
       <div class="group single maxWidth">
         <figure id="swe-chart-container">
