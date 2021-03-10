@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="maxWidth">
     <carousel
       id="image-slider"
       :autoplay="true"
@@ -28,14 +28,14 @@
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/methods/ground_truth.PNG"
+              srcset="@/assets/methods/ground_truth.png"
               media="(max-width: 992px)"
               type="image/png"
             >
             <img 
               id="field2"
               v-img:group
-              src="@/assets/methods/ground_truth.PNG"
+              src="@/assets/methods/ground_truth.png"
               alt="Collecting snow depth data in the field"
               loading="lazy"
             >
@@ -46,14 +46,14 @@
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/methods/snow_pit.PNG"
+              srcset="@/assets/methods/snow_pit.png"
               media="(max-width: 992px)"
               type="image/png"
             >
             <img 
               id="field3"
               v-img:group
-              src="@/assets/methods/snow_pit.PNG"
+              src="@/assets/methods/snow_pit.png"
               alt="Collecting snow depth data in the field"
               loading="lazy"
             >
@@ -110,9 +110,10 @@
   .slider-image-container {
     padding: 10px;
     display: block;
-    margin: auto;
-    max-width: 400px;
+    height: 400px;
+    width: auto;
     img {
+      height: 400px; 
       width: 100%;
     }
   }
