@@ -1,7 +1,7 @@
 <template>
-  <div id="swe-chart-container">
+  <div id="compare-chart-container">
     <svg
-      id="swe-chart"
+      id="compare-chart"
       viewBox="0 0 800 500"
     >
       <g id="xAxis">
@@ -81,7 +81,7 @@
           height="281.47"
         />
       </g>
-      <g id="yAxisSWE">
+      <g id="yAxisSWE" class="brush">
         <rect
           class="area swe"
           x="43"
@@ -241,52 +241,12 @@
         </g>
       </g>
       <g id="discharge-annotations">
-        <text
-          class="annotation"
-          transform="translate(326.4 176.7)"
-        >Large spring melt</text>
-        <g>
-          <polyline
-            class="annotation-line"
-            points="303.9 200.1 322.4 181.6 417.4 181.6"
-          />
-          <circle
-            class="annotation-line"
-            cx="301.7"
-            cy="203.5"
-            r="3.5"
-          />
-        </g>
-        <text
-          class="annotation"
-          transform="translate(612.4 382.7)"
-        >Small spring melt</text>
-        <text
-          class="missing-data discharge"
-          transform="translate(583 454.2)"
-        >missing<tspan
-          x="5.8"
-          y="12"
-        >data</tspan></text>
-        <text
-          class="missing-data discharge"
-          transform="translate(641 454.2)"
-        >missing<tspan
-          x="5.8"
-          y="12"
-        >data</tspan></text>
-        <g>
-          <polyline
-            class="annotation-line"
-            points="589.9 406.1 608.4 387.6 703.4 387.6"
-          />
-          <circle
-            class="annotation-line"
-            cx="587.7"
-            cy="409.5"
-            r="3.5"
-          />
-        </g>
+        <text class="annotation discharge" transform="translate(323 224.6)">Large spring melt</text>
+        <polyline class="annotation-line" points="300.5 248 319 229.5 414 229.5"/>
+        <text class="annotation discharge" transform="translate(584 364.7)">Smaller and earlier <tspan x="0" y="13.2">spring melt</tspan></text>
+        <text class="missing-data discharge" transform="translate(583 454.2)">missing<tspan x="5.8" y="12">data</tspan></text>
+        <text class="missing-data discharge" transform="translate(641 454.2)">missing<tspan x="5.8" y="12">data</tspan></text>
+        <polyline class="annotation-line" points="542.3 421.3 580 383.5 675 383.5"/>
       </g>
     </svg>
   </div>
@@ -536,18 +496,15 @@ export default {
 
       
     .brush {
-        opacity: 0.5;
+        opacity: 0.2;
     }
 
     .annotation {
-        font-size: 11px;
-        .emph {
-
-        }
+        font-size: .8em;
     }
 
     .missing-data {
-        font-size: .8em;
+        font-size: .6em;
         font-style: italic;
     }
 
