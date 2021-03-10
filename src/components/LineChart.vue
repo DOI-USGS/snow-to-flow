@@ -99,24 +99,12 @@
         >0</text>
         <text
           class="axis-label swe"
-          transform="translate(66.8 406.8)"
-        >5</text>
-        <text
-          class="axis-label swe"
           transform="translate(58.1 366.8)"
         >10</text>
         <text
           class="axis-label swe"
-          transform="translate(58.1 326.8)"
-        >15</text>
-        <text
-          class="axis-label swe"
           transform="translate(58.1 286.8)"
         >20</text>
-        <text
-          class="axis-label swe"
-          transform="translate(58.1 246.8)"
-        >25</text>
         <text
           class="axis-label swe"
           transform="translate(58.1 206.7)"
