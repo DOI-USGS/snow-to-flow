@@ -112,9 +112,10 @@
     display: block;
     height: 400px;
     width: auto;
+    object-fit: contain;
     img {
       height: 400px; 
-      width: 100%;
+      width: auto;
     }
   }
 </style>

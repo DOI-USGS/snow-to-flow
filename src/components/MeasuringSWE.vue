@@ -17,7 +17,7 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        Images of measuring swe.
+        Images of various methods to measure SWE with captions that explain what is being shown. **Seeking images that capture the breadth of field methods in measureing SWE.
       </p>
     </template>
     <!-- EXPLANATION -->
