@@ -52,6 +52,7 @@
           y="162.2"
           width="640"
           height="281.47"
+          id="swe-reveal-rect"
         />
       </g>
       <g
@@ -243,6 +244,7 @@
           />
         </g>
       </g>
+      
       <g
         id="discharge-annotations"
         class="hidden"
@@ -300,7 +302,8 @@
 
 <script>
 import * as d3 from 'd3';
-
+import { ScrollToPlugin } from "gsap/ScrollToPlugin"; // to trigger scroll events
+import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
 
 export default {
     name: "LineChart",
@@ -329,9 +332,8 @@ export default {
         //insert resize here
         this.width = window.innerWidth - this.margin.left - this.margin.right;
         this.height = window.innerHeight*.5 - this.margin.top - this.margin.bottom;
-
-        // load data
-        // this.loadData();
+        
+        this.$nextTick(() => this.animateArea());
     },
     methods: {
         loadData() {
@@ -339,6 +341,32 @@ export default {
 
             // let promises = [self.d3.csv(self.publicPath + "data/swe_and_discharge_data.csv", this.d3.autoType)]
             // Promise.all(promises).then(self.callback);
+        },
+        animateArea(){
+          const self=this;
+          this.$gsap.registerPlugin(ScrollToPlugin, ScrollTrigger); // register gsap plugins for scrollTrigger 
+
+          ScrollTrigger.matchMedia({
+            // desktop
+            "(min-width: 600px)": function() {
+              self.$gsap.to(".swe-chart", {
+                scrollTrigger:{
+                  trigger:".swe-chart",
+                  start: "top center",
+                  end: "bottom 80%",
+                  markers: true,
+                  toggleActions: "restart pause reverse pause",
+                  scrub: true
+                },
+                x: 400,
+                rotation: 360,
+                duration: 2
+              })
+              // .fromTo("#area", {xPercent: })
+            }
+          })
+
+
         },
         callback(data){
             const self=this;
@@ -507,22 +535,12 @@ export default {
         fill: #fff;
         font-size: 26px;
     }
-    .reveal{
-        display: none;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        width: 100%;
-        background: white;
-        animation: slide 5s cubic-bezier(.5,.5,0,1);
-        animation-fill-mode: forwards;
-        animation-delay: 5s;
-        // animation-delay: 5s;
-        rect {
-            fill: white;
-        }
+    .reveal {
+      rect {
+        fill: white;
+        width: 0;     
        
+      }
     }
 
     .area{
@@ -570,17 +588,7 @@ export default {
       .cls-13, .cls-2 {
         font-family: SourceSansPro-LightItalic, Source Sans Pro;
         font-style: italic;
-      }
-
-// Animation
-
-@keyframes slide {
-  0% { width: 100%; }
-  60% { width: 100%; }
-  90% { width: 0%; }
-  100% { width: 0%; }  
-}
-      
+      }      
     
  
 </style>
