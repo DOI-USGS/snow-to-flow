@@ -127,11 +127,22 @@
           </svg>
         </div> -->
       </div>
-    </template>
+      <div
+        id="mtn"
+        class="group two maxWidth"
+      >
+      <figure>
+      <img src="@/assets/SWEanim/co_3d_gages2.png">
+      </figure>
+<!-- <figure>
+      <img src="@/assets/SWEanim/co_3d_gages2.png">
+      </figure> -->
+      </div>
+      </template>
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        Snow-water equivalent (left) and stream discharge (right) through the 2011 water year in Colorado. Dots on map correspond to hydrographs on the right.
+        Snow-water equivalent (left) and stream discharge (right) through the 2011 water year in Colorado. Dots on map correspond to hydrographs on the right. Alternative: showing a single year with gages ranked  by snow persistence and mapped on 3d elevation map.
       </p>
     </template>
   </VizSection>
@@ -282,6 +293,7 @@ export default {
 
 }
 .maxWidth {
-  max-width:80vw;
+  max-width:90vw;
 }
+
 </style>

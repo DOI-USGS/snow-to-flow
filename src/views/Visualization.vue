@@ -37,9 +37,8 @@
       <template v-slot:chapterTitle>
         Changes in snow have downstream consequences
       </template>    
-
-          </Chapter>
-                <SWEanim />
+    </Chapter>
+         <SWEanim />
     <Chapter
       id="chapterLast"
       image="chapter4"
