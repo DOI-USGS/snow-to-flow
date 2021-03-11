@@ -30,10 +30,22 @@
       id="diagrams-bad"
     />
     <Chapter
+      id="chapter2-3"
+      image="chapter2"
+      :height="50"
+    >
+      <template v-slot:chapterTitle>
+        Changes in snow have downstream consequences
+      </template>    
+
+          </Chapter>
+                <SWEanim />
+    <Chapter
       id="chapterLast"
       image="chapter4"
       :height="50"
     >
+    
       <template v-slot:chapterTitle>
         What Spring Flow Means for Water Supply
       </template>
@@ -53,6 +65,7 @@ export default {
       Splash: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "section"*/ "./../components/TestSplash"),
       SNTLMap: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SNTLMap"*/ "./../components/SNTLmap"),
       SWE: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SWE"*/ "./../components/SWE"),
+      SWEanim: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SWE"*/ "./../components/SWEanim"),
       MeasuringSWE: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SWE"*/ "./../components/MeasuringSWE"),
       SWEtoDischarge: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SWE"*/ "./../components/SWEtoDischarge"),
       DiagramsGood: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagramsgood"*/ "./../components/DiagramsGood"),
@@ -90,7 +103,5 @@ export default {
 </script>
 
 <style lang="scss">
-SNTLmap {
-  z-index: 1;
-}
+
 </style>
