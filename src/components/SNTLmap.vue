@@ -11,7 +11,7 @@
     <template v-slot:aboveExplanation>
       <!--   <p class="byline" >
         U.S. Geological Survey<br>Water Resources Mission Area</p><br><br> -->
-      <p>Historically, April 1st has been an important date for assessing peak annual snow accumulation. Compared to the historical record for this date, 2021 is shaping to be considerably dry in many regions of the western U.S.. While interannual variation in peak SWE is normal and fluctuates with natural climatological patterns, an exceptionally dry or wet season can have dramatic impacts to the water supply in locations where snowmelt is a major source of water.</p>
+      <p>Historically, April 1st has been an important date for assessing peak annual snow accumulation. Interannual variation in peak SWE is normal and fluctuates with natural climatological patterns, however, an exceptionally dry or wet season can have dramatic impacts to downstream water.</p>
       <svg
         id="legend-percentile"
         xmlns="http://www.w3.org/2000/svg"
@@ -1423,7 +1423,7 @@
         <svg
               id="elev-corr"
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="-100 -50 350 250" 
+              viewBox="-100 -50 400 300" 
               preserveAspectRatio="xMinYMin slice"
             >
             </svg>
@@ -1553,13 +1553,13 @@ export default {
         self.setColor(this.sntl_data, this.sntl_sites); // set initial site color
         self.setColor(this.ak_data, this.ak_sites); // set initial site color
 
-        this.makeCorr(); // makes a scatterplot of elevation and SWE percentile
+        this.makeTrend(); // makes a scatterplot of elevation and SWE percentile
 
         // nudge ak sites for repositioning 
         this.ak_sites.attr("transform", "translate(0,100)")
       },
 
-      makeCorr(){
+      makeTrend(){
         // scatterplot
         const self = this;
 
@@ -1588,43 +1588,43 @@ export default {
             .attr("r", this.site_radius)
             .attr("fill",  function(d) { return self.threshold(d[self.site_vars.setColor]) }) */
 
-        var xAxis = this.d3.axisBottom(xCorr)
-          .tickSize(13)
-          .tickValues(xCorr.domain())
-          .ticks(20);
-
-        var yAxis = this.d3.axisLeft(yCorr)
-          .tickSize(13)
-          .tickValues(yCorr.domain());
 
         var g = this.d3.select("svg#elev-corr")
           .append("g")
-          .classed("corr-legend", true).call(xAxis)
+          .classed("corr-legend", true)
+          .call(this.d3.axisBottom(xCorr)
+            .ticks(5)
+            .tickValues(["1981", "1991", "2001", "2011", "2021"])
+            .tickFormat(this.d3.format("d")))
           .attr("transform", "translate(" + (0) + "," + 100 + ")");
 
         this.d3.select("svg#elev-corr")
           .append("g")
-          .classed("corr-legend", true).call(yAxis.ticks(20))
+          .classed("corr-legend", true)
+          .call(this.d3.axisLeft(yCorr)
+            .ticks(5)
+            .tickValues(["0", "25", "50", "75", "100"])
+            .tickFormat(this.d3.format("d")))
           .attr("transform", "translate(" + (0) + "," + 0 + ")");
 
       // position axis labels
         this.d3.select("svg#elev-corr").append("text")
           .attr("fill", "#000")
-          .attr("font-size", "1.5em")
+          .attr("font-size", "1.25em")
           .attr("text-anchor", "start")
           .attr("font-weight", "bold")
-          .attr("y", 150)
-          .attr("x", 35)
+          .attr("y", 140)
+          .attr("x", 50)
           .text("Water year");
 
         this.d3.select("svg#elev-corr").append("text")
           .classed("ele", true)
             .attr("fill", "#000")
-            .attr("font-size", "1.5em")
+            .attr("font-size", "1.25em")
             .attr("font-weight", "bold")
             .attr("text-anchor", "start")
-            .attr("y", 110)
-            .attr("x", 25)
+            .attr("y", 120)
+            .attr("x", 30)
             .attr("transform", "rotate(-90) translate(-110, -150)")
             .text("SWE");
 
@@ -1836,7 +1836,7 @@ line, polyline, polygon, path, rect, circle {
     grid-row: 2/3;
   }
   #ak {
-   width: 60vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
+   width: 55vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
    grid-column: 1/5;
   }
 
@@ -1850,15 +1850,15 @@ line, polyline, polygon, path, rect, circle {
 
   #usa {
     grid-column:6/16;
-    width: 90vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
+    width: 85vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
 
   }
 
 }
 #elev-corr {
   position: relative;
-  top: -20vh;
-  left: 15vw;
+  top: -400px;
+  left: 20vw;
   width: 30vw;
   min-width: 200px;
 
@@ -1905,13 +1905,15 @@ line, polyline, polygon, path, rect, circle {
   top:-70px;
 }
 #elev-corr {
-  top: 0vh;
+  position: relative;
+  top: -300px;
   left: 15vw;
-  width: 20vw;
-  min-width: 150px;
+  width: 30vw;
+  min-width: 200px;
 
 }
 
 }
+
 
 </style>
