@@ -10,12 +10,28 @@
       <p>Here's all about it. One final diagram to hit home the fact that snowpack is measurably changing  in the places where it matters.</p>
     </template>
     <template v-slot:figures>
-      <div class="group single maxWidth">
+      <div class="single maxWidth">
         <figure id="swe-chart-container">
           <img 
-            id="diagram-good-spring"
             v-img:final
-            src="@/assets/diagrams/placeholder.jpg"
+            src="@/assets/images/rio_peak.png"
+            alt="A placeholder diagram"
+            loading="lazy"
+          >
+        </figure>
+        <figure id="swe-chart-container">
+          <img 
+            v-img:final
+            src="@/assets/images/rio_sm50.png"
+            alt="A placeholder diagram"
+            loading="lazy"
+          >
+        </figure>
+
+        <figure id="change">
+          <img 
+            v-img:final
+            src="@/assets/images/rio_change.png"
             alt="A placeholder diagram"
             loading="lazy"
           >
@@ -62,5 +78,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+#change {
+  max-width: 500px;
+ margin:auto;
+}
+.maxWidth {
+  max-width: 80vw;
+}
 </style>
