@@ -5,12 +5,15 @@
     <template v-slot:takeAway>
       <h2>Snow-water equivalent (SWE)</h2>
     </template>
+    <template v-slot:aboveExplanation>
+      <p>Stuff to explain.</p>
+    </template>
     <!-- FIGURES -->
     <template v-slot:figures>
       <div class="group single maxWidth">
         <figure id="swe-chart-container">
           <!-- <img src="@/assets/diagrams/SWE-sketch.png"> -->
-          <LineChartSWEandDischarge />
+          <LineChartCompare />
         </figure>
       </div>
     </template>
@@ -21,22 +24,22 @@
       </p>
     </template>
     <!-- EXPLANATION -->
-    <template v-slot:explanation>
-      <p>Look! We're layering on information</p>
+    <template v-slot:belowExplanation>
+      <p>Stuff to explain.</p>
     </template>
   </VizSection>
 </template>
 
 <script>
 import VizSection from '@/components/VizSection';
-import LineChartSWEandDischarge from '@/components/LineChartSWEandDischarge';
+import LineChartCompare from '@/components/LineChartCompare';
 import * as d3 from 'd3';
 
 export default {
     name: "SWEtoDischarge",
     components:{
         VizSection,
-        LineChartSWEandDischarge
+        LineChartCompare
     },
     data() {
       return {

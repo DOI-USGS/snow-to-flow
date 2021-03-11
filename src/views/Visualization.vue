@@ -3,24 +3,24 @@
     <Splash />
     <SNTLMap />
     <Chapter
-      id="chapter2"
-      image="chapter2"
+      id="chapter1"
+      image="chapter1"
       :height="50"
     >
       <template v-slot:chapterTitle>
-        Measuring snow
+        It Starts with Snowpack
       </template>
     </Chapter>
-    <SWE />
     <MeasuringSWE />
+    <SWE />
     <SWEtoDischarge />
     <Chapter
-      id="chapter2-5"
-      image="chapter4"
+      id="chapter2"
+      image="chapter3"
       :height="50"
     >
       <template v-slot:chapterTitle>
-        From Snow to Flow to Water Supply
+        From Winter Snow to Spring Flow
       </template>
     </Chapter>
     <DiagramsGood 
@@ -29,6 +29,16 @@
     <DiagramsBad 
       id="diagrams-bad"
     />
+    <Chapter
+      id="chapterLast"
+      image="chapter4"
+      :height="50"
+    >
+      <template v-slot:chapterTitle>
+        What Spring Flow Means for Water Supply
+      </template>
+    </Chapter>
+    <Impact />
     <References />
   </div>
 </template>
@@ -47,6 +57,7 @@ export default {
       SWEtoDischarge: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SWE"*/ "./../components/SWEtoDischarge"),
       DiagramsGood: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagramsgood"*/ "./../components/DiagramsGood"),
       DiagramsBad: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagramsbad"*/ "./../components/DiagramsBad"),
+      Impact: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "impact"*/ "./../components/Impact"),
       References: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "References"*/ "./../components/References"),
       Chapter
     },

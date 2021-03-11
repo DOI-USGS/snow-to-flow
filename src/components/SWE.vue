@@ -3,9 +3,13 @@
   <VizSection id="firstSection">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>Snow-water equivalent (SWE)</h2>
+      <h2>Snowpack hints at the upcoming meltwater availability.</h2>
     </template>
     <!-- FIGURES -->
+    <template v-slot:aboveExplanation>
+      <p>Hydrologists measure snowpack as the <span class="emph">snow water equivalent</span>.  That measurement normalizes between light, fluffy snow and heavy, wet snow - ultimately because it will all melt into water anyway.  The USGS wants to know - how much water is contained in this snowpack?</p>
+      <p>Cheese strings cheese and biscuits bavarian bergkase. Halloumi queso when the cheese comes out everybody's happy ricotta babybel cream cheese port-salut boursin. Fromage cow when the cheese comes out everybody's happy hard cheese blue castello stilton mozzarella dolcelatte. Melted cheese croque monsieur smelly cheese swiss blue castello gouda halloumi paneer. Airedale everyone loves.</p>
+    </template>
     <template v-slot:figures>
       <div class="group single maxWidth">
         <figure id="swe-chart-container">
@@ -17,14 +21,15 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        The snow-water equivalent (SWE) include both snow depth and snow density to approximate the amount of water stored in snowpack. 
-        
+        The snowpack at SNOTEL Site 838 in (Location) shows a significant difference in snowpack from the winter of 2011 - a big year for snow.  2012 however was a very low snow year, with some early intermittent melting.
         While peak SWE gives us a snapshot of interannual variation in snow, intra-annual variation in the timing and magnitude is much more complex.
       </p>
     </template>
     <!-- EXPLANATION -->
-    <template v-slot:explanation>
-      <p>Stuff to explain.</p>
+    <template v-slot:belowExplanation>
+      <p>April 1st is here, but there are other ways to assess these snowpack accumulation curves. We can ask - when was peak snowpack? Earlier or later than the traditional April 1st?</p>
+      <p>Or - how big was the peak? Did all the snow accumulate and stay there? Or did it intermittently melt during some early warmer days?</p>
+      <p>Dolcelatte pepper jack goat. Melted cheese parmesan danish fontina swiss monterey jack babybel stinking bishop caerphilly. Mascarpone halloumi danish fontina everyone loves feta cut the cheese cheese triangles chalk and cheese. Ricotta cheddar cheese strings cottage cheese cheeseburger halloumi mascarpone say cheese. Macaroni cheese cheese strings smelly cheese cut the cheese.</p>
     </template>
   </VizSection>
 </template>

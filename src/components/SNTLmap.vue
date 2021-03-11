@@ -5,13 +5,15 @@
   >
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <p />
+      <h2>Today is an important day in the world of snow hydrology.</h2>
     </template>    
     <!-- EXPLANATION -->
     <template v-slot:aboveExplanation>
       <!--   <p class="byline" >
         U.S. Geological Survey<br>Water Resources Mission Area</p><br><br> -->
-      <p>Historically, April 1st has been an important date for assessing peak annual snow accumulation. Interannual variation in peak SWE is normal and fluctuates with natural climatological patterns, however, an exceptionally dry or wet season can have dramatic impacts to downstream water.</p>
+      <p>Historically, <span class="emph">April 1st</span> is the date which hydrologists generally use to mark "peak snowpack" in places where snow accumulates all winter.</p>
+      <p>Compared to the historical record for this date, 2021 is shaping to be considerably dry in many regions of the western U.S. While interannual variation in peak SWE is normal and fluctuates with natural climatological patterns, an exceptionally dry or wet season can have dramatic impacts to the water supply in locations where snowmelt is a major source of water.</p>
+      <p>Highlight here how snowpack is super important for water supply in these areas.  In places like these, snowmelt makes up a major part of the water budget for that year!</p>
       <svg
         id="legend-percentile"
         xmlns="http://www.w3.org/2000/svg"
@@ -1438,10 +1440,10 @@
         >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the western U.S.</a>. The trend line that appears on hover shows peak SWE for each site since 1981 (and currently does not include 2021). 
       </p>
     </template>
-    <!-- EXPLANATION -->
-    <!--    <template v-slot:explanation>
-      <p />
-    </template> -->
+    <template v-slot:belowExplanation>
+      <p>Transition from the significance of April 1st to explain...well, how do we actually measure that?</p>
+      <p>Cheeseburger cut the cheese taleggio. Emmental croque monsieur mascarpone red leicester blue castello airedale everyone loves st. agur blue cheese. Cottage cheese cheese strings ricotta babybel cheeseburger queso manchego fromage. Paneer pepper jack cheese slices halloumi cream cheese jarlsberg chalk and cheese everyone loves. Smelly cheese stinking bishop cheesy grin pepper jack.</p>
+    </template>
   </VizSection>
 </template>
 <script>
