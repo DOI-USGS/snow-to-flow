@@ -29,6 +29,16 @@
     <DiagramsBad 
       id="diagrams-bad"
     />
+    <Chapter
+      id="chapterLast"
+      image="chapter2"
+      :height="50"
+    >
+      <template v-slot:chapterTitle>
+        So What?
+      </template>
+    </Chapter>
+    <Impact />
     <References />
   </div>
 </template>
@@ -47,6 +57,7 @@ export default {
       SWEtoDischarge: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SWE"*/ "./../components/SWEtoDischarge"),
       DiagramsGood: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagramsgood"*/ "./../components/DiagramsGood"),
       DiagramsBad: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagramsbad"*/ "./../components/DiagramsBad"),
+      Impact: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "impact"*/ "./../components/Impact"),
       References: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "References"*/ "./../components/References"),
       Chapter
     },
