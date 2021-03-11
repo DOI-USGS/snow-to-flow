@@ -69,7 +69,8 @@ $frostyGreen: #76A28E; // good contrast against black (original was #5e8a76)
 $deepGreen: #2A4C40; // good contrast against white
 $frostyPurple: #C9ADE6;
 $deepPurple: #301546; // good contrast against black
-$skyBlue: #0e64bb;
+$skyBlue: #7AC3FF;
+$deepBlue:#005AA3;
 $lightGrey: #c2c4c5;
 $darkGrey: #212122;
 $familyMain: 'Source Sans Pro', sans-serif;
@@ -280,12 +281,13 @@ p {
 }
 
 .emph {
-  font-weight:700;
+  font-weight:800;
   fill: white;
   font-family: $familyMain;
-  background: linear-gradient(180deg,rgba(255,255,255,0) 60%, $skyBlue 40%);
+  background: linear-gradient(180deg,rgba(255,255,255,0) 70%, $skyBlue 30%);
   line-height: 1.3em;
-  padding: 0 5px;
+  margin: 0 2px;
+  padding: 0 2px;
 }
 
 .italic {
