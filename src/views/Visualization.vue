@@ -8,11 +8,11 @@
       :height="50"
     >
       <template v-slot:chapterTitle>
-        Measuring snow
+        Measuring Snowpack
       </template>
     </Chapter>
-    <SWE />
     <MeasuringSWE />
+    <SWE />
     <SWEtoDischarge />
     <Chapter
       id="chapter2-5"

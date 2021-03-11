@@ -288,4 +288,7 @@ p {
   padding: 0 5px;
 }
 
+.italic {
+  font-style: italic;
+}
 </style>
