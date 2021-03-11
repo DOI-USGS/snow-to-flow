@@ -12,10 +12,22 @@
     <template v-slot:figures>
       <div class="group two maxWidth">
         <figure id="good-snow">
-          <img src="@/assets/diagrams/Diagrams_snow-good.png">
+          <img 
+            id="diagram-good-winter"
+            v-img:group-good
+            src="@/assets/diagrams/Diagrams_snow-good.png"
+            alt="A diagram of a mountain hillside in a high-snow winter, where there's thick snowpack and saturated soils from good snow years previously."
+            loading="lazy"
+          >
         </figure>
         <figure id="good-flow">
-          <img src="@/assets/diagrams/Diagrams_flow-good.png">
+          <img 
+            id="diagram-good-spring"
+            v-img:group-good
+            src="@/assets/diagrams/Diagrams_flow-good.png"
+            alt="A diagram of a mountain hillside in spring after a high-snow winter, where the snowpack melts all at once and makes lots of meltwater available for water supply."
+            loading="lazy"
+          >
         </figure>
       </div>
     </template>
@@ -34,6 +46,7 @@
 <script>
 import VizSection from '@/components/VizSection';
 import Fig from '@/components/Figure';
+
 export default {
     name: "DiagramsGood",
     components:{
