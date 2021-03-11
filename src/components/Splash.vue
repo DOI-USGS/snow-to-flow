@@ -1,6 +1,6 @@
   
 <template>
-  <section id="srubbable">
+  <section id="scrubbable">
     <div id="container">
       <div class="scrollDist mtn">
         <div class="main mtn">
@@ -24,18 +24,12 @@
               </g>
             </mask>
                     
-            <image
-              class="sky"
-              xlink:href="@/assets/videos/sky_blue.png"
-              width="100%"
-              height="74%"
-            />
             <!-- this grabbed from codepen and need to be replaced with our own images -->
             <!-- <image class="mountBg" xlink:href="https://assets.codepen.io/721952/mountBg.png" width="100%" height="100%"/>   -->
             <!-- <image class="mountBg" xlink:href="https://assets.codepen.io/721952/mountBg.png" width="100%" height="100%"/>   -->  
             <image
               class="mountMg"
-              xlink:href="https://assets.codepen.io/721952/mountMg.png"
+              xlink:href="@/assets/titleImages/splash/mountainMG.png"
               width="100%"
               height="100%"
             />    
@@ -47,7 +41,13 @@
             />    
             <image
               class="mountFg"
-              xlink:href="@/assets/videos/mtn_fg2-01.png"
+              xlink:href="@/assets/titleImages/splash/frozen-lakeFG.png"
+              width="100%"
+              height="100%"
+            />
+            <image
+              class="people"
+              xlink:href="@/assets/titleImages/splash/people.png"
               width="100%"
               height="100%"
             />
@@ -64,7 +64,7 @@
               width="100%"
               height="100%"
             />
-            <!--            <text
+            <text
               class="overall-title"
               fill="#fff"
               x="600"
@@ -80,7 +80,7 @@
             >U.S. Geological Survey<tspan
               dx="-145"
               dy="20"
-            >Water Resources Mission Area</tspan></text> -->
+            >Water Resources Mission Area</tspan></text>
 
                     
             <g mask="url(#m)">
@@ -118,16 +118,18 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
         mounted() { 
             const gsap = this.$gsap;
             gsap.registerPlugin(ScrollToPlugin, ScrollTrigger); // register gsap plugins for scrollTrigger
-            // define timeline of events
+            // define starting posiitions of everything
             gsap.set('.main', {position:'absolute', background:'#fff', width:'100%', maxWidth:'1800px', height:'70%', top:0, left:'50%', x:'-50%'})
-            gsap.set('.scrollDist', {width:'100%', height:'80%'})
+            gsap.set('.scrollDist', {width:'100%', height:'100%'})
+
+            // definite timeline of events
             gsap.timeline({scrollTrigger:{trigger:'.scrollDist', start:'top top', end:'bottom bottom', scrub:1}})
-                .fromTo('.sky', {y:0},{y:-200}, 0)
+                // .fromTo('.sky', {y:-200},{y:0}, 0)
                 .fromTo('.cloud1', {y:100},{y:-800}, 0)
-                .fromTo('.cloud2', {y:-150},{y:-500}, 0)
-                .fromTo('.cloud3', {y:-50},{y:-650}, 0)
+                .fromTo('.cloud2', {y:200},{y:-500}, 0)
+                .fromTo('.cloud3', {y:30},{y:-650}, 0)
                 //.fromTo('.mountBg', {y:-10},{y:-100}, 0)
-                .fromTo('.mountMg', {y:-30},{y:-250}, 0)
+                .fromTo('.mountMg', {y:-100},{y:-350}, 0)
                 .fromTo('.mountFg', {y:-50},{y:-600}, 0)
 /* 
             $('#arrowBtn').on('mouseenter', (e)=>{ gsap.to('.arrow', {y:10, duration:0.8, ease:'back.inOut(3)', overwrite:'auto'}); })
@@ -138,8 +140,15 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
 </script>
 
 <style scoped lang="scss">
+#scrubbable {
+  padding: 0 0 3em 0;
+}
+svg {
+   background-color: #0b5eb4;
+}
 .mtn {
   position:relative;
+ 
 }
 #container {
     position: relative;
