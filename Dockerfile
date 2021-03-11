@@ -10,7 +10,7 @@ RUN apt-get update && \
       apt-get clean
 
 # Enable the NodeSource repository and install the latest nodejs
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
       apt-get install nodejs -y
 
 # Create temp directory for building viz app
