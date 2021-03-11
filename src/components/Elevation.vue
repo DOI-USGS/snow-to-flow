@@ -3,7 +3,7 @@
   <VizSection id="firstSection">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>Snow persistence at different elevations shapes snowmelt</h2>
+      <h2>Snow persistence predicts streamflow</h2>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>

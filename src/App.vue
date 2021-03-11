@@ -60,8 +60,6 @@
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap'); //'Amatic SC', cursive;
-@import url('https://fonts.googleapis.com/css2?family=Karla:wght@200;300;500;600;700;800&display=swap');//'Karla', sans-serif;
 
  // IMPORT
 $nearBlack: #1a1b1c; //#1a1b1c;
@@ -75,8 +73,6 @@ $lightGrey: #c2c4c5;
 $darkGrey: #212122;
 $familyMain: 'Source Sans Pro', sans-serif;
 $familySerif:  'Noto Serif', serif;
-$familyTest: 'Amatic SC', cursive;
-
 
 // Type
 html,
@@ -95,7 +91,7 @@ body {
       width: 100%;
   }
 h1{
-  font-size: 5em;
+  font-size: 4em;
   font-weight: 400;
   font-family: $familyMain;
   line-height: 1;
@@ -136,8 +132,8 @@ p {
 .overall-title {
   padding-top: 0vh;
   margin: 0;
-  font-family: $familyTest;
-  font-size: 7em;
+  font-family: $familyMain;
+  font-size: 6em;
   font-weight: 700;
   text-align: center;
   line-height: 1;
@@ -149,7 +145,7 @@ p {
 }
 .big-statement {
   font-size: 2.75em;
-  font-family: $familyTest;
+  font-family: $familyMain;
   font-weight: 700;
   max-width: 670px;
   fill: black;
