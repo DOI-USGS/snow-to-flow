@@ -8,7 +8,7 @@
       :height="50"
     >
       <template v-slot:chapterTitle>
-        Measuring Snowpack
+        It Starts with Snowpack
       </template>
     </Chapter>
     <MeasuringSWE />
@@ -20,7 +20,7 @@
       :height="50"
     >
       <template v-slot:chapterTitle>
-        From Snow to Flow to Water Supply
+        From Winter Snow to Spring Flow
       </template>
     </Chapter>
     <DiagramsGood 
@@ -35,7 +35,7 @@
       :height="50"
     >
       <template v-slot:chapterTitle>
-        So What?
+        What Spring Flow Means for Water Supply
       </template>
     </Chapter>
     <Impact />
