@@ -196,18 +196,18 @@
         </g>
       </g>
       <g id="discharge-annotations">
-        <g class="annotation-animation-group">
+        <g class="annotation-animation-group-discharge">
           <text class="annotation discharge" transform="translate(323 224.6)">Large spring melt</text>
           <polyline class="annotation-line" points="300.5 248 319 229.5 414 229.5"/>
         </g>
-        <g class="annotation-animation-group">
+        <g class="annotation-animation-group-discharge">
           <text class="annotation discharge" transform="translate(584 364.7)">Smaller and earlier <tspan x="0" y="13.2">spring melt</tspan></text>
           <polyline class="annotation-line" points="542.3 421.3 580 383.5 675 383.5"/>
         </g>
-        <g class="annotation-animation-group">
+        <g class="annotation-animation-group-discharge">
           <text class="missing-data discharge" transform="translate(583 454.2)">missing<tspan x="5.8" y="12">data</tspan></text>
         </g>
-        <g class="annotation-animation-group">
+        <g class="annotation-animation-group-discharge">
           <text class="missing-data discharge" transform="translate(641 454.2)">missing<tspan x="5.8" y="12">data</tspan></text>
         </g>
         
@@ -277,7 +277,7 @@ export default {
           tl.from(".brush", {duration: 1, opacity: 1}); // fade the brushing
           tl.from(".discharge-title", {duration: 1, delay: 1, opacity: 0});
           tl.to("#discharge-reveal-rect", {duration: 5, width: "100%"}); // reveal area
-          tl.from(".annotation-animation-group", { duration: 1, delay: -4, opacity: 0, scale: 0.8, stagger: .5})
+          tl.from(".annotation-animation-group-discharge", { duration: 1, delay: -4, opacity: 0, scale: 0.8, stagger: .5})
 
         },
         callback(data){
