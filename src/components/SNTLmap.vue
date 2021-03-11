@@ -11,7 +11,7 @@
     <template v-slot:aboveExplanation>
       <!--   <p class="byline" >
         U.S. Geological Survey<br>Water Resources Mission Area</p><br><br> -->
-      <p>Historically, April 1st has been an important date for assessing peak annual snow accumulation. Compared to the historical record for this date, 2021 is shaping to be considerably dry in many regions of the western U.S.. While interannual variation in peak SWE is normal and fluctuates with natural climatological patterns, an exceptionally dry or wet season can have dramatic impacts to the water supply in locations where snowmelt is a major source of water.</p>
+      <p>Historically, April 1st has been an important date for assessing peak annual snow accumulation. Interannual variation in peak SWE is normal and fluctuates with natural climatological patterns, however, an exceptionally dry or wet season can have dramatic impacts to downstream water.</p>
       <svg
         id="legend-percentile"
         xmlns="http://www.w3.org/2000/svg"
@@ -1420,13 +1420,13 @@
             </svg>
           </div>
         </div>
-        <!-- <svg
+        <svg
               id="elev-corr"
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 300 300"
+              viewBox="-100 -50 400 300" 
               preserveAspectRatio="xMinYMin slice"
             >
-            </svg> -->
+            </svg>
       </div>
     </template>
     <!-- FIGURE CAPTION -->
@@ -1459,19 +1459,19 @@ export default {
               publicPath: process.env.BASE_URL,
               d3: null,
 
-              sntl_variable: "ptile", // starting variable to map site colors
-
+              sntl_variable: "ptile", // map site colors
 
               sntl_data: [], // sntl data
               ak_data: [],
 
+              // set up chart elements
               sntl_map: null, //  the svg
               ak_map: null,
               sntl_sites: null, // g for sites in svg
               ak_sites: null,
               corr_plot: null,
 
-            // variables of interest for map
+            // variables of interest for map - could toggle
               site_vars: {
                 swe: 'swe',
                 NRCS: 'mean',
@@ -1488,7 +1488,6 @@ export default {
                 today_anomaly: 'today_anomaly'
                 },
 
-
               // chart opts
               xScale: null,
               yScale: null,
@@ -1504,9 +1503,9 @@ export default {
           this.sntl_map = this.d3.select("svg#usa-sntl");
           this.ak_map = this.d3.select("svg#ak-sntl");
           this.legend_map = this.d3.select("svg#legend-sntl");
-           this.corr = this.d3.select("svg#elev-corr");
+          this.corr = this.d3.select("svg#elev-corr");
 
-          //  read in data and bind with svg sites
+          // read in data and bind with svg sites
           this.loadData();
 
           this.$nextTick(() => {
@@ -1529,20 +1528,18 @@ export default {
       loadData() {
         const self = this;
         // read in data 
-        let promises = [self.d3.csv(self.publicPath + "data/conus_por_2021.csv", this.d3.autoType),
-        self.d3.csv(self.publicPath + "data/ak_por_2021.csv", this.d3.autoType),
-        self.d3.csv(self.publicPath + "data/sntl_svg_coords.csv", this.d3.autoType),
-        self.d3.csv(self.publicPath + "data/diff_20210304.csv", this.d3.autoType)];
-
+        let promises = [self.d3.csv(self.publicPath + "data/conus_coord.csv", this.d3.autoType), // conus 
+        self.d3.csv(self.publicPath + "data/ak_coord.csv", this.d3.autoType),
+        self.d3.csv(self.publicPath + "data/diff_20210304.csv", this.d3.autoType)]; // aggregate trend metics
         Promise.all(promises).then(self.callback); 
       },
       callback(data) {
         const self  = this;
-        this.sntl_data = data[0];// has a key variable and x and y positioning
-        this.ak_data = data[1];
-        this.coord_data = data[2];
-        this.diff = data[3];
-
+        // org data
+        this.sntl_data = data[0]; // has key and x and y positioning with sparkline paths
+        this.ak_data = data[1]; // has key and x and y positioning with sparkline paths
+        this.diff = data[2]; // combined trend metrics and site vars
+        // site groupings for svgs 
         this.sntl_sites = this.sntl_map.append("g").classed("sites", true)
         this.ak_sites = this.ak_map.append("g").classed("sites", true)
         this.corr_plot = this.corr.append("g").classed("sites", true)
@@ -1552,30 +1549,34 @@ export default {
         // draw sites on map
         this.addSites(700, 840, this.sntl_sites, this.sntl_data); // add westen sites
         this.addSites(606.9, 476.2, this.ak_sites, this.ak_data); // add ak sites
+        
+        self.setColor(this.sntl_data, this.sntl_sites); // set initial site color
+        self.setColor(this.ak_data, this.ak_sites); // set initial site color
 
-        //this.makeCorr(this.diff);
+        this.makeTrend(); // makes a scatterplot of elevation and SWE percentile
 
         // nudge ak sites for repositioning 
-        this.ak_sites
-          .attr("transform", "translate(0,100)")
+        this.ak_sites.attr("transform", "translate(0,100)")
       },
-      makeCorr(data){
+
+      makeTrend(){
+        // scatterplot
         const self = this;
 
         // axis scales
         self.setColor();
 
         var yCorr = this.d3.scaleLinear()
-          .range([250,  50])
-          .domain([0, 1]);
+          .range([100, 10])
+          .domain([0, 100]);
 
         var xCorr = this.d3.scaleLinear()
-          .range([50,  250])
-          .domain([0, 12000]);
+          .range([0,  200])
+          .domain([1981, 2021]);
 
-         this.corr_plot
+        /*  this.corr_plot
          .selectAll("dots")
-          .data(data) // the key for each  site for updating data
+          .data(data)
           .enter()
           .append("circle")
             .attr("cx", function (d) { return xCorr(d.el); })
@@ -1585,47 +1586,71 @@ export default {
             .attr("stroke", "black")
             .attr("stroke-width", .5)
             .attr("r", this.site_radius)
-            .attr("fill",  function(d) { return self.threshold(d[self.site_vars.setColor]) })
+            .attr("fill",  function(d) { return self.threshold(d[self.site_vars.setColor]) }) */
 
-             var xAxis = this.d3.axisBottom(xCorr)
-              .tickSize(13)
-              .tickValues(xCorr.domain());
 
-              var yAxis = this.d3.axisLeft(yCorr)
-              .tickSize(13)
-              .tickValues(yCorr.domain());
-
-          var g = this.d3.select("svg#elev-corr")
+        var g = this.d3.select("svg#elev-corr")
           .append("g")
-          .classed("corr-legend", true).call(xAxis)
-          .attr("transform", "translate(" + (0) + "," + 250 + ")");
+          .classed("corr-legend", true)
+          .call(this.d3.axisBottom(xCorr)
+            .ticks(5)
+            .tickValues(["1981", "1991", "2001", "2011", "2021"])
+            .tickFormat(this.d3.format("d")))
+          .attr("transform", "translate(" + (0) + "," + 100 + ")");
 
-           this.d3.select("svg#elev-corr")
+        this.d3.select("svg#elev-corr")
           .append("g")
-          .classed("corr-legend", true).call(yAxis)
-          .attr("transform", "translate(" + (50) + "," + 0 + ")");
+          .classed("corr-legend", true)
+          .call(this.d3.axisLeft(yCorr)
+            .ticks(5)
+            .tickValues(["0", "25", "50", "75", "100"])
+            .tickFormat(this.d3.format("d")))
+          .attr("transform", "translate(" + (0) + "," + 0 + ")");
 
-          this.d3.select("svg#elev-corr").append("text")
-                  .attr("fill", "#000")
-                  .attr("font-size", "1.5em")
-                  .attr("text-anchor", "start")
-                  .attr("font-weight", "bold")
-                  .attr("y", 285)
-                  .attr("x", 95)
-                  .text("Elevation");
+      // position axis labels
+        this.d3.select("svg#elev-corr").append("text")
+          .attr("fill", "#000")
+          .attr("font-size", "1.25em")
+          .attr("text-anchor", "start")
+          .attr("font-weight", "bold")
+          .attr("y", 140)
+          .attr("x", 50)
+          .text("Water year");
 
-           this.d3.select("svg#elev-corr").append("text")
-                .classed("ele", true)
-                  .attr("fill", "#000")
-                  .attr("font-size", "1.5em")
-                  .attr("font-weight", "bold")
-                  .attr("text-anchor", "start")
-                  .attr("y", 140)
-                  .attr("x", 25)
-                  .attr("transform", "rotate(-90) translate(-200, -110)")
-                  .text("SWE");
+        this.d3.select("svg#elev-corr").append("text")
+          .classed("ele", true)
+            .attr("fill", "#000")
+            .attr("font-size", "1.25em")
+            .attr("font-weight", "bold")
+            .attr("text-anchor", "start")
+            .attr("y", 120)
+            .attr("x", 30)
+            .attr("transform", "rotate(-90) translate(-110, -150)")
+            .text("SWE");
+
+       /*  // position axis labels
+        this.d3.select("svg#elev-corr").append("text")
+          .attr("fill", "#000")
+          .attr("font-size", "1.5em")
+          .attr("text-anchor", "start")
+          .attr("font-weight", "bold")
+          .attr("y", 285)
+          .attr("x", 95)
+          .text("Elevation");
+
+        this.d3.select("svg#elev-corr").append("text")
+          .classed("ele", true)
+            .attr("fill", "#000")
+            .attr("font-size", "1.5em")
+            .attr("font-weight", "bold")
+            .attr("text-anchor", "start")
+            .attr("y", 140)
+            .attr("x", 25)
+            .attr("transform", "rotate(-90) translate(-200, -110)")
+            .text("SWE"); */
       },
       addSites(x_max, y_max, sites, data) {
+        // adds sites to AK and CONUS maps, triggers color function
         const self = this;
 
         // axis scales
@@ -1637,34 +1662,60 @@ export default {
           .range([y_max,  0])
           .domain([y_max, 0]);
 
+        // draw sites
         sites.selectAll("SNTL")
-        .data(data) // the key for each  site for updating data
+        .data(data, function(d) { return d.site_id; }) // the key for each  site for updating data
         .enter()
         .append("circle")
           .attr("cx", function (d) { return self.xScale(d.x); })
           .attr("cy", function (d) { return self.yScale(d.y); } )
           .classed("SNTL",  true)
+          .attr("id", function(d) { return d.site_id })
           .attr("opacity", .7)
           .attr("stroke", "black")
           .attr("stroke-width", .5)
           .attr("r", this.site_radius)
 
-        self.setColor(data, sites); // set initial site color
-
         // add hover effect
-       /*  sites
-        .on("mouseover", function(d) {
-          self.hover(d)
+      this.d3.selectAll(".SNTL")
+        .on("mouseover", function(data) {
+          self.hover(data, self.site_radius*2, "orchid");
         })
-        .on("mouseout", function(d,i){
-          console.log(data[i]), i;
-        }) */
+        .on("mouseout", function(data){
+          self.hoverOut(data, self.site_radius);
+        }) 
         
       },
-      hover(d){
+      hover(data, to, color){
         const self = this;
-        this.d3.select(e).select("circle").transition().duration(100).attr("r", 20).attr('fill', '#ff0000');
 
+        self.d3.select('circle#sntl_' + data.site_id)
+          .transition()
+          .duration(50)
+          .attr("r", to)
+          .attr('fill', color);
+
+          //console.log(data.d_peak) // use this to draw the line
+
+        // draw trendline for site
+        var trendy = this.corr.append("g").classed("trend", true)
+          trendy.append("path").attr("id", 'sntl_' + data.site_id)
+            .attr("d", data.d_peak)
+            .attr("fill", "transparent")
+            .attr("stroke", "black")
+            .attr("stroke-width", 1)
+
+      },
+      hoverOut(data, to){
+        const self = this;
+
+        self.d3.select('circle#sntl_' + data.site_id)
+          .transition()
+          .duration(50)
+          .attr("r", to);
+
+        this.d3.select(".trend").remove() // take off prior line
+          //self.setColor();
       },
       setColor() {
         const self = this;
@@ -1785,7 +1836,7 @@ line, polyline, polygon, path, rect, circle {
     grid-row: 2/3;
   }
   #ak {
-   width: 60vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
+   width: 55vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
    grid-column: 1/5;
   }
 
@@ -1799,7 +1850,7 @@ line, polyline, polygon, path, rect, circle {
 
   #usa {
     grid-column:6/16;
-    width: 90vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
+    width: 85vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
 
   }
 
@@ -1807,9 +1858,8 @@ line, polyline, polygon, path, rect, circle {
 #elev-corr {
   position: relative;
   top: -400px;
-  left: 25vw;
-  width: 15vw;
-  height: auto;
+  left: 20vw;
+  width: 30vw;
   min-width: 200px;
 
 }
@@ -1854,7 +1904,16 @@ line, polyline, polygon, path, rect, circle {
   position: relative;
   top:-70px;
 }
+#elev-corr {
+  position: relative;
+  top: -300px;
+  left: 15vw;
+  width: 30vw;
+  min-width: 200px;
 
 }
+
+}
+
 
 </style>
