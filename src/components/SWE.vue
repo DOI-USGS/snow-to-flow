@@ -3,11 +3,11 @@
   <VizSection id="firstSection">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>What is "SWE"</h2>
+      <h2>Snowpack hints at the upcoming meltwater availability.</h2>
     </template>
     <!-- FIGURES -->
     <template v-slot:aboveExplanation>
-      <p>Hydrologists measure snowpack as the <span class="italics">snow water equivalent</span>.  That measurement normalizes between light, fluffy snow and heavy, wet snow - ultimately because it will all melt into water anyway.  The USGS wants to know - how much water is contained in this snowpack?</p>
+      <p>Hydrologists measure snowpack as the <span class="emph">snow water equivalent</span>.  That measurement normalizes between light, fluffy snow and heavy, wet snow - ultimately because it will all melt into water anyway.  The USGS wants to know - how much water is contained in this snowpack?</p>
       <p>Cheese strings cheese and biscuits bavarian bergkase. Halloumi queso when the cheese comes out everybody's happy ricotta babybel cream cheese port-salut boursin. Fromage cow when the cheese comes out everybody's happy hard cheese blue castello stilton mozzarella dolcelatte. Melted cheese croque monsieur smelly cheese swiss blue castello gouda halloumi paneer. Airedale everyone loves.</p>
     </template>
     <template v-slot:figures>

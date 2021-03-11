@@ -3,10 +3,10 @@
   <VizSection id="firstSection">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>How the USGS measures Snow-water equivalent (SWE)</h2>
+      <h2>How the USGS Measures Snowpack</h2>
     </template>
     <template v-slot:aboveExplanation>
-      <p>Stuff to explain.</p>
+      <p>Cheese and wine roquefort when the cheese comes out everybody's happy. Cow red leicester the big cheese paneer cut the cheese red leicester boursin halloumi. Cheese and wine cheddar mozzarella boursin mozzarella cheese and wine taleggio cheese slices. Stilton fromage say cheese mozzarella cheeseburger dolcelatte pepper jack manchego. Who moved my cheese feta.</p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
@@ -20,12 +20,12 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        Images of measuring swe.
+        There are lots of ways to measure SWE! Drones, shovels, and SNOTEL sites oh my!
       </p>
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
-      <p>Stuff to explain.</p>
+      <p>St. agur blue cheese emmental goat. Port-salut babybel cheese strings airedale everyone loves boursin cheesy feet queso. Boursin goat caerphilly st. agur blue cheese squirty cheese rubber cheese cow halloumi. Danish fontina cheese and biscuits say cheese swiss croque monsieur.</p>
     </template>
   </VizSection>
 </template>

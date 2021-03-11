@@ -11,7 +11,7 @@
     <template v-slot:aboveExplanation>
       <!--   <p class="byline" >
         U.S. Geological Survey<br>Water Resources Mission Area</p><br><br> -->
-      <p>Historically, April 1st is the date which hydrologists generally use to mark "peak snowpack" in places where snow accumulates all winter.</p>
+      <p>Historically, <span class="emph">April 1st</span> is the date which hydrologists generally use to mark "peak snowpack" in places where snow accumulates all winter.</p>
       <p>Compared to the historical record for this date, 2021 is shaping to be considerably dry in many regions of the western U.S. While interannual variation in peak SWE is normal and fluctuates with natural climatological patterns, an exceptionally dry or wet season can have dramatic impacts to the water supply in locations where snowmelt is a major source of water.</p>
       <p>Highlight here how snowpack is super important for water supply in these areas.  In places like these, snowmelt makes up a major part of the water budget for that year!</p>
       <svg
