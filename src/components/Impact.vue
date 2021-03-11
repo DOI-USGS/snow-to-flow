@@ -12,19 +12,27 @@
     <template v-slot:figures>
       <div class="group single maxWidth">
         <figure id="swe-chart-container">
-          <img src="@/assets/diagrams/SWE-sketch.png">
+          <img 
+            id="diagram-good-spring"
+            v-img:final
+            src="@/assets/diagrams/placeholder.jpg"
+            alt="A placeholder diagram"
+            loading="lazy"
+          >
         </figure>
       </div>
     </template>
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        Captionsldkfjsldfja;kdfja;lkfja;ldskfjalskfjal;dkfja;lsdkfj
+        Cottage cheese mascarpone cut the cheese. Cheeseburger cauliflower cheese babybel cheese slices camembert de normandie stinking bishop chalk and cheese cottage cheese. Who moved my cheese edam chalk and cheese croque monsieur hard cheese macaroni cheese monterey jack cheddar.
       </p>
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
-      <p>Stuff to explain.</p>
+      <p>Reiterate what we said at the very beginning.  April 1st used to mark peak snowpack. But that's changing because of climate change.  And it has lots of impacts on water supply.</p>
+      <p>Specifically, a smaller snowpack that melts earlier will mean less water available for supply.  It also means drier soils, and potentially more wildfires. List all the impacts and cite sources that support these claims.</p>
+      <p>Halloumi boursin cut the cheese. Who moved my cheese dolcelatte cheesecake squirty cheese babybel fromage everyone loves goat. Airedale cream cheese edam parmesan port-salut manchego stinking bishop stilton. Cut the cheese hard cheese pepper jack swiss brie paneer the big cheese cow. Fondue.</p>
     </template>
   </VizSection>
 </template>
