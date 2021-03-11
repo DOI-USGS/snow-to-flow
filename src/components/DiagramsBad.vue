@@ -3,16 +3,31 @@
   <VizSection id="firstSection">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>But warmer winters mean less snow and earlier melt, which means low spring flows.</h2>
+      <h2>A Bad Snow Year</h2>
+    </template>
+    <template v-slot:aboveExplanation>
+      <p>But warmer winters mean less snow and earlier melt, which means low spring flows.</p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
       <div class="group two maxWidth diagram">
         <figure id="bad-snow">
-          <img src="@/assets/diagrams/Diagrams_snow-bad.png">
+          <img 
+            id="diagram-bad-winter"
+            v-img:group-bad
+            src="@/assets/diagrams/Diagrams_snow-bad.png"
+            alt="A diagram of a mountain hillside in a low-snow winter, where there's not much snowpack and warm weather is melting the snow intermittently."
+            loading="lazy"
+          >
         </figure>
         <figure id="bad-flow">
-          <img src="@/assets/diagrams/Diagrams_flow-bad.png">
+          <img 
+            id="diagram-bad-spring"
+            v-img:group-design
+            src="@/assets/diagrams/Diagrams_flow-bad.png"
+            alt="A diagram of a mountain hillside in spring after a low-snow winter, where there is little snow left and little water in streams."
+            loading="lazy"
+          >
         </figure>
       </div>
     </template>
@@ -23,8 +38,8 @@
       </p>
     </template>
     <!-- EXPLANATION -->
-    <template v-slot:explanation>
-      <p>Stuff to explain.</p>
+    <template v-slot:belowExplanation>
+      <p>Parmesan cheeseburger emmental. Monterey jack dolcelatte stinking bishop paneer croque monsieur manchego airedale squirty cheese. The big cheese mozzarella red leicester port-salut the big cheese cheeseburger queso cheesy grin. Boursin babybel.</p>
     </template>
   </VizSection>
 </template>

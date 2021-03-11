@@ -108,7 +108,9 @@ export default {
 .chapterTitle{
     position: relative;
     z-index: 2;
-    font-size:clamp(2em, 5vw, 5em);
+    font-size:clamp(2em, 7vw, 8em);
+    font-style: italic;
+    font-weight: 800;
     color: #fff;
     padding: 0 20px;
     text-align: center;

@@ -31,14 +31,9 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-$spacing: 15px;
+$spacing: 20px;
 $border: 10px solid #000;
-.vizSection{
-    p{
-        padding: 0; 
-        margin: 0;
-    }
-}
+
 /*#####vizSectionContent#####*/
 .vizSectionContent{
   flex: 1;
@@ -46,9 +41,9 @@ $border: 10px solid #000;
 /*#####TAKE AWAY#####*/
 .takeAway{
     font-size: 1.4em;
-    margin: 0 auto 20px auto;
-    max-width: 960px;
-    margin: 0 auto;
+    margin: 0 auto $spacing auto;
+    max-width: 700px;
+    font-weight: 800;
 }
 /*#####FIGURES#####*/
 .figures{
