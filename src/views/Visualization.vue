@@ -30,7 +30,7 @@
       id="diagrams-bad"
     />
     <Chapter
-      id="chapterLast"
+      id="3"
       image="chapter11"
       :height="50"
     >
@@ -39,6 +39,15 @@
       </template>
     </Chapter>
     <Impact />
+    <Chapter
+      id="chapterLast"
+      image="chapter15"
+      :height="50"
+    >
+      <template v-slot:chapterTitle>
+        Learn More 
+      </template>
+    </Chapter>
     <References />
   </div>
 </template>
