@@ -5,6 +5,9 @@
     <template v-slot:takeAway>
       <h2>But warmer winters mean less snow and earlier melt, which means low spring flows.</h2>
     </template>
+    <template v-slot:aboveExplanation>
+      <p>Stuff to explain.</p>
+    </template>
     <!-- FIGURES -->
     <template v-slot:figures>
       <div class="group two maxWidth diagram">
@@ -23,7 +26,7 @@
       </p>
     </template>
     <!-- EXPLANATION -->
-    <template v-slot:explanation>
+    <template v-slot:belowExplanation>
       <p>Stuff to explain.</p>
     </template>
   </VizSection>

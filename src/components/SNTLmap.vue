@@ -1438,10 +1438,9 @@
         >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the western U.S.</a>.  
       </p>
     </template>
-    <!-- EXPLANATION -->
-    <!--    <template v-slot:explanation>
-      <p />
-    </template> -->
+    <template v-slot:belowExplanation>
+      <p>Stuff to explain.</p>
+    </template>
   </VizSection>
 </template>
 <script>

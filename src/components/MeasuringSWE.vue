@@ -5,6 +5,9 @@
     <template v-slot:takeAway>
       <h2>How the USGS measures Snow-water equivalent (SWE)</h2>
     </template>
+    <template v-slot:aboveExplanation>
+      <p>Stuff to explain.</p>
+    </template>
     <!-- FIGURES -->
     <template v-slot:figures>
       <div class="group single maxWidth">
@@ -21,8 +24,8 @@
       </p>
     </template>
     <!-- EXPLANATION -->
-    <template v-slot:explanation>
-      <p>The USGS measures snowpack as SWE with shovels and tools and whatnot.</p>
+    <template v-slot:belowExplanation>
+      <p>Stuff to explain.</p>
     </template>
   </VizSection>
 </template>

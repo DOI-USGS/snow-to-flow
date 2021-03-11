@@ -6,7 +6,9 @@
       <h2>Snowpack is measured as "snow-water equivalent" or SWE</h2>
     </template>
     <!-- FIGURES -->
-    
+    <template v-slot:aboveExplanation>
+      <p>Stuff to explain.</p>
+    </template>
     <template v-slot:figures>
       <div class="group single maxWidth">
         <figure id="swe-chart-container">
@@ -24,7 +26,7 @@
       </p>
     </template>
     <!-- EXPLANATION -->
-    <template v-slot:explanation>
+    <template v-slot:belowExplanation>
       <p>Stuff to explain.</p>
     </template>
   </VizSection>

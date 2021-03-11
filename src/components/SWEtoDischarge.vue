@@ -5,6 +5,9 @@
     <template v-slot:takeAway>
       <h2>Snow-water equivalent (SWE)</h2>
     </template>
+    <template v-slot:aboveExplanation>
+      <p>Stuff to explain.</p>
+    </template>
     <!-- FIGURES -->
     <template v-slot:figures>
       <div class="group single maxWidth">
@@ -21,8 +24,8 @@
       </p>
     </template>
     <!-- EXPLANATION -->
-    <template v-slot:explanation>
-      <p>Look! We're layering on information</p>
+    <template v-slot:belowExplanation>
+      <p>Stuff to explain.</p>
     </template>
   </VizSection>
 </template>

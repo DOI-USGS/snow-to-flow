@@ -5,6 +5,9 @@
     <template v-slot:takeAway>
       <h2>Thick snowpack lasting long into the spring is good for flow</h2>
     </template>
+    <template v-slot:aboveExplanation>
+      <p>Stuff to explain.</p>
+    </template>
     <!-- FIGURES -->
     <template v-slot:figures>
       <div class="group two maxWidth">
@@ -23,7 +26,7 @@
       </p>
     </template>
     <!-- EXPLANATION -->
-    <template v-slot:explanation>
+    <template v-slot:belowExplanation>
       <p>Stuff to explain.</p>
     </template>
   </VizSection>
