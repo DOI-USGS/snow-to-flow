@@ -3,10 +3,10 @@
   <VizSection id="firstSection">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>Thick snowpack lasting long into the spring is good for flow</h2>
+      <h2>A Good Snow Year</h2>
     </template>
     <template v-slot:aboveExplanation>
-      <p>Stuff to explain.</p>
+      <p>In a good snow year, there's lots of snow and it doesn't melt at all until the spring when it melts all at once.</p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
@@ -39,7 +39,7 @@
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
-      <p>Stuff to explain.</p>
+      <p>Goat fondue cheese and wine. Caerphilly feta goat cheese triangles taleggio ricotta queso caerphilly. Jarlsberg say cheese boursin monterey jack cauliflower cheese blue castello roquefort chalk and cheese. Brie dolcelatte bavarian bergkase chalk and cheese cottage cheese port-salut cottage cheese lancashire. Pepper jack swiss.</p>
     </template>
   </VizSection>
 </template>

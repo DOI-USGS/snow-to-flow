@@ -3,10 +3,10 @@
   <VizSection id="firstSection">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>But warmer winters mean less snow and earlier melt, which means low spring flows.</h2>
+      <h2>A Bad Snow Year</h2>
     </template>
     <template v-slot:aboveExplanation>
-      <p>Stuff to explain.</p>
+      <p>But warmer winters mean less snow and earlier melt, which means low spring flows.</p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
@@ -39,7 +39,7 @@
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
-      <p>Stuff to explain.</p>
+      <p>Parmesan cheeseburger emmental. Monterey jack dolcelatte stinking bishop paneer croque monsieur manchego airedale squirty cheese. The big cheese mozzarella red leicester port-salut the big cheese cheeseburger queso cheesy grin. Boursin babybel.</p>
     </template>
   </VizSection>
 </template>

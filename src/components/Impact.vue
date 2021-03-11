@@ -7,7 +7,7 @@
     </template>
     <!-- FIGURES -->
     <template v-slot:aboveExplanation>
-      <p>Here's all about it</p>
+      <p>Here's all about it. One final diagram to hit home the fact that snowpack is measurably changing  in the places where it matters.</p>
     </template>
     <template v-slot:figures>
       <div class="group single maxWidth">
@@ -33,6 +33,8 @@
       <p>Reiterate what we said at the very beginning.  April 1st used to mark peak snowpack. But that's changing because of climate change.  And it has lots of impacts on water supply.</p>
       <p>Specifically, a smaller snowpack that melts earlier will mean less water available for supply.  It also means drier soils, and potentially more wildfires. List all the impacts and cite sources that support these claims.</p>
       <p>Halloumi boursin cut the cheese. Who moved my cheese dolcelatte cheesecake squirty cheese babybel fromage everyone loves goat. Airedale cream cheese edam parmesan port-salut manchego stinking bishop stilton. Cut the cheese hard cheese pepper jack swiss brie paneer the big cheese cow. Fondue.</p>
+      <h2>Follow the Story</h2>
+      <p>Check back in with the snow hydrology group and usgs vizlab this summer when we look back at what the water availability driven by today's snowpack looks like over the spring and summer.</p>
     </template>
   </VizSection>
 </template>
