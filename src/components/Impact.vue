@@ -83,6 +83,6 @@ export default {
  margin:auto;
 }
 .maxWidth {
-  max-width: 80vw;
+  max-width: 70vw;
 }
 </style>
