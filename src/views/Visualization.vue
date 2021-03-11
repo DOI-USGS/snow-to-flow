@@ -4,7 +4,7 @@
     <SNTLMap />
     <Chapter
       id="chapter1"
-      image="chapter1"
+      image="chapter6"
       :height="50"
     >
       <template v-slot:chapterTitle>
@@ -16,7 +16,7 @@
     <SWEtoDischarge />
     <Chapter
       id="chapter2"
-      image="chapter3"
+      image="chapter5"
       :height="50"
     >
       <template v-slot:chapterTitle>
@@ -31,7 +31,7 @@
     />
     <Chapter
       id="chapterLast"
-      image="chapter4"
+      image="chapter11"
       :height="50"
     >
       <template v-slot:chapterTitle>
