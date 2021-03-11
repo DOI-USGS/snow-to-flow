@@ -107,8 +107,8 @@ h1{
 
 h2{
   color: $darkGrey;
-  font-weight: 400;
-  text-align: center;
+  font-weight: 800;
+  text-align: left;
   font-family:$familyMain;
   font-size: 1.8em;
   margin-top: 5px;
