@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve --mode test_tier",
     "serve-test": "NODE_ENV=development vue-cli-service serve --mode test_tier",
     "serve-beta": "NODE_ENV=development vue-cli-service serve --mode beta_tier",
-    "serve-prod": "NODE_ENV=development vue-cli-service serve --mode prod_tier",
+    "serve-prod": "vue-cli-service serve --mode prod_tier",
     "build": "vue-cli-service build --mode prod_tier",
     "build-test": "NODE_ENV=production vue-cli-service build --mode test_tier",
     "build-beta": "NODE_ENV=production vue-cli-service build --mode beta_tier",
