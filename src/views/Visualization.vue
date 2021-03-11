@@ -4,7 +4,7 @@
     <SNTLMap />
     <Chapter
       id="chapter1"
-      image="chapter1"
+      image="chapter6"
       :height="50"
     >
       <template v-slot:chapterTitle>
@@ -16,7 +16,7 @@
     <SWEtoDischarge />
     <Chapter
       id="chapter2"
-      image="chapter3"
+      image="chapter5"
       :height="50"
     >
       <template v-slot:chapterTitle>
@@ -31,7 +31,7 @@
     />
     <Chapter
       id="chapter2-3"
-      image="chapter2"
+      image="chapter9"
       :height="50"
     >
       <template v-slot:chapterTitle>
@@ -41,7 +41,7 @@
          <SWEanim />
     <Chapter
       id="chapterLast"
-      image="chapter4"
+      image="chapter11"
       :height="50"
     >
     
@@ -50,6 +50,15 @@
       </template>
     </Chapter>
     <Impact />
+    <Chapter
+      id="chapterLast"
+      image="chapter15"
+      :height="50"
+    >
+      <template v-slot:chapterTitle>
+        Learn More 
+      </template>
+    </Chapter>
     <References />
   </div>
 </template>

@@ -52,7 +52,7 @@ export default {
         },
         overlayOpacity:{
             type: Number,
-            default: .5
+            default: .3
         }
     },
     computed:{
@@ -115,5 +115,6 @@ export default {
     padding: 0 20px;
     text-align: center;
     max-width: 960px;
+    text-shadow: 1px 1px 40px rgba(0,0,0,1);
 }
 </style>
