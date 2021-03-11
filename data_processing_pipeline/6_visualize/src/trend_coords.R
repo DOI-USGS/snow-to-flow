@@ -92,7 +92,7 @@ xml2::write_xml(svg_root, file = 'C:/Users/cnell/Documents/Projects/snow-to-flow
 # export d paths ----------------------------------------------------------
 
 ## bind d paths to diff data and save
-
+conus <- read.csv("C:/Users/cnell/Documents/Projects/snow-to-flow/public/data/conus_por_2021.csv")
 conus_coords <- conus%>%
   transform(site_id=sprintf("sntl_%s", as.character(site_id)))%>%
   left_join(df_out, by=c('site_id' = 'id'))%>%
@@ -105,7 +105,6 @@ ak_coords <- ak%>%
   transform(site_id=sprintf("sntl_%s", as.character(site_id)))%>%
   left_join(df_out, by=c('site_id' = 'id'))%>%
   mutate(d_peak = gsub(" Z", "", d_peak))
-ak_coords$d_peak
 
 write.csv(ak_coords, "C:/Users/cnell/Documents/Projects/snow-to-flow/public/data/ak_coord.csv", row.names=FALSE)
 
