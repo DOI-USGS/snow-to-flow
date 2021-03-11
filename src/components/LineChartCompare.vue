@@ -11,7 +11,8 @@
             x="83.5"
             y="162"
             width="640"
-            height="281.47"          
+            height="281.47"    
+            fill="#fff"
           />
         </mask>
       </defs>
@@ -103,32 +104,37 @@
         >(SWE, inches)</tspan></text>
       </g>
       <g id="yAxisDischarge">
-        <rect
-          class="area discharge"
-          x="566"
-          y="24"
-          width="195"
-          height="84"
-        />
-        <text
-          class="axis-label discharge"
-          transform="translate(732.4 450.3)"
-        >0</text>
-        <text
-          class="axis-label discharge"
-          transform="translate(732.4 347.4)"
-        >5</text>
-        <text
-          class="axis-label discharge"
-          transform="translate(732.4 218.8)"
-        >10</text>
-        <text
-          class="axis-title"
-          transform="translate(624 57.7)"
-        >Discharge<tspan
-          x="-42.1"
-          y="32"
-        >(mm per day)</tspan></text>
+       <g class="discharge-title">
+          <text
+            class="axis-label discharge"
+            transform="translate(732.4 450.3)"
+          >0</text>
+          <text
+            class="axis-label discharge"
+            transform="translate(732.4 347.4)"
+          >5</text>
+          <text
+            class="axis-label discharge"
+            transform="translate(732.4 218.8)"
+          >10</text>
+        </g>
+       
+        <g class="discharge-title">
+          <rect
+            class="area discharge"
+            x="566"
+            y="24"
+            width="195"
+            height="84"
+          />
+          <text
+            class="axis-title"
+            transform="translate(624 57.7)"
+          >Discharge<tspan
+            x="-42.1"
+            y="32"
+          >(mm per day)</tspan></text>
+        </g>        
       </g>
       <g
         id="swe-annotations"
@@ -190,12 +196,22 @@
         </g>
       </g>
       <g id="discharge-annotations">
-        <text class="annotation discharge" transform="translate(323 224.6)">Large spring melt</text>
-        <polyline class="annotation-line" points="300.5 248 319 229.5 414 229.5"/>
-        <text class="annotation discharge" transform="translate(584 364.7)">Smaller and earlier <tspan x="0" y="13.2">spring melt</tspan></text>
-        <text class="missing-data discharge" transform="translate(583 454.2)">missing<tspan x="5.8" y="12">data</tspan></text>
-        <text class="missing-data discharge" transform="translate(641 454.2)">missing<tspan x="5.8" y="12">data</tspan></text>
-        <polyline class="annotation-line" points="542.3 421.3 580 383.5 675 383.5"/>
+        <g class="annotation-animation-group">
+          <text class="annotation discharge" transform="translate(323 224.6)">Large spring melt</text>
+          <polyline class="annotation-line" points="300.5 248 319 229.5 414 229.5"/>
+        </g>
+        <g class="annotation-animation-group">
+          <text class="annotation discharge" transform="translate(584 364.7)">Smaller and earlier <tspan x="0" y="13.2">spring melt</tspan></text>
+          <polyline class="annotation-line" points="542.3 421.3 580 383.5 675 383.5"/>
+        </g>
+        <g class="annotation-animation-group">
+          <text class="missing-data discharge" transform="translate(583 454.2)">missing<tspan x="5.8" y="12">data</tspan></text>
+        </g>
+        <g class="annotation-animation-group">
+          <text class="missing-data discharge" transform="translate(641 454.2)">missing<tspan x="5.8" y="12">data</tspan></text>
+        </g>
+        
+           
       </g>
     </svg>
   </div>
@@ -251,16 +267,17 @@ export default {
           this.$gsap.registerPlugin(ScrollToPlugin, ScrollTrigger); // register gsap plugins for scrollTrigger 
 
           // Set origins and locations
-          this.$gsap.set("#discharge-reveal-rect", {fill: "black"});
+          this.$gsap.set("#discharge-reveal-rect", {transformOrigin: "100% 0%", width: 0});
+          // this.$gsap.set("#discharge-title", {opacity: 0})
 
           // declare timeline
           let tl = this.$gsap.timeline();
 
           // add animations to the timeline
-          tl.from(".brush", {duration: 1, delay: 1, opacity: 1}); // fade the brushing
-          tl.to("#discharge-reveal-rect", {duration: .1, fill: "#fff"})
-          tl.to("#discharge-reveal-rect", {duration: 5, width: 0, x: -this.width-100}); // reveal area
-          tl.from(".annotation-animation-group", { duration: 1, delay: -3, opacity: 0, scale: 0.8, ease: "back", stagger: 1})
+          tl.from(".brush", {duration: 1, opacity: 1}); // fade the brushing
+          tl.from(".discharge-title", {duration: 1, delay: 1, opacity: 0});
+          tl.to("#discharge-reveal-rect", {duration: 5, width: "100%"}); // reveal area
+          tl.from(".annotation-animation-group", { duration: 1, delay: -4, opacity: 0, scale: 0.8, stagger: .5})
 
         },
         callback(data){
