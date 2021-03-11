@@ -1435,7 +1435,7 @@
         The map above shows snow TODAY (use April 1st for release) as the percentile of this date in the historic record (1981-2010). Snow is quantified as the daily snow-water equivalent (SWE) from <a
           href="https://www.wcc.nrcs.usda.gov/snow/"
           target="_blank"
-        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the western U.S.</a>.  
+        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the western U.S.</a>. The trend line that appears on hover shows peak SWE for each site since 1981 (and currently does not include 2021). 
       </p>
     </template>
     <!-- EXPLANATION -->
@@ -1857,15 +1857,15 @@ line, polyline, polygon, path, rect, circle {
 }
 #elev-corr {
   position: relative;
-  top: -400px;
-  left: 20vw;
+  top: -500px;
+  left: 23vw;
   width: 30vw;
   min-width: 200px;
 
 }
 #explain-bottom {
   position: relative;
-  top:-150px;
+  top:-500px;
   height: 0px;
 }
 #sntl-name, input {

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="maxWidth">
     <carousel
       id="image-slider"
       :autoplay="true"
@@ -10,14 +10,14 @@
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/images/snow-img1.png"
+              srcset="@/assets/methods/drone_1200w.jpg"
               media="(max-width: 992px)"
               type="image/png"
             >
             <img 
               id="field1"
               v-img:group
-              src="@/assets/images/snow-img1.png"
+              src="@/assets/methods/drone_1200w.jpg"
               alt="Collecting snow depth data in the field"
               loading="lazy"
             >
@@ -28,14 +28,14 @@
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/images/snow-img2.png"
+              srcset="@/assets/methods/ground_truth.png"
               media="(max-width: 992px)"
               type="image/png"
             >
             <img 
               id="field2"
               v-img:group
-              src="@/assets/images/snow-img2.png"
+              src="@/assets/methods/ground_truth.png"
               alt="Collecting snow depth data in the field"
               loading="lazy"
             >
@@ -46,14 +46,14 @@
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/images/snow-img3.png"
+              srcset="@/assets/methods/snow_pit.png"
               media="(max-width: 992px)"
               type="image/png"
             >
             <img 
               id="field3"
               v-img:group
-              src="@/assets/images/snow-img3.png"
+              src="@/assets/methods/snow_pit.png"
               alt="Collecting snow depth data in the field"
               loading="lazy"
             >
@@ -110,10 +110,12 @@
   .slider-image-container {
     padding: 10px;
     display: block;
-    margin: auto;
-    max-width: 400px;
+    height: 400px;
+    width: auto;
+    object-fit: contain;
     img {
-      width: 100%;
+      height: 400px; 
+      width: auto;
     }
   }
 </style>
