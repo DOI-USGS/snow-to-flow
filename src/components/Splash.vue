@@ -12,11 +12,21 @@
       data-depth="0.10"
     >
       <picture>
-        <!-- <source srcset="@/assets/images/splash/1x/mountains-1x.png"> -->
         <source srcset="@/assets/titleImages/splash/mountainMG.png">
+        <!-- Most compressed -->
+        <source type="image/webp" srcset="@/assets/titleImages/splash/mountainMG.webp"> 
+        <!-- Smallest Screen -->
+        <source media="(min-width: 350px)" srcset="@/assets/titleImages/splash/mountainMG-sm.png">
+        <!-- Medium Screen -->
+        <source media="(min-width: 500px)" srcset="@/assets/titleImages/splash/mountainMG-m.png">
+        <!-- Large screen -->
+        <source media="(min-width: 800px)" srcset="@/assets/titleImages/splash/mountainMG-l.png">
+        <!-- X Large Screen -->
+        <source media="(min-width: 1200px)" srcset="@/assets/titleImages/splash/mountainMG-xl.png">
         <img 
-          src="@/assets/titleImages/splash/mountainMG.png"
-          xlink:href="@/assets/titleImages/splash/mountainMG.png"
+          src="@/assets/titleImages/splash/mountainMG-xl.png"
+          xlink:href="@/assets/titleImages/splash/mountainMG-xl.png"
+          alt="A scene of snowy mountains topped with clouds"
         >
       </picture>
     </div>
@@ -26,9 +36,23 @@
       data-depth="0.30"
     >
       <picture>
-        <!-- <source srcset="@/assets/images/splash/1x/water-1x.png"> -->
+        <!-- Not sure what the browser wants to do with this first one, but it's the largest original -->
         <source srcset="@/assets/titleImages/splash/frozen-lakeFG.png">
-        <img src="@/assets/titleImages/splash/frozen-lakeFG.png">
+        <!-- Most compressed -->
+        <source type="image/webp" srcset="@/assets/titleImages/splash/frozen-lakeFG.webp"> 
+        <!-- Smallest Screen -->
+        <source media="(min-width: 350px)" srcset="@/assets/titleImages/splash/frozen-lakeFG-sm.png">
+        <!-- Medium Screen -->
+        <source media="(min-width: 500px)" srcset="@/assets/titleImages/splash/frozen-lakeFG-m.png">
+        <!-- Large screen -->
+        <source media="(min-width: 800px)" srcset="@/assets/titleImages/splash/frozen-lakeFG-l.png">
+        <!-- X Large Screen -->
+        <source media="(min-width: 1200px)" srcset="@/assets/titleImages/splash/frozen-lakeFG-xl.png">
+        <img 
+          src="@/assets/titleImages/splash/frozen-lakeFG.png"
+          xlink:href="@/assets/titleImages/splash/frozen-lakeFG.png"
+          alt="A frozen lake in front of rocky, snow-covered mountains."
+        >
       </picture>
     </div>
     <div
@@ -37,9 +61,23 @@
       data-depth="0.20"
     >
       <picture>
-        <!-- <source srcset="@/assets/images/splash/1x/people-1x.png"> -->
+        <!-- Not sure what the browser wants to do with this first one, but it's the largest original -->
         <source srcset="@/assets/titleImages/splash/people.png">
-        <img src="@/assets/titleImages/splash/people.png">
+        <!-- Most compressed -->
+        <source type="image/webp" srcset="@/assets/titleImages/splash/people.webp"> 
+        <!-- Smallest Screen -->
+        <source media="(min-width: 350px)" srcset="@/assets/titleImages/splash/people-sm.png">
+        <!-- Medium Screen -->
+        <source media="(min-width: 500px)" srcset="@/assets/titleImages/splash/people-m.png">
+        <!-- Large screen -->
+        <source media="(min-width: 800px)" srcset="@/assets/titleImages/splash/people-l.png">
+        <!-- X Large Screen -->
+        <source media="(min-width: 1200px)" srcset="@/assets/titleImages/splash/people-xl.png">
+        <img 
+          src="@/assets/titleImages/splash/people-l.png"
+          xlink:href="@/assets/titleImages/splash/people-l.png"
+          alt="Clouds rising over the snowy mountain"
+        >
       </picture>
     </div>
     <div
@@ -48,8 +86,23 @@
       data-depth="0.80"
     >
       <picture>
-        <source srcset="https://assets.codepen.io/721952/cloud2.png">
-        <img src="https://assets.codepen.io/721952/cloud2.png">
+         <!-- Not sure what the browser wants to do with this first one, but it's the largest original -->
+        <source srcset="@/assets/titleImages/splash/cloud.webp">
+        <!-- Most compressed -->
+        <source type="image/webp" srcset="@/assets/titleImages/splash/cloud.webp"> 
+        <!-- Smallest Screen -->
+        <source media="(min-width: 350px)" srcset="@/assets/titleImages/splash/cloud-sm.png">
+        <!-- Medium Screen -->
+        <source media="(min-width: 500px)" srcset="@/assets/titleImages/splash/cloud-m.png">
+        <!-- Large screen -->
+        <source media="(min-width: 800px)" srcset="@/assets/titleImages/splash/cloud-l.png">
+        <!-- X Large Screen -->
+        <source media="(min-width: 1200px)" srcset="@/assets/titleImages/splash/cloud-l.png">
+        <img 
+          src="@/assets/titleImages/splash/cloud.webp"
+          xlink:href="@/assets/titleImages/splash/cloud.webp"
+          alt="Clouds rising over the snowy mountain"
+        >
       </picture>
     </div>
     <div
@@ -58,8 +111,23 @@
       data-depth="0.90"
     >
       <picture>
+        <!-- Not sure what the browser wants to do with this first one, but it's the largest original -->
         <source srcset="@/assets/titleImages/splash/more-clouds.png">
-        <img src="@/assets/titleImages/splash/more-clouds.png">
+        <!-- Most compressed -->
+        <source type="image/webp" srcset="@/assets/titleImages/splash/more-clouds.webp"> 
+        <!-- Smallest Screen -->
+        <source media="(min-width: 350px)" srcset="@/assets/titleImages/splash/more-clouds-sm.png">
+        <!-- Medium Screen -->
+        <source media="(min-width: 500px)" srcset="@/assets/titleImages/splash/more-clouds-m.png">
+        <!-- Large screen -->
+        <source media="(min-width: 800px)" srcset="@/assets/titleImages/splash/more-clouds.png">
+        <!-- X Large Screen -->
+        <source media="(min-width: 1200px)" srcset="@/assets/titleImages/splash/more-clouds.png">
+        <img 
+          src="@/assets/titleImages/splash/more-clouds.png"
+          xlink:href="@/assets/titleImages/splash/more-clouds.png"
+          alt="Clouds rising over the snowy mountain"
+        >
       </picture>
     </div>
   </div>
@@ -87,11 +155,11 @@ export default {
                                 scrub: true
                             }
                         })
-                        .fromTo("#more-clouds", {yPercent: 40}, {yPercent: -20}, 0)
-                        .fromTo("#clouds", {yPercent: 40}, {yPercent: -10}, 0)
-                        .fromTo("#people", {yPercent: 19}, {yPercent: -15}, 0)
-                        .fromTo("#water", {yPercent: 15}, {yPercent: -15}, 0)
-                        .fromTo("#mountains", {yPercent: 10}, {yPercent: 0}, 0)
+                        .fromTo("#more-clouds", {yPercent: 2}, {yPercent: -40}, 0)
+                        .fromTo("#clouds", {yPercent: 20}, {yPercent: -10}, 0)
+                        .fromTo("#people", {yPercent: 17}, {yPercent: -11}, 0)
+                        .fromTo("#water", {yPercent: 15}, {yPercent: -10}, 0)
+                        .fromTo("#mountains", {yPercent: 10}, {yPercent: -2}, 0)
                     }
                 })
         }
@@ -101,7 +169,7 @@ export default {
 <style lang="scss" scoped>
 .splash{
     position: relative;
-    height: 80vh;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
