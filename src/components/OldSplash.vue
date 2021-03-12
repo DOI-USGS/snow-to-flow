@@ -1,0 +1,178 @@
+  
+<template>
+  <section id="scrubbable">
+    <div id="container">
+      <div class="scrollDist mtn">
+        <div class="main mtn">
+          <svg
+            id="header-svg"
+            viewBox="0 0 1200 800"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <mask id="m">
+              <g class="cloud1">
+                <rect
+                  fill="#fff"
+                  width="100%"
+                  height="801"
+                  y="799"
+                />
+                <image
+                  xlink:href="@/assets/videos/cloudMask-01-01.png"
+                  width="1200"
+                  height="800"
+                />
+              </g>
+            </mask>
+            <!-- <image
+              class="sky"
+              xlink:href="@/assets/titleImages/splash/sky.png"
+              width="100%"
+              height="100%"
+            />     -->
+            <!-- this grabbed from codepen and need to be replaced with our own images -->
+            <!-- <image class="mountBg" xlink:href="https://assets.codepen.io/721952/mountBg.png" width="100%" height="100%"/>   -->
+            <!-- <image class="mountBg" xlink:href="https://assets.codepen.io/721952/mountBg.png" width="100%" height="100%"/>   -->  
+            <image
+              class="mountMg"
+              xlink:href="@/assets/titleImages/splash/mountainMG.png"
+              width="100%"
+              height="100%"
+            />    
+            <image
+              class="cloud2"
+              xlink:href="https://assets.codepen.io/721952/cloud2.png"
+              width="100%"
+              height="100%"
+            />    
+            <image
+              class="lake"
+              xlink:href="@/assets/titleImages/splash/frozen-lakeFG.png"
+              width="100%"
+              height="100%"
+            />
+            <image
+              class="people"
+              xlink:href="@/assets/titleImages/splash/people.png"
+              width="100%"
+              height="100%"
+            />
+            <!-- <image class="mountFg" xlink:href="https://assets.codepen.io/721952/mountFg.png" width="100%" height="100%"/> -->
+            <image
+              class="cloud1"
+              xlink:href="https://assets.codepen.io/721952/cloud1.png"
+              width="100%"
+              height="100%"
+            />
+            <image
+              class="cloud3"
+              xlink:href="https://assets.codepen.io/721952/cloud3.png"
+              width="100%"
+              height="100%"
+            />
+            <text
+              class="overall-title"
+              fill="#fff"
+              x="600"
+              y="100"
+              text-anchor="middle"
+            >From Snow to Flow</text>
+            <text
+              class="byline"
+              x="280"
+              y="150"
+              fill="#fff"
+              text-anchor="left"
+            >U.S. Geological Survey<tspan
+              dx="-145"
+              dy="20"
+            >Water Resources Mission Area</tspan></text>
+
+                    
+            <g mask="url(#m)">
+              <rect
+                fill="#fff"
+                width="100%"
+                height="80%"
+              />      
+
+            </g>
+                    
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>
+
+<script>
+import { ScrollToPlugin } from "gsap/ScrollToPlugin"; // to trigger scroll events
+import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
+    export default {
+        name: 'OldSplash',
+        data() {
+            return {
+                myVar: 50,
+            }
+        },
+        computed: {
+            windowHeight: function () {
+                const usgsBannerHeight = 85;
+                return Number(this.$store.state.windowHeight - this.$store.state.warningHeight - usgsBannerHeight) + 'px';
+            }
+        },
+        mounted() { 
+            const gsap = this.$gsap;
+            gsap.registerPlugin(ScrollToPlugin, ScrollTrigger); // register gsap plugins for scrollTrigger
+            // define starting posiitions of everything
+            gsap.set('.main', {position:'absolute', width:'100%', maxWidth:'1800px', height:'100%', top:0, left:'50%', x:'-50%'})
+            gsap.set('.scrollDist', {width:'100%', height:'100vh'})
+
+            // definite timeline of events
+            gsap.timeline({scrollTrigger:{trigger:'.scrollDist', start:'top top', end:'bottom bottom', markers: true, scrub:2}})
+                // .fromTo('.sky', {y:-200},{y:0}, 0)
+                .fromTo('.cloud1', {y:"100%"},{y:"-100%"}, 0)
+                .fromTo('.cloud2', {y:"100%"},{y:"-100%"}, 0)
+                .fromTo('.cloud3', {y:"100%"},{y:"-100%"}, 0)
+                //.fromTo('.mountBg', {y:-10},{y:-100}, 0)
+                .fromTo('.mountMg', {y:200},{y:-350}, 0)
+                .fromTo('.lake', {y:200},{y:-500}, 0)
+                .fromTo('.people', {y:250},{y:-500}, 0)
+/* 
+            $('#arrowBtn').on('mouseenter', (e)=>{ gsap.to('.arrow', {y:10, duration:0.8, ease:'back.inOut(3)', overwrite:'auto'}); })
+            $('#arrowBtn').on('mouseleave', (e)=>{ gsap.to('.arrow', {y:0, duration:0.5, ease:'power3.out', overwrite:'auto'}); })
+            $('#arrowBtn').on('click', (e)=>{ gsap.to(window, {scrollTo:innerHeight, duration:1.5, ease:'power1.inOut'}); }) // scrollTo requires the ScrollTo plugin (not to be confused w/ ScrollTrigger)
+       */  }
+    }
+</script>
+
+<style scoped lang="scss">
+#scrubbable {
+  padding: 0 0 3em 0;
+}
+
+svg {
+  width: 100%;
+  height: 100vh;
+}
+.mtn {
+  position:relative;
+}
+
+.scrollDist {
+  position: absolute;
+  background-image: linear-gradient(#0c5fb4 10%, #fff 70%);
+}
+#container {
+    position: relative;
+    height: 50vh;
+    width: 100%;
+}
+#cheese {
+    position: fixed;
+    width: 80%;
+    top: 62%;
+    left: 25%;
+    margin:auto;
+}
+</style>
