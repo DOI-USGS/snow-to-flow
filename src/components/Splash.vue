@@ -17,7 +17,7 @@
         <img 
           src="@/assets/titleImages/splash/mountainMG.png"
           xlink:href="@/assets/titleImages/splash/mountainMG.png"
-          >
+        >
       </picture>
     </div>
     <div
@@ -47,20 +47,20 @@
       class="element cover"
       data-depth="0.80"
     >
-       <picture>
-         <source srcset="https://assets.codepen.io/721952/cloud2.png">
-         <img src="https://assets.codepen.io/721952/cloud2.png">
-       </picture>
+      <picture>
+        <source srcset="https://assets.codepen.io/721952/cloud2.png">
+        <img src="https://assets.codepen.io/721952/cloud2.png">
+      </picture>
     </div>
     <div
       id="more-clouds"
       class="element cover"
       data-depth="0.90"
     >
-       <picture>
-         <source srcset="@/assets/titleImages/splash/more-clouds.png">
-         <img src="@/assets/titleImages/splash/more-clouds.png">
-       </picture>
+      <picture>
+        <source srcset="@/assets/titleImages/splash/more-clouds.png">
+        <img src="@/assets/titleImages/splash/more-clouds.png">
+      </picture>
     </div>
   </div>
 </template>

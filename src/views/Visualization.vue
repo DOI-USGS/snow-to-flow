@@ -38,13 +38,12 @@
         Changes in snow have downstream consequences
       </template>    
     </Chapter>
-         <SWEanim />
+    <SWEanim />
     <Chapter
       id="chapterLast"
       image="chapter11"
       :height="50"
     >
-    
       <template v-slot:chapterTitle>
         What Spring Flow Means for Water Supply
       </template>

@@ -1423,12 +1423,11 @@
           </div>
         </div>
         <svg
-              id="elev-corr"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="-100 -50 400 300" 
-              preserveAspectRatio="xMinYMin slice"
-            >
-            </svg>
+          id="elev-corr"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="-100 -50 400 300" 
+          preserveAspectRatio="xMinYMin slice"
+        />
       </div>
     </template>
     <!-- FIGURE CAPTION -->
