@@ -5,6 +5,7 @@
     <Chapter
       id="chapter1"
       image="chapter6"
+      alt="An image of snowpack with wind-swept ripples on top, faded into the background to serve as a backdrop for the section title."
       :height="50"
     >
       <template v-slot:chapterTitle>
@@ -17,6 +18,7 @@
     <Chapter
       id="chapter2"
       image="chapter5"
+      alt="An image of a greenish-blue river winding through a snowy forest, faded into the background to serve as a backdrop for the section title."
       :height="50"
     >
       <template v-slot:chapterTitle>
@@ -32,6 +34,7 @@
     <Chapter
       id="chapter2-3"
       image="chapter9"
+      alt="An landscape of snowy mountain tops with pine trees in the valley and a bright blue sky overhead, faded into the background to serve as a backdrop for the section title."
       :height="50"
     >
       <template v-slot:chapterTitle>
@@ -42,6 +45,7 @@
     <Chapter
       id="chapterLast"
       image="chapter11"
+      alt="An image of two bighorn sheep looking at each other standing in snow with a bright green lake of meltwater behind them.  The image is faded into the background to serve as a backdrop for the section title."
       :height="50"
     >
       <template v-slot:chapterTitle>
@@ -52,6 +56,7 @@
     <Chapter
       id="chapterLast"
       image="chapter15"
+      alt="An image of a mossy mountaintop with fog rising over the peaks and small patches of snow melting into the green ground.  The image is faded into the background to serve as a backdrop for the section title."
       :height="50"
     >
       <template v-slot:chapterTitle>
