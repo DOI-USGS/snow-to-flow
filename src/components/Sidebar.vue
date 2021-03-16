@@ -102,6 +102,7 @@ export default {
     padding: 10px;
     p{
         margin: 0;
+        padding: 0;
     }
 }
 .collapsed{
