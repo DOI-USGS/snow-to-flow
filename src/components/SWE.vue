@@ -9,6 +9,14 @@
     <template v-slot:aboveExplanation>
       <p>Hydrologists measure snowpack as the <span class="emph">snow water equivalent</span>.  That measurement normalizes between light, fluffy snow and heavy, wet snow - ultimately because it will all melt into water anyway.  The USGS wants to know - how much water is contained in this snowpack?</p>
       <p>Cheese strings cheese and biscuits bavarian bergkase. Halloumi queso when the cheese comes out everybody's happy ricotta babybel cream cheese port-salut boursin. Fromage cow when the cheese comes out everybody's happy hard cheese blue castello stilton mozzarella dolcelatte. Melted cheese croque monsieur smelly cheese swiss blue castello gouda halloumi paneer. Airedale everyone loves.</p>
+      <Sidebar>
+        <template v-slot:sidebarTitle>
+          What is SWE?
+        </template>
+        <template v-slot:sidebarMessage>
+          <p>Pork tenderloin turducken, tri-tip ribeye shoulder pancetta. T-bone kevin porchetta, shoulder sirloin boudin spare ribs filet mignon bresaola chicken corned beef frankfurter biltong. Jerky brisket pig, meatball beef flank bresaola landjaeger. Tenderloin beef pork loin andouille flank t-bone tri-tip chislic porchetta. Pork loin frankfurter spare ribs chuck short ribs.</p>
+        </template>
+      </Sidebar>
     </template>
     <template v-slot:figures>
       <div class="group single maxWidth">
@@ -37,13 +45,15 @@
 <script>
 import VizSection from '@/components/VizSection';
 import LineChart from '@/components/LineChart';
+import Sidebar from '@/components/Sidebar';
 import * as d3 from 'd3';
 
 export default {
     name: "SWE",
     components:{
         VizSection,
-        LineChart
+        LineChart,
+        Sidebar
     },
     data() {
       return {

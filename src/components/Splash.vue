@@ -1,156 +1,240 @@
-  
 <template>
-  <section id="srubbable">
-    <div id="container">
-      <div class="scrollDist mtn">
-        <div class="main mtn">
-          <svg
-            viewBox="0 0 1200 800"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <mask id="m">
-              <g class="cloud1">
-                <rect
-                  fill="#fff"
-                  width="100%"
-                  height="801"
-                  y="799"
-                />
-                <image
-                  xlink:href="@/assets/videos/cloudMask-01-01.png"
-                  width="1200"
-                  height="800"
-                />
-              </g>
-            </mask>
-                    
-            <image
-              class="sky"
-              xlink:href="@/assets/videos/sky_blue.png"
-              width="100%"
-              height="74%"
-            />
-            <!-- this grabbed from codepen and need to be replaced with our own images -->
-            <!-- <image class="mountBg" xlink:href="https://assets.codepen.io/721952/mountBg.png" width="100%" height="100%"/>   -->
-            <!-- <image class="mountBg" xlink:href="https://assets.codepen.io/721952/mountBg.png" width="100%" height="100%"/>   -->  
-            <image
-              class="mountMg"
-              xlink:href="https://assets.codepen.io/721952/mountMg.png"
-              width="100%"
-              height="100%"
-            />    
-            <image
-              class="cloud2"
-              xlink:href="https://assets.codepen.io/721952/cloud2.png"
-              width="100%"
-              height="100%"
-            />    
-            <image
-              class="mountFg"
-              xlink:href="@/assets/videos/mtn_fg2-01.png"
-              width="100%"
-              height="100%"
-            />
-            <!-- <image class="mountFg" xlink:href="https://assets.codepen.io/721952/mountFg.png" width="100%" height="100%"/> -->
-            <image
-              class="cloud1"
-              xlink:href="https://assets.codepen.io/721952/cloud1.png"
-              width="100%"
-              height="100%"
-            />
-            <image
-              class="cloud3"
-              xlink:href="https://assets.codepen.io/721952/cloud3.png"
-              width="100%"
-              height="100%"
-            />
-            <!--            <text
-              class="overall-title"
-              fill="#fff"
-              x="600"
-              y="200"
-              text-anchor="middle"
-            >From Snow to Flow</text>
-            <text
-              class="byline"
-              x="280"
-              y="250"
-              fill="#fff"
-              text-anchor="left"
-            >U.S. Geological Survey<tspan
-              dx="-145"
-              dy="20"
-            >Water Resources Mission Area</tspan></text> -->
-
-                    
-            <g mask="url(#m)">
-              <rect
-                fill="#fff"
-                width="100%"
-                height="80%"
-              />      
-
-            </g>
-                    
-          </svg>
-        </div>
-      </div>
+  <div class="splash">
+    <div class="splashTitle">
+      <h1>From Snow to Flow</h1>
+      <p>U.S. Geological Survey</p>
+      <p>Water Resources Mission Area</p>
     </div>
-  </section>
+    <!-- <div class="splashOverlay" /> -->
+    <div
+      id="mountains"
+      class="element"
+      data-depth="0.10"
+    >
+      <picture>
+        <source srcset="@/assets/titleImages/splash/mountainMG.png">
+        <!-- Most compressed -->
+        <source type="image/webp" srcset="@/assets/titleImages/splash/mountainMG.webp"> 
+        <!-- Smallest Screen -->
+        <source media="(min-width: 350px)" srcset="@/assets/titleImages/splash/mountainMG-sm.png">
+        <!-- Medium Screen -->
+        <source media="(min-width: 500px)" srcset="@/assets/titleImages/splash/mountainMG-m.png">
+        <!-- Large screen -->
+        <source media="(min-width: 800px)" srcset="@/assets/titleImages/splash/mountainMG-l.png">
+        <!-- X Large Screen -->
+        <source media="(min-width: 1200px)" srcset="@/assets/titleImages/splash/mountainMG-xl.png">
+        <img 
+          src="@/assets/titleImages/splash/mountainMG-xl.png"
+          xlink:href="@/assets/titleImages/splash/mountainMG-xl.png"
+          alt="A scene of snowy mountains topped with clouds"
+        >
+      </picture>
+    </div>
+    <div
+      id="water"
+      class="element"
+      data-depth="0.30"
+    >
+      <picture>
+        <!-- Not sure what the browser wants to do with this first one, but it's the largest original -->
+        <source srcset="@/assets/titleImages/splash/frozen-lakeFG.png">
+        <!-- Most compressed -->
+        <source type="image/webp" srcset="@/assets/titleImages/splash/frozen-lakeFG.webp"> 
+        <!-- Smallest Screen -->
+        <source media="(min-width: 350px)" srcset="@/assets/titleImages/splash/frozen-lakeFG-sm.png">
+        <!-- Medium Screen -->
+        <source media="(min-width: 500px)" srcset="@/assets/titleImages/splash/frozen-lakeFG-m.png">
+        <!-- Large screen -->
+        <source media="(min-width: 800px)" srcset="@/assets/titleImages/splash/frozen-lakeFG-l.png">
+        <!-- X Large Screen -->
+        <source media="(min-width: 1200px)" srcset="@/assets/titleImages/splash/frozen-lakeFG-xl.png">
+        <img 
+          src="@/assets/titleImages/splash/frozen-lakeFG.png"
+          xlink:href="@/assets/titleImages/splash/frozen-lakeFG.png"
+          alt="A frozen lake in front of rocky, snow-covered mountains."
+        >
+      </picture>
+    </div>
+    <div
+      id="people"
+      class="element"
+      data-depth="0.20"
+    >
+      <picture>
+        <!-- Not sure what the browser wants to do with this first one, but it's the largest original -->
+        <source srcset="@/assets/titleImages/splash/people.png">
+        <!-- Most compressed -->
+        <source type="image/webp" srcset="@/assets/titleImages/splash/people.webp"> 
+        <!-- Smallest Screen -->
+        <source media="(min-width: 350px)" srcset="@/assets/titleImages/splash/people-sm.png">
+        <!-- Medium Screen -->
+        <source media="(min-width: 500px)" srcset="@/assets/titleImages/splash/people-m.png">
+        <!-- Large screen -->
+        <source media="(min-width: 800px)" srcset="@/assets/titleImages/splash/people-l.png">
+        <!-- X Large Screen -->
+        <source media="(min-width: 1200px)" srcset="@/assets/titleImages/splash/people-xl.png">
+        <img 
+          src="@/assets/titleImages/splash/people-l.png"
+          xlink:href="@/assets/titleImages/splash/people-l.png"
+          alt="Clouds rising over the snowy mountain"
+        >
+      </picture>
+    </div>
+    <div
+      id="clouds"
+      class="element cover"
+      data-depth="0.80"
+    >
+      <picture>
+         <!-- Not sure what the browser wants to do with this first one, but it's the largest original -->
+        <source srcset="@/assets/titleImages/splash/cloud.webp">
+        <!-- Most compressed -->
+        <source type="image/webp" srcset="@/assets/titleImages/splash/cloud.webp"> 
+        <!-- Smallest Screen -->
+        <source media="(min-width: 350px)" srcset="@/assets/titleImages/splash/cloud-sm.png">
+        <!-- Medium Screen -->
+        <source media="(min-width: 500px)" srcset="@/assets/titleImages/splash/cloud-m.png">
+        <!-- Large screen -->
+        <source media="(min-width: 800px)" srcset="@/assets/titleImages/splash/cloud-l.png">
+        <!-- X Large Screen -->
+        <source media="(min-width: 1200px)" srcset="@/assets/titleImages/splash/cloud-l.png">
+        <img 
+          src="@/assets/titleImages/splash/cloud.webp"
+          xlink:href="@/assets/titleImages/splash/cloud.webp"
+          alt="Clouds rising over the snowy mountain"
+        >
+      </picture>
+    </div>
+    <div
+      id="more-clouds"
+      class="element cover"
+      data-depth="0.90"
+    >
+      <picture>
+        <!-- Not sure what the browser wants to do with this first one, but it's the largest original -->
+        <source srcset="@/assets/titleImages/splash/more-clouds.png">
+        <!-- Most compressed -->
+        <source type="image/webp" srcset="@/assets/titleImages/splash/more-clouds.webp"> 
+        <!-- Smallest Screen -->
+        <source media="(min-width: 350px)" srcset="@/assets/titleImages/splash/more-clouds-sm.png">
+        <!-- Medium Screen -->
+        <source media="(min-width: 500px)" srcset="@/assets/titleImages/splash/more-clouds-m.png">
+        <!-- Large screen -->
+        <source media="(min-width: 800px)" srcset="@/assets/titleImages/splash/more-clouds.png">
+        <!-- X Large Screen -->
+        <source media="(min-width: 1200px)" srcset="@/assets/titleImages/splash/more-clouds.png">
+        <img 
+          src="@/assets/titleImages/splash/more-clouds.png"
+          xlink:href="@/assets/titleImages/splash/more-clouds.png"
+          alt="Clouds rising over the snowy mountain"
+        >
+      </picture>
+    </div>
+  </div>
 </template>
-
 <script>
 import { ScrollToPlugin } from "gsap/ScrollToPlugin"; // to trigger scroll events
 import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
-    export default {
-        name: 'Splash',
-        data() {
-            return {
-                myVar: 50,
-            }
-        },
-        computed: {
-            windowHeight: function () {
-                const usgsBannerHeight = 85;
-                return Number(this.$store.state.windowHeight - this.$store.state.warningHeight - usgsBannerHeight) + 'px';
-            }
-        },
-        mounted() { 
-            const gsap = this.$gsap;
-            gsap.registerPlugin(ScrollToPlugin, ScrollTrigger); // register gsap plugins for scrollTrigger
-            // define timeline of events
-            gsap.set('.main', {position:'absolute', background:'#fff', width:'100%', maxWidth:'1800px', height:'70%', top:0, left:'50%', x:'-50%'})
-            gsap.set('.scrollDist', {width:'100%', height:'80%'})
-            gsap.timeline({scrollTrigger:{trigger:'.scrollDist', start:'top top', end:'bottom bottom', scrub:1}})
-                .fromTo('.sky', {y:0},{y:-200}, 0)
-                .fromTo('.cloud1', {y:100},{y:-800}, 0)
-                .fromTo('.cloud2', {y:-150},{y:-500}, 0)
-                .fromTo('.cloud3', {y:-50},{y:-650}, 0)
-                //.fromTo('.mountBg', {y:-10},{y:-100}, 0)
-                .fromTo('.mountMg', {y:-30},{y:-250}, 0)
-                .fromTo('.mountFg', {y:-50},{y:-600}, 0)
-/* 
-            $('#arrowBtn').on('mouseenter', (e)=>{ gsap.to('.arrow', {y:10, duration:0.8, ease:'back.inOut(3)', overwrite:'auto'}); })
-            $('#arrowBtn').on('mouseleave', (e)=>{ gsap.to('.arrow', {y:0, duration:0.5, ease:'power3.out', overwrite:'auto'}); })
-            $('#arrowBtn').on('click', (e)=>{ gsap.to(window, {scrollTo:innerHeight, duration:1.5, ease:'power1.inOut'}); }) // scrollTo requires the ScrollTo plugin (not to be confused w/ ScrollTrigger)
-       */  }
+export default {
+    name: "Splash",
+    mounted(){
+        this.$nextTick(() => this.splashParallax());
+    },
+    methods:{
+        splashParallax(){
+            const self = this;
+            this.$gsap.registerPlugin(ScrollToPlugin, ScrollTrigger); // register gsap plugins for scrollTrigger 
+                ScrollTrigger.matchMedia({
+                    //desktop 
+                    "(min-width: 800px)": function(){
+                        self.$gsap.timeline({
+                            scrollTrigger:{
+                                trigger: ".splash",
+                                start: "top top",
+                                end:`bottom center`,
+                                scrub: true
+                            }
+                        })
+                        .fromTo("#more-clouds", {yPercent: 2}, {yPercent: -40}, 0)
+                        .fromTo("#clouds", {yPercent: 20}, {yPercent: -10}, 0)
+                        .fromTo("#people", {yPercent: 17}, {yPercent: -11}, 0)
+                        .fromTo("#water", {yPercent: 15}, {yPercent: -10}, 0)
+                        .fromTo("#mountains", {yPercent: 10}, {yPercent: -2}, 0)
+                    }
+                })
+        }
     }
+}
 </script>
-
-<style scoped lang="scss">
-.mtn {
-  position:relative;
-}
-#container {
+<style lang="scss" scoped>
+.splash{
     position: relative;
-    height: 120vh;
-    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(#0c5fb4 0%, #fff 50%);
 }
-#cheese {
-    position: fixed;
-    width: 80%;
-    top: 62%;
-    left: 25%;
-    margin:auto;
+.splashTitle{
+    position: absolute;
+    top: 10%;
+    z-index: 22;
+    margin-bottom: 20px;
+    padding: 0 15px;
+    h1{
+        font-size:clamp(5em, 10vw, 2em);
+        font-weight: 800;
+    }
+    h1, p{
+        color: #fff;
+    } 
+    p{
+        padding-top: 10px;
+        font-weight: bold;
+    }
+}
+.splashOverlay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.3);
+    z-index: 21
+}
+.element{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+.element img{
+    object-fit: contain;
+    object-position: center;
+    width: 100%;
+    height: 100%;
+}
+#mountains{
+    z-index: 10;
+}
+#water{
+    z-index: 15;
+}
+#people{
+    z-index: 20;
+}
+#clouds{
+    z-index: 25;
+    height: 125%;
+    // display: none;
+}
+#more-clouds {
+   z-index: 30;
+  height: 125%;
+}
+.cover {
+  object-fit: cover;
+}
+@media screen and (min-width:800px){
+    #clouds{
+        display: block;
+    }
 }
 </style>

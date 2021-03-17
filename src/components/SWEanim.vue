@@ -3,7 +3,7 @@
   <VizSection id="firstSection">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2> </h2>
+      <h2 />
     </template>
     <!-- EXPLANATION -->
     <template v-slot:explanation>
@@ -136,7 +136,7 @@
       </figure>
 
       </div>
-      </template>
+    </template>
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
