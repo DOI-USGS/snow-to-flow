@@ -96,7 +96,7 @@ h1{
   font-family: $familyMain;
   line-height: 1;
   text-align: left;
-  color: $deepPurple;
+  text-shadow: 1px 1px 100px rgba(0,0,0,.8);
   @media screen and (max-width: 600px) {
     font-size: 5em;
   }

@@ -38,13 +38,12 @@
         Changes in snow have downstream consequences
       </template>    
     </Chapter>
-         <SWEanim />
+    <SWEanim />
     <Chapter
       id="chapterLast"
       image="chapter11"
       :height="50"
     >
-    
       <template v-slot:chapterTitle>
         What Spring Flow Means for Water Supply
       </template>
@@ -70,7 +69,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
 export default {
     name: 'Visualization',
     components: {
-      Splash: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "section"*/ "./../components/TestSplash"),
+      Splash: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "section"*/ "./../components/Splash"),
       SNTLMap: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SNTLMap"*/ "./../components/SNTLmap"),
       SWE: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SWE"*/ "./../components/SWE"),
       SWEanim: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SWE"*/ "./../components/SWEanim"),
