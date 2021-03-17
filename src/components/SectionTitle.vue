@@ -24,7 +24,10 @@
             media="(min-width: 800px)"
             :srcset="require(`@/assets/titleImages/2x/${image}-2x.jpg`)"
           >
-          <img :src="require(`@/assets/titleImages/2x/${image}-2x.jpg`)">
+          <img 
+            :src="require(`@/assets/titleImages/2x/${image}-2x.jpg`)"
+            loading="lazy"
+          >
         </picture>
         <div
           v-if="overlay"
