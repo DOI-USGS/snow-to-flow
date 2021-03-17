@@ -14,15 +14,30 @@
       <picture>
         <source srcset="@/assets/titleImages/splash/mountainMG.png">
         <!-- Most compressed -->
-        <source type="image/webp" srcset="@/assets/titleImages/splash/mountainMG.webp"> 
+        <source
+          type="image/webp"
+          srcset="@/assets/titleImages/splash/mountainMG.webp"
+        > 
         <!-- Smallest Screen -->
-        <source media="(min-width: 350px)" srcset="@/assets/titleImages/splash/mountainMG-sm.png">
+        <source
+          media="(min-width: 350px)"
+          srcset="@/assets/titleImages/splash/mountainMG-sm.png"
+        >
         <!-- Medium Screen -->
-        <source media="(min-width: 500px)" srcset="@/assets/titleImages/splash/mountainMG-m.png">
+        <source
+          media="(min-width: 500px)"
+          srcset="@/assets/titleImages/splash/mountainMG-m.png"
+        >
         <!-- Large screen -->
-        <source media="(min-width: 800px)" srcset="@/assets/titleImages/splash/mountainMG-l.png">
+        <source
+          media="(min-width: 800px)"
+          srcset="@/assets/titleImages/splash/mountainMG-l.png"
+        >
         <!-- X Large Screen -->
-        <source media="(min-width: 1200px)" srcset="@/assets/titleImages/splash/mountainMG-xl.png">
+        <source
+          media="(min-width: 1200px)"
+          srcset="@/assets/titleImages/splash/mountainMG-xl.png"
+        >
         <img 
           src="@/assets/titleImages/splash/mountainMG-xl.png"
           xlink:href="@/assets/titleImages/splash/mountainMG-xl.png"
@@ -39,15 +54,30 @@
         <!-- Not sure what the browser wants to do with this first one, but it's the largest original -->
         <source srcset="@/assets/titleImages/splash/frozen-lakeFG.png">
         <!-- Most compressed -->
-        <source type="image/webp" srcset="@/assets/titleImages/splash/frozen-lakeFG.webp"> 
+        <source
+          type="image/webp"
+          srcset="@/assets/titleImages/splash/frozen-lakeFG.webp"
+        > 
         <!-- Smallest Screen -->
-        <source media="(min-width: 350px)" srcset="@/assets/titleImages/splash/frozen-lakeFG-sm.png">
+        <source
+          media="(min-width: 350px)"
+          srcset="@/assets/titleImages/splash/frozen-lakeFG-sm.png"
+        >
         <!-- Medium Screen -->
-        <source media="(min-width: 500px)" srcset="@/assets/titleImages/splash/frozen-lakeFG-m.png">
+        <source
+          media="(min-width: 500px)"
+          srcset="@/assets/titleImages/splash/frozen-lakeFG-m.png"
+        >
         <!-- Large screen -->
-        <source media="(min-width: 800px)" srcset="@/assets/titleImages/splash/frozen-lakeFG-l.png">
+        <source
+          media="(min-width: 800px)"
+          srcset="@/assets/titleImages/splash/frozen-lakeFG-l.png"
+        >
         <!-- X Large Screen -->
-        <source media="(min-width: 1200px)" srcset="@/assets/titleImages/splash/frozen-lakeFG-xl.png">
+        <source
+          media="(min-width: 1200px)"
+          srcset="@/assets/titleImages/splash/frozen-lakeFG-xl.png"
+        >
         <img 
           src="@/assets/titleImages/splash/frozen-lakeFG.png"
           xlink:href="@/assets/titleImages/splash/frozen-lakeFG.png"
@@ -64,15 +94,30 @@
         <!-- Not sure what the browser wants to do with this first one, but it's the largest original -->
         <source srcset="@/assets/titleImages/splash/people.png">
         <!-- Most compressed -->
-        <source type="image/webp" srcset="@/assets/titleImages/splash/people.webp"> 
+        <source
+          type="image/webp"
+          srcset="@/assets/titleImages/splash/people.webp"
+        > 
         <!-- Smallest Screen -->
-        <source media="(min-width: 350px)" srcset="@/assets/titleImages/splash/people-sm.png">
+        <source
+          media="(min-width: 350px)"
+          srcset="@/assets/titleImages/splash/people-sm.png"
+        >
         <!-- Medium Screen -->
-        <source media="(min-width: 500px)" srcset="@/assets/titleImages/splash/people-m.png">
+        <source
+          media="(min-width: 500px)"
+          srcset="@/assets/titleImages/splash/people-m.png"
+        >
         <!-- Large screen -->
-        <source media="(min-width: 800px)" srcset="@/assets/titleImages/splash/people-l.png">
+        <source
+          media="(min-width: 800px)"
+          srcset="@/assets/titleImages/splash/people-l.png"
+        >
         <!-- X Large Screen -->
-        <source media="(min-width: 1200px)" srcset="@/assets/titleImages/splash/people-xl.png">
+        <source
+          media="(min-width: 1200px)"
+          srcset="@/assets/titleImages/splash/people-xl.png"
+        >
         <img 
           src="@/assets/titleImages/splash/people-l.png"
           xlink:href="@/assets/titleImages/splash/people-l.png"
@@ -86,18 +131,33 @@
       data-depth="0.80"
     >
       <picture>
-         <!-- Not sure what the browser wants to do with this first one, but it's the largest original -->
+        <!-- Not sure what the browser wants to do with this first one, but it's the largest original -->
         <source srcset="@/assets/titleImages/splash/cloud.webp">
         <!-- Most compressed -->
-        <source type="image/webp" srcset="@/assets/titleImages/splash/cloud.webp"> 
+        <source
+          type="image/webp"
+          srcset="@/assets/titleImages/splash/cloud.webp"
+        > 
         <!-- Smallest Screen -->
-        <source media="(min-width: 350px)" srcset="@/assets/titleImages/splash/cloud-sm.png">
+        <source
+          media="(min-width: 350px)"
+          srcset="@/assets/titleImages/splash/cloud-sm.png"
+        >
         <!-- Medium Screen -->
-        <source media="(min-width: 500px)" srcset="@/assets/titleImages/splash/cloud-m.png">
+        <source
+          media="(min-width: 500px)"
+          srcset="@/assets/titleImages/splash/cloud-m.png"
+        >
         <!-- Large screen -->
-        <source media="(min-width: 800px)" srcset="@/assets/titleImages/splash/cloud-l.png">
+        <source
+          media="(min-width: 800px)"
+          srcset="@/assets/titleImages/splash/cloud-l.png"
+        >
         <!-- X Large Screen -->
-        <source media="(min-width: 1200px)" srcset="@/assets/titleImages/splash/cloud-l.png">
+        <source
+          media="(min-width: 1200px)"
+          srcset="@/assets/titleImages/splash/cloud-l.png"
+        >
         <img 
           src="@/assets/titleImages/splash/cloud.webp"
           xlink:href="@/assets/titleImages/splash/cloud.webp"
@@ -114,15 +174,30 @@
         <!-- Not sure what the browser wants to do with this first one, but it's the largest original -->
         <source srcset="@/assets/titleImages/splash/more-clouds.png">
         <!-- Most compressed -->
-        <source type="image/webp" srcset="@/assets/titleImages/splash/more-clouds.webp"> 
+        <source
+          type="image/webp"
+          srcset="@/assets/titleImages/splash/more-clouds.webp"
+        > 
         <!-- Smallest Screen -->
-        <source media="(min-width: 350px)" srcset="@/assets/titleImages/splash/more-clouds-sm.png">
+        <source
+          media="(min-width: 350px)"
+          srcset="@/assets/titleImages/splash/more-clouds-sm.png"
+        >
         <!-- Medium Screen -->
-        <source media="(min-width: 500px)" srcset="@/assets/titleImages/splash/more-clouds-m.png">
+        <source
+          media="(min-width: 500px)"
+          srcset="@/assets/titleImages/splash/more-clouds-m.png"
+        >
         <!-- Large screen -->
-        <source media="(min-width: 800px)" srcset="@/assets/titleImages/splash/more-clouds.png">
+        <source
+          media="(min-width: 800px)"
+          srcset="@/assets/titleImages/splash/more-clouds.png"
+        >
         <!-- X Large Screen -->
-        <source media="(min-width: 1200px)" srcset="@/assets/titleImages/splash/more-clouds.png">
+        <source
+          media="(min-width: 1200px)"
+          srcset="@/assets/titleImages/splash/more-clouds.png"
+        >
         <img 
           src="@/assets/titleImages/splash/more-clouds.png"
           xlink:href="@/assets/titleImages/splash/more-clouds.png"

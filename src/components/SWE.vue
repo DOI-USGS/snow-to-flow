@@ -37,7 +37,10 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        The snowpack at the <a href="https://wcc.sc.egov.usda.gov/nwcc/site?sitenum=838" target="_blank">University Camp SNOTEL Site 838</a> in Boulder Colorado shows a significant difference in snowpack from the winter of 2011 - a big year for snow.  2012 however was a very low snow year, with some early intermittent melting.
+        The snowpack at the <a
+          href="https://wcc.sc.egov.usda.gov/nwcc/site?sitenum=838"
+          target="_blank"
+        >University Camp SNOTEL Site 838</a> in Boulder Colorado shows a significant difference in snowpack from the winter of 2011 - a big year for snow.  2012 however was a very low snow year, with some early intermittent melting.
         While peak SWE gives us a snapshot of interannual variation in snow, intra-annual variation in the timing and magnitude is much more complex.
       </p>
     </template>
