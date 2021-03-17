@@ -14,25 +14,27 @@
       <p>Historically, <span class="emph">April 1st</span> is the date which hydrologists generally use to mark "peak snowpack" in places where snow accumulates all winter.</p>
       <p>Compared to the historical record for this date, 2021 is shaping to be considerably dry in many regions of the western U.S. While interannual variation in peak SWE is normal and fluctuates with natural climatological patterns, an exceptionally dry or wet season can have dramatic impacts to the water supply in locations where snowmelt is a major source of water.</p>
       <p>Highlight here how snowpack is super important for water supply in these areas.  In places like these, snowmelt makes up a major part of the water budget for that year!</p>
-      <svg
-        id="legend-percentile"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 400 150" 
-        preserveAspectRatio="xMaxYMax"
-        width="100%"
-        height="100%"
-      />
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
-      <div class="two group map-grid">
+      <div class="map-grid">
+        <!-- LEGEND -->
+        <div id="legendContainer">
+          <svg
+            id="legend-percentile"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 300 70" 
+            preserveAspectRatio="xMinYMin"
+            width="100%"
+            height="100%"
+          />
+        </div>
+        <!-- ALASKA -->
         <div id="grid-left">
           <div
             id="ak"
             class="map-container"
           >
-            <!-- the y dimension was edited outside of R -->
-            <!-- because this is 2/3 the width of conus and they are drawn on the same pixel scale, grid needs to allocate 2/3 page widtrh to conus -->
             <svg
               id="ak-sntl"
               xmlns="http://www.w3.org/2000/svg"
@@ -74,6 +76,7 @@
             </svg>
           </div>
         </div>
+        <!-- CONTINENTAL USA -->
         <div id="grid-right">
           <div
             id="usa"
@@ -1422,12 +1425,16 @@
             </svg>
           </div>
         </div>
-        <svg
-          id="elev-corr"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="-100 -50 400 300" 
-          preserveAspectRatio="xMinYMin slice"
-        />
+
+        <!-- ELEV-CORR -->
+        <div id="elev">
+          <svg
+            id="elev-corr"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="-100 -50 400 300" 
+            preserveAspectRatio="xMinYMin slice"
+          />
+        </div>
       </div>
     </template>
     <!-- FIGURE CAPTION -->
@@ -1439,6 +1446,7 @@
         >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the western U.S.</a>. The trend line that appears on hover shows peak SWE for each site since 1981 (and currently does not include 2021). 
       </p>
     </template>
+    <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
       <p>Transition from the significance of April 1st to explain...well, how do we actually measure that?</p>
       <p>Cheeseburger cut the cheese taleggio. Emmental croque monsieur mascarpone red leicester blue castello airedale everyone loves st. agur blue cheese. Cottage cheese cheese strings ricotta babybel cheeseburger queso manchego fromage. Paneer pepper jack cheese slices halloumi cream cheese jarlsberg chalk and cheese everyone loves. Smelly cheese stinking bishop cheesy grin pepper jack.</p>
@@ -1739,7 +1747,7 @@ export default {
 
           var g = this.d3.select("svg#legend-percentile").append("g")
           .classed("thresh-legend", true).call(xAxis)
-          .attr("transform", "translate(" + (10) + "," + 100 + ")");
+          .attr("transform", "translate(" + (0) + "," + 45 + ")");
 
           g.select(".domain")
               .remove();
@@ -1789,17 +1797,16 @@ export default {
 </script>
 <style lang="scss" scoped>
 .map-grid{
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-areas: 
+    ". legend legend legend legend ."
+    "ak ak ak ak ak ak"
+    "us us us us us us"
+    "line line line line line line"
+  ;
   overflow: hidden;
-  margin-top: 10px;
 }
-#legend-percentile {
-  width: 100%;
-  max-width: 50vw;
-}
-.grid-left, .grid-right {
-  max-height: 70vh;
-}
-//map style
 line, polyline, polygon, path, rect, circle {
       fill: none;
       stroke: grey;
@@ -1807,7 +1814,6 @@ line, polyline, polygon, path, rect, circle {
       stroke-linejoin: round;
       stroke-miterlimit: 10.00;
     }
-
 .state {
   stroke: white;
   stroke-width: 2px;
@@ -1822,98 +1828,56 @@ line, polyline, polygon, path, rect, circle {
   fill:none;
   stroke-width: 1px;
 }
-// map positioning
-// using grid within the figure elements 
-#grid-left {
-  display: grid;
-  width: 30vw; // careful editing this, it's sizing the maps to the same scale
-  height: 100%;
-  margin-left: 2.5vw;
-  grid-template-rows: 1fr;
-  grid-template-columns: (1, 1fr);
+.map-container {
+    width: 100vw;
+}
 
-  #legend-grid {
-    grid-column: 1/5;
-    grid-row: 2/3;
+#legendContainer{
+  grid-area: legend;
+  margin-bottom: 20px;
+}
+
+#grid-left{
+  grid-area: ak;
+  width: 190vw;
+  margin-right: 2.5vw; 
+}
+#ak{
+  width: 90vw;// careful editing this, it's sizing the maps to be on the same scale
+}
+#grid-right{
+  grid-area: us;
+  width: 190vw;
+}
+#usa{
+  width: 120vw;// careful editing this, it's sizing the maps to be on the same scale
+}
+#elev{
+  grid-area: line;
+}
+
+@media screen and (min-width: 1024px){
+  .map-grid{
+    grid-template-areas: 
+      ". . legend legend . ."
+      "ak ak us us us us"
+      "line line us us us us"
+    ;
+  }
+  #grid-left{
+    width: 30vw; // careful editing this, it's sizing the maps to the same scale
+    margin-left: 2.5vw;
   }
   #ak {
    width: 55vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
-   grid-column: 1/5;
   }
-
-}
-#grid-right {
-  display: grid;
-  width: 70vw;// careful editing this, it's sizing the maps to the same scale
-  margin-right: 2.5vw;
-  grid-template-rows: 1fr;
-  grid-template-columns: (10, 1fr);
-
-  #usa {
-    grid-column:6/16;
+  #grid-right {
+    width: 70vw;// careful editing this, it's sizing the maps to the same scale
+    margin-right: 2.5vw;
+  }
+  #usa{
     width: 85vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
-
   }
-
-}
-#elev-corr {
-  position: relative;
-  top: -500px;
-  left: 23vw;
-  width: 30vw;
-  min-width: 200px;
-
-}
-#explain-bottom {
-  position: relative;
-  top:-500px;
-  height: 0px;
-}
-#sntl-name, input {
-  text-align:left;
-  z-index: 1;
-}
-
-@media screen and (max-width: 1024px){
- #grid-left {
-   width: 190vw;
-   margin-right: 2.5vw; 
-    .map-container {
-      width: 100vw;
-    }
-    #ak {
-      width: 90vw;// careful editing this, it's sizing the maps to be on the same scale
-    }
-
- }
- #grid-right {
-   width: 190vw;
-   margin-left: 0vw;
-    .map-container {
-      width: 100vw;
-    }
-   #usa {
-     width: 120vw;// careful editing this, it's sizing the maps to be on the same scale
-   }
- }
- #legend-percentile {
-  width: 100%;
-  max-width: 80vw;
-  min-width: 500px;
-}
-#explain-bottom {
-  position: relative;
-  top:-70px;
-}
-#elev-corr {
-  position: relative;
-  top: -300px;
-  left: 15vw;
-  width: 30vw;
-  min-width: 200px;
-
-}
-
 }
 
 

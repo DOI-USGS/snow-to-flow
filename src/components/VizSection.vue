@@ -101,6 +101,8 @@ $border: 10px solid #000;
     }
 }
 .group{
+    /* prevent too large mobile graphs from creating a x scroll */
+    overflow: hidden;
     align-items: center;
     figure{
         margin-bottom: $spacing;
