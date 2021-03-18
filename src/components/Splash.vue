@@ -159,7 +159,7 @@
         <img 
           src="@/assets/titleImages/splash/cloud-l.png"
           href="@/assets/titleImages/splash/cloud-l.png"
-          alt="Test"
+          alt="Clouds rising over the snowy mountain"
         >
       </picture>
     </div>
