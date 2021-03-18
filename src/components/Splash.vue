@@ -213,7 +213,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
 export default {
     name: "Splash",
     mounted(){
-        this.$nextTick(() => this.splashParallax());
+        this.$nextTick(() => {
+          this.$store.commit('changeBooleanStateOnSplashRender');
+          this.splashParallax()
+        });
     },
     methods:{
         splashParallax(){
