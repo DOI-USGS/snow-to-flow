@@ -127,15 +127,6 @@
           </svg>
         </div>
       </div>
-      <div
-        id="mtn"
-        class="group two maxWidth"
-      >
-      <figure>
-      <img src="@/assets/SWEanim/co_3d_gages.png">
-      </figure>
-
-      </div>
     </template>
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
@@ -156,11 +147,14 @@ export default {
     data() {
             return {
               title: process.env.VUE_APP_TITLE,
-               publicPath: process.env.BASE_URL,
+              publicPath: process.env.BASE_URL,
               d3: null,
               mmd_2011: null,
               mmd_2012: null,
               svg: null,
+              width: 600,
+              height: 400,
+              margin: 25
             }
         },
     mounted() {
@@ -175,69 +169,114 @@ export default {
         const self = this;
         // read in data to draw hydrographs - eventually want to animate with d3 over gif
         let promises = [self.d3.csv(self.publicPath + "data/mmd_df_cast.csv", ({site_no, Date, water_day, mmd}) =>({site_no, Date, water_day, mmd}), this.d3.autotype),
-        self.d3.csv(self.publicPath + 'data/gage_mmd_2012.csv'), this.d3.autotype];
+        self.d3.csv(self.publicPath + 'data/mmd_df.csv'), this.d3.autotype];
 
         Promise.all(promises).then(self.callback); 
       },
       callback(data) {
         const  self  = this;
 
-        this.mmd_2011 = data[0];
-        this.mmd_2012 = data[1];
+        // same data served up 2 ways
+        var data_cast = data[0];
+        var data_long = data[1];
 
-
-        this.svg = this.d3.select('svg#mmd-line')
-        .append("g")
-        .classed("ridges", true)
-
-        this.drawHydro(this.mmd_2011);
-
-      },
-      drawHydro(data){
-        var width = 600;
-        var height = 400;
-        var margin = 25;
-
-        const self = this;
-
-        var series = this.d3.nest()
-          .key(d => d.site_no)
-          .sortValues((a,b) => a.Date - b.Date)
-          .entries(data)
-          
-       
-
-
-     var sites = data.columns
-        sites.shift(); 
+        // prep data for plotting
+        var sites = data_cast.columns // array of all site_no - each gets a ridge
+        sites.shift(); // drop first column
         var n = sites.length;
 
+        // nest data to iterate over in plot
+        // sort of inverse of series - array of objects where objs = site containing key  for site_no, mmd and day vars
          data.allmmd = [];
           for (i = 1; i < n; i++) {
               var key = sites[i];
-              var mmd = data.map(function(d){  return d[key]; });
-              var day = data.map(function(d){  return d['site_water_day']; });
+              var mmd = data_cast.map(function(d){  return d[key]; });
+              var day = data_cast.map(function(d){  return d['site_water_day']; });
               data.allmmd.push({key: key, mmd: mmd, day:day})
           };
 
+          data.days = data_cast.map(function(d) { return  d['site_water_day']}) // array of j days for good luck
+          console.log(data.allmmd)
 
-          data.days = data.map(function(d) { return  d['site_water_day']})
-          console.log(data.allmmd);
+        // set up g that holds ridgelines
+        this.svg = this.d3.select('svg#mmd-line')
+        //this.ridges = this.svg.append("g").classed("ridges", true)
 
+        // draw hydro chart elements
+        this.drawHydro(data.allmmd, data.days);
 
-       var x = this.d3.scaleLinear()
+      },
+      drawHydro(data_nest, days){
+        const self = this;
+        let overlap = 8;
+
+        // creates nested array of objects; objects for days with vals for each site_no
+        var series = this.d3.nest()
+          .key(d => d.site_no)
+          .sortValues((a,b) => a.water_day - b.water_day)
+          .entries(data_nest);
+
+        //const dates = Array.from(d3.group(data_long, d => +d.water_day).keys()).sort(this.d3.ascending);
+          
+        // x axis - time
+        var x = this.d3.scaleLinear()
           .domain([1,365])
-          .range([ 0, width-(margin*3)]);
+          .range([ 0, this.width-(this.margin*3)]);
 
-
+        // y axis = group for each site
         var y = this.d3.scalePoint()
-          .domain(series.map(d => d.site_no))
-          .range([margin*2, height + margin])
+          .domain(data_nest.map(d => d.key))
+          .range([this.margin*2, this.height])
 
-      /*   var z = this.d3.scaleLinear()
-          .domain([0, this.d3.max(data.series, d => this.d3.max(d.values))]).nice()
+        // z = the y axis within each group - mmd
+        var z = this.d3.scaleLinear()
+          .domain([0, this.d3.max(data_nest, d => this.d3.max(d.mmd))]).nice()
           .range([0, -overlap * y.step()])
+
+        // define & style x &  y axes
+        var xAxis = g => g
+          .attr("transform", `translate(0,${this.height})`)
+          .call(this.d3.axisBottom(x)
+              .ticks(this.width / 80)
+              .tickSizeOuter(0))
+
+        var yAxis = g => g
+          .attr("transform", `translate(${this.margin},0)`)
+          .call(this.d3.axisLeft(y).tickSize(0).tickPadding(4))
+          .call(g => g.select(".domain").remove())
+
+        // append axes
+        this.svg.append("g").classed("axis", true).call(xAxis);
+        this.svg.append("g").classed("axis", true).call(yAxis);
+
+        // define area chart parameters
+        var area = this.d3.area()
+          .curve(this.d3.curveBasis)
+          .defined(d => !isNaN(d))
+          .x((d, i) => x(days[i]))
+          .y0(0)
+          .y1(d => z(d))
+
+
+        // append g for each ridgeline/site_no
+        const group = this.svg.append("g").classed("ridge", true)
+          .selectAll("g")
+          .data(data_nest)
+          .join("g")
+            .attr("transform", d => `translate(0,${y(d.key) + 1})`);
+
+        group.append("path")
+          .attr("fill", "#ddd")
+          .attr("d", d => area(d.mmd));
+
+/* 
+        // append y axis
+        this.svg.append("g")
+          .classed("y-line", true)
+          .attr("transform", "translate(25," + this.margin*2 + ")")
+          .call(this.d3.axisLeft(yName));  
  */
+     
  /*        
         const group = this.svg.append("g")
           .selectAll("g")
@@ -253,28 +292,13 @@ export default {
             .attr("fill", "none")
             .attr("stroke", "black")
             .attr("d", d => line(d.values)); */
-
+/* 
          var z =  this.d3.scaleLinear()
-          .domain([0, this.d3.max(data, d => d.mmd)]).nice()
+          .domain([0, this.d3.max(data_long, d => d.mmd)]).nice()
           .range([0, -8 * y.step()]) 
-          
-        var yName = this.d3.scaleBand()
-            .domain(sites)
-            .range([0, height-(margin*2)])
-            .paddingInner(1)
+          */
 
-         this.svg.append("g")
-          .attr("transform", "translate(25," + 400 + ")")
-          .classed("x-line", true)
-          .call(this.d3.axisBottom(x))
-          .attr("stroke","black");
-
-          this.svg.append("g")
-            .classed("y-line", true)
-            .attr("transform", "translate(25," + margin*2 + ")")
-            .call(this.d3.axisLeft(yName)); 
-
-            var area = this.d3.area()
+           /*  var area = this.d3.area()
               .curve(this.d3.curveBasis)
               .defined(d => !isNaN(d))
               .x((d, i) => x(data.days[i]))
@@ -285,17 +309,18 @@ export default {
               .selectAll("g")
               .data(data.allmmd)
               .join("g")
-                .attr("transform", d => `translate(0,${y(d.site_no)})`);
+                .attr("transform", function(d,i) { return "translate(0," i*20 ")" });
 
                 line = area.lineY1()
 
                 group.append("path")
                 .attr("fill", "#ddd")
                 .attr("d", d => area(d.mmd));
+
                 group.append("path")
-      .attr("fill", "none")
-      .attr("stroke", "black")
-      .attr("d", d => line(d.values));
+                .attr("fill", "none")
+                .attr("stroke", "black")
+                .attr("d", d => line(d.values)); */
 
      /*     let area = this.d3.area()
             .curve(this.d3.curveBasis)
