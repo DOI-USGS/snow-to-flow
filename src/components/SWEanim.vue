@@ -115,7 +115,7 @@
             id="mmd-line"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
-            viewBox="-50 0 600 450"
+            viewBox="-50 -100 600 450"
             aria-labelledby="page-title page-desc"
             width="100%"
           >
@@ -208,16 +208,8 @@ export default {
       },
       drawHydro(data_nest, days){
         const self = this;
-        let overlap = 8;
+        let overlap = 6;
 
-        // creates nested array of objects; objects for days with vals for each site_no
-        var series = this.d3.nest()
-          .key(d => d.site_no)
-          .sortValues((a,b) => a.water_day - b.water_day)
-          .entries(data_nest);
-
-        //const dates = Array.from(d3.group(data_long, d => +d.water_day).keys()).sort(this.d3.ascending);
-          
         // x axis - time
         var x = this.d3.scaleLinear()
           .domain([1,365])
@@ -257,7 +249,6 @@ export default {
           .y0(0)
           .y1(d => z(d))
 
-
         // append g for each ridgeline/site_no
         const group = this.svg.append("g").classed("ridge", true)
           .selectAll("g")
@@ -268,105 +259,6 @@ export default {
         group.append("path")
           .attr("fill", "#ddd")
           .attr("d", d => area(d.mmd));
-
-/* 
-        // append y axis
-        this.svg.append("g")
-          .classed("y-line", true)
-          .attr("transform", "translate(25," + this.margin*2 + ")")
-          .call(this.d3.axisLeft(yName));  
- */
-     
- /*        
-        const group = this.svg.append("g")
-          .selectAll("g")
-          .data(data.series)
-          .join("g")
-            .attr("transform", d => `translate(0,${y(d.name) + 1})`);
-
-        group.append("path")
-            .attr("fill", "#ddd")
-            .attr("d", d => area(d.values));
-
-        group.append("path")
-            .attr("fill", "none")
-            .attr("stroke", "black")
-            .attr("d", d => line(d.values)); */
-/* 
-         var z =  this.d3.scaleLinear()
-          .domain([0, this.d3.max(data_long, d => d.mmd)]).nice()
-          .range([0, -8 * y.step()]) 
-          */
-
-           /*  var area = this.d3.area()
-              .curve(this.d3.curveBasis)
-              .defined(d => !isNaN(d))
-              .x((d, i) => x(data.days[i]))
-              .y0(0)
-              .y1(d => z(d));
-
-            const group = this.svg.append("g")
-              .selectAll("g")
-              .data(data.allmmd)
-              .join("g")
-                .attr("transform", function(d,i) { return "translate(0," i*20 ")" });
-
-                line = area.lineY1()
-
-                group.append("path")
-                .attr("fill", "#ddd")
-                .attr("d", d => area(d.mmd));
-
-                group.append("path")
-                .attr("fill", "none")
-                .attr("stroke", "black")
-                .attr("d", d => line(d.values)); */
-
-     /*     let area = this.d3.area()
-            .curve(this.d3.curveBasis)
-            .defined(d => !isNaN(d))
-            .x((d, i) => x(data.site_water_day[i]))
-            .y0(0)
-            .y1(d => z(d)) */
-
-
-/*         const group = this.svg.append("g")
-            .selectAll("g")
-            .data(data)
-            .join("g")
-              .attr("transform", function(d,i) {return `translate(0,`+ i*10 +`)` } );
-
-          group.append("path")
-              .attr("fill", "pink")
-              .attr("d", d => area(d.mmd));
-
-           group.append("path")
-              .attr("fill", "none")
-              .attr("stroke", "black")
-              .attr("d", d => line(d.mmd));  
- */
-     /*          var allmmd = [];
-              for (i = 1; i < n; i++) {
-                  var key = sites[i];
-                  var mmd = data.map(function(d){  return d[key]; });
-                  var day = data.map(function(d){  return d['site_water_day']; });
-                  allmmd.push({key: key, mmd: mmd, day:day})
-              };
-              console.log(allmmd);
-
-              var line = this.d3.line()
-              .x(function(d)  { return x(d.day);})
-              .y(function(d) {  return y(d.mmd)})
-
-              this.svg.selectAll(".areas")
-                .data(allmmd).enter()
-                .append("path").classed("areas", true)
-                  .attr("transform", function(d,i){ return("translate(0," + i*10+")" )})
-                  .attr("color", "red")
-                  .attr("stroke", "red")
-                  .attr("stroke-width", 1)
-                  .attr("d",  line(allmmd))
- */
       }
     }
 }
