@@ -23,172 +23,16 @@
     </template>
     <!-- EXPLANATION -->
     <template v-slot:explanation>
-      <p>Global changes in temperature and precipitation affect the timing and rate of snowmelt. </p>
+      <p> </p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
-      <div
-        id="figs"
-        class="group two maxWidth"
-      ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -50 600 500">
-       <image
-            xlink:href="@/assets/SWEanim/co_2011_60fps_600w.gif"
-            width="550px"
-            x="0"
-            y="20"
-          />
-          <text
-            x="50"
-            y="25"
-          >Snow-water equivalent (SWE) 2011</text>
-          <path transform="scale(1.19) translate(0, -25)" d="M429,141l-.32.44L430,172.61l0,.84,1.05,32,.19,5.9,1.19,26.54.19,5.9.84,26.14L435,308.31l.19,6.32.27,19.4.88,28.25L432,363.66l-9.13.27-12.18.34-15.53.4-8.13.17-7.12-1.09-4.72.5-4.71.94-13.18.23-14.53.24-14.19.18-8.13.09-5.73.06-16.9.13-23.67.1h-26l-8.8,0-12.49-.06-7.1,0-16.9-.17-27.38-.36-7.44-.1-18.24-.34-21.61-1.32-9.82.61-1-.89-5.4-.14-21.62-.61-21-.69-7.1-.26-5.73-.63-11.84,0-13.52-.54-7.1-.3,1.32-46.82,1.09-17.26.59-21.1L27.91,249l2.79-62.82L30.83,176l.84-11.38,1.91-41.74,1.47-32L36.52,66l-.34.4,63.33.42,34.18,1,25.22,1,29.35.94,7,.11-.32-.42,51.42.86,19.15-.4,49.18.15,27.15-.38,11.17-.19,39.93-.9,2.23-.07,31-.52.63,18.56L426.62,90l.35.82.3,18.56.23,6.76Z" style="fill: none;stroke: #000;stroke-linejoin: round;stroke-width: 2.246646621121159px"/>
-          <g id="sites">
-            <circle cx="192.89" cy="136.47" r="2" class="gage" />
-            <circle cx="190.45" cy="196.01" r="2" class="gage" />
-            <circle cx="199.03" cy="178.19" r="2" class="gage" />
-            <circle cx="192.21" cy="134.2" r="2" class="gage" />
-            <circle cx="171.22" cy="204.38" r="2" class="gage" />
-            <circle cx="171.46" cy="203.69" r="2" class="gage" />
-            <circle cx="197.05" cy="170" r="2" class="gage" />
-            <circle cx="196.09" cy="167.19" r="2" class="gage" />
-            <circle cx="195.75" cy="166.15" r="2" class="gage" />
-            <circle cx="193.87" cy="167.72" r="2" class="gage" />
-            <circle cx="192.07" cy="166.65" r="2" class="gage" />
-            <circle cx="196.55" cy="164.62" r="2" class="gage" />
-            <circle cx="197.39" cy="162.78" r="2" class="gage" />
-            <circle cx="190.88" cy="174.35" r="2" class="gage" />
-            <circle cx="190.01" cy="173.38" r="2" class="gage" />
-            <circle cx="186.14" cy="172.4" r="2" class="gage" />
-            <circle cx="186.13" cy="172.22" r="2" class="gage" />
-            <circle cx="185.95" cy="172.45" r="2" class="gage" />
-            <circle cx="185.72" cy="189.97" r="2" class="gage" />
-            <circle cx="188.16" cy="182.86" r="2" class="gage" />
-            <circle cx="185.48" cy="180.49" r="2" class="gage" />
-            <circle cx="168.17" cy="193.1" r="2" class="gage" />
-            <circle cx="169.64" cy="192.34" r="2" class="gage" />
-            <circle cx="170.61" cy="183.98" r="2" class="gage" />
-            <circle cx="176" cy="181.08" r="2" class="gage" />
-            <circle cx="176.5" cy="182.61" r="2" class="gage" />
-            <circle cx="174.22" cy="179.91" r="2" class="gage" />
-            <circle cx="171.87" cy="179.99" r="2" class="gage" />
-            <circle cx="166.26" cy="180.73" r="2" class="gage" />
-            <circle cx="162.83" cy="179.76" r="2" class="gage" />
-            <circle cx="161.73" cy="206.89" r="2" class="gage" />
-            <circle cx="162.02" cy="208.98" r="2" class="gage" />
-            <circle cx="154.9" cy="202.36" r="2" class="gage" />
-            <circle cx="123.71" cy="214.03" r="2" class="gage" />
-            <circle cx="123.82" cy="217.18" r="2" class="gage" />
-            <circle cx="126.1" cy="218.99" r="2" class="gage" />
-            <circle cx="109.36" cy="216.86" r="2" class="gage" />
-            <circle cx="89.18" cy="163.61" r="2" class="gage" />
-            <circle cx="118.12" cy="272.88" r="2" class="gage" />
-          </g>
-        
-        </svg>
-        <div id="mmd-container-2011">
-          <svg
-            id="mmd-line-2011"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            viewBox="-50 -50 600 500"
-            aria-labelledby="page-title page-desc"
-            width="100%"
-          >
-
-            <text
-              x="20"
-              y="25"
-            >Discharge 2011</text>
-          </svg>
-        </div>
-        
-      </div>
-      <div
-        id="figs"
-        class="group two maxWidth"
-      ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -50 600 500">
-       <image
-            xlink:href="@/assets/SWEanim/co_2012_60fps_600w.gif"
-            width="550px"
-            x="0"
-            y="20"
-          />
-          <text
-            x="20"
-            y="25"
-          >Snow-water equivalent (SWE) 2012</text>
-          <path transform="scale(1.19) translate(0, -25)" d="M429,141l-.32.44L430,172.61l0,.84,1.05,32,.19,5.9,1.19,26.54.19,5.9.84,26.14L435,308.31l.19,6.32.27,19.4.88,28.25L432,363.66l-9.13.27-12.18.34-15.53.4-8.13.17-7.12-1.09-4.72.5-4.71.94-13.18.23-14.53.24-14.19.18-8.13.09-5.73.06-16.9.13-23.67.1h-26l-8.8,0-12.49-.06-7.1,0-16.9-.17-27.38-.36-7.44-.1-18.24-.34-21.61-1.32-9.82.61-1-.89-5.4-.14-21.62-.61-21-.69-7.1-.26-5.73-.63-11.84,0-13.52-.54-7.1-.3,1.32-46.82,1.09-17.26.59-21.1L27.91,249l2.79-62.82L30.83,176l.84-11.38,1.91-41.74,1.47-32L36.52,66l-.34.4,63.33.42,34.18,1,25.22,1,29.35.94,7,.11-.32-.42,51.42.86,19.15-.4,49.18.15,27.15-.38,11.17-.19,39.93-.9,2.23-.07,31-.52.63,18.56L426.62,90l.35.82.3,18.56.23,6.76Z" style="fill: none;stroke: #000;stroke-linejoin: round;stroke-width: 2.246646621121159px"/>
-          <g id="sites">
-            <circle cx="192.89" cy="136.47" r="2" class="gage" />
-            <circle cx="190.45" cy="196.01" r="2" class="gage" />
-            <circle cx="199.03" cy="178.19" r="2" class="gage" />
-            <circle cx="192.21" cy="134.2" r="2" class="gage" />
-            <circle cx="171.22" cy="204.38" r="2" class="gage" />
-            <circle cx="171.46" cy="203.69" r="2" class="gage" />
-            <circle cx="197.05" cy="170" r="2" class="gage" />
-            <circle cx="196.09" cy="167.19" r="2" class="gage" />
-            <circle cx="195.75" cy="166.15" r="2" class="gage" />
-            <circle cx="193.87" cy="167.72" r="2" class="gage" />
-            <circle cx="192.07" cy="166.65" r="2" class="gage" />
-            <circle cx="196.55" cy="164.62" r="2" class="gage" />
-            <circle cx="197.39" cy="162.78" r="2" class="gage" />
-            <circle cx="190.88" cy="174.35" r="2" class="gage" />
-            <circle cx="190.01" cy="173.38" r="2" class="gage" />
-            <circle cx="186.14" cy="172.4" r="2" class="gage" />
-            <circle cx="186.13" cy="172.22" r="2" class="gage" />
-            <circle cx="185.95" cy="172.45" r="2" class="gage" />
-            <circle cx="185.72" cy="189.97" r="2" class="gage" />
-            <circle cx="188.16" cy="182.86" r="2" class="gage" />
-            <circle cx="185.48" cy="180.49" r="2" class="gage" />
-            <circle cx="168.17" cy="193.1" r="2" class="gage" />
-            <circle cx="169.64" cy="192.34" r="2" class="gage" />
-            <circle cx="170.61" cy="183.98" r="2" class="gage" />
-            <circle cx="176" cy="181.08" r="2" class="gage" />
-            <circle cx="176.5" cy="182.61" r="2" class="gage" />
-            <circle cx="174.22" cy="179.91" r="2" class="gage" />
-            <circle cx="171.87" cy="179.99" r="2" class="gage" />
-            <circle cx="166.26" cy="180.73" r="2" class="gage" />
-            <circle cx="162.83" cy="179.76" r="2" class="gage" />
-            <circle cx="161.73" cy="206.89" r="2" class="gage" />
-            <circle cx="162.02" cy="208.98" r="2" class="gage" />
-            <circle cx="154.9" cy="202.36" r="2" class="gage" />
-            <circle cx="123.71" cy="214.03" r="2" class="gage" />
-            <circle cx="123.82" cy="217.18" r="2" class="gage" />
-            <circle cx="126.1" cy="218.99" r="2" class="gage" />
-            <circle cx="109.36" cy="216.86" r="2" class="gage" />
-            <circle cx="89.18" cy="163.61" r="2" class="gage" />
-            <circle cx="118.12" cy="272.88" r="2" class="gage" />
-          </g>
-        
-        </svg>
-        <div id="mmd-container-2012">
-          <svg
-            id="mmd-line-2012"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            viewBox="-50 -50 600 500"
-            aria-labelledby="page-title page-desc"
-            width="100%"
-          >
-
-            <text
-              x="20"
-              y="25"
-            >Discharge 2012</text>
-          </svg>
-        </div>
-        
-      </div>
             <div
         id="figs"
-        class="group two maxWidth"
-      ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -50 600 500">
-       <!-- <image
-            xlink:href="@/assets/SWEanim/co_2012_60fps_600w.gif"
-            width="550px"
-            x="0"
-            y="20"
-          /> -->
+        class="single one maxWidth"
+      >
+      <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -50 600 500">
+      
           <text
             x="50"
             y="25"
@@ -236,7 +80,7 @@
             <circle cx="118.12" cy="272.88" r="2" class="gage" />
           </g>
         
-        </svg>
+        </svg> -->
         <div id="mmd-container-both">
           <svg
             id="mmd-line-both"
@@ -248,97 +92,18 @@
           >
 
             <text
-              x="20"
-              y="25"
-            >Discharge 2011</text>
+              x="100"
+              y="0"
+            >2011</text>
             <text
-              x="320"
-              y="25"
-            >Discharge 2012</text>
+              x="400"
+              y="0"
+            >2012</text>
           </svg>
         </div>
         
       </div>
-       <div
-        id="figs"
-        class="group two maxWidth"
-      ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -50 600 500">
-       <!-- <image
-            xlink:href="@/assets/SWEanim/co_2012_60fps_600w.gif"
-            width="550px"
-            x="0"
-            y="20"
-          /> -->
-          <text
-            x="50"
-            y="25"
-          >Snow-water equivalent (SWE) 2011-2012</text>
-          <path transform="scale(1.19) translate(0, -25)" d="M429,141l-.32.44L430,172.61l0,.84,1.05,32,.19,5.9,1.19,26.54.19,5.9.84,26.14L435,308.31l.19,6.32.27,19.4.88,28.25L432,363.66l-9.13.27-12.18.34-15.53.4-8.13.17-7.12-1.09-4.72.5-4.71.94-13.18.23-14.53.24-14.19.18-8.13.09-5.73.06-16.9.13-23.67.1h-26l-8.8,0-12.49-.06-7.1,0-16.9-.17-27.38-.36-7.44-.1-18.24-.34-21.61-1.32-9.82.61-1-.89-5.4-.14-21.62-.61-21-.69-7.1-.26-5.73-.63-11.84,0-13.52-.54-7.1-.3,1.32-46.82,1.09-17.26.59-21.1L27.91,249l2.79-62.82L30.83,176l.84-11.38,1.91-41.74,1.47-32L36.52,66l-.34.4,63.33.42,34.18,1,25.22,1,29.35.94,7,.11-.32-.42,51.42.86,19.15-.4,49.18.15,27.15-.38,11.17-.19,39.93-.9,2.23-.07,31-.52.63,18.56L426.62,90l.35.82.3,18.56.23,6.76Z" style="fill: none;stroke: #000;stroke-linejoin: round;stroke-width: 2.246646621121159px"/>
-          <g id="sites">
-            <circle cx="192.89" cy="136.47" r="2" class="gage" />
-            <circle cx="190.45" cy="196.01" r="2" class="gage" />
-            <circle cx="199.03" cy="178.19" r="2" class="gage" />
-            <circle cx="192.21" cy="134.2" r="2" class="gage" />
-            <circle cx="171.22" cy="204.38" r="2" class="gage" />
-            <circle cx="171.46" cy="203.69" r="2" class="gage" />
-            <circle cx="197.05" cy="170" r="2" class="gage" />
-            <circle cx="196.09" cy="167.19" r="2" class="gage" />
-            <circle cx="195.75" cy="166.15" r="2" class="gage" />
-            <circle cx="193.87" cy="167.72" r="2" class="gage" />
-            <circle cx="192.07" cy="166.65" r="2" class="gage" />
-            <circle cx="196.55" cy="164.62" r="2" class="gage" />
-            <circle cx="197.39" cy="162.78" r="2" class="gage" />
-            <circle cx="190.88" cy="174.35" r="2" class="gage" />
-            <circle cx="190.01" cy="173.38" r="2" class="gage" />
-            <circle cx="186.14" cy="172.4" r="2" class="gage" />
-            <circle cx="186.13" cy="172.22" r="2" class="gage" />
-            <circle cx="185.95" cy="172.45" r="2" class="gage" />
-            <circle cx="185.72" cy="189.97" r="2" class="gage" />
-            <circle cx="188.16" cy="182.86" r="2" class="gage" />
-            <circle cx="185.48" cy="180.49" r="2" class="gage" />
-            <circle cx="168.17" cy="193.1" r="2" class="gage" />
-            <circle cx="169.64" cy="192.34" r="2" class="gage" />
-            <circle cx="170.61" cy="183.98" r="2" class="gage" />
-            <circle cx="176" cy="181.08" r="2" class="gage" />
-            <circle cx="176.5" cy="182.61" r="2" class="gage" />
-            <circle cx="174.22" cy="179.91" r="2" class="gage" />
-            <circle cx="171.87" cy="179.99" r="2" class="gage" />
-            <circle cx="166.26" cy="180.73" r="2" class="gage" />
-            <circle cx="162.83" cy="179.76" r="2" class="gage" />
-            <circle cx="161.73" cy="206.89" r="2" class="gage" />
-            <circle cx="162.02" cy="208.98" r="2" class="gage" />
-            <circle cx="154.9" cy="202.36" r="2" class="gage" />
-            <circle cx="123.71" cy="214.03" r="2" class="gage" />
-            <circle cx="123.82" cy="217.18" r="2" class="gage" />
-            <circle cx="126.1" cy="218.99" r="2" class="gage" />
-            <circle cx="109.36" cy="216.86" r="2" class="gage" />
-            <circle cx="89.18" cy="163.61" r="2" class="gage" />
-            <circle cx="118.12" cy="272.88" r="2" class="gage" />
-          </g>
-        
-        </svg>
-        <div id="mmd-container-stack">
-          <svg
-            id="mmd-line-stack"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            viewBox="-50 -50 600 500"
-            aria-labelledby="page-title page-desc"
-            width="100%"
-          >
-
-            <text
-              x="20"
-              y="25"
-            >Discharge 2011</text>
-            <text
-              x="320"
-              y="25"
-            >Discharge 2012</text>
-          </svg>
-        </div>
-        
-      </div>
+     
       
     </template>
     <!-- FIGURE CAPTION -->
@@ -411,7 +176,6 @@ export default {
         var swe_2011 = data[3]; // swe
         var swe_2012 = data[4]; // swe
 
-
         // prep data for plotting
         var sites = data_2011.columns // array of all site_no - each gets a ridge
         sites.shift(); // drop first column
@@ -440,105 +204,33 @@ export default {
           data.days = data_2011.map(function(d) { return  d['site_water_day']}) // array of j days for good luck
 
         // set up g that holds ridgelines
-        this.svg11 = this.d3.select('svg#mmd-line-2011');
-        this.svg12 = this.d3.select('svg#mmd-line-2012');
         this.svgboth = this.d3.select('svg#mmd-line-both');
         this.svgstack = this.d3.select('svg#mmd-line-stack');
 
-        self.runHydro(data.mmd11, data.mmd12, data.days, gage_sp)
-
-      },
-      runHydro(mmd11, mmd12, days, gage_sp){
-        const self = this;
          // draw hydro chart elements
         var x_long = this.width-(this.margin*3);
-        var  mid = x_long/2;
-        this.drawHydro(this.svg11, mmd11, days, gage_sp, 0, x_long, mmd11);
-        this.drawHydro(this.svg12, mmd12, days, gage_sp, 0, x_long, mmd11);
+        var mid = x_long/2;
+        var mar = mid*0.05
+
+        // set chart - separate for each year
+        //self.initRidges(this.svgboth, data.mmd11, data.days, gage_sp, 0, mid-mar, this.height,this.margin, data.mmd11);
+        //self.initRidges(this.svgboth, data.mmd12, data.days, gage_sp, mid+mar, x_long, this.height,this.margin, data.mmd11);
+
+        self.initRidges(this.svgboth, data.mmd11, data.days, gage_sp, 0, x_long, this.height/2+mar, this.height, data.mmd11);
+        self.initRidges(this.svgboth, data.mmd12, data.days, gage_sp, 0, x_long, this.margin,this.height/2-mar, data.mmd11);
+
 
         // draw both years  adjacent to one another
-        self.drawHydro(this.svgboth, mmd11, days, gage_sp, 0, mid-mid*0.1, mmd11);
-        self.drawHydro(this.svgboth, mmd12, days, gage_sp, mid+mid*0.1, x_long, mmd11);
+        //self.drawHydro(this.svgstack, data.mmd11, days, gage_sp, 0, mid-mid*0.1, data.mmd11);
+        //self.drawHydro(this.svgstack, data.mmd11, days, gage_sp, mid+mid*0.1, x_long, data.mmd11);
 
-        // drawstacked
-        self.drawStack(this.svgstack, mmd11, days, gage_sp, 0, x_long, mmd11, this.margin*2, this.height/2);
-        self.drawStack(this.svgstack, mmd12, days, gage_sp, 0, x_long, mmd11, this.height/2, this.height);
-
-      },
-      drawStack(svg, data_nest, days, gage_sp, x_start, x_end, data_max, y_start, y_end){
-        const self = this;
-        let overlap = 3;
-
-        // x axis - time
-        var xs = this.d3.scaleLinear()
-          .domain([1,365])
-          .range([x_start, x_end]);
-
-        // y axis = group for each site
-        // this is ordered by snow persistence....in the csv
-        var ys = this.d3.scaleLinear()
-          .domain([25, 0]).nice()
-          .range([y_start, y_end])
-
-        // define & style x &  y axes
-        var xsAxis = g => g
-          .attr("transform", `translate(0,${y_end+5})`)
-          .call(this.d3.axisBottom(xs)
-              .ticks(this.width / 60)
-              .tickSizeOuter(0))
-
-        var ysAxis = g => g
-          .attr("transform", `translate(${0},-2)`)
-          .call(this.d3.axisLeft(ys).tickSize(0).tickPadding(4))
-
-        // append axes
-        svg.append("g").classed("axis", true).call(xsAxis);
-        svg.append("g").classed("axis", true).call(ysAxis);
-
-        var colorStack = this.d3.scaleOrdinal().domain(["site_6614800", "site_9063900","site_9034900","site_9035500","site_6746095",
-        "site_9064000","site_9065500","site_9066200","site_9022000","site_9032100","site_9065100","site_7083000","site_9035700","site_9046490","site_9035900", 
-        "site_9024000","site_9358550","site_9025000","site_9066000","site_9074000","site_9026500","site_9032000","site_9051050","site_9025300","site_9067200",
-        "site_9066300","site_9047700","site_9067000","site_9132995","site_9134000","site_9306242"])
-        .range(["blue", "blue", "blue", "blue", "blue", "dodgerblue", "dodgerblue", "dodgerblue", "dodgerblue", "dodgerblue", 
-                "green","green","green","green","green","lightgreen","lightgreen","lightgreen","lightgreen","lightgreen",
-                "gold","gold","gold","gold","gold","yellow","yellow","yellow","yellow","yellow"])
-
-        // z = the y axis within each group - mmd
-        var zs = this.d3.scaleLinear()
-          .domain([25, 0]).nice()
-          .range([y_start, y_end])
-
-        // define area chart parameters
-        this.area = this.d3.area()
-          .curve(this.d3.curveBasis)
-          .defined(d => !isNaN(d))
-          .x((d, i) => xs(days[i]))
-          .y0(0)
-          .y1(d => zs(d))
-
-        // append g for each ridgeline/site_no
-        this.group = svg.append("g").classed("ridge", true)
-          .selectAll("g")
-          .data(data_nest)
-          .join("g")
-            .attr("transform", d => `translate(0,${ys(d.key) + 1})`);
-/* 
-        this.group.append("path")
-          .attr("fill", "dodgerblue")
-          .attr("d", d => self.area(d.mmd))
-          .attr("opacity", this.ridge_o); //#5C3406", "#C28D3D", "#ECD8A6", "#F0F0E6", "#AADDD6","#2A8C83", "#004439"]
- */
-        this.line = self.area.lineY1();
-
-        this.group.append("path")
-          .attr("fill", "none")
-          .attr("stroke", "dodgerblue")
-          .attr("d", d => this.line(d.mmd))
-          .attr("stroke-width", "1px")
-          .attr("stroke", function(d) { return colorStack(d.key)})
+        // apply separate transition to each plot that
+        // 1 - collapses or spreads the y axis
+        // 2- transitions to width and height of x and z axes
+        // 3 - moves the whole chart to a new location
 
       },
-      drawHydro(svg, data_nest, days, gage_sp, x_start, x_end, data_max){
+      initRidges(svg, data_nest, days, gages, x_start, x_end,  y_start, y_end, data_max, z_dist){
         const self = this;
         let overlap = 3;
 
@@ -549,9 +241,13 @@ export default {
 
         // y axis = group for each site
         // this is ordered by snow persistence....in the csv
-        var y = this.d3.scalePoint()
-          .domain(gage_sp.map(d => d.site_no))
-          .range([this.margin*2, this.height])
+        var y = this.d3.scaleLinear()
+          .domain([25, 0]).nice()
+          .range([y_start, y_end])
+
+        /* var y = this.d3.scalePoint()
+          .domain(gages.map(d => d.site_no))
+          .range([y_start, y_end]) */
 
         // define & style x &  y axes
         var xAxis = g => g
@@ -562,16 +258,21 @@ export default {
         var yAxis = g => g
           .attr("transform", `translate(${0},-2)`)
           .call(this.d3.axisLeft(y).tickSize(0).tickPadding(4))
-          .call(g => g.select(".domain").remove())
+          //.call(g => g.select(".domain").remove())
 
         // append axes
         svg.append("g").classed("axis", true).call(xAxis);
         svg.append("g").classed("axis", true).call(yAxis);
 
         // z = the y axis within each group - mmd
-        var z = this.d3.scaleLinear()
+/*         var z = this.d3.scaleLinear()
           .domain([0, this.d3.max(data_max, d => this.d3.max(d.mmd))]).nice()
           .range([0, -overlap * y.step()])
+ */
+          // z = the y axis within each group - mmd
+        var z = this.d3.scaleLinear()
+          .domain([25, 0]).nice()
+          .range([y_start, y_end])
 
         // define area chart parameters
         this.area = this.d3.area()
@@ -580,14 +281,43 @@ export default {
           .x((d, i) => x(days[i]))
           .y0(0)
           .y1(d => z(d))
-
-          var colorStack = this.d3.scaleOrdinal().domain(["site_6614800", "site_9063900","site_9034900","site_9035500","site_6746095",
+          
+        this.line = this.area.lineY1();
+        
+        var colorStack = this.d3.scaleOrdinal()
+        .domain(["site_6614800", "site_9063900","site_9034900","site_9035500","site_6746095",
             "site_9064000","site_9065500","site_9066200","site_9022000","site_9032100","site_9065100","site_7083000","site_9035700","site_9046490","site_9035900", 
             "site_9024000","site_9358550","site_9025000","site_9066000","site_9074000","site_9026500","site_9032000","site_9051050","site_9025300","site_9067200",
             "site_9066300","site_9047700","site_9067000","site_9132995","site_9134000","site_9306242"])
-          .range(["blue", "blue", "blue", "blue", "blue", "dodgerblue", "dodgerblue", "dodgerblue", "dodgerblue", "dodgerblue", 
+        .range(["blue", "blue", "blue", "blue", "blue", "dodgerblue", "dodgerblue", "dodgerblue", "dodgerblue", "dodgerblue", 
                 "green","green","green","green","green","lightgreen","lightgreen","lightgreen","lightgreen","lightgreen",
                 "gold","gold","gold","gold","gold","yellow","yellow","yellow","yellow","yellow"])
+
+      // append g for each ridgeline/site_no
+        this.group = svg.append("g").classed("ridgelines", true)
+          .selectAll("g")
+          .data(data_nest)
+          .join("g").classed("ridge", true)
+          .attr("transform", d => `translate(0,0)`);
+
+        this.group.append("path")
+          .attr("fill", "dodgerblue")
+          .attr("d", d => self.area(d.mmd))
+          .attr("opacity", 0); //#5C3406", "#C28D3D", "#ECD8A6", "#F0F0E6", "#AADDD6","#2A8C83", "#004439"]
+
+        this.group.append("path")
+          .attr("fill", "none")
+          .attr("stroke", "dodgerblue")
+          .attr("d", d => this.line(d.mmd))
+          .attr("stroke-width", "1px")
+          .attr("stroke", function(d) { return colorStack(d.key)})
+
+      },
+      stackRidges(){
+
+      },
+      drawHydro(svg, data_nest, days, gage_sp, x_start, x_end, data_max){
+       
 
         // append g for each ridgeline/site_no
         this.group = svg.append("g").classed("ridge", true)
@@ -600,8 +330,6 @@ export default {
           .attr("fill", function(d) { return colorStack(d.key)}) //function(d) { return colorStack(d.key)}
           .attr("d", d => self.area(d.mmd))
           .attr("opacity", this.ridge_o); //#5C3406", "#C28D3D", "#ECD8A6", "#F0F0E6", "#AADDD6","#2A8C83", "#004439"] */
-
-        this.line = self.area.lineY1();
 
         // this adds swe to the same chart
 
@@ -623,7 +351,6 @@ export default {
           .y0(0)
           .y1(d => z_swe(d))
 
-        this.line_swe = this.area_swe.lineY1();
 
 /*          this.group.append("path")
           .attr("fill", "grey")
@@ -641,22 +368,14 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-#mmd-gifs, #swe-gifs {
-  max-height: 80vh;
-  width: auto;
-}
+
 .gage {
   color:black;
   opacity: .6;
 
 }
 .maxWidth {
-  max-width:90vw;
+  max-width: 70vw;
 }
-.checks {
-  position: relative;
-  left:100px;
-  margin-left:3em;
-  display: inline-block;
-}
+
 </style>
