@@ -48,7 +48,7 @@ import VizSection from '@/components/VizSection';
 import Fig from '@/components/Figure';
 
 export default {
-    name: "DiagramsNor al",
+    name: "DiagramsNorAl",
     components:{
         VizSection
     }
