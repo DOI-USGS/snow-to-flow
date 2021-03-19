@@ -494,7 +494,7 @@ export default {
         // append axes
         svg.append("g").classed("axis", true).call(xsAxis);
         svg.append("g").classed("axis", true).call(ysAxis);
-console.log(gage_sp.site_no)
+
         var colorStack = this.d3.scaleOrdinal().domain(["site_6614800", "site_9063900","site_9034900","site_9035500","site_6746095",
         "site_9064000","site_9065500","site_9066200","site_9022000","site_9032100","site_9065100","site_7083000","site_9035700","site_9046490","site_9035900", 
         "site_9024000","site_9358550","site_9025000","site_9066000","site_9074000","site_9026500","site_9032000","site_9051050","site_9025300","site_9067200",
@@ -529,7 +529,7 @@ console.log(gage_sp.site_no)
           .attr("opacity", this.ridge_o); //#5C3406", "#C28D3D", "#ECD8A6", "#F0F0E6", "#AADDD6","#2A8C83", "#004439"]
  */
         this.line = self.area.lineY1();
-//console.log(gage_sp.filter(function(d){ return d.site_no == 'site_9026500' }))
+
         this.group.append("path")
           .attr("fill", "none")
           .attr("stroke", "dodgerblue")
@@ -581,30 +581,38 @@ console.log(gage_sp.site_no)
           .y0(0)
           .y1(d => z(d))
 
+          var colorStack = this.d3.scaleOrdinal().domain(["site_6614800", "site_9063900","site_9034900","site_9035500","site_6746095",
+            "site_9064000","site_9065500","site_9066200","site_9022000","site_9032100","site_9065100","site_7083000","site_9035700","site_9046490","site_9035900", 
+            "site_9024000","site_9358550","site_9025000","site_9066000","site_9074000","site_9026500","site_9032000","site_9051050","site_9025300","site_9067200",
+            "site_9066300","site_9047700","site_9067000","site_9132995","site_9134000","site_9306242"])
+          .range(["blue", "blue", "blue", "blue", "blue", "dodgerblue", "dodgerblue", "dodgerblue", "dodgerblue", "dodgerblue", 
+                "green","green","green","green","green","lightgreen","lightgreen","lightgreen","lightgreen","lightgreen",
+                "gold","gold","gold","gold","gold","yellow","yellow","yellow","yellow","yellow"])
+
         // append g for each ridgeline/site_no
         this.group = svg.append("g").classed("ridge", true)
           .selectAll("g")
           .data(data_nest)
           .join("g")
             .attr("transform", d => `translate(0,${y(d.key) + 1})`);
-
+/* 
         this.group.append("path")
-          .attr("fill", "dodgerblue")
+          .attr("fill", function(d) { return colorStack(d.key)}) //function(d) { return colorStack(d.key)}
           .attr("d", d => self.area(d.mmd))
-          .attr("opacity", this.ridge_o); //#5C3406", "#C28D3D", "#ECD8A6", "#F0F0E6", "#AADDD6","#2A8C83", "#004439"]
+          .attr("opacity", this.ridge_o); //#5C3406", "#C28D3D", "#ECD8A6", "#F0F0E6", "#AADDD6","#2A8C83", "#004439"] */
 
         this.line = self.area.lineY1();
 
         // this adds swe to the same chart
-/* 
+
         this.group.append("path")
           .attr("fill", "none")
-          .attr("stroke", "dodgerblue")
+          .attr("stroke",function(d) { return colorStack(d.key)})
           .attr("d", d => self.line(d.mmd))
           .attr("stroke-width", "1px");
- */
+
         // add swe
-/*         var z_swe = this.d3.scaleLinear()
+         var z_swe = this.d3.scaleLinear()
           .domain([0, this.d3.max(data_max, d => this.d3.max(d.swe)/2)]).nice()
           .range([0, -overlap * y.step()])
           
@@ -617,17 +625,17 @@ console.log(gage_sp.site_no)
 
         this.line_swe = this.area_swe.lineY1();
 
-         this.group.append("path")
+/*          this.group.append("path")
           .attr("fill", "grey")
           .attr("d", d => this.area_swe(d.swe))
-          .attr("opacity", this.ridge_o); //#5C3406", "#C28D3D", "#ECD8A6", "#F0F0E6", "#AADDD6","#2A8C83", "#004439"] */
-/* 
+          .attr("opacity", this.ridge_o); //#5C3406", "#C28D3D", "#ECD8A6", "#F0F0E6", "#AADDD6","#2A8C83", "#004439"] 
+ */
           this.group.append("path")
           .attr("fill", "none")
           .attr("stroke", "grey")
           .attr("d", d => this.line_swe(d.swe))
-          .attr("stroke-width", "1px"); */
-
+          .attr("stroke-width", "1px"); 
+ 
     }
     },
 }
