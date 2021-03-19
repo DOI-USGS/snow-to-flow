@@ -1,7 +1,31 @@
 <template>
   <div id="visualization">
     <Splash />
-    <SNTLMap v-if="checkIfSplashIsRendered" />
+    <Intro />
+    <Chapter
+      v-if="checkIfSplashIsRendered"
+      id="chapter2"
+      image="chapter5"
+      alt="An image of a greenish-blue river winding through a snowy forest, faded into the background to serve as a backdrop for the section title."
+      :height="50"
+    >
+      <template v-slot:chapterTitle>
+        From Winter Snow to Spring Flow
+      </template>
+    </Chapter>
+    <DiagramsNormal 
+      v-if="checkIfSplashIsRendered"
+      id="diagrams-normal"
+    />
+    <DiagramsHigh 
+      v-if="checkIfSplashIsRendered"
+      id="diagrams-good"
+    />
+    <DiagramsLow 
+      v-if="checkIfSplashIsRendered"
+      id="diagrams-bad"
+    />
+    
     <Chapter
       v-if="checkIfSplashIsRendered"
       id="chapter1"
@@ -17,25 +41,6 @@
     <SWE v-if="checkIfSplashIsRendered" />
     <Chapter
       v-if="checkIfSplashIsRendered"
-      id="chapter2"
-      image="chapter5"
-      alt="An image of a greenish-blue river winding through a snowy forest, faded into the background to serve as a backdrop for the section title."
-      :height="50"
-    >
-      <template v-slot:chapterTitle>
-        From Winter Snow to Spring Flow
-      </template>
-    </Chapter>
-    <DiagramsGood 
-      v-if="checkIfSplashIsRendered"
-      id="diagrams-good"
-    />
-    <DiagramsBad 
-      v-if="checkIfSplashIsRendered"
-      id="diagrams-bad"
-    />
-    <Chapter
-      v-if="checkIfSplashIsRendered"
       id="chapter2-3"
       image="chapter9"
       alt="An landscape of snowy mountain tops with pine trees in the valley and a bright blue sky overhead, faded into the background to serve as a backdrop for the section title."
@@ -45,6 +50,7 @@
         Changes in snow have downstream consequences
       </template>    
     </Chapter>
+    <SNTLMap v-if="checkIfSplashIsRendered" />
     <SWEanim v-if="checkIfSplashIsRendered" />
     <Chapter
       v-if="checkIfSplashIsRendered"
@@ -80,13 +86,15 @@ export default {
     name: 'Visualization',
     components: {
       Splash: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "section"*/ "./../components/Splash"),
+      Intro: () => import( /*webpackChunkName: "Intro"*/ "./../components/Intro"),
       SNTLMap: () => import( /*webpackChunkName: "SNTLMap"*/ "./../components/SNTLmap"),
       SWE: () => import( /*webpackChunkName: "SWE"*/ "./../components/SWE"),
       SWEanim: () => import( /*webpackChunkName: "SWE"*/ "./../components/SWEanim"),
       MeasuringSWE: () => import( /*webpackChunkName: "SWE"*/ "./../components/MeasuringSWE"),
       // SWEtoDischarge: () => import( /*webpackChunkName: "SWE"*/ "./../components/SWEtoDischarge"),
-      DiagramsGood: () => import( /*webpackChunkName: "diagramsgood"*/ "./../components/DiagramsGood"),
-      DiagramsBad: () => import( /*webpackChunkName: "diagramsbad"*/ "./../components/DiagramsBad"),
+      DiagramsNormal: () => import( /*webpackChunkName: "diagramsnormal"*/ "./../components/DiagramsNormal"),
+      DiagramsHigh: () => import( /*webpackChunkName: "diagramshigh"*/ "./../components/DiagramsHigh"),
+      DiagramsLow: () => import( /*webpackChunkName: "diagramslow"*/ "./../components/DiagramsLow"),
       Impact: () => import( /*webpackChunkName: "impact"*/ "./../components/Impact"),
       References: () => import( /*webpackChunkName: "References"*/ "./../components/References"),
       Chapter: () => import( /*webpackChunkName: "ChapterTitles"*/ "./../components/SectionTitle"),
