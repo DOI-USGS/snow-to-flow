@@ -14,17 +14,20 @@
         class="bg"
         :style="overlayVars"
       >
-        <picture>
+        <picture class="lazy">
           <!--Media size suggestions https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images-->
           <source
             media="(max-width: 799px)"
-            :srcset="require(`@/assets/titleImages/1x/${image}-1x.jpg`)"
+            :data-srcset="require(`@/assets/titleImages/1x/${image}-1x.jpg`)"
           >
           <source
             media="(min-width: 800px)"
-            :srcset="require(`@/assets/titleImages/2x/${image}-2x.jpg`)"
+            :data-srcset="require(`@/assets/titleImages/2x/${image}-2x.jpg`)"
           >
-          <img :src="require(`@/assets/titleImages/2x/${image}-2x.jpg`)">
+          <img 
+            :srcset="require(`@/assets/titleImages/lazy.jpg`)"
+            :data-srcset="require(`@/assets/titleImages/2x/${image}-2x.jpg`)"
+          >
         </picture>
         <div
           v-if="overlay"
@@ -77,6 +80,15 @@ export default {
     align-items: center;
     justify-content: center;
     overflow: hidden;
+}
+/* force the source element to be full height*/
+picture{
+  source{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
 }
 .overlay{
     position: absolute;
