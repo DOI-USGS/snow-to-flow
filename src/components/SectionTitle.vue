@@ -6,9 +6,9 @@
       :style="chaptersVars"
     >
       <div class="chapterTitle">
-        <slot name="chapterTitle">
+     <!--    <slot name="chapterTitle">
           Chapter Title
-        </slot>
+        </slot> -->
       </div>
       <div
         class="bg"
@@ -124,7 +124,7 @@ picture{
 .chapterTitle{
     position: relative;
     z-index: 2;
-    font-size:clamp(2em, 7vw, 5em);
+    font-size:clamp(1.5em, 7vw, 5em);
     font-style: italic;
     font-weight: 800;
     color: #fff;

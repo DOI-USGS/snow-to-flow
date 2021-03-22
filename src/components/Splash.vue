@@ -259,14 +259,14 @@ export default {
     padding: 0 15px;
     h1{
         font-size:clamp(5em, 10vw, 2em);
-        font-weight: 800;
+        font-weight: 600;
     }
     h1, p{
         color: #fff;
     } 
     p{
         padding-top: 10px;
-        font-weight: bold;
+        font-weight: 400;
     }
 }
 .splashOverlay{

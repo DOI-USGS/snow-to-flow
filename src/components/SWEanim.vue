@@ -3,7 +3,7 @@
   <VizSection id="firstSection">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2 />
+      <h2 >Changing snow in the west can have enormous impacts on water availability.</h2>
    <!--    <div class="checks">
         <input type="checkbox"
                value="in_swe" 
@@ -23,7 +23,12 @@
     </template>
     <!-- EXPLANATION -->
     <template v-slot:explanation>
-      <p>The differences between a high a low snow year illustrate the downstream effects of changing snow on water resources. In the Upper Colorado River Basin in 2011</p>
+      <p>The differences between a high a low snow year illustrate the downstream effects of changing snow on water resources. For example, in 2011 snowmelt occurred ## days later than 2012.
+        This was because of differences in the amount of snowpack between years - in 2011 peak SWE was  2x higher.  there were considerable difference in the magnitude of SWE and subsequently discharge at the shown locations in the Upper Colorado river basin.
+          With 2 times higher snowpack shown int he line chart. 
+          Because of less snowpack, melt rates were faster and SM50 occurred between ## to ## days earlier at these sites.
+          Elevation
+      </p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
