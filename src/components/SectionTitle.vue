@@ -82,13 +82,17 @@ export default {
     overflow: hidden;
 }
 /* force the source element to be full height*/
-picture{
-  source{
+picture, source{
     position: absolute;
     top: 0;
     width: 100%;
     height: 100%;
-  }
+}
+picture{
+  transition: filter 0.5s;
+}
+.lazy{
+  filter: blur(50px);
 }
 .overlay{
     position: absolute;
