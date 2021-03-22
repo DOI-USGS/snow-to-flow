@@ -1,9 +1,9 @@
 <template>
   <!---VizSection-->
-  <VizSection id="firstSection">
+  <VizSection id="diagrams-low">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>A Bad Snow Year</h2>
+      <h2>Low Snow + Early Melting = Less Flow</h2>
     </template>
     <template v-slot:aboveExplanation>
       <p>But warmer winters mean less snow and earlier melt, which means low spring flows.</p>
@@ -46,7 +46,7 @@
 <script>
 import VizSection from '@/components/VizSection';
 export default {
-    name: "DiagramsBad",
+    name: "DiagramsLow",
     components:{
         VizSection
     }

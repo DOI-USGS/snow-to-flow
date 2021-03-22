@@ -1,9 +1,9 @@
 <template>
   <!---VizSection-->
-  <VizSection id="firstSection">
+  <VizSection id="measuring-swe">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>How the USGS Measures Snowpack</h2>
+      <h2>The USGS has been studying the connection between snowpack and stream flow for decades.</h2>
     </template>
     <template v-slot:aboveExplanation>
       <p>Cheese and wine roquefort when the cheese comes out everybody's happy. Cow red leicester the big cheese paneer cut the cheese red leicester boursin halloumi. Cheese and wine cheddar mozzarella boursin mozzarella cheese and wine taleggio cheese slices. Stilton fromage say cheese mozzarella cheeseburger dolcelatte pepper jack manchego. Who moved my cheese feta.</p>
