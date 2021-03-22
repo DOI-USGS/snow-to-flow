@@ -1,7 +1,9 @@
 <template>
   <div id="visualization">
     <Splash />
-    <Intro />
+    <Intro
+      v-if="checkIfSplashIsRendered"
+    />
     <Chapter
       v-if="checkIfSplashIsRendered"
       id="chapter2"
@@ -112,7 +114,7 @@ export default {
         this.parallaxScroll();
       })
     },
-    beforeUpdate(){
+    updated(){
       this.lazyLoadImages();
     },
     methods:{
@@ -133,25 +135,29 @@ export default {
       },
       lazyLoadImages(){
         const loadImg = function(entries, observer){
-          const [entry] = entries;
-          //Guard Clause
-          //If image is not intersecting viewport do nothing
-          if (!entry.isIntersecting) return;
-          //Get first source element
-          entry.target.srcset = entry.target.dataset.srcset; 
-          //Get second source element
-          entry.target.nextElementSibling.srcset = entry.target.dataset.srcset; 
-          //stop observing img after the switch
-          observer.unobserve(entry.target);
+          entries.forEach(entry => {
+            if(entry.isIntersecting){
+              console.log(entry);
+              //Get first source element
+              entry.target.srcset = entry.target.dataset.srcset; 
+              //Get second source element
+              entry.target.nextElementSibling.srcset = entry.target.dataset.srcset; 
+              entry.target.parentElement.classList.remove('lazy');
+              observer.unobserve(entry.target);
+              observer.unobserve(entry.target.nextElementSibling);
+            }
+          });
         }
         const imgTargets = document.querySelectorAll(".lazy > source");
-        const imgObserver = new IntersectionObserver(loadImg, {
+        const imgObserver = new window.IntersectionObserver(loadImg, {
           //Watch entire viewport
           root: null,
           threshold: 0,
           rootMargin: "300px"
         })
-        imgTargets.forEach(img => imgObserver.observe(img));
+        imgTargets.forEach(img => {
+          imgObserver.observe(img)
+        });
       }
     }
 } 
