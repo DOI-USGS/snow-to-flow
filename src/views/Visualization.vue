@@ -137,14 +137,15 @@ export default {
         const loadImg = function(entries, observer){
           entries.forEach(entry => {
             if(entry.isIntersecting){
-              console.log(entry);
               //Get first source element
               entry.target.srcset = entry.target.dataset.srcset; 
               //Get second source element
               entry.target.nextElementSibling.srcset = entry.target.dataset.srcset; 
-              entry.target.parentElement.classList.remove('lazy');
+              const findImg = entry.target.parentElement.querySelector("img");
+              findImg.addEventListener('load', function () {
+                entry.target.parentElement.classList.remove('lazy');
+              });
               observer.unobserve(entry.target);
-              observer.unobserve(entry.target.nextElementSibling);
             }
           });
         }
