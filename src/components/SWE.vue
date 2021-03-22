@@ -1,9 +1,9 @@
 <template>
   <!---VizSection-->
-  <VizSection id="firstSection">
+  <VizSection id="swe-line-chart">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>Snowpack hints at the upcoming meltwater availability.</h2>
+      <h2>Each year, scientists find relationships between a snowpack curve and discharge at a streamgage downstream.</h2>
     </template>
     <!-- FIGURES -->
     <template v-slot:aboveExplanation>
