@@ -40,7 +40,7 @@
         >
         <img 
           src="@/assets/titleImages/splash/mountainMG-xl.png"
-          xlink:href="@/assets/titleImages/splash/mountainMG-xl.png"
+          href="@/assets/titleImages/splash/mountainMG-xl.png"
           alt="A scene of snowy mountains topped with clouds"
         >
       </picture>
@@ -80,7 +80,7 @@
         >
         <img 
           src="@/assets/titleImages/splash/frozen-lakeFG.png"
-          xlink:href="@/assets/titleImages/splash/frozen-lakeFG.png"
+          href="@/assets/titleImages/splash/frozen-lakeFG.png"
           alt="A frozen lake in front of rocky, snow-covered mountains."
         >
       </picture>
@@ -120,7 +120,7 @@
         >
         <img 
           src="@/assets/titleImages/splash/people-l.png"
-          xlink:href="@/assets/titleImages/splash/people-l.png"
+          href="@/assets/titleImages/splash/people-l.png"
           alt="Clouds rising over the snowy mountain"
         >
       </picture>
@@ -131,8 +131,6 @@
       data-depth="0.80"
     >
       <picture>
-        <!-- Not sure what the browser wants to do with this first one, but it's the largest original -->
-        <source srcset="@/assets/titleImages/splash/cloud.webp">
         <!-- Most compressed -->
         <source
           type="image/webp"
@@ -159,8 +157,8 @@
           srcset="@/assets/titleImages/splash/cloud-l.png"
         >
         <img 
-          src="@/assets/titleImages/splash/cloud.webp"
-          xlink:href="@/assets/titleImages/splash/cloud.webp"
+          src="@/assets/titleImages/splash/cloud-l.png"
+          href="@/assets/titleImages/splash/cloud-l.png"
           alt="Clouds rising over the snowy mountain"
         >
       </picture>
@@ -200,7 +198,7 @@
         >
         <img 
           src="@/assets/titleImages/splash/more-clouds.png"
-          xlink:href="@/assets/titleImages/splash/more-clouds.png"
+          href="@/assets/titleImages/splash/more-clouds.png"
           alt="Clouds rising over the snowy mountain"
         >
       </picture>
