@@ -23,7 +23,7 @@
     </template>
     <!-- EXPLANATION -->
     <template v-slot:explanation>
-      <p> </p>
+      <p>The differences between a high a low snow year illustrate the downstream effects of changing snow on water resources. In the Upper Colorado River Basin in 2011</p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
@@ -141,6 +141,8 @@ export default {
               area: null,
               group: null,
               ridge_o: 0.3,
+              site_elev: [],
+              site_sp: [],
         
 
               checkedData: ["mmd"],
@@ -181,11 +183,17 @@ export default {
         sites.shift(); // drop first column
         var n = sites.length;
 
+        // sort gages by elevation
+        this.site_elev = gage_sp.slice().sort((a,b) => this.d3.ascending(a.elev, b.elev)).map(function(d) { return d.site_no })
+
+        //sort ages by snow persistence
+        this.site_sp = gage_sp.slice().sort((a,b) => this.d3.ascending(a.sp, b.sp)).map(function(d) { return d.site_no })
+
         // nest data to iterate over in plot
         // sort of inverse of series - array of objects where objs = site containing key  for site_no, mmd and day vars
          data.mmd11 = [];
           for (i = 1; i < n; i++) {
-              var key = sites[i];
+              var key = this.site_elev[i];
               var mmd = data_2011.map(function(d){  return d[key]; });
               var swe = swe_2011.map(function(d){  return d[key]; });
               var day = data_2011.map(function(d){  return d['site_water_day']; });
@@ -194,7 +202,7 @@ export default {
 
           data.mmd12 = [];
           for (i = 1; i < n; i++) {
-              var key = sites[i];
+              var key = this.site_elev[i];
               var mmd = data_2012.map(function(d){  return d[key]; });
               var swe = swe_2012.map(function(d){  return d[key]; });
               var day = data_2012.map(function(d){  return d['site_water_day']; });
@@ -212,12 +220,10 @@ export default {
         var mid = x_long/2;
         var mar = mid*0.05
 
-        // set chart - separate for each year
-        //self.initRidges(this.svgboth, data.mmd11, data.days, gage_sp, 0, mid-mar, this.height,this.margin, data.mmd11);
-        //self.initRidges(this.svgboth, data.mmd12, data.days, gage_sp, mid+mar, x_long, this.height,this.margin, data.mmd11);
+        // set chart - separate for each year, using 2011 for max values to set the scaless
+        self.initRidges(this.svgboth, 'ridge_2011', data.mmd11, data.days, 0, x_long, this.margin, this.height/2-mar);
+        self.initRidges(this.svgboth, 'ridge_2012', data.mmd12, data.days, 0, x_long, this.height/2+mar,  this.height);
 
-        self.initRidges(this.svgboth, data.mmd11, data.days, gage_sp, 0, x_long, this.height/2+mar, this.height, data.mmd11);
-        self.initRidges(this.svgboth, data.mmd12, data.days, gage_sp, 0, x_long, this.margin,this.height/2-mar, data.mmd11);
 
 
         // draw both years  adjacent to one another
@@ -230,7 +236,7 @@ export default {
         // 3 - moves the whole chart to a new location
 
       },
-      initRidges(svg, data_nest, days, gages, x_start, x_end,  y_start, y_end, data_max, z_dist){
+      initRidges(svg, ridge_class, data_nest, days, x_start, x_end,  y_start, y_end){
         const self = this;
         let overlap = 3;
 
@@ -255,24 +261,13 @@ export default {
           .call(this.d3.axisBottom(x)
               .ticks(this.width / 60)
               .tickSizeOuter(0))
+
         var yAxis = g => g
           .attr("transform", `translate(${0},-2)`)
           .call(this.d3.axisLeft(y).tickSize(0).tickPadding(4))
-          //.call(g => g.select(".domain").remove())
-
         // append axes
-        svg.append("g").classed("axis", true).call(xAxis);
-        svg.append("g").classed("axis", true).call(yAxis);
-
-        // z = the y axis within each group - mmd
-/*         var z = this.d3.scaleLinear()
-          .domain([0, this.d3.max(data_max, d => this.d3.max(d.mmd))]).nice()
-          .range([0, -overlap * y.step()])
- */
-          // z = the y axis within each group - mmd
-        var z = this.d3.scaleLinear()
-          .domain([25, 0]).nice()
-          .range([y_start, y_end])
+        svg.append("g").classed("xaxis", true).classed(ridge_class, true).call(xAxis);
+        svg.append("g").classed("yaxis", true).classed(ridge_class, true).call(yAxis);
 
         // define area chart parameters
         this.area = this.d3.area()
@@ -280,9 +275,10 @@ export default {
           .defined(d => !isNaN(d))
           .x((d, i) => x(days[i]))
           .y0(0)
-          .y1(d => z(d))
+          .y1(d => y(d))
           
-        this.line = this.area.lineY1();
+        this.line = this.area.lineY1()
+          .defined(d => !isNaN(d));
         
         var colorStack = this.d3.scaleOrdinal()
         .domain(["site_6614800", "site_9063900","site_9034900","site_9035500","site_6746095",
@@ -294,33 +290,152 @@ export default {
                 "gold","gold","gold","gold","gold","yellow","yellow","yellow","yellow","yellow"])
 
       // append g for each ridgeline/site_no
-        this.group = svg.append("g").classed("ridgelines", true)
+        this.group = svg.append("g")
+          .classed(ridge_class, true).classed("curve", true)
           .selectAll("g")
           .data(data_nest)
-          .join("g").classed("ridge", true)
-          .attr("transform", d => `translate(0,0)`);
+          .join("g")
+          .attr("transform", d => `translate(0,0)`)
 
+/* 
         this.group.append("path")
           .attr("fill", "dodgerblue")
-          .attr("d", d => self.area(d.mmd))
-          .attr("opacity", 0); //#5C3406", "#C28D3D", "#ECD8A6", "#F0F0E6", "#AADDD6","#2A8C83", "#004439"]
-
+          .attr("d", d => this.area(d.mmd))
+          .attr("opacity", 1); //#5C3406", "#C28D3D", "#ECD8A6", "#F0F0E6", "#AADDD6","#2A8C83", "#004439"]
+ */
         this.group.append("path")
           .attr("fill", "none")
           .attr("stroke", "dodgerblue")
           .attr("d", d => this.line(d.mmd))
           .attr("stroke-width", "1px")
           .attr("stroke", function(d) { return colorStack(d.key)})
+          .attr("class", function(d) { return d.key })
+          .classed("ridge", true);
+
+          
+        this.y2011 = this.svgboth.selectAll("g.ridge_2011")
+        this.y2012 = this.svgboth.selectAll("g.ridge_2012")
+
+          self.stackRidges();
+          self.shiftRidges(svg, days);
+          self.spreadRidges();
 
       },
       stackRidges(){
 
+        this.y2011.selectAll("path.ridge")
+          .transition()
+          .delay(function(d,i) { return i*20 })
+          .duration(500)
+          .attr("transform", "translate(0," + (this.height/2+(this.height/2)*0.05) + ")" )
+
+      },
+      shiftRidges(svg, days){
+        const self = this;
+        var x_long = this.width-(this.margin*3);
+        var mid = x_long/2;
+        var mar = mid*0.05
+
+        var xhalfL = this.d3.scaleLinear()
+          .domain([1,365])
+          .range([0, mid-5]);
+
+        var xhalfR = this.d3.scaleLinear()
+          .domain([1,365])
+          .range([mid+5, x_long]);
+
+        var y = this.d3.scaleLinear()
+          .domain([25, 0]).nice()
+          .range([this.margin, this.height])
+
+        var xAxisL = g => g
+          .attr("transform", `translate(0,${this.height+5})`)
+          .call(this.d3.axisBottom(xhalfL)
+              .ticks(this.width / 60)
+              .tickSizeOuter(0))
+
+         var xAxisR = g => g
+          .attr("transform", `translate(0,${this.height+5})`)
+          .call(this.d3.axisBottom(xhalfR)
+              .ticks(this.width / 60)
+              .tickSizeOuter(0))
+
+        var yAxisTall = g => g
+          .attr("transform", `translate(${0},-2)`)
+          .call(this.d3.axisLeft(y).tickSize(0).tickPadding(4))
+
+        // transform axes
+        this.d3.select(".xaxis.ridge_2011")
+        .transition()
+        .duration(1000)
+        .delay(2000)
+        .call(xAxisL);
+
+        this.d3.select(".xaxis.ridge_2012")
+        .transition()
+        .duration(1000)
+        .delay(2000)
+        .call(xAxisR);
+
+        this.d3.select(".yaxis.ridge_2012")
+        .transition()
+        .duration(1000)
+        .delay(2000)
+        .call(yAxisTall);
+
+        this.d3.select(".yaxis.ridge_2011")
+        .transition()
+        .duration(1000)
+        .delay(2000)
+        .call(yAxisTall);
+
+        this.d3.selectAll("g.ridge_2011.curve")
+        .transition()
+        .delay(2000)
+        .duration(1000)
+        .attr("transform", "translate(0, 0) scale(.49, 1)")
+
+         this.d3.selectAll("g.ridge_2012.curve")
+        .transition()
+        .delay(2000)
+        .duration(1000)
+        .attr("transform", "translate(270, 0) scale(.49, 1)")
+
+      },
+      spreadRidges(){
+     // spread ridge
+        this.d3.selectAll("g.ridge_2011.curve g")
+        .transition()
+        .delay(3000)
+        .duration(1000)
+        .attr("transform", function(d, i) { 
+          return "translate(0," + (30+i*-10)  + ") scale(1, .9)"
+        })
+
+          this.d3.selectAll("g.ridge_2012.curve g")
+        .transition()
+        .delay(3000)
+        .duration(1000)
+        .attr("transform", function(d, i) { 
+          return "translate(0," + (30+i*-10) + ") scale(1, .9)"
+        })
+
+        this.d3.selectAll("g.yaxis g")
+        .transition()
+        .duration(1000)
+        .delay(3000)
+        .attr("opacity", 0)
+        
+
+        
+
+
       },
       drawHydro(svg, data_nest, days, gage_sp, x_start, x_end, data_max){
-       
+       const self = this;
 
         // append g for each ridgeline/site_no
-        this.group = svg.append("g").classed("ridge", true)
+        this.group = svg.append("g").attr("class", function(d) { return d.key })
           .selectAll("g")
           .data(data_nest)
           .join("g")
@@ -337,7 +452,7 @@ export default {
           .attr("fill", "none")
           .attr("stroke",function(d) { return colorStack(d.key)})
           .attr("d", d => self.line(d.mmd))
-          .attr("stroke-width", "1px");
+          .attr("stroke-width", "1.5px");
 
         // add swe
          var z_swe = this.d3.scaleLinear()
