@@ -92,7 +92,7 @@ picture{
   transition: filter 0.5s;
 }
 .lazy{
-  filter: blur(20px);
+  filter: blur(50px);
 }
 .overlay{
     position: absolute;
