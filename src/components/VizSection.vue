@@ -9,11 +9,21 @@
       <div class="aboveExplanation explanation">
         <slot name="aboveExplanation" />
       </div>
-      <div class="figures">
-        <slot name="figures"></slot>
+      <div
+        v-if="figures"
+        class="figures"
+      >
+        <slot name="figures">
+          Figure(s)
+        </slot>
       </div>
-      <div class="figureCaption">
-        <slot name="figureCaption"></slot>
+      <div
+        v-if="figCaption"
+        class="figureCaption"
+      >
+        <slot name="figureCaption">
+          Figure Caption
+        </slot>
       </div>
       <div class="belowExplanation explanation">
         <slot name="belowExplanation" />
@@ -23,7 +33,17 @@
 </template>
 <script>
 export default {
-    name: "VizSection"
+    name: "VizSection",
+    props:{
+        figCaption:{
+          type: Boolean,
+          default: true
+        },
+        figures:{
+          type: Boolean,
+          default: true
+        }
+    }
 }
 </script>
 <style scoped lang="scss">
@@ -67,6 +87,9 @@ $border: 10px solid #000;
 .explanation{
   font-size: 1.125em;
   line-height: 1.75em;
+  p{
+    padding: 0 0 10px 0;
+  }
 }
 /*#####SHARED CSS#####*/
 .takeAway,
