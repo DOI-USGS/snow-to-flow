@@ -5,7 +5,7 @@
   >
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>Today is an important day in the world of snow hydrology.</h2>
+      <h2>Snowmelt season has already begun.</h2>
     </template>    
     <!-- EXPLANATION -->
     <template v-slot:aboveExplanation>
@@ -1448,7 +1448,7 @@
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
-      <p>Transition from the significance of April 1st to explain...well, how do we actually measure that?</p>
+      <p>Find what snowpack has looked like this year in SNOTEL monitoring locations across the country.</p>
       <p>Cheeseburger cut the cheese taleggio. Emmental croque monsieur mascarpone red leicester blue castello airedale everyone loves st. agur blue cheese. Cottage cheese cheese strings ricotta babybel cheeseburger queso manchego fromage. Paneer pepper jack cheese slices halloumi cream cheese jarlsberg chalk and cheese everyone loves. Smelly cheese stinking bishop cheesy grin pepper jack.</p>
     </template>
   </VizSection>

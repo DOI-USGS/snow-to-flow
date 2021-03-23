@@ -318,20 +318,21 @@ export default {
            group.append("path")
               .attr("fill", "none")
               .attr("stroke", "black")
-              .attr("d", d => line(d.mmd));  
- */
-     /*          var allmmd = [];
-              for (i = 1; i < n; i++) {
-                  var key = sites[i];
-                  var mmd = data.map(function(d){  return d[key]; });
-                  var day = data.map(function(d){  return d['site_water_day']; });
-                  allmmd.push({key: key, mmd: mmd, day:day})
-              };
-              console.log(allmmd);
+              .attr("d", d => line(d.mmd)); 
 
-              var line = this.d3.line()
-              .x(function(d)  { return x(d.day);})
-              .y(function(d) {  return y(d.mmd)})
+              this.svg.selectAll("areas")
+                .data(data)
+                .enter()
+                .append("path")
+                  .attr("transform", function(d){ return("translate(0," + (yName(d.site_no)-height)+")" )})
+                  .datum(function(d){return(d.mmd)})
+                  .attr("fill", "red")
+                  .attr("stroke-width", 1)
+                  .attr("d",  this.d3.line()
+                      .curve(this.d3.curveBasis)
+                      .x(function(d) { return x(d[0]); })
+                      .y(function(d) { return y(d[1]); })
+                  )
 
               this.svg.selectAll(".areas")
                 .data(allmmd).enter()

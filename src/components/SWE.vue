@@ -1,9 +1,9 @@
 <template>
   <!---VizSection-->
-  <VizSection id="firstSection">
+  <VizSection id="swe-line-chart">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>Snowpack hints at the upcoming meltwater availability.</h2>
+      <h2>Each year, scientists find relationships between a snowpack curve and discharge at a streamgage downstream.</h2>
     </template>
     <!-- FIGURES -->
     <template v-slot:aboveExplanation>
@@ -12,6 +12,14 @@
       <Sidebar>
         <template v-slot:sidebarTitle>
           What is SWE?
+        </template>
+        <template v-slot:sidebarMessage>
+          <p>Pork tenderloin turducken, tri-tip ribeye shoulder pancetta. T-bone kevin porchetta, shoulder sirloin boudin spare ribs filet mignon bresaola chicken corned beef frankfurter biltong. Jerky brisket pig, meatball beef flank bresaola landjaeger. Tenderloin beef pork loin andouille flank t-bone tri-tip chislic porchetta. Pork loin frankfurter spare ribs chuck short ribs.</p>
+        </template>
+      </Sidebar>
+      <Sidebar>
+        <template v-slot:sidebarTitle>
+          What is Discharge?
         </template>
         <template v-slot:sidebarMessage>
           <p>Pork tenderloin turducken, tri-tip ribeye shoulder pancetta. T-bone kevin porchetta, shoulder sirloin boudin spare ribs filet mignon bresaola chicken corned beef frankfurter biltong. Jerky brisket pig, meatball beef flank bresaola landjaeger. Tenderloin beef pork loin andouille flank t-bone tri-tip chislic porchetta. Pork loin frankfurter spare ribs chuck short ribs.</p>
@@ -29,7 +37,10 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        The snowpack at SNOTEL Site 838 in (Location) shows a significant difference in snowpack from the winter of 2011 - a big year for snow.  2012 however was a very low snow year, with some early intermittent melting.
+        The snowpack at the <a
+          href="https://wcc.sc.egov.usda.gov/nwcc/site?sitenum=838"
+          target="_blank"
+        >University Camp SNOTEL Site 838</a> in Boulder Colorado shows a significant difference in snowpack from the winter of 2011 - a big year for snow.  2012 however was a very low snow year, with some early intermittent melting.
         While peak SWE gives us a snapshot of interannual variation in snow, intra-annual variation in the timing and magnitude is much more complex.
       </p>
     </template>
