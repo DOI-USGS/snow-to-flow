@@ -97,12 +97,14 @@
   }
   .slider-image-container {
     display: block;
-    height: 15vh;
-    width: auto;
+    height: auto;
+    width: 30vw;
     object-fit: contain;
+    margin: auto;
     img {
-      height: 100%; 
-      width: auto;
+      height: auto; 
+      width: 100%;
+      margin: auto;
     }
   }
 </style>
