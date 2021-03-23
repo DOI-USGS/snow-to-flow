@@ -14,6 +14,7 @@ num <- function(x)length(unique(na.omit(x)))
 
 # metadata for all SNOTEL sites
 meta <- grabNRCS.meta('SNTL')
+
 sntl_meta <- meta$SNTL %>% 
   mutate(sntl_id = site_id, site_id = gsub("SNTL:", "", site_id)) %>%
   distinct(sntl_id, site_id, wyear, start, enddate) %>% 
@@ -81,7 +82,6 @@ for (i in 1:length(site_list)) {
 ## 1981-2010 POR is not available for all sites for historic comparison
 ## but still want all data for each site to build trend line of peak SWE and melt sm50
 
-
 get_SWE_hist <- function(site) {
   
   site_meta <- sntl_meta %>% filter(site_id == site)
@@ -99,8 +99,7 @@ get_SWE_hist <- function(site) {
     
     sntl_clean <- clean_SWE(today = sntl) %>% mutate(site_id = sitey)
     write.csv(sntl_clean, sprintf('1_fetch/out/SNOTEL/swe_hist_%s.csv', sitey),row.names=FALSE)
-    #return(sntl_clean)
-    
+
   }
 }
 
