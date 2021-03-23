@@ -1,9 +1,44 @@
-# export svg paths  -------------------------------------------------------
 
-half_info <- read.csv('out/historical_trends.csv')%>%filter(water_year > 1980)
-half_info
+# export svgs for SNOTEL map ----------------------------------------------
 
 library(rvest);library(xml2)
+library(sf);library(rmapshaper)
+
+# find site coords for map ------------------------------------------------
+
+wy_stats <-read.csv('2_process/out/SNOTEL_stats_2021.csv')
+
+proj_conus <-'+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs'
+proj_ak  <- '+proj=aea +lat_1=55 +lat_2=65 +lat_0=50 +lon_0=-154 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs'
+
+# areas not included in conus map
+state_no <- c('Alaska','Guam','Hawaii','Puerto Rico','American Samoa', 'Commonwealth of the Northern Mariana Islands', "United States Virgin Islands")
+
+#filter and reproject to states of interest
+usa <- st_read('1_fetch/out/cb_2018_us_state_5m/cb_2018_us_state_5m.shp') %>% 
+  st_transform(proj_conus) %>% 
+  ms_simplify(keep=.2) %>% 
+  st_buffer(0) %>%
+  filter(!(NAME %in%state_no))
+
+alaska <- st_read('1_fetch/out/cb_2018_us_state_5m/cb_2018_us_state_5m.shp') %>% 
+  st_transform(proj_ak) %>% 
+  ms_simplify(keep=.2) %>% 
+  st_buffer(0) %>%
+  filter(NAME == 'Alaska')
+
+# export svg trend paths  -------------------------------------------------
+
+## create d paths for trend lines of peak SWE, SM50, and WY2021, store in csv to call on mouseover event
+
+hist_files <- list.files('1_fetch/out/SNOTEL', pattern="hist", full.names=TRUE)
+wy_files <- list.files('1_fetch/out/SNOTEL', pattern="wy2021", full.names=TRUE)
+
+# read in and combine all data
+hist_data <- lapply(hist_files, read_csv) %>% bind_rows()
+wy_data <- lapply(wy_files, read_csv) %>% bind_rows()
+all_data <- rbind(hist_data, wy_data)
+
 
 ## output dimensions
 ## creating a chart with many ovelrapping lines
@@ -81,9 +116,7 @@ for  (i in unique(half_info$site_id)){
 svg_root <- init_svg(viewbox_dims = c(0, 0, svg_width=svg_w, svg_height=svg_h))
 
 for (i in unique(half_info$site_id)){
-  
   df_site <- df_out %>%filter(id == sprintf("sntl_%s", i))
-  
   xml_add_child(svg_root, "path",class = sprintf('sntl_%s', i), d = df_site$d_peak)
 }
 
