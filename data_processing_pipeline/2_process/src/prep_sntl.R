@@ -89,16 +89,12 @@ num(all_data$site_id) # 846
 ## calculate annual metrics
 all_stat <- calc_yr_stats(all_data)
 num(all_stat$site_id) # 846
-str(all_stat)
 
 wy21<-all_stat%>%filter(water_year == 2021)
 num(wy21$site_id) #835
-str(wy21)
 
+## list of duplicate sites due to dealing with 2021 wy above
 dubs<-wy21%>%group_by(site_id)%>%summarize(n=length(site_id))%>%filter(n>1)
-
-wy21%>%filter(site_id %in% dubs$site_id)%>%arrange(site_id)
-
 
 # find percentile of Apr 1st / given date ---------------------------------
 
@@ -157,4 +153,8 @@ wy_stats <- all_stat %>%
 str(wy_stats)
 
 write_csv(wy_stats, '2_process/out/SNOTEL_stats_2021.csv')
+
+str(all_stat)
+write_csv(all_stat, '2_process/out/SNOTEL_stats_POR.csv')
+
 ## add trend d paths for peak, sm50, 2021 SWE
