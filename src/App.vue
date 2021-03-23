@@ -71,7 +71,7 @@ $skyBlue: #7AC3FF;
 $deepBlue:#005AA3;
 $lightGrey: #c2c4c5;
 $darkGrey: #212122;
-$familyMain: 'Source Sans Pro', sans-serif;
+$familyMain: 'Public sans', sans-serif;
 $familySerif:  'Noto Serif', serif;
 
 // Type
@@ -271,7 +271,7 @@ p {
   font-weight:800;
   fill: white;
   font-family: $familyMain;
-  background: linear-gradient(180deg,rgba(255,255,255,0) 70%, $skyBlue 30%);
+  background: linear-gradient(180deg,rgba(255,255,255,0) 70%, rgba(136, 45, 221, 0) 30%);
   line-height: 1.3em;
   margin: 0 2px;
   padding: 0 2px;
