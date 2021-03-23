@@ -71,7 +71,7 @@ $skyBlue: #7AC3FF;
 $deepBlue:#005AA3;
 $lightGrey: #c2c4c5;
 $darkGrey: #212122;
-$familyMain: 'Source Sans Pro', sans-serif;
+$familyMain: 'Public sans', sans-serif;
 $familySerif:  'Noto Serif', serif;
 
 // Type
@@ -82,17 +82,17 @@ body {
       padding: 0;
       color: $nearBlack;
       background-color: white;
-      line-height: 1.4;
-      font-size: 12pt;
-      font-family: $familyMain;
+      line-height: 1.2;
+      font-size: 16px;
+      font-family:$familySerif;
       font-weight: 300;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       width: 100%;
   }
 h1{
-  font-size: 4em;
-  font-weight: 400;
+  font-size: 3em;
+  font-weight: 600;
   font-family: $familyMain;
   line-height: 1;
   text-align: left;
@@ -104,12 +104,12 @@ h1{
 
 h2{
   color: $darkGrey;
-  font-weight: 800;
+  font-weight: 600;
   text-align: left;
   font-family:$familyMain;
-  font-size: 1.8em;
+  font-size: 1.5em;
   margin-top: 5px;
-  line-height: 1.3;
+  line-height: 1.2;
   @media screen and (max-width: 600px) {
     font-size: 2em;
   }
@@ -133,8 +133,8 @@ p {
   padding-top: 0vh;
   margin: 0;
   font-family: $familyMain;
-  font-size: 6em;
-  font-weight: 700;
+  font-size: 2em;
+  font-weight: 600;
   text-align: center;
   line-height: 1;
   overflow-x: hidden;
@@ -142,15 +142,6 @@ p {
     font-size: 5em;
     padding: 0 20px 0 20px;
   }
-}
-.big-statement {
-  font-size: 2.75em;
-  font-family: $familyMain;
-  font-weight: 700;
-  max-width: 670px;
-  fill: black;
-  color: $skyBlue;
-  text-align: left;
 }
 
 .byline {
@@ -280,7 +271,7 @@ p {
   font-weight:800;
   fill: white;
   font-family: $familyMain;
-  background: linear-gradient(180deg,rgba(255,255,255,0) 70%, $skyBlue 30%);
+  background: linear-gradient(180deg,rgba(255,255,255,0) 70%, rgba(136, 45, 221, 0) 30%);
   line-height: 1.3em;
   margin: 0 2px;
   padding: 0 2px;

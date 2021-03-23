@@ -3,7 +3,7 @@
   <VizSection id="diagrams-normal">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>How much snow (magnitude) and how late into the year it sticks around (timing) matter for making meltwater available for water use.</h2>
+      <!-- <h2>How much snow (magnitude) and how late into the year it sticks around (timing) matter for making meltwater available for water use.</h2> -->
     </template>
     <template v-slot:aboveExplanation>
       <p>How snow turns into flow is dependent on a few dynamics.  Explain the forcings in plain language: it matters how much snow there is, how long into the spring it lasts, and whether it melts bit by bit or all at once</p>
