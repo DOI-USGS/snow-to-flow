@@ -30,7 +30,7 @@
           >
         </figure>
       </div> -->
-      <DiagramCarouselHigh/>
+      <DiagramCarouselHigh />
     </template>
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
