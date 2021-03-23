@@ -10,7 +10,7 @@
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
-      <div class="group two maxWidth diagram">
+      <!-- <div class="group two maxWidth diagram">
         <figure id="bad-snow">
           <img 
             id="diagram-bad-winter"
@@ -29,12 +29,13 @@
             loading="lazy"
           >
         </figure>
-      </div>
+      </div> -->
+      <DiagramCarouselLow />
     </template>
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        With global changes in precipitation and temperature, snowmelt and sublimintation can occur at accelerated rates leading to lower levels of streamflow.
+        Click to enlarge. With global changes in precipitation and temperature, snowmelt and sublimintation can occur at accelerated rates leading to lower levels of streamflow.
       </p>
     </template>
     <!-- EXPLANATION -->
@@ -45,10 +46,12 @@
 </template>
 <script>
 import VizSection from '@/components/VizSection';
+import DiagramCarouselLow from '@/components/DiagramCarouselLow';
 export default {
     name: "DiagramsLow",
     components:{
-        VizSection
+        VizSection,
+        DiagramCarouselLow
     }
 }
 </script>
