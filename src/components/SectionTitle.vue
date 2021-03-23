@@ -5,11 +5,11 @@
       :height="height"
       :style="chaptersVars"
     >
-      <!-- <div class="chapterTitle">
+      <div class="chapterTitle">
         <slot name="chapterTitle">
           Chapter Title
         </slot>
-      </div> -->
+      </div>
       <div
         class="bg"
         :style="overlayVars"
