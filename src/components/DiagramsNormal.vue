@@ -10,7 +10,7 @@
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
-      <div class="group two maxWidth">
+      <!-- <div class="group two maxWidth">
         <figure id="good-snow">
           <img 
             id="diagram-good-winter"
@@ -29,7 +29,8 @@
             loading="lazy"
           >
         </figure>
-      </div>
+      </div> -->
+      <DiagramCarouselNormal/>
     </template>
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
@@ -45,12 +46,14 @@
 </template>
 <script>
 import VizSection from '@/components/VizSection';
-import Fig from '@/components/Figure';
+import DiagramCarouselNormal from '@/components/DiagramCarouselNormal';
+// import Fig from '@/components/Figure';
 
 export default {
-    name: "DiagramsNorAl",
+    name: "DiagramsNormal",
     components:{
-        VizSection
+        VizSection,
+        DiagramCarouselNormal
     }
 }
 </script>

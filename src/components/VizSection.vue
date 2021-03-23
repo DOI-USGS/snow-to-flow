@@ -10,14 +10,10 @@
         <slot name="aboveExplanation" />
       </div>
       <div class="figures">
-        <slot name="figures">
-          Figure(s)
-        </slot>
+        <slot name="figures"></slot>
       </div>
       <div class="figureCaption">
-        <slot name="figureCaption">
-          Figure Caption
-        </slot>
+        <slot name="figureCaption"></slot>
       </div>
       <div class="belowExplanation explanation">
         <slot name="belowExplanation" />
