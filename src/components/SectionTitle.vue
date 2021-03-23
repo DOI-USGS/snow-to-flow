@@ -6,9 +6,9 @@
       :style="chaptersVars"
     >
       <div class="chapterTitle">
-     <!--    <slot name="chapterTitle">
+        <slot name="chapterTitle">
           Chapter Title
-        </slot> -->
+        </slot>
       </div>
       <div
         class="bg"
