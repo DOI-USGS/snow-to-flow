@@ -55,7 +55,7 @@ export default {
         },
         overlayOpacity:{
             type: Number,
-            default: .3
+            default: .1
         }
     },
     computed:{
@@ -98,7 +98,7 @@ picture{
     position: absolute;
     width: 100%;
     height: 100%;
-    background: #000;
+    background: #fff;
     opacity: var(--overlay-opacity);
     top:0;
     left: 0;

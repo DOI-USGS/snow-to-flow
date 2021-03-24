@@ -1,83 +1,71 @@
 <template>
-  <div class="maxWidth">
+  <div class="carouselContainer">
     <carousel
+      id="diagrams-high"
       class="image-slider"
       :autoplay="true"
       :autoplay-hover-pause="true"
       :per-page="3"
     >
+      <!-- Slide One -->
       <slide class="slide">
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/methods/drone_1200w.jpg"
+              srcset="@/assets/diagrams/Diagrams_normal-winter.jpg"
               media="(max-width: 992px)"
-              type="image/png"
+              type="image/jpg"
             >
             <img 
-              id="field1"
-              v-img:group
-              src="@/assets/methods/drone_1200w.jpg"
-              alt="Collecting snow depth data in the field"
+              id="diagram-high-winter"
+              v-img:diagram-high
+              src="@/assets/diagrams/Diagrams_normal-winter.jpg"
+              alt="Diagram of a mountain watershed covered in snow in winter"
               loading="lazy"
             >
           </picture>
         </div>
       </slide>
+
+      <!-- Slide Two -->
       <slide class="slide">
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/methods/ground_truth.png"
+              srcset="@/assets/diagrams/Diagrams_normal-early-spring.jpg"
               media="(max-width: 992px)"
-              type="image/png"
+              type="image/jpg"
             >
             <img 
-              id="field2"
-              v-img:group
-              src="@/assets/methods/ground_truth.png"
-              alt="Collecting snow depth data in the field"
+              id="diagram-high-early-spring"
+              v-img:diagram-high
+              src="@/assets/diagrams/Diagrams_normal-early-spring.jpg"
+              alt="Diagram of a mountain watershed covered in snow in early spring"
               loading="lazy"
             >
           </picture>
         </div>
       </slide>
+      <!-- Slide Three -->
       <slide class="slide">
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/methods/snow_pit.png"
+              srcset="@/assets/diagrams/Diagrams_normal-late-spring.jpg"
               media="(max-width: 992px)"
               type="image/png"
             >
             <img 
-              id="field3"
-              v-img:group
-              src="@/assets/methods/snow_pit.png"
-              alt="Collecting snow depth data in the field"
+              id="diagram-high-late-spring"
+              v-img:diagram-high
+              src="@/assets/diagrams/Diagrams_normal-late-spring.jpg"
+              alt="Diagram of a mountain watershed covered in snow in late spring"
               loading="lazy"
             >
           </picture>
         </div>
       </slide>
-      <slide class="slide">
-        <div class="slider-image-container">
-          <picture>
-            <source
-              srcset="@/assets/images/snow-img1.png"
-              media="(max-width: 992px)"
-              type="image/png"
-            >
-            <img 
-              id="field4"
-              v-img:group
-              src="@/assets/images/snow-img1.png"
-              alt="Collecting snow depth data in the field"
-              loading="lazy"
-            >
-          </picture>
-        </div>
-      </slide>
+      <!-- Add more slides here if necessary -->
     </carousel>
   </div>
 </template>
@@ -86,7 +74,7 @@
     import { Carousel, Slide } from 'vue-carousel';
 
     export default {
-        name: 'ImgCarousel',
+        name: 'DiagramCarouselHigh',
         components:{
             Carousel,
             Slide
@@ -108,14 +96,15 @@
     }
   }
   .slider-image-container {
-    padding: 10px;
     display: block;
-    height: 400px;
-    width: auto;
+    height: auto;
+    width: 30vw;
     object-fit: contain;
+    margin: auto;
     img {
-      height: 400px; 
-      width: auto;
+      height: auto; 
+      width: 100%;
+      margin: auto;
     }
   }
 </style>
