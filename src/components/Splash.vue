@@ -222,7 +222,7 @@ export default {
             this.$gsap.registerPlugin(ScrollToPlugin, ScrollTrigger); // register gsap plugins for scrollTrigger 
                 ScrollTrigger.matchMedia({
                     //desktop 
-                    "(min-width: 800px)": function(){
+                    "(min-width: 800px) and (max-width: 2619px)": function(){
                         self.$gsap.timeline({
                             scrollTrigger:{
                                 trigger: ".splash",
@@ -236,6 +236,21 @@ export default {
                         .fromTo("#people", {yPercent: 17}, {yPercent: -11}, 0)
                         .fromTo("#water", {yPercent: 15}, {yPercent: -10}, 0)
                         .fromTo("#mountains", {yPercent: 10}, {yPercent: -2}, 0)
+                    },
+                    "(min-width: 2620px)": function(){
+                        self.$gsap.timeline({
+                            scrollTrigger:{
+                                trigger: ".splash",
+                                start: "top top",
+                                end:`bottom center`,
+                                scrub: true
+                            }
+                        })
+                        .fromTo("#more-clouds", {yPercent: 2}, {yPercent: -40}, 0)
+                        .fromTo("#clouds", {yPercent: 20}, {yPercent: -10}, 0)
+                        .fromTo("#people", {yPercent: 17}, {yPercent: -11}, 0)
+                        .fromTo("#water", {yPercent: 15}, {yPercent: -10}, 0)
+                        .fromTo("#mountains", {yPercent: 0}, {yPercent: 0}, 0)
                     }
                 })
         }
@@ -282,7 +297,7 @@ export default {
     height: 100%;
 }
 .element img{
-    object-fit: contain;
+    object-fit: cover;
     object-position: center;
     width: 100%;
     height: 100%;
@@ -299,18 +314,9 @@ export default {
 #clouds{
     z-index: 25;
     height: 125%;
-    // display: none;
 }
 #more-clouds {
-   z-index: 30;
+  z-index: 30;
   height: 125%;
-}
-.cover {
-  object-fit: cover;
-}
-@media screen and (min-width:800px){
-    #clouds{
-        display: block;
-    }
 }
 </style>
