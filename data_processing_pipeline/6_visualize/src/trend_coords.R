@@ -3,7 +3,7 @@
 
 library(xml2)
 library(sf);library(rmapshaper)
-library(tidyverse)
+library(tidyverse);library(reshape2)
 
 # generate svg trend paths  -------------------------------------------------
 
@@ -19,7 +19,7 @@ build_path_from_coords <- function(coords) {
   first_pt_y <- head(coords$y, 1)
   d <- sprintf("M%s %s %s", first_pt_x, head(coords$y, 1),
                paste0("L", c(tail(coords$x, -1)), " ", 
-                      c(tail(coords$y, -1), first_pt_y), collapse = " "))
+                      c(tail(coords$y, -1)), collapse = " "))
   return(d)
 }
 
@@ -44,7 +44,7 @@ convert_trend_to_svg <- function(obj, svg_width, svg_height, ymax, ymin, xmin, x
   )
   
 }
-
+## some small error with function above not working for points...
 convert_pt_to_svg <- function(obj, svg_width, svg_height, ymax, ymin, xmin, xmax) {
   coords <- obj
   x_dec <- coords[,'x']
@@ -134,10 +134,8 @@ for  (i in unique(all_stat$site_id)){
 ## sizing of the mini plot that pops up
 wy_files <- list.files('1_fetch/out/SNOTEL', pattern="wy2021", full.names=TRUE)
 wy_data <- lapply(wy_files, read_csv) %>% bind_rows()
-str(wy_data)
 
 wy_stats <- read_csv('2_process/out/SNOTEL_stats_2021.csv')
-str(wy_stats)
 
 year_w <- 200
 year_h <- 200
@@ -185,19 +183,25 @@ for  (i in unique(wy_data$site_id)){
 # bind to site coordinates and export -------------------------------------
 
 ## add back to site-level coordinate data linked to mouseover effect
-## so this datasheet has literally everything in it
+## so this datasheet has literally everything in it for the map
 read.csv('2_process/out/SNOTEL_conus.csv') %>%
+  mutate(sntl_id  = gsub("SNTL:", "sntl_", sntl_id)) %>%
   left_join(df_out)%>%
   left_join(df_swe) %>% 
   write_csv("6_visualize/out/SNOTEL_conus_d.csv")
 
 read.csv('2_process/out/SNOTEL_ak.csv') %>%
+  mutate(sntl_id  = gsub("SNTL:", "sntl_", sntl_id)) %>%
   left_join(df_out)%>%
   left_join(df_swe) %>% 
   write_csv("6_visualize/out/SNOTEL_ak_d.csv")
-list.files("/src")
 
 file.copy("6_visualize/out/SNOTEL_conus_d.csv",
-          "C:/Users/cnell/Documents/Projects/snow-to-flow/public/data/SNOTEL_conus_d.csv")
+          "C:/Users/cnell/Documents/Projects/snow-to-flow/public/data/SNOTEL_conus_d.csv",
+          overwrite = TRUE)
 file.copy("6_visualize/out/SNOTEL_ak_d.csv",
-          "C:/Users/cnell/Documents/Projects/snow-to-flow/public/data/SNOTEL_ak_d.csv")
+          "C:/Users/cnell/Documents/Projects/snow-to-flow/public/data/SNOTEL_ak_d.csv",
+          overwrite = TRUE)
+
+conus <- read_csv("6_visualize/out/SNOTEL_conus_d.csv")
+str(conus)
