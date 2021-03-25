@@ -244,6 +244,6 @@ xy_ak <- sntl_ak %>%
 sntl_sites <- rbind(xy_conus, xy_ak) %>% distinct()
 glimpse(sntl_sites) # 835 sites
 
-xy_conus %>% write.csv('C:/Users/cnell/Documents/Projects/snow-to-flow/public/data/conus_sites.csv', row.names=FALSE)
-xy_ak %>% write.csv('C:/Users/cnell/Documents/Projects/snow-to-flow/public/data/ak_sites.csv', row.names=FALSE)
+xy_conus %>% write.csv('6_visualize/out/conus_sites.csv', row.names=FALSE)
+xy_ak %>% write.csv('6_visualize/out/ak_sites.csv', row.names=FALSE)
 
