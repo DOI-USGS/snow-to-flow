@@ -1468,7 +1468,7 @@ export default {
               publicPath: process.env.BASE_URL,
               d3: null,
 
-              sntl_variable: "ptile", // map site colors
+              sntl_variable: "ptile_swe", // map site colors
 
               sntl_data: [], // sntl data
               ak_data: [],
@@ -1483,18 +1483,7 @@ export default {
             // variables of interest for map - could toggle
               site_vars: {
                 swe: 'swe',
-                NRCS: 'mean',
-                diff_peak: 'diff_peak',
-                diff_sm50: 'diff_sm50',
-                perd_peak: 'perd_peak',
-                perd_sm50: 'perd_sm50',
-                perpast_peak: 'perpast_peak',
-                perpast_sm50: 'perpast_sm50',
-                anom_peak: 'anom_peak',
-                anom_sm50: 'anom_sm50',
-                ptile: 'ptile', 
-                today_diff: 'today_diff',
-                today_anomaly: 'today_anomaly'
+                ptile: 'ptile_swe'
                 },
 
               // chart opts
@@ -1539,15 +1528,20 @@ export default {
         // read in data 
         let promises = [self.d3.csv(self.publicPath + "data/conus_coord.csv", this.d3.autoType), // conus 
         self.d3.csv(self.publicPath + "data/ak_coord.csv", this.d3.autoType),
-        self.d3.csv(self.publicPath + "data/diff_20210304.csv", this.d3.autoType)]; // aggregate trend metics
+        self.d3.csv(self.publicPath + "data/diff_20210304.csv", this.d3.autoType),
+        self.d3.csv(self.publicPath + "data/SNOTEL_conus_d.csv", this.d3.autoType),
+        self.d3.csv(self.publicPath + "data/SNOTEL_ak_d.csv", this.d3.autoType)]; 
         Promise.all(promises).then(self.callback); 
       },
       callback(data) {
         const self  = this;
         // org data
-        this.sntl_data = data[0]; // has key and x and y positioning with sparkline paths
-        this.ak_data = data[1]; // has key and x and y positioning with sparkline paths
+        //this.sntl_data = data[0]; // has key and x and y positioning with sparkline paths
+        //this.ak_data = data[1]; // has key and x and y positioning with sparkline paths
         this.diff = data[2]; // combined trend metrics and site vars
+        this.sntl_data = data[3];
+        this.ak_data = data[4];
+
         // site groupings for svgs 
         this.sntl_sites = this.sntl_map.append("g").classed("sites", true)
         this.ak_sites = this.ak_map.append("g").classed("sites", true)
@@ -1567,7 +1561,6 @@ export default {
         // nudge ak sites for repositioning 
         this.ak_sites.attr("transform", "translate(0,100)")
       },
-
       makeTrend(){
         // scatterplot
         const self = this;
@@ -1658,9 +1651,18 @@ export default {
             .attr("transform", "rotate(-90) translate(-200, -110)")
             .text("SWE"); */
       },
+      bouncer(arr) {
+          var array = arr.filter(function(val){
+            return val;
+          });
+          return array;
+        },
       addSites(x_max, y_max, sites, data) {
         // adds sites to AK and CONUS maps, triggers color function
         const self = this;
+
+        let data_filt = data.filter(site => site.ptile_swe > -1); // data with swe percentiles
+        let data_not = data.filter(site => isNaN(site.ptile_swe)); // data with swe percentiles
 
         // axis scales
         this.xScale = this.d3.scaleLinear()
@@ -1673,32 +1675,47 @@ export default {
 
         // draw sites
         sites.selectAll("SNTL")
-        .data(data, function(d) { return d.site_id; }) // the key for each  site for updating data
+        .data(data_filt, function(d) { return d.site_id; }) // the key for each  site for updating data
         .enter()
         .append("circle")
           .attr("cx", function (d) { return self.xScale(d.x); })
           .attr("cy", function (d) { return self.yScale(d.y); } )
           .classed("SNTL",  true)
-          .attr("id", function(d) { return d.site_id })
+          .attr("id", function(d) { return d.sntl_id })
           .attr("opacity", .7)
           .attr("stroke", "black")
           .attr("stroke-width", .5)
           .attr("r", this.site_radius)
 
+        // sites with no ptile data
+        sites.selectAll("SNTL")
+        .data(data_not, function(d) { return d.site_id; }) // the key for each  site for updating data
+        .enter()
+        .append("circle")
+          .attr("cx", function (d) { return self.xScale(d.x); })
+          .attr("cy", function (d) { return self.yScale(d.y); } )
+          .classed("SNTL_nodata",  true)
+          .attr("id", function(d) { return d.sntl_id })
+          .attr("opacity", .7)
+          .attr("stroke", "black")
+          .attr("fill", "transparent")
+          .attr("stroke-width", .5)
+          .attr("r", this.site_radius)
+
         // add hover effect
-      this.d3.selectAll(".SNTL")
+    /*   this.d3.selectAll(".SNTL")
         .on("mouseover", function(data) {
           self.hover(data, self.site_radius*2, "orchid");
         })
         .on("mouseout", function(data){
           self.hoverOut(data, self.site_radius);
-        }) 
+        })  */
         
       },
       hover(data, to, color){
         const self = this;
 
-        self.d3.select('circle#sntl_' + data.site_id)
+        self.d3.select('circle#sntl_' + data.sntl_id)
           .transition()
           .duration(50)
           .attr("r", to)
@@ -1708,7 +1725,7 @@ export default {
 
         // draw trendline for site
         var trendy = this.corr.append("g").classed("trend", true)
-          trendy.append("path").attr("id", 'sntl_' + data.site_id)
+          trendy.append("path").attr("id", 'sntl_' + data.sntl_id)
             .attr("d", data.d_peak)
             .attr("fill", "transparent")
             .attr("stroke", "black")
