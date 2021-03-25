@@ -10,7 +10,7 @@
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
-      <div class="group two maxWidth">
+      <!-- <div class="group two maxWidth">
         <figure id="good-snow">
           <img 
             id="diagram-good-winter"
@@ -29,12 +29,13 @@
             loading="lazy"
           >
         </figure>
-      </div>
+      </div> -->
+      <DiagramCarouselHigh />
     </template>
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        Typical snow accumulation during winter months forms snowpack, which acts as water storage until warmer temperatures in the spring and summer months lead to snowmeltand ultimately streamflow that flow through the landscape.
+        Click to enlarge. Typical snow accumulation during winter months forms snowpack, which acts as water storage until warmer temperatures in the spring and summer months lead to snowmeltand ultimately streamflow that flow through the landscape.
       </p>
     </template>
     <!-- EXPLANATION -->
@@ -45,12 +46,14 @@
 </template>
 <script>
 import VizSection from '@/components/VizSection';
-import Fig from '@/components/Figure';
+import DiagramCarouselHigh from '@/components/DiagramCarouselHigh';
+// import Fig from '@/components/Figure';
 
 export default {
     name: "DiagramsHigh",
     components:{
-        VizSection
+        VizSection,
+        DiagramCarouselHigh
     }
 }
 </script>

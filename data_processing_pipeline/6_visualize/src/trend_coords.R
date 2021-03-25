@@ -1,48 +1,69 @@
-# export svg paths  -------------------------------------------------------
 
-half_info <- read.csv('out/historical_trends.csv')%>%filter(water_year > 1980)
-half_info
+# export svgs for SNOTEL map insets ----------------------------------------------
 
-library(rvest);library(xml2)
+library(xml2)
+library(sf);library(rmapshaper)
+library(tidyverse);library(reshape2)
+
+# generate svg trend paths  -------------------------------------------------
+
+## create d paths for trend lines of peak SWE, SM50, and WY2021, store in csv to call on mouseover event
 
 ## output dimensions
 ## creating a chart with many ovelrapping lines
 ## need the class to be the key to bind in browser
-
-svg_w <- 200
-svg_h <- 100
-
-# drawing svg paths for each line
 
 build_path_from_coords <- function(coords) {
   # Build path
   first_pt_x <- head(coords$x, 1)
   first_pt_y <- head(coords$y, 1)
   d <- sprintf("M%s %s %s", first_pt_x, head(coords$y, 1),
-               paste0("L", c(tail(coords$x, -1), first_pt_x), " ", 
-                      c(tail(coords$y, -1), first_pt_y), collapse = " "))
+               paste0("L", c(tail(coords$x, -1)), " ", 
+                      c(tail(coords$y, -1)), collapse = " "))
   return(d)
 }
 
-convert_coords_to_svg <- function(obj=half_info%>%select(x,y), svg_width=svg_w) {
+convert_trend_to_svg <- function(obj, svg_width, svg_height, ymax, ymin, xmin, xmax) {
   coords <- obj
   x_dec <- coords[,'x']
   y_dec <- coords[,'y']
   
-  x_extent <- c(1981, 2021)
-  y_extent <- c(0, 100)
+  x_extent <- c(xmin, xmax) ## to scale each plot to the same space, use the full data extent
+  y_extent <- c(ymin, ymax) # 130 for peak, 366 for sm50
   
-  # Convert longitude and latitude to SVG horizontal and vertical positions
+  # Convert coords to SVG horizontal and vertical positions
   # Remember that SVG vertical position has 0 on top
-  x_extent_pixels <- x_extent - 1981
-  y_extent_pixels <- y_extent - 0
-  x_pixels <- x_dec - 1981 # Make it so that the minimum longitude = 0 pixels
-  y_pixels <- y_dec - 0 # Make it so that the maximum latitude = 0
+  x_extent_pixels <- x_extent - xmin
+  y_extent_pixels <- y_extent - ymin
+  x_pixels <- x_dec - xmin #
+  y_pixels <- y_dec - ymin 
+  
+  data.frame(
+    x = round(approx(x_extent_pixels, c(0, svg_width), x_pixels$x)$y, 6),
+    y = round(approx(y_extent_pixels, c(svg_height, 0), y_pixels$y)$y, 6)
+  )
+  
+}
+## some small error with function above not working for points...
+convert_pt_to_svg <- function(obj, svg_width, svg_height, ymax, ymin, xmin, xmax) {
+  coords <- obj
+  x_dec <- coords[,'x']
+  y_dec <- coords[,'y']
+  
+  x_extent <- c(xmin, xmax) 
+  y_extent <- c(ymin, ymax) 
+  
+
+  x_extent_pixels <- x_extent - xmin
+  y_extent_pixels <- y_extent - ymin
+  x_pixels <- x_dec - xmin 
+  y_pixels <- y_dec - ymin 
   
   data.frame(
     x = round(approx(x_extent_pixels, c(0, svg_width), x_pixels)$y, 6),
     y = round(approx(y_extent_pixels, c(svg_height, 0), y_pixels)$y, 6)
   )
+  
 }
 
 init_svg <- function(viewbox_dims) {
@@ -55,56 +76,132 @@ init_svg <- function(viewbox_dims) {
   return(svg_root)
 }
 
+
 # generate svg d paths ----------------------------------------------------
+
+## vue build data
+conus_stat <- read_csv('2_process/out/SNOTEL_conus.csv') %>% filter(water_year >= 1981) 
+ak_stat <- read_csv('2_process/out/SNOTEL_ak.csv') %>% filter(water_year >= 1981) 
+
+## trend data
+all_stat <- read_csv('2_process/out/SNOTEL_stats_POR.csv')
+
+## to set fixed chart limits
+range(all_stat$water_year)
+range(all_stat$peak_swe)
+range(all_stat$sm50_day)
+range(na.omit(all_stat$apr1_swe))
+
+## timeseries across years - peak SWE, SM50
+## sizing of the mini plot that pops up
+time_w <- 200
+time_h <- 100
+
+# drawing svg paths for each line
 
 ## create dataframe with svg d paths
 df_out <- NULL
-for  (i in unique(half_info$site_id)){
-  half_site <- half_info %>%filter(site_id == i)
-  half_site$x <- half_site$water_year
+for  (i in unique(all_stat$site_id)){
+  all_site <- all_stat %>% filter(site_id == i) %>% arrange(water_year)
+  all_site$x <- all_site$water_year
   
   # peak swe
-  half_site$y <- half_site$peak_swe
-  peak<-convert_coords_to_svg(obj=half_site%>%select(x,y), svg_width=svg_w) %>%
+  all_site$y <- all_site$peak_swe
+  site_obj <- all_site %>% dplyr::select(x,y)
+  peak <- convert_trend_to_svg(obj = site_obj, svg_width = time_w, svg_height = time_h, 
+                               ymax=130, ymin = 0, xmin = 1981, xmax= 2021) %>%
     build_path_from_coords()
   
   # swe date
-  half_site$y <- half_site$sm50_day
-  sm50<-convert_coords_to_svg(obj=half_site%>%select(x,y), svg_width=svg_w) %>%
+  all_site$y <- all_site$sm50_day
+  sm50 <- convert_trend_to_svg(obj = site_obj, svg_width = time_w, svg_height = time_h, 
+                               ymax=366, ymin = 1, xmin = 1981, xmax= 2021) %>%
     build_path_from_coords()
   
-  df_out <- rbind(df_out, data.frame(id = sprintf("sntl_%s", i), d_peak = peak, d_sm50 = sm50))
+  # swe date
+  all_site$y <- all_site$apr1_swe
+  apr1 <- convert_trend_to_svg(obj = site_obj, svg_width = time_w, svg_height = time_h, 
+                               ymax=120, ymin=0, xmin = 1981, xmax= 2021) %>%
+    build_path_from_coords()
+  
+  df_out <- rbind(df_out, 
+                  data.frame(sntl_id = sprintf("sntl_%s", i),
+                             d_peak = peak, d_sm50 = sm50, d_apr1 = apr1))
   
 }
 
-# add sites to svg
-svg_root <- init_svg(viewbox_dims = c(0, 0, svg_width=svg_w, svg_height=svg_h))
+## timeseries within 2021 - SWE with coords for peak SWE and SM50
+## sizing of the mini plot that pops up
+wy_files <- list.files('1_fetch/out/SNOTEL', pattern="wy2021", full.names=TRUE)
+wy_data <- lapply(wy_files, read_csv) %>% bind_rows()
 
-for (i in unique(half_info$site_id)){
+wy_stats <- read_csv('2_process/out/SNOTEL_stats_2021.csv')
+
+year_w <- 200
+year_h <- 200
+
+# create dataframe with svg d paths
+df_swe <- NULL
+for  (i in unique(wy_data$site_id)){
   
-  df_site <- df_out %>%filter(id == sprintf("sntl_%s", i))
+  # swe through time
+  all_site <- wy_data %>% filter(site_id == i) %>% arrange(water_day)
+  all_site$x <- all_site$water_day
+  all_site$y <- all_site$swe
+  site_obj <- all_site %>% dplyr::select(x,y)
+  swe <- convert_trend_to_svg(obj = site_obj, 
+                              svg_width = year_w, svg_height = year_h, 
+                              ymax=120, ymin = 0, xmin = 1, xmax = 365) %>%
+    build_path_from_coords()
   
-  xml_add_child(svg_root, "path",class = sprintf('sntl_%s', i), d = df_site$d_peak)
+  ## convert day  and value at peak SWE AND sm50 to coords
+  sitey <- all_stat  %>% 
+    filter(site_id == i & water_year == 2021) %>%
+    dplyr::select(water_year, site_id, peak_swe, peak_day, sm50_swe, sm50_day, apr1_swe)%>%
+    mutate(apr1_day = 173) %>%
+    melt(id.vars=c('site_id','water_year'))%>%
+    separate(variable, into=c('metric','var'), sep='_') %>%
+    dcast(site_id + water_year + metric ~ var)
+  sitey$x <- sitey$day
+  sitey$y <- sitey$swe
+  site_obj <- sitey %>% dplyr::select(x,y)
+  swe_pts <- convert_pt_to_svg(obj = site_obj, 
+                              svg_width = year_w, svg_height = year_h, 
+                              ymax=120, ymin = 0, xmin = 1, xmax = 365) %>%
+    mutate(metric = sitey$metric, site_id = i) %>%
+    melt(id.vars=c("site_id","metric")) %>%
+    dcast(site_id ~ metric + variable)
+
+  swe_today<-data.frame(site_id = i, sntl_id = sprintf("sntl_%s", i), d_swe = swe)%>%
+    left_join(swe_pts)
+  
+  df_swe <- rbind(df_swe, swe_today)
+  
 }
 
-xml2::write_xml(svg_root, file = 'C:/Users/cnell/Documents/Projects/snow-to-flow/data_processing_pipeline/6_visualize/sntl_trend.svg')
 
-# export d paths ----------------------------------------------------------
+# bind to site coordinates and export -------------------------------------
 
-## bind d paths to diff data and save
-conus <- read.csv("C:/Users/cnell/Documents/Projects/snow-to-flow/public/data/conus_por_2021.csv")
-conus_coords <- conus%>%
-  transform(site_id=sprintf("sntl_%s", as.character(site_id)))%>%
-  left_join(df_out, by=c('site_id' = 'id'))%>%
-  mutate(d_peak = gsub(" Z", "", d_peak))
-write.csv(conus_coords, "C:/Users/cnell/Documents/Projects/snow-to-flow/public/data/conus_coord.csv", row.names=FALSE)
+## add back to site-level coordinate data linked to mouseover effect
+## so this datasheet has literally everything in it for the map
+read.csv('2_process/out/SNOTEL_conus.csv') %>%
+  mutate(sntl_id  = gsub("SNTL:", "sntl_", sntl_id)) %>%
+  left_join(df_out)%>%
+  left_join(df_swe) %>% 
+  write_csv("6_visualize/out/SNOTEL_conus_d.csv")
 
-ak <- read.csv("C:/Users/cnell/Documents/Projects/snow-to-flow/public/data/ak_por_2021.csv")
+read.csv('2_process/out/SNOTEL_ak.csv') %>%
+  mutate(sntl_id  = gsub("SNTL:", "sntl_", sntl_id)) %>%
+  left_join(df_out)%>%
+  left_join(df_swe) %>% 
+  write_csv("6_visualize/out/SNOTEL_ak_d.csv")
 
-ak_coords <- ak%>%
-  transform(site_id=sprintf("sntl_%s", as.character(site_id)))%>%
-  left_join(df_out, by=c('site_id' = 'id'))%>%
-  mutate(d_peak = gsub(" Z", "", d_peak))
+file.copy("6_visualize/out/SNOTEL_conus_d.csv",
+          "C:/Users/cnell/Documents/Projects/snow-to-flow/public/data/SNOTEL_conus_d.csv",
+          overwrite = TRUE)
+file.copy("6_visualize/out/SNOTEL_ak_d.csv",
+          "C:/Users/cnell/Documents/Projects/snow-to-flow/public/data/SNOTEL_ak_d.csv",
+          overwrite = TRUE)
 
-write.csv(ak_coords, "C:/Users/cnell/Documents/Projects/snow-to-flow/public/data/ak_coord.csv", row.names=FALSE)
-
+conus <- read_csv("6_visualize/out/SNOTEL_conus_d.csv")
+str(conus)
