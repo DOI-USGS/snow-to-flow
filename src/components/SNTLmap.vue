@@ -1431,7 +1431,7 @@
           <svg
             id="peak-svg"
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="-50 0 250 120" 
+            viewBox="-50 0 260 105" 
             preserveAspectRatio="xMinYMin slice"
           />
         </div>
@@ -1441,7 +1441,7 @@
           <svg
             id="wy21-svg"
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="-50 0 250 300" 
+            viewBox="-50 0 260 260" 
             preserveAspectRatio="xMinYMin slice"
           />
         </div>
@@ -1451,7 +1451,7 @@
           <svg
             id="melt-svg"
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="-50 0 250 150" 
+            viewBox="-50 0 260 150" 
             preserveAspectRatio="xMinYMin slice"
           />
         </div>
@@ -1598,9 +1598,10 @@ export default {
           .append("g")
           .classed("corr-legend", true)
           .call(this.d3.axisBottom(xCorr)
-            .ticks(5)
-            .tickValues(["1981", "1991", "2001", "2011", "2021"])
-            .tickFormat(this.d3.format("d")))
+            .ticks(0)
+            //.tickValues(["1981", "1991", "2001", "2011", "2021"])
+            //.tickFormat(this.d3.format("d"))
+            )
           .attr("transform", "translate(" + (0) + "," + 100 + ")");
 
         this.d3.select("svg#peak-svg")
@@ -1665,8 +1666,8 @@ export default {
           .attr("text-anchor", "start")
           .attr("font-weight", "bold")
           .attr("y", 140)
-          .attr("x", 50)
-          .text("Water year");
+          .attr("x", 75)
+          .text("Year");
 
         this.d3.select("svg#melt-svg").append("text")
           .classed("ele", true)
@@ -1678,6 +1679,53 @@ export default {
             .attr("x", 5)
             .attr("transform", "rotate(-90) translate(-110, -150)")
             .text("Melt date");
+
+        // wy mini
+       var ywy = this.d3.scaleLinear()
+          .range([240, 10])
+          .domain([1, 100]);
+
+          var xwy = this.d3.scaleLinear()
+          .range([0,  200])
+          .domain([1, 366]);
+
+        this.d3.select("svg#wy21-svg")
+          .append("g")
+          .classed("melt-legend", true)
+          .call(this.d3.axisBottom(xwy)
+            .ticks(5)
+            .tickFormat(this.d3.format("d")))
+          .attr("transform", "translate(" + (0) + "," + 240 + ")");
+
+         var ticklabs = ["Oct","Jan", "Apr", "Jul","Sept"];
+
+        this.d3.select("svg#wy21-svg")
+          .append("g")
+          .classed("melt-legend", true)
+          .call(this.d3.axisLeft(ywy)
+            .ticks(5))
+          .attr("transform", "translate(" + (0) + "," + 0 + ")");
+
+      // position axis labels
+        this.d3.select("svg#wy21-svg").append("text")
+          .attr("fill", "#000")
+          .attr("font-size", "1.2em")
+          .attr("text-anchor", "start")
+          .attr("font-weight", "bold")
+          .attr("y", 350)
+          .attr("x", 25)
+          .text("2021 water year");
+
+        this.d3.select("svg#wy21-svg").append("text")
+          .classed("ele", true)
+            .attr("fill", "#000")
+            .attr("font-size", "1.2em")
+            .attr("font-weight", "bold")
+            .attr("text-anchor", "start")
+            .attr("y", 120)
+            .attr("x", -40)
+            .attr("transform", "rotate(-90) translate(-110, -150)")
+            .text("SWE");
       },
 
       addSites(x_max, y_max, sites, data) {
@@ -1831,7 +1879,7 @@ export default {
                   .attr("text-anchor", "start")
                   .attr("x", 0)
                   .attr("y", -30)
-                  .text("Snow-water equivalent: March 3rd, 2021");
+                  .text("Snow-water equivalent: March 22nd, 2021");
 
        // set color for both maps using the same color scale
        this.sntl_sites.selectAll("circle.SNTL")
@@ -1872,10 +1920,7 @@ line, polyline, polygon, path, rect, circle {
   stroke-width: 2px;
   opacity: .5;
 }
-.ele {
-  transform-origin: center center;
-  transform: rotate(-90deg);
-}
+
 .usa {
   color: darkgrey;
   fill:none;
