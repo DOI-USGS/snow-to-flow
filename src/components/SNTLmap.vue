@@ -1431,7 +1431,7 @@
           <svg
             id="peak-svg"
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="-100 -50 400 300" 
+            viewBox="-50 0 250 120" 
             preserveAspectRatio="xMinYMin slice"
           />
         </div>
@@ -1441,7 +1441,7 @@
           <svg
             id="wy21-svg"
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="-100 -50 400 300" 
+            viewBox="-50 0 250 300" 
             preserveAspectRatio="xMinYMin slice"
           />
         </div>
@@ -1451,7 +1451,7 @@
           <svg
             id="melt-svg"
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="-100 -50 400 300" 
+            viewBox="-50 0 250 150" 
             preserveAspectRatio="xMinYMin slice"
           />
         </div>
@@ -1613,57 +1613,55 @@ export default {
           .attr("transform", "translate(" + (0) + "," + 0 + ")");
 
       // position axis labels
-        this.d3.select("svg#peak-svg").append("text")
+     /*    this.d3.select("svg#peak-svg").append("text")
           .attr("fill", "#000")
           .attr("font-size", "1.25em")
           .attr("text-anchor", "start")
           .attr("font-weight", "bold")
           .attr("y", 140)
           .attr("x", 50)
-          .text("Water year");
+          .text("Water year"); */
 
         this.d3.select("svg#peak-svg").append("text")
           .classed("ele", true)
             .attr("fill", "#000")
-            .attr("font-size", "1.25em")
+            .attr("font-size", "1.2em")
             .attr("font-weight", "bold")
             .attr("text-anchor", "start")
             .attr("y", 120)
-            .attr("x", 30)
+            .attr("x", 5)
             .attr("transform", "rotate(-90) translate(-110, -150)")
-            .text("SWE");
+            .text("Peak SWE");
 
       // melt mini
        var ymelt = this.d3.scaleLinear()
           .range([100, 10])
-          .domain([0, 100]);
-
-        var xmelt = this.d3.scaleLinear()
-          .range([0,  200])
-          .domain([1981, 2021]);
+          .domain([1, 200]);
 
         this.d3.select("svg#melt-svg")
           .append("g")
           .classed("melt-legend", true)
-          .call(this.d3.axisBottom(xmelt)
+          .call(this.d3.axisBottom(xCorr)
             .ticks(5)
             .tickValues(["1981", "1991", "2001", "2011", "2021"])
             .tickFormat(this.d3.format("d")))
           .attr("transform", "translate(" + (0) + "," + 100 + ")");
+
+         var ticklabs = ["Oct","Jan", "Apr", "Jul","Sept"];
 
         this.d3.select("svg#melt-svg")
           .append("g")
           .classed("melt-legend", true)
           .call(this.d3.axisLeft(ymelt)
             .ticks(5)
-            .tickValues(["0", "25", "50", "75", "100"])
-            .tickFormat(this.d3.format("d")))
+            .tickValues(["1", "90", "180", "270", "365"])
+            .tickFormat((d,i) => ticklabs[i]))
           .attr("transform", "translate(" + (0) + "," + 0 + ")");
 
       // position axis labels
         this.d3.select("svg#melt-svg").append("text")
           .attr("fill", "#000")
-          .attr("font-size", "1.25em")
+          .attr("font-size", "1.2em")
           .attr("text-anchor", "start")
           .attr("font-weight", "bold")
           .attr("y", 140)
@@ -1673,13 +1671,13 @@ export default {
         this.d3.select("svg#melt-svg").append("text")
           .classed("ele", true)
             .attr("fill", "#000")
-            .attr("font-size", "1.25em")
+            .attr("font-size", "1.2em")
             .attr("font-weight", "bold")
             .attr("text-anchor", "start")
             .attr("y", 120)
-            .attr("x", 30)
+            .attr("x", 5)
             .attr("transform", "rotate(-90) translate(-110, -150)")
-            .text("Date");
+            .text("Melt date");
       },
 
       addSites(x_max, y_max, sites, data) {
@@ -1760,11 +1758,11 @@ export default {
 
         // draw 2021 SWE  curve for site
         var melty = this.melt.append("g")
-        .classed("trend", true)
-        .classed("melt", true)
+          .classed("trend", true)
+          .classed("melt", true)
 
           melty.append("path").attr("id", data.sntl_id)
-            .attr("d", data.d_melt)
+            .attr("d", data.d_sm50)
             .attr("fill", "transparent")
             .attr("stroke", "black")
             .attr("stroke-width", 1)
@@ -1780,7 +1778,7 @@ export default {
           .attr("r", to)
           .attr("fill", function(d) { return self.threshold(d[self.site_vars.setColor]) } );
 
-        this.d3.select(".trend").remove() // take off prior lines
+        this.d3.selectAll(".trend").remove() // take off prior lines
 
       },
       setColor() {
