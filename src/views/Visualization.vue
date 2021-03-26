@@ -4,7 +4,7 @@
     <Intro
       v-if="checkIfSplashIsRendered"
     />
-<!--     <Chapter
+    <!--     <Chapter
       v-if="checkIfSplashIsRendered"
       id="chapter2"
       image="chapter5"
