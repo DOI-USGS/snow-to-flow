@@ -21,13 +21,13 @@
         </div> -->
     </template>
     <!-- EXPLANATION -->
-    <template v-slot:explanation>
+    <template v-slot:aboveExplanation>
       <p>
         The differences between a high a low snow year illustrate the downstream effects of changing snow on water resources. For example, in 2011 snowmelt occurred ## days later than 2012.
         This was because of differences in the amount of snowpack between years - in 2011 peak SWE was  2x higher.  there were considerable difference in the magnitude of SWE and subsequently discharge at the shown locations in the Upper Colorado river basin.
         With 2 times higher snowpack shown int he line chart. 
         Because of less snowpack, melt rates were faster and SM50 occurred between ## to ## days earlier at these sites.
-        Elevation
+        Elevation.
       </p>
     </template>
     <!-- FIGURES -->
@@ -112,6 +112,11 @@
     <template v-slot:figureCaption>
       <p>
         Snow-water equivalent (left) and stream discharge (right) through the 2011 water year in Colorado. Dots on map correspond to hydrographs on the right. 
+      </p>
+    </template>
+    <template v-slot:belowExplanation>
+      <p>
+        Cheese and biscuits taleggio melted cheese say cheese cheesy feet cheesecake paneer roquefort. Squirty cheese cottage cheese manchego jarlsberg lancashire blue castello fromage frais cottage cheese. Pepper jack.
       </p>
     </template>
   </VizSection>
