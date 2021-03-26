@@ -1626,12 +1626,12 @@ export default {
 
         this.d3.select("svg#peak-svg").append("text")
           .classed("ele", true)
-            .attr("fill", "#000")
+            .attr("fill", "grey")
             .attr("font-size", "1em")
             .attr("font-weight", "bold")
             .attr("text-anchor", "start")
             .attr("y", 120)
-            .attr("x", 5)
+            .attr("x", 15)
             .attr("transform", "rotate(-90) translate(-110, -150)")
             .text("Peak SWE");
 
@@ -1663,7 +1663,7 @@ export default {
 
       // position axis labels
         this.d3.select("svg#melt-svg").append("text")
-          .attr("fill", "#000")
+          .attr("fill", "grey")
           .attr("font-size", "1em")
           .attr("text-anchor", "start")
           .attr("font-weight", "bold")
@@ -1673,12 +1673,12 @@ export default {
 
         this.d3.select("svg#melt-svg").append("text")
           .classed("ele", true)
-            .attr("fill", "#000")
+            .attr("fill", "grey")
             .attr("font-size", "1em")
             .attr("font-weight", "bold")
             .attr("text-anchor", "start")
             .attr("y", 120)
-            .attr("x", 5)
+            .attr("x", 15)
             .attr("transform", "rotate(-90) translate(-110, -150)")
             .text("Melt date");
 
@@ -1710,36 +1710,45 @@ export default {
 
       // position axis labels
         this.d3.select("svg#wy21-svg").append("text")
-          .attr("fill", "#000")
+          .attr("fill", "grey")
           .attr("font-size", "1em")
-          .attr("text-anchor", "start")
+          .attr("text-anchor", "center")
           .attr("font-weight", "bold")
           .attr("y", 255)
-          .attr("x", 25)
-          .text("2021 water year");
+          .attr("x", 50)
+          .text("2021 Water year");
 
         this.d3.select("svg#wy21-svg").append("text")
           .classed("ele", true)
-            .attr("fill", "#000")
+            .attr("fill", "grey")
             .attr("font-size", "1em")
             .attr("font-weight", "bold")
             .attr("text-anchor", "start")
             .attr("y", 120)
-            .attr("x", -40)
+            .attr("x", -10)
             .attr("transform", "rotate(-90) translate(-110, -150)")
             .text("SWE");
 
-        // add site info
-   /*      this.d3.select("svg#wy21-svg").append("text")
-        .classed("site_info", true)
+      //hover/click prompt
+      this.d3.select("svg#wy21-svg").append("text")
+        .classed("hover_info", true)
         .attr("fill", "#000")
         .attr("font-size", "1.2em")
-        .attr("font-weight", "bold")
         .attr("text-anchor", "start")
-        .attr("y", 20)
-        .attr("x", 10)
-        .text("Site:");
- */
+        .attr("font-style", "italic")
+        .attr("y", 50)
+        .attr("x", 30)
+        .text("Hover over a site");
+
+        
+        // add hover effect to all sites
+        this.d3.select("svg#wy21-svg")
+          .on("mouseover", function(data) {
+          })
+          .on("mouseout", function(data){
+          }) 
+
+
       },
 
       addSites(x_max, y_max, sites, data) {
@@ -1791,10 +1800,21 @@ export default {
         this.d3.selectAll(".SNTL")
           .on("mouseover", function(data) {
             self.hover(data, self.site_radius*2, "orchid");
+            self.d3.select("text.hover_info").remove()
           })
           .on("mouseout", function(data){
             self.hoverOut(data, self.site_radius);
-          }) 
+            //hover/click prompt
+          self.d3.select("svg#wy21-svg").append("text")
+            .classed("hover_info", true)
+            .attr("fill", "#000")
+            .attr("font-size", "1.2em")
+            .attr("text-anchor", "start")
+            .attr("font-style", "italic")
+            .attr("y", 50)
+            .attr("x", 30)
+            .text("Hover over a site");
+              }) 
           
         },
         hover(data, to, color){
@@ -1815,8 +1835,8 @@ export default {
             .attr("id", data.sntl_id)
             .attr("d", data.d_peak_sqrt)
             .attr("fill", "transparent")
-            .attr("stroke", "orchid")
-            .attr("stroke-width", 2)
+            .attr("stroke", "black")
+            .attr("stroke-width", "2px")
 
         // draw 2021 SWE  curve for site
         var melty = this.melt.append("g")
@@ -1826,8 +1846,8 @@ export default {
           melty.append("path").attr("id", data.sntl_id)
             .attr("d", data.d_sm50)
             .attr("fill", "transparent")
-            .attr("stroke", "gold")
-            .attr("stroke-width", 2)
+            .attr("stroke", "black")
+            .attr("stroke-width", "2px")
 
             // draw 2021 SWE  curve for site
         var wy = this.wy21.append("g")
@@ -1942,7 +1962,7 @@ export default {
                   .attr("font-size", "1em")
                   .attr("text-anchor", "start")
                   .attr("y", -5)
-                  .text("Percentile, historic mean (1981-2010)");
+                  .text("Percentile, historic median (1981-2010)");
 
                   g.append("text")
                   .attr("fill", "#000")

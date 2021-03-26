@@ -138,12 +138,14 @@ for  (i in unique(all_stat$site_id)){
   
   # swe date
   all_site$y <- all_site$sm50_day
+  site_obj <- all_site %>% dplyr::select(x,y)
   sm50 <- convert_trend_to_svg(obj = site_obj, svg_width = time_w, svg_height = time_h, 
-                               ymax=366, ymin = 0, xmin = 1981, xmax= 2021) %>%
+                               ymax=300, ymin = 50, xmin = 1981, xmax= 2021) %>%
     build_path_from_coords()
   
   # swe date
   all_site$y <- all_site$apr1_swe
+  site_obj <- all_site %>% dplyr::select(x,y)
   apr1 <- convert_trend_to_svg(obj = site_obj, svg_width = time_w, svg_height = time_h, 
                                ymax=120, ymin=0, xmin = 1981, xmax= 2021) %>%
     build_path_from_coords()
@@ -171,6 +173,7 @@ year_h <- 200
 
 # create dataframe with svg d paths
 df_swe <- NULL
+i <- unique(wy_data$site_id)[1]
 for  (i in unique(wy_data$site_id)){
   
   # swe through time
@@ -187,11 +190,12 @@ for  (i in unique(wy_data$site_id)){
   all_site$x <- all_site$water_day
   all_site$y <- log(all_site$swe+1)
   site_obj <- all_site %>% dplyr::select(x,y)
-  swe_log <- convert_trend_to_svg(obj = site_obj, 
+  swe_sqrt <- convert_trend_to_svg(obj = site_obj, 
                               svg_width = year_w, svg_height = year_h, 
-                              ymax=5, ymin = 0, xmin = 1, xmax = 180) %>%
+                              ymax=12, ymin = 0, xmin = 1, xmax = 180) %>%
     build_path_from_coords()
   
+
   ## convert day  and value at peak SWE AND sm50 to coords
   sitey <- all_stat  %>% 
     filter(site_id == i & water_year == 2021) %>%
@@ -210,7 +214,7 @@ for  (i in unique(wy_data$site_id)){
     melt(id.vars=c("site_id","metric")) %>%
     dcast(site_id ~ metric + variable)
 
-  swe_today<-data.frame(site_id = i, sntl_id = sprintf("sntl_%s", i), d_swe = swe, d_swe_log = swe_log,
+  swe_today<-data.frame(site_id = i, sntl_id = sprintf("sntl_%s", i), d_swe = swe, d_swe_log = swe_sqrt,
                         d_swe_scaled = swe_scaled)%>%
     left_join(swe_pts)
   
@@ -226,7 +230,7 @@ str(df_swe)
 read.csv('2_process/out/SNOTEL_conus.csv') %>%
   mutate(sntl_id  = gsub("SNTL:", "sntl_", sntl_id)) %>%
   left_join(df_out)%>%
-  left_join(df_swe) %>% 
+  left_join(df_swe) %>% str
   write_csv("6_visualize/out/SNOTEL_conus_d.csv")
 
 read.csv('2_process/out/SNOTEL_ak.csv') %>%
@@ -242,3 +246,70 @@ file.copy("6_visualize/out/SNOTEL_ak_d.csv",
           "C:/Users/cnell/Documents/Projects/snow-to-flow/public/data/SNOTEL_ak_d.csv",
           overwrite = TRUE)
 
+
+# explorations ------------------------------------------------------------
+
+str(all_stat)
+
+## find normal sm50day for each site
+
+site_dia <- all_stat%>%
+  group_by(site_id)%>%
+  summarize(dia  =  median(sm50_day), yrs = length(unique(water_year)), peaky = median(peak_swe))
+str(site_dia)
+
+# center sm50_date as difference from dia
+all_dia <- all_stat %>%
+  left_join(site_dia) %>%
+  mutate(sm50_diff = sm50_day - dia, peak_diff = peak_swe - peaky)
+
+all_dia%>%
+  group_by(site_id)%>%
+  summarize(diff=mean(sm50_diff))%>%
+  arrange(diff)
+
+
+all_dia %>%
+  filter(sm50_diff > -100 & sm50_diff < 100 & yrs > 40) %>%
+  ggplot(aes(water_year, sm50_diff, group=site_id))+
+  geom_point(aes(color=sm50_diff), alpha=.5)+
+  geom_line(alpha=.05, aes(color=..y..))+
+  theme_classic()+
+  coord_flip()+
+  labs(y="<< early melt date             later melt date >>", x="")+
+  scale_color_gradientn(colors=rev(c("darkturquoise","paleturquoise2","paleturquoise2","antiquewhite", "tan", "sandybrown", "brown")))+
+  geom_hline(yintercept=0, color="black")+
+  theme(axis.line= element_blank(),
+        axis.text  = element_text(color="grey"), 
+        legend.position="none",
+        panel.grid.major = element_line(linetype="dotted", color="grey"),
+        axis.ticks = element_blank())+
+  scale_y_continuous(position = "right",
+                     breaks=c(-100, -50, 0, 50, 100),
+                     labels=c("-100 days", "-50 days", "0", "+50 days", "+100 days"))+
+  scale_x_continuous(position = "top", 
+                     trans = "reverse")
+ggsave("trend_diff_date.png", width = 8, height = 10)
+
+all_dia %>%
+  ggplot(aes(water_year, peak_diff, group=site_id))+
+  geom_point(aes(color=peak_diff), alpha=.7)+
+  geom_line(alpha=.05, aes(color=..y..))+
+  theme_classic()+
+  coord_flip()+
+  labs(y="<< less snow             more snow >>", x="")+
+  scale_color_gradientn(colors=rev(c("darkturquoise","paleturquoise","antiquewhite", "tan",  "saddlebrown")))+
+  geom_hline(yintercept=0, color="black")+
+  theme(axis.line= element_blank(),
+        axis.text  = element_text(color="grey"), 
+        legend.position="none",
+        panel.grid.major = element_line(linetype="dotted", color="grey"),
+        axis.ticks = element_blank())+
+  scale_x_continuous(position = "top", 
+                     trans = "reverse")#+
+  scale_y_continuous(position = "right",
+                     breaks=c(-100, -50, 0, 50, 100),
+                     labels=c("-100 days", "-50 days", "0", "+50 days", "+100 days"))
+ggsave("trend_diff_peak.png", width = 8, height = 10)
+
+range()
