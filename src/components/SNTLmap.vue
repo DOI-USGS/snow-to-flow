@@ -2040,12 +2040,38 @@ line, polyline, polygon, path, rect, circle {
 @media screen and (min-width: 1024px){
   .map-grid{
     grid-template-areas: 
-      ". . legend legend . ."
+      ". legend legend . . ."
       "ak ak ak us us us"
       "ak ak ak us us us"
       ". peak wy21 us us us"
       ". melt wy21 us us us"
     ;
+  }
+  #grid-left{
+    width: 30vw; // careful editing this, it's sizing the maps to the same scale
+    margin-left: 2.5vw;
+  }
+  #ak {
+   width: 55vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
+  }
+  #grid-right {
+    width: 70vw;// careful editing this, it's sizing the maps to the same scale
+    margin-right: 2.5vw;
+  }
+  #usa{
+    width: 85vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
+  }
+}
+@media screen and (min-width: 1024px) and (max-height:800){
+  .map-grid{
+    grid-template-areas: 
+      ". legend legend . . ."
+      "ak ak ak us us us"
+      "ak ak ak us us us"
+      ". peak wy21 us us us"
+      ". melt wy21 us us us"
+    ;
+    max-height: 50vh;
   }
   #grid-left{
     width: 30vw; // careful editing this, it's sizing the maps to the same scale
