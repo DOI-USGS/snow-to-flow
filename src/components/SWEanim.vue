@@ -165,7 +165,6 @@ export default {
         self.d3.csv(self.publicPath + "data/mmd_df_2011.csv",  this.d3.autotype),
         self.d3.csv(self.publicPath + "data/mmd_df_2012.csv",  this.d3.autotype),
         self.d3.csv(self.publicPath + "data/swe_df_2011.csv",  this.d3.autotype),
-        self.d3.csv(self.publicPath + "data/swe_df_2012.csv",  this.d3.autotype),
         self.d3.csv(self.publicPath + "data/swe_df_2012.csv",  this.d3.autotype)];
 
         Promise.all(promises).then(self.callback); 
