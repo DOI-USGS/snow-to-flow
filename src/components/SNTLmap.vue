@@ -1511,6 +1511,7 @@ export default {
               yScale: null,
               site_radius: 2.5,
               colorValueInches: null,
+              xwy: null,
             }
         },
     mounted() {
@@ -1588,7 +1589,7 @@ export default {
 
         var yCorr = this.d3.scaleLinear()
           .range([100, 10])
-          .domain([0, 100]);
+          .domain([0, 11.5]);
 
         var xCorr = this.d3.scaleLinear()
           .range([0,  200])
@@ -1637,7 +1638,7 @@ export default {
       // melt mini
        var ymelt = this.d3.scaleLinear()
           .range([100, 10])
-          .domain([1, 200]);
+          .domain([50, 300]);
 
         this.d3.select("svg#melt-svg")
           .append("g")
@@ -1655,8 +1656,9 @@ export default {
           .classed("melt-legend", true)
           .call(this.d3.axisLeft(ymelt)
             .ticks(5)
-            .tickValues(["1", "90", "180", "270", "365"])
-            .tickFormat((d,i) => ticklabs[i]))
+            //.tickValues(["50", "100", "150", "200", "250", "300"])
+            //.tickFormat((d,i) => ticklabs[i])
+            )
           .attr("transform", "translate(" + (0) + "," + 0 + ")");
 
       // position axis labels
@@ -1680,29 +1682,32 @@ export default {
             .attr("transform", "rotate(-90) translate(-110, -150)")
             .text("Melt date");
 
+          this.d3.select("svg#melt-svg")
+            .attr("transform","translate(0, -17)")
+
         // wy mini
-       var ywy = this.d3.scaleLinear()
-          .range([240, 10])
+       self.ywy = this.d3.scaleLinear()
+          .range([215, 10])
           .domain([1, 100]);
 
-          var xwy = this.d3.scaleLinear()
+        self.xwy = this.d3.scaleLinear()
           .range([0,  200])
-          .domain([1, 366]);
+          .domain([1, 180]);
 
         this.d3.select("svg#wy21-svg")
           .append("g")
           .classed("melt-legend", true)
-          .call(this.d3.axisBottom(xwy)
+          .call(this.d3.axisBottom(self.xwy)
             .ticks(5)
             .tickFormat(this.d3.format("d")))
-          .attr("transform", "translate(" + (0) + "," + 240 + ")");
+          .attr("transform", "translate(" + (0) + "," + 215 + ")");
 
          var ticklabs = ["Oct","Jan", "Apr", "Jul","Sept"];
 
         this.d3.select("svg#wy21-svg")
           .append("g")
           .classed("melt-legend", true)
-          .call(this.d3.axisLeft(ywy)
+          .call(this.d3.axisLeft(self.ywy)
             .ticks(5))
           .attr("transform", "translate(" + (0) + "," + 0 + ")");
 
@@ -1712,7 +1717,7 @@ export default {
           .attr("font-size", "1.2em")
           .attr("text-anchor", "start")
           .attr("font-weight", "bold")
-          .attr("y", 350)
+          .attr("y", 255)
           .attr("x", 25)
           .text("2021 water year");
 
@@ -1726,6 +1731,18 @@ export default {
             .attr("x", -40)
             .attr("transform", "rotate(-90) translate(-110, -150)")
             .text("SWE");
+
+        // add site info
+   /*      this.d3.select("svg#wy21-svg").append("text")
+        .classed("site_info", true)
+        .attr("fill", "#000")
+        .attr("font-size", "1.2em")
+        .attr("font-weight", "bold")
+        .attr("text-anchor", "start")
+        .attr("y", 20)
+        .attr("x", 10)
+        .text("Site:");
+ */
       },
 
       addSites(x_max, y_max, sites, data) {
@@ -1799,10 +1816,10 @@ export default {
 
           peaky.append("path")
             .attr("id", data.sntl_id)
-            .attr("d", data.d_peak)
+            .attr("d", data.d_peak_sqrt)
             .attr("fill", "transparent")
             .attr("stroke", "black")
-            .attr("stroke-width", 1)
+            .attr("stroke-width", 2)
 
         // draw 2021 SWE  curve for site
         var melty = this.melt.append("g")
@@ -1813,8 +1830,68 @@ export default {
             .attr("d", data.d_sm50)
             .attr("fill", "transparent")
             .attr("stroke", "black")
-            .attr("stroke-width", 1)
+            .attr("stroke-width", 2)
 
+            // draw 2021 SWE  curve for site
+        var wy = this.wy21.append("g")
+          .classed("trend", true)
+          .classed("melt", true)
+
+          wy.append("path").attr("id", data.sntl_id)
+            .attr("d", data.d_swe)
+            .attr("fill", "transparent")
+            .attr("stroke", "black")
+            .attr("stroke-width", 2)
+
+            // add peak swe and sm50 date to wy chart
+            wy.append("circle")
+            .attr("cx", data.peak_x)
+            .attr("cy", data.peak_y )
+            .attr("r",4)
+            .classed(data.peak_met, true)
+            .classed("peak", true)
+            .attr("fill", "orchid")
+            .attr("opacity", 1)
+
+            wy.selectAll(".peak.TBD")
+            .attr("fill", "white")
+            .attr("stroke", "orchid")
+            .attr("stroke-width", 1.5)
+
+/*           wy.append("circle")
+            .attr("cx", data.sm50k_x)
+            .attr("cy", data.sm50_y )
+            .attr("r",4)
+            .classed(data.sm50_met, true)
+            .classed("melt", true)
+            .attr("fill", "orangered")
+            .attr("opacity", 1)
+
+            wy.selectAll(".melt.TBD")
+            .attr("fill", "white")
+            .attr("stroke", "orangered")
+            .attr("stroke-width", 1)
+ */
+
+      this.d3.select("svg#wy21-svg").append("text")
+        .classed("site_name", true)
+        .attr("fill", "#000")
+        .attr("font-size", "1.2em")
+        .attr("font-weight", "bold")
+        .attr("text-anchor", "start")
+        .attr("y", 20)
+        .attr("x", 10)
+        .text(data.site_name);
+
+        this.d3.select("svg#wy21-svg").append("text")
+        .classed("site_name", true)
+        .attr("fill", "#000")
+        .attr("font-size", "1.2em")
+        .attr("font-weight", "bold")
+        .attr("text-anchor", "start")
+        .attr("y", 40)
+        .attr("x", 10)
+        .text(data.elev_ft + " ft");
       },
       hoverOut(data, to){
         const self = this;
@@ -1827,6 +1904,7 @@ export default {
           .attr("fill", function(d) { return self.threshold(d[self.site_vars.setColor]) } );
 
         this.d3.selectAll(".trend").remove() // take off prior lines
+        this.d3.selectAll(".site_name").remove() 
 
       },
       setColor() {
@@ -1849,8 +1927,7 @@ export default {
           .classed("thresh-legend", true).call(xAxis)
           .attr("transform", "translate(" + (0) + "," + 45 + ")");
 
-          g.select(".domain")
-              .remove();
+          g.select(".domain").remove();
 
               g.selectAll("rect")
               .data(self.threshold.range().map(function(color) {
