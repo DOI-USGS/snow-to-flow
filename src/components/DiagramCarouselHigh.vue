@@ -12,14 +12,14 @@
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/diagrams/Diagrams_normal-winter.jpg"
+              srcset="@/assets/diagrams/Diagram_high-winter.jpg"
               media="(max-width: 992px)"
               type="image/jpg"
             >
             <img 
               id="diagram-high-winter"
               v-img:diagram-high
-              src="@/assets/diagrams/Diagrams_normal-winter.jpg"
+              src="@/assets/diagrams/Diagram_high-winter.jpg"
               alt="Diagram of a mountain watershed covered in snow in winter"
               loading="lazy"
             >
@@ -32,14 +32,14 @@
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/diagrams/Diagrams_normal-early-spring.jpg"
+              srcset="@/assets/diagrams/Diagram_high-spring.jpg"
               media="(max-width: 992px)"
               type="image/jpg"
             >
             <img 
               id="diagram-high-early-spring"
               v-img:diagram-high
-              src="@/assets/diagrams/Diagrams_normal-early-spring.jpg"
+              src="@/assets/diagrams/Diagram_high-spring.jpg"
               alt="Diagram of a mountain watershed covered in snow in early spring"
               loading="lazy"
             >
@@ -51,14 +51,14 @@
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/diagrams/Diagrams_normal-late-spring.jpg"
+              srcset="@/assets/diagrams/Diagram_high-summer.jpg"
               media="(max-width: 992px)"
               type="image/png"
             >
             <img 
               id="diagram-high-late-spring"
               v-img:diagram-high
-              src="@/assets/diagrams/Diagrams_normal-late-spring.jpg"
+              src="@/assets/diagrams/Diagram_high-summer.jpg"
               alt="Diagram of a mountain watershed covered in snow in late spring"
               loading="lazy"
             >

@@ -3,7 +3,7 @@
     <div class="vizSectionContent">
       <div class="takeAway">
         <slot name="takeAway">
-       <!--    Take Away Title -->
+          <!--    Take Away Title -->
         </slot>
       </div>
       <div class="aboveExplanation explanation">
