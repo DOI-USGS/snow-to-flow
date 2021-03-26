@@ -1818,7 +1818,7 @@ export default {
             .attr("id", data.sntl_id)
             .attr("d", data.d_peak_sqrt)
             .attr("fill", "transparent")
-            .attr("stroke", "black")
+            .attr("stroke", "orchid")
             .attr("stroke-width", 2)
 
         // draw 2021 SWE  curve for site
@@ -1829,7 +1829,7 @@ export default {
           melty.append("path").attr("id", data.sntl_id)
             .attr("d", data.d_sm50)
             .attr("fill", "transparent")
-            .attr("stroke", "black")
+            .attr("stroke", "gold")
             .attr("stroke-width", 2)
 
             // draw 2021 SWE  curve for site
@@ -1858,20 +1858,18 @@ export default {
             .attr("stroke", "orchid")
             .attr("stroke-width", 1.5)
 
-/*           wy.append("circle")
-            .attr("cx", data.sm50k_x)
+          wy.append("circle")
+            .attr("cx", data.sm50_x)
             .attr("cy", data.sm50_y )
             .attr("r",4)
             .classed(data.sm50_met, true)
             .classed("melt", true)
-            .attr("fill", "orangered")
+            .attr("fill", "gold")
             .attr("opacity", 1)
 
             wy.selectAll(".melt.TBD")
-            .attr("fill", "white")
-            .attr("stroke", "orangered")
-            .attr("stroke-width", 1)
- */
+            .remove()
+
 
       this.d3.select("svg#wy21-svg").append("text")
         .classed("site_name", true)

@@ -84,13 +84,25 @@ conus_stat <- read_csv('2_process/out/SNOTEL_conus.csv') %>% filter(water_year >
 ak_stat <- read_csv('2_process/out/SNOTEL_ak.csv') %>% filter(water_year >= 1981) 
 
 ## trend data
-all_stat <- read_csv('2_process/out/SNOTEL_stats_POR.csv')
+all_stat <- read_csv('2_process/out/SNOTEL_stats_POR.csv')%>%
+  mutate(peak_swe_sqrt = sqrt(peak_swe),
+         peak_swe_log = log(peak_swe+1))
 
 ## to set fixed chart limits
 range(all_stat$water_year)
 range(all_stat$peak_swe)
 range(all_stat$sm50_day)
+all_stat%>%filter(sm50_day <= 50)
 range(na.omit(all_stat$apr1_swe))
+all_stat%>%
+  ggplot()+
+  geom_histogram(aes(sm50_day))+
+  scale_color_scico(palette="lajolla")
+
+range(all_stat$peak_swe_log)
+range(all_stat$peak_swe_sqrt)
+
+str(all_stat)
 
 ## timeseries across years - peak SWE, SM50
 ## sizing of the mini plot that pops up
@@ -112,10 +124,22 @@ for  (i in unique(all_stat$site_id)){
                                ymax=130, ymin = 0, xmin = 1981, xmax= 2021) %>%
     build_path_from_coords()
   
+  all_site$y <- all_site$peak_swe_log
+  site_obj <- all_site %>% dplyr::select(x,y)
+  peak_log <- convert_trend_to_svg(obj = site_obj, svg_width = time_w, svg_height = time_h, 
+                               ymax=5, ymin = 0, xmin = 1981, xmax= 2021) %>%
+    build_path_from_coords()
+  
+  all_site$y <- all_site$peak_swe_sqrt
+  site_obj <- all_site %>% dplyr::select(x,y)
+  peak_sqrt <- convert_trend_to_svg(obj = site_obj, svg_width = time_w, svg_height = time_h, 
+                               ymax=11.5, ymin = 0, xmin = 1981, xmax= 2021) %>%
+    build_path_from_coords()
+  
   # swe date
   all_site$y <- all_site$sm50_day
   sm50 <- convert_trend_to_svg(obj = site_obj, svg_width = time_w, svg_height = time_h, 
-                               ymax=366, ymin = 1, xmin = 1981, xmax= 2021) %>%
+                               ymax=366, ymin = 0, xmin = 1981, xmax= 2021) %>%
     build_path_from_coords()
   
   # swe date
@@ -126,14 +150,19 @@ for  (i in unique(all_stat$site_id)){
   
   df_out <- rbind(df_out, 
                   data.frame(sntl_id = sprintf("sntl_%s", i),
-                             d_peak = peak, d_sm50 = sm50, d_apr1 = apr1))
+                             d_peak = peak, d_sm50 = sm50, d_apr1 = apr1, 
+                             d_peak_log = peak_log, d_peak_sqrt  = peak_sqrt))
   
 }
+
+str(df_out)
 
 ## timeseries within 2021 - SWE with coords for peak SWE and SM50
 ## sizing of the mini plot that pops up
 wy_files <- list.files('1_fetch/out/SNOTEL', pattern="wy2021", full.names=TRUE)
 wy_data <- lapply(wy_files, read_csv) %>% bind_rows()
+str(wy_data)
+range(na.omit(log(wy_data$swe+1)))
 
 wy_stats <- read_csv('2_process/out/SNOTEL_stats_2021.csv')
 
@@ -151,7 +180,16 @@ for  (i in unique(wy_data$site_id)){
   site_obj <- all_site %>% dplyr::select(x,y)
   swe <- convert_trend_to_svg(obj = site_obj, 
                               svg_width = year_w, svg_height = year_h, 
-                              ymax=120, ymin = 0, xmin = 1, xmax = 365) %>%
+                              ymax=100, ymin = 0, xmin = 1, xmax = 180) %>%
+    build_path_from_coords()
+  
+  
+  all_site$x <- all_site$water_day
+  all_site$y <- log(all_site$swe+1)
+  site_obj <- all_site %>% dplyr::select(x,y)
+  swe_log <- convert_trend_to_svg(obj = site_obj, 
+                              svg_width = year_w, svg_height = year_h, 
+                              ymax=5, ymin = 0, xmin = 1, xmax = 180) %>%
     build_path_from_coords()
   
   ## convert day  and value at peak SWE AND sm50 to coords
@@ -167,18 +205,19 @@ for  (i in unique(wy_data$site_id)){
   site_obj <- sitey %>% dplyr::select(x,y)
   swe_pts <- convert_pt_to_svg(obj = site_obj, 
                               svg_width = year_w, svg_height = year_h, 
-                              ymax=120, ymin = 0, xmin = 1, xmax = 365) %>%
+                              ymax=100, ymin = 0, xmin = 1, xmax = 180) %>%
     mutate(metric = sitey$metric, site_id = i) %>%
     melt(id.vars=c("site_id","metric")) %>%
     dcast(site_id ~ metric + variable)
 
-  swe_today<-data.frame(site_id = i, sntl_id = sprintf("sntl_%s", i), d_swe = swe)%>%
+  swe_today<-data.frame(site_id = i, sntl_id = sprintf("sntl_%s", i), d_swe = swe, d_swe_log = swe_log,
+                        d_swe_scaled = swe_scaled)%>%
     left_join(swe_pts)
   
   df_swe <- rbind(df_swe, swe_today)
   
 }
-
+str(df_swe)
 
 # bind to site coordinates and export -------------------------------------
 
@@ -203,5 +242,3 @@ file.copy("6_visualize/out/SNOTEL_ak_d.csv",
           "C:/Users/cnell/Documents/Projects/snow-to-flow/public/data/SNOTEL_ak_d.csv",
           overwrite = TRUE)
 
-conus <- read_csv("6_visualize/out/SNOTEL_conus_d.csv")
-str(conus)
