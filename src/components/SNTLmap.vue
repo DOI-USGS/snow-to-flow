@@ -2036,28 +2036,32 @@ line, polyline, polygon, path, rect, circle {
 
 @media screen and (min-width: 1024px){
   #melt-svg {
-  transform: translate(0, -60px);
+  transform: translate(0, 0px);
 }
 #peak-svg {
   transform: translate(0, -5px);
 }
   .map-grid{
+    
     grid-template-areas: 
     "ak ak ak . . ."
+      "ak ak ak us us us"
       "ak ak ak us us us"
       "ak ak ak us us us"
       ". legend legend us us us"
       ". wy21 peak us us us"
       ". wy21 peak us us us"
-      ". wy21 peak us us us"
       ". wy21 melt us us us"
       ". wy21 melt us us us"
-      ". wy21 melt us us us"
+      ". . . us us us"
     ;
   }
   #grid-left{
     width: 30vw; // careful editing this, it's sizing the maps to the same scale
-    margin-left: 2.5vw;
+    //margin-left: 10vw;
+  }
+  #legendContainer {
+    margin-top: -50px;
   }
   #ak {
    width: 53vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
@@ -2069,6 +2073,50 @@ line, polyline, polygon, path, rect, circle {
   }
   #usa{
     width: 90vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
+  }
+ 
+}
+
+@media screen and (min-height: 900px){
+  #melt-svg {
+  transform: translate(0, -20px);
+}
+#peak-svg {
+  transform: translate(0, -5px);
+}
+  .map-grid{
+    
+    grid-template-areas: 
+      "ak ak ak us us us"
+      "ak ak ak us us us"
+      "ak ak ak us us us"
+      ". legend legend us us us"
+      ". wy21 peak us us us"
+      ". wy21 peak us us us"
+      ". wy21 melt us us us"
+      ". wy21 melt us us us"
+    ;
+  }
+  #grid-left{
+    width: 30vw; // careful editing this, it's sizing the maps to the same scale
+    //margin-left: 10vw;
+  }
+  #legendContainer {
+    margin-top: -30px;
+    margin-left: 20px;
+  }
+  #ak {
+   width: 65vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
+   margin-left: 30px;
+  }
+  #grid-right {
+    width: 70vw;// careful editing this, it's sizing the maps to the same scale
+    margin-right: 2.5vw;
+    margin-left: 0px;
+  }
+  #usa{
+    width: 100vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
+    margin-left: -25px;
   }
  
 }
