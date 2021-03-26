@@ -4,20 +4,20 @@
       class="image-slider"
       :autoplay="true"
       :autoplay-hover-pause="true"
-      :per-page="3"
+      :per-page="4"
     >
       <slide class="slide">
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/methods/drone_1200w.jpg"
+              srcset="@/assets/methods/person1.jpg"
               media="(max-width: 992px)"
               type="image/png"
             >
             <img 
               id="field1"
               v-img:group
-              src="@/assets/methods/drone_1200w.jpg"
+              src="@/assets/methods/person1.jpg"
               alt="Collecting snow depth data in the field"
               loading="lazy"
             >
@@ -28,14 +28,14 @@
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/methods/ground_truth.png"
+              srcset="@/assets/methods/drone1.jpg"
               media="(max-width: 992px)"
-              type="image/png"
+              type="image/jpg"
             >
             <img 
               id="field2"
               v-img:group
-              src="@/assets/methods/ground_truth.png"
+              src="@/assets/methods/drone1.jpg"
               alt="Collecting snow depth data in the field"
               loading="lazy"
             >
@@ -46,14 +46,14 @@
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/methods/snow_pit.png"
+              srcset="@/assets/methods/person2.jpg"
               media="(max-width: 992px)"
-              type="image/png"
+              type="image/jpg"
             >
             <img 
               id="field3"
               v-img:group
-              src="@/assets/methods/snow_pit.png"
+              src="@/assets/methods/person2.jpg"
               alt="Collecting snow depth data in the field"
               loading="lazy"
             >
@@ -64,14 +64,104 @@
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/images/snow-img1.png"
+              srcset="@/assets/methods/station1.jpg"
               media="(max-width: 992px)"
-              type="image/png"
+              type="image/jpg"
             >
             <img 
               id="field4"
               v-img:group
-              src="@/assets/images/snow-img1.png"
+              src="@/assets/methods/station1.jpg"
+              alt="Collecting snow depth data in the field"
+              loading="lazy"
+            >
+          </picture>
+        </div>
+      </slide>
+      <slide class="slide">
+        <div class="slider-image-container">
+          <picture>
+            <source
+              srcset="@/assets/methods/person3.jpg"
+              media="(max-width: 992px)"
+              type="image/jpg"
+            >
+            <img 
+              id="field5"
+              v-img:group
+              src="@/assets/methods/person3.jpg"
+              alt="Collecting snow depth data in the field"
+              loading="lazy"
+            >
+          </picture>
+        </div>
+      </slide>
+      <slide class="slide">
+        <div class="slider-image-container">
+          <picture>
+            <source
+              srcset="@/assets/methods/station2.jpg"
+              media="(max-width: 992px)"
+              type="image/jpg"
+            >
+            <img 
+              id="field6"
+              v-img:group
+              src="@/assets/methods/station2.jpg"
+              alt="Collecting snow depth data in the field"
+              loading="lazy"
+            >
+          </picture>
+        </div>
+      </slide>
+      <slide class="slide">
+        <div class="slider-image-container">
+          <picture>
+            <source
+              srcset="@/assets/methods/person4.jpg"
+              media="(max-width: 992px)"
+              type="image/jpg"
+            >
+            <img 
+              id="field7"
+              v-img:group
+              src="@/assets/methods/person4.jpg"
+              alt="Collecting snow depth data in the field"
+              loading="lazy"
+            >
+          </picture>
+        </div>
+      </slide>
+      <slide class="slide">
+        <div class="slider-image-container">
+          <picture>
+            <source
+              srcset="@/assets/methods/station3.jpg"
+              media="(max-width: 992px)"
+              type="image/jpg"
+            >
+            <img 
+              id="field8"
+              v-img:group
+              src="@/assets/methods/station3.jpg"
+              alt="Collecting snow depth data in the field"
+              loading="lazy"
+            >
+          </picture>
+        </div>
+      </slide>
+      <slide class="slide">
+        <div class="slider-image-container">
+          <picture>
+            <source
+              srcset="@/assets/methods/person5.jpg"
+              media="(max-width: 992px)"
+              type="image/jpg"
+            >
+            <img 
+              id="field9"
+              v-img:group
+              src="@/assets/methods/person5.jpg"
               alt="Collecting snow depth data in the field"
               loading="lazy"
             >
