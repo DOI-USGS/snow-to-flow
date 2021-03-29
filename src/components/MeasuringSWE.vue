@@ -6,7 +6,8 @@
       <h2>The USGS has been studying the connection between snowpack and stream flow for decades.</h2>
     </template>
     <template v-slot:aboveExplanation>
-      <p>Cheese and wine roquefort when the cheese comes out everybody's happy. Cow red leicester the big cheese paneer cut the cheese red leicester boursin halloumi. Cheese and wine cheddar mozzarella boursin mozzarella cheese and wine taleggio cheese slices. Stilton fromage say cheese mozzarella cheeseburger dolcelatte pepper jack manchego. Who moved my cheese feta.</p>
+      <p>The USGS has been advancing snow science through both measuring and modeling snowpack, and linking these results to streamflow.  Explain what SNOTEL sites are here, as well as the other field data collection techniques here.</p>
+      <p>Measuring - Snow monitoring stations with meteorological data – NGWOS. NRCS and SnoTEL. Remote sensing – snow persistence.</p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
@@ -25,7 +26,7 @@
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
-      <p>St. agur blue cheese emmental goat. Port-salut babybel cheese strings airedale everyone loves boursin cheesy feet queso. Boursin goat caerphilly st. agur blue cheese squirty cheese rubber cheese cow halloumi. Danish fontina cheese and biscuits say cheese swiss croque monsieur.</p>
+      <p>Modeling - The USGS has also been contributing to snow science research through modeling snowpack and snowmelt dynamics from local to National extents. These models use measured data of snow, landscape and vegetation as well as meteorologic variables to understand how snowpack evolves from accumulation through melt, as well as how these changes influence streamflow.</p>
     </template>
   </VizSection>
 </template>
