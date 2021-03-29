@@ -40,7 +40,7 @@
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
-      <p>Goat fondue cheese and wine. Caerphilly feta goat cheese triangles taleggio ricotta queso caerphilly. Jarlsberg say cheese boursin monterey jack cauliflower cheese blue castello roquefort chalk and cheese. Brie dolcelatte bavarian bergkase chalk and cheese cottage cheese port-salut cottage cheese lancashire. Pepper jack swiss.</p>
+      <p></p>
     </template>
   </VizSection>
 </template>
