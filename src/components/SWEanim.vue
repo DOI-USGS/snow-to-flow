@@ -4,21 +4,6 @@
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
       <h2>Changing snow in the west can have enormous impacts on water availability.</h2>
-      <!--    <div class="checks">
-        <input type="checkbox"
-               value="in_swe" 
-               v-model="checkedData" 
-               @change=""/>
-        <label for="in_swe">swe</label>     
-        </div>
-      <div class="checks">
-        <input type="checkbox"
-               value="mmd"
-               v-model="checkedData" 
-               @change=""/>
-        <label for="in_mmd">mmd</label>
-        <h3>checked: {{ checkedData }} </h3>
-        </div> -->
     </template>
     <!-- EXPLANATION -->
     <template v-slot:aboveExplanation>
@@ -26,9 +11,15 @@
         The differences between a high a low snow year illustrate the downstream effects of changing snow on water resources. For example, in 2011 snowmelt occurred ## days later than 2012.
         This was because of differences in the amount of snowpack between years - in 2011 peak SWE was  2x higher.  there were considerable difference in the magnitude of SWE and subsequently discharge at the shown locations in the Upper Colorado river basin.
         With 2 times higher snowpack shown int he line chart. 
-        Because of less snowpack, melt rates were faster and SM50 occurred between ## to ## days earlier at these sites.
-        Elevation.
       </p>
+      <div class="compare">
+        <h4>Compare: <input type="radio" id="one" value="One" v-model="picked">
+          <label for="one">timing</label>   
+        <input type="radio" id="two" value="Two" v-model="picked">
+          <label for="two">magnitude</label>
+        <input type="radio" id="two" value="Two" v-model="picked">   
+          <label for="three">elevation</label></h4>
+        </div>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
@@ -498,5 +489,9 @@ export default {
 .maxWidth {
   max-width: 50vw;
 }
-
+input {
+  margin-left: 20px;
+  margin-right: 5px;
+  display: inline-block;
+}
 </style>
