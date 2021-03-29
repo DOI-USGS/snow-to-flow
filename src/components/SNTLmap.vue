@@ -1802,6 +1802,10 @@ export default {
             self.hover(data, self.site_radius*2, "orchid");
             self.d3.select("text.hover_info").remove()
           })
+         /*  .on("click", function(data) {
+            self.hover(data, self.site_radius*2, "orchid");
+            self.d3.select("text.hover_info").remove()
+          }) */
           .on("mouseout", function(data){
             self.hoverOut(data, self.site_radius);
             //hover/click prompt
@@ -1815,6 +1819,19 @@ export default {
             .attr("x", 30)
             .text("Hover over a site");
               }) 
+           /* .on("click", function(data){
+            self.hoverOut(data, self.site_radius);
+            //hover/click prompt
+          self.d3.select("svg#wy21-svg").append("text")
+            .classed("hover_info", true)
+            .attr("fill", "#000")
+            .attr("font-size", "1.2em")
+            .attr("text-anchor", "start")
+            .attr("font-style", "italic")
+            .attr("y", 50)
+            .attr("x", 30)
+            .text("Hover over a site");
+              })  */
           
         },
         hover(data, to, color){

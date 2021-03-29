@@ -84,8 +84,8 @@ body {
       background-color: white;
       line-height: 1.2;
       font-size: 16px;
-      font-family:$familySerif;
-      font-weight: 300;
+      font-family:$familyMain;
+      font-weight: 400;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       width: 100%;
@@ -271,7 +271,7 @@ p {
   font-weight:800;
   fill: white;
   font-family: $familyMain;
-  background: linear-gradient(180deg,rgba(255,255,255,0) 70%, rgba(136, 45, 221, 0) 30%);
+  background: linear-gradient(180deg,rgba(255,255,255,0) 70%, $skyBlue 30%);
   line-height: 1.3em;
   margin: 0 2px;
   padding: 0 2px;
