@@ -8,10 +8,12 @@
     <!-- FIGURES -->
     <template v-slot:aboveExplanation>
       <p>Hydrologists measure snowpack as the snow water equivalent, or the amount of liquid water contained in snowpack. That measurement normalizes between light, fluffy snow and heavy, wet snow – to the total amount of water. </p>
-      <p>To understand how snow becomes flow we can look use streamflow measurements from the USGS streamgaging network. Some of the oldest (100-125 year old) gages derive their flow from seasonal snow, contributing to a long record of data. Read more about the <a
+      <p>
+        To understand how snow becomes flow we can look use streamflow measurements from the USGS streamgaging network. Some of the oldest (100-125 year old) gages derive their flow from seasonal snow, contributing to a long record of data. Read more about the <a
           href="https://labs.waterdata.usgs.gov/visualizations/gages-through-the-ages/index.html#/"
           target="_blank"
-        >history of streamgaging</a></p>
+        >history of streamgaging</a>
+      </p>
       <Sidebar>
         <template v-slot:sidebarTitle>
           What is SWE?

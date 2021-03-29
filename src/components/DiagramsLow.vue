@@ -40,7 +40,7 @@
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
-      <p> </p>
+      <p />
     </template>
   </VizSection>
 </template>
