@@ -74,18 +74,19 @@
             id="mmd-line-both"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
-            viewBox="-50 -50 600 550"
+            viewBox="0 -50 550 520"
             aria-labelledby="page-title page-desc"
             width="100%"
+            height="auto"
           >
 
-            <text
-              x="90"
-              y="470"
+            <text class="yr-label"
+              x="150"
+              y="450"
             >High snow year</text>
-            <text
-              x="350"
-              y="470"
+            <text class="yr-label"
+              x="400"
+              y="450"
             >Low snow year</text>
           </svg>
         </div>
@@ -145,6 +146,7 @@ export default {
               ridge_o: 0.3,
               site_elev: [],
               site_sp: [],
+              tickDates: ["Oct", "Jan", "Apr", "July"],
         
 
               checkedData: ["mmd"],
@@ -258,17 +260,18 @@ export default {
 
         // define & style x &  y axes
         var xAxis = g => g
-          .attr("transform", `translate(0,${this.height+5})`)
+          .attr("transform", `translate(0,${this.height})`)
           .call(this.d3.axisBottom(x)
-              .ticks(this.width / 60)
-              .tickSizeOuter(0))
+              .tickValues([50, 143, 223, 313])
+              .tickFormat(function(d,i) { return self.tickDates[i] })
+              .tickSizeOuter(0).tickSize(0))
 
         var yAxis = g => g
           .attr("transform", `translate(${0},-2)`)
           .call(this.d3.axisLeft(y).tickSize(0).tickPadding(4))
         // append axes
-        svg.append("g").classed("xaxis", true).classed(ridge_class, true).call(xAxis);
-        svg.append("g").classed("yaxis", true).classed(ridge_class, true).call(yAxis);
+        svg.append("g").classed("xaxis", true).classed(ridge_class, true).call(xAxis).attr("font-style", "italic");
+        svg.append("g").classed("yaxis", true).classed(ridge_class, true).call(yAxis).attr("font-style", "italic");
 
         // define area chart parameters
         this.area = this.d3.area()
@@ -352,14 +355,16 @@ export default {
         var xAxisL = g => g
           .attr("transform", `translate(0,${this.height+5})`)
           .call(this.d3.axisBottom(xhalfL)
-              .ticks(this.width / 60)
-              .tickSizeOuter(0))
+              .tickValues([50, 143, 223, 313])
+              .tickFormat(function(d,i) { return self.tickDates[i] })
+              .tickSizeOuter(0).tickSize(0))
 
          var xAxisR = g => g
           .attr("transform", `translate(0,${this.height+5})`)
           .call(this.d3.axisBottom(xhalfR)
-              .ticks(this.width / 60)
-              .tickSizeOuter(0))
+              .tickValues([50, 143, 223, 313])
+              .tickFormat(function(d,i) { return self.tickDates[i] })
+              .tickSizeOuter(0).tickSize(0))
 
         var yAxisTall = g => g
           .attr("transform", `translate(${0},-2)`)
@@ -495,24 +500,30 @@ export default {
 }
 .maxWidth {
   width: 90vw;
+  margin-left: 5vw;
   max-width: 700px;
   margin: auto;
 }
-input {
-  margin-left: 20px;
-  margin-right: 5px;
-  display: inline-block;
-}
+
 .compare {
   border: 2px solid black;
   display: inline-block;
   font-size: 18px;
   text-align: center;
     padding: 5px 10px;
+    margin: auto;
 }
-
+/* #mmd-line-both {
+  margin: auto;
+  padding: 1em;
+} */
 .butt {
   padding: 5px 10px;
+}
+.yr-label {
+  font-size: 16px;
+  font-weight: 700;
+  text-anchor: middle;
 }
 input[name="radiogroup1"] {
             display: none;
