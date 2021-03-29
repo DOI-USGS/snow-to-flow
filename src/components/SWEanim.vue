@@ -99,11 +99,11 @@
             <text
               x="100"
               y="0"
-            >2011</text>
+            >High snow</text>
             <text
               x="400"
               y="0"
-            >2012</text>
+            >Low snow</text>
           </svg>
         </div>
       </div>
@@ -496,7 +496,7 @@ export default {
 
 }
 .maxWidth {
-  max-width: 70vw;
+  max-width: 50vw;
 }
 
 </style>

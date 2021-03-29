@@ -1463,7 +1463,7 @@
         The map above shows snow TODAY (use April 1st for release) as the percentile of this date in the historic record (1981-2010). Snow is quantified as the daily snow-water equivalent (SWE) from <a
           href="https://www.wcc.nrcs.usda.gov/snow/"
           target="_blank"
-        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the western U.S.</a>. The trend line that appears on hover shows peak SWE for each site since 1981 (and currently does not include 2021). 
+        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the western U.S.</a>. When a site is hovered or selected, the left panels show the trend in peak SWE and the melt date (SM50) is drawn for all years with data. The right panel shows SWE in the current water year (2021) to date, with points indicating peak SWE in 2021 (purple) and the melt date (yellow). Unfilled points indicate these landmarksare yet to occur in the current water year.
       </p>
     </template>
     <!-- EXPLANATION -->
@@ -1626,12 +1626,12 @@ export default {
 
         this.d3.select("svg#peak-svg").append("text")
           .classed("ele", true)
-            .attr("fill", "#000")
-            .attr("font-size", "1.2em")
+            .attr("fill", "grey")
+            .attr("font-size", "1em")
             .attr("font-weight", "bold")
             .attr("text-anchor", "start")
             .attr("y", 120)
-            .attr("x", 5)
+            .attr("x", 15)
             .attr("transform", "rotate(-90) translate(-110, -150)")
             .text("Peak SWE");
 
@@ -1663,8 +1663,8 @@ export default {
 
       // position axis labels
         this.d3.select("svg#melt-svg").append("text")
-          .attr("fill", "#000")
-          .attr("font-size", "1.2em")
+          .attr("fill", "grey")
+          .attr("font-size", "1em")
           .attr("text-anchor", "start")
           .attr("font-weight", "bold")
           .attr("y", 140)
@@ -1673,17 +1673,14 @@ export default {
 
         this.d3.select("svg#melt-svg").append("text")
           .classed("ele", true)
-            .attr("fill", "#000")
-            .attr("font-size", "1.2em")
+            .attr("fill", "grey")
+            .attr("font-size", "1em")
             .attr("font-weight", "bold")
             .attr("text-anchor", "start")
             .attr("y", 120)
-            .attr("x", 5)
+            .attr("x", 15)
             .attr("transform", "rotate(-90) translate(-110, -150)")
             .text("Melt date");
-
-          this.d3.select("svg#melt-svg")
-            .attr("transform","translate(0, -17)")
 
         // wy mini
        self.ywy = this.d3.scaleLinear()
@@ -1713,36 +1710,45 @@ export default {
 
       // position axis labels
         this.d3.select("svg#wy21-svg").append("text")
-          .attr("fill", "#000")
-          .attr("font-size", "1.2em")
-          .attr("text-anchor", "start")
+          .attr("fill", "grey")
+          .attr("font-size", "1em")
+          .attr("text-anchor", "center")
           .attr("font-weight", "bold")
           .attr("y", 255)
-          .attr("x", 25)
-          .text("2021 water year");
+          .attr("x", 50)
+          .text("2021 Water year");
 
         this.d3.select("svg#wy21-svg").append("text")
           .classed("ele", true)
-            .attr("fill", "#000")
-            .attr("font-size", "1.2em")
+            .attr("fill", "grey")
+            .attr("font-size", "1em")
             .attr("font-weight", "bold")
             .attr("text-anchor", "start")
             .attr("y", 120)
-            .attr("x", -40)
+            .attr("x", -10)
             .attr("transform", "rotate(-90) translate(-110, -150)")
             .text("SWE");
 
-        // add site info
-   /*      this.d3.select("svg#wy21-svg").append("text")
-        .classed("site_info", true)
+      //hover/click prompt
+      this.d3.select("svg#wy21-svg").append("text")
+        .classed("hover_info", true)
         .attr("fill", "#000")
         .attr("font-size", "1.2em")
-        .attr("font-weight", "bold")
         .attr("text-anchor", "start")
-        .attr("y", 20)
-        .attr("x", 10)
-        .text("Site:");
- */
+        .attr("font-style", "italic")
+        .attr("y", 50)
+        .attr("x", 30)
+        .text("Hover over a site");
+
+        
+        // add hover effect to all sites
+        this.d3.select("svg#wy21-svg")
+          .on("mouseover", function(data) {
+          })
+          .on("mouseout", function(data){
+          }) 
+
+
       },
 
       addSites(x_max, y_max, sites, data) {
@@ -1794,10 +1800,38 @@ export default {
         this.d3.selectAll(".SNTL")
           .on("mouseover", function(data) {
             self.hover(data, self.site_radius*2, "orchid");
+            self.d3.select("text.hover_info").remove()
           })
+         /*  .on("click", function(data) {
+            self.hover(data, self.site_radius*2, "orchid");
+            self.d3.select("text.hover_info").remove()
+          }) */
           .on("mouseout", function(data){
             self.hoverOut(data, self.site_radius);
-          }) 
+            //hover/click prompt
+          self.d3.select("svg#wy21-svg").append("text")
+            .classed("hover_info", true)
+            .attr("fill", "#000")
+            .attr("font-size", "1.2em")
+            .attr("text-anchor", "start")
+            .attr("font-style", "italic")
+            .attr("y", 50)
+            .attr("x", 30)
+            .text("Hover over a site");
+              }) 
+           /* .on("click", function(data){
+            self.hoverOut(data, self.site_radius);
+            //hover/click prompt
+          self.d3.select("svg#wy21-svg").append("text")
+            .classed("hover_info", true)
+            .attr("fill", "#000")
+            .attr("font-size", "1.2em")
+            .attr("text-anchor", "start")
+            .attr("font-style", "italic")
+            .attr("y", 50)
+            .attr("x", 30)
+            .text("Hover over a site");
+              })  */
           
         },
         hover(data, to, color){
@@ -1818,8 +1852,8 @@ export default {
             .attr("id", data.sntl_id)
             .attr("d", data.d_peak_sqrt)
             .attr("fill", "transparent")
-            .attr("stroke", "orchid")
-            .attr("stroke-width", 2)
+            .attr("stroke", "black")
+            .attr("stroke-width", "2px")
 
         // draw 2021 SWE  curve for site
         var melty = this.melt.append("g")
@@ -1829,8 +1863,8 @@ export default {
           melty.append("path").attr("id", data.sntl_id)
             .attr("d", data.d_sm50)
             .attr("fill", "transparent")
-            .attr("stroke", "gold")
-            .attr("stroke-width", 2)
+            .attr("stroke", "black")
+            .attr("stroke-width", "2px")
 
             // draw 2021 SWE  curve for site
         var wy = this.wy21.append("g")
@@ -1874,7 +1908,7 @@ export default {
       this.d3.select("svg#wy21-svg").append("text")
         .classed("site_name", true)
         .attr("fill", "#000")
-        .attr("font-size", "1.2em")
+        .attr("font-size", "1em")
         .attr("font-weight", "bold")
         .attr("text-anchor", "start")
         .attr("y", 20)
@@ -1884,7 +1918,7 @@ export default {
         this.d3.select("svg#wy21-svg").append("text")
         .classed("site_name", true)
         .attr("fill", "#000")
-        .attr("font-size", "1.2em")
+        .attr("font-size", "1em")
         .attr("font-weight", "bold")
         .attr("text-anchor", "start")
         .attr("y", 40)
@@ -1915,10 +1949,10 @@ export default {
 
           var x = this.d3.scaleLinear()
             .domain([0, 1])
-            .range([0, 240]);
+            .range([0, 200]);
 
             var xAxis = this.d3.axisBottom(x)
-              .tickSize(13)
+              .tickSize(10)
               .tickValues(self.threshold.domain());
 
           var g = this.d3.select("svg#legend-percentile").append("g")
@@ -1935,25 +1969,25 @@ export default {
                 return d;
               }))
               .enter().insert("rect", ".tick")
-                .attr("height", 8)
+                .attr("height", 6)
                 .attr("x", function(d) { return x(d[0]); })
                 .attr("width", function(d) { return x(d[1]) - x(d[0]); })
                 .attr("fill", function(d) { return self.threshold(d[0]); });
 
                 g.append("text")
                   .attr("fill", "#000")
-                  .attr("font-size", "1.15em")
+                  .attr("font-size", "1em")
                   .attr("text-anchor", "start")
-                  .attr("y", -10)
-                  .text("Percentile, historic mean (1981-2010)");
+                  .attr("y", -5)
+                  .text("Percentile, historic median (1981-2010)");
 
                   g.append("text")
                   .attr("fill", "#000")
-                  .attr("font-size", "1.5em")
+                  .attr("font-size", "1.2em")
                   .attr("font-weight", "bold")
                   .attr("text-anchor", "start")
                   .attr("x", 0)
-                  .attr("y", -30)
+                  .attr("y", -20)
                   .text("Snow-water equivalent: March 22nd, 2021");
 
        // set color for both maps using the same color scale
@@ -1975,7 +2009,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-areas: 
-    ". legend legend legend legend ."
+    "legend legend legend legend legend ."
     "ak ak ak ak ak ak"
     "us us us us us us"
     "peak peak peak wy21 wy21 wy21"
@@ -1995,7 +2029,6 @@ line, polyline, polygon, path, rect, circle {
   stroke-width: 2px;
   opacity: .5;
 }
-
 .usa {
   color: darkgrey;
   fill:none;
@@ -2007,7 +2040,9 @@ line, polyline, polygon, path, rect, circle {
 
 #legendContainer{
   grid-area: legend;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
+  margin-left: 30px;
+  z-index: 1;
 }
 
 #grid-left{
@@ -2016,77 +2051,111 @@ line, polyline, polygon, path, rect, circle {
   margin-right: 2.5vw; 
 }
 #ak{
-  width: 90vw;// careful editing this, it's sizing the maps to be on the same scale
+  width: 110vw;// careful editing this, it's sizing the maps to be on the same scale
 }
 #grid-right{
   grid-area: us;
-  width: 190vw;
+  width: 90vw;
+  margin-left: 70px;
 }
 #usa{
-  width: 120vw;// careful editing this, it's sizing the maps to be on the same scale
+  width: 160vw;// careful editing this, it's sizing the maps to be on the same scale
 }
 #peak-container{
   grid-area: peak;
 }
-
 #melt-container{
   grid-area: melt;
 }
-
 #wy21-container{
   grid-area: wy21;
 }
 
 @media screen and (min-width: 1024px){
-  .map-grid{
-    grid-template-areas: 
-      ". legend legend . . ."
-      "ak ak ak us us us"
-      "ak ak ak us us us"
-      ". peak wy21 us us us"
-      ". melt wy21 us us us"
-    ;
-  }
-  #grid-left{
-    width: 30vw; // careful editing this, it's sizing the maps to the same scale
-    margin-left: 2.5vw;
-  }
-  #ak {
-   width: 55vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
-  }
-  #grid-right {
-    width: 70vw;// careful editing this, it's sizing the maps to the same scale
-    margin-right: 2.5vw;
-  }
-  #usa{
-    width: 85vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
-  }
+  #melt-svg {
+  transform: translate(0, 0px);
 }
-@media screen and (min-width: 1024px) and (max-height:800){
+#peak-svg {
+  transform: translate(0, -5px);
+}
   .map-grid{
+    
     grid-template-areas: 
-      ". legend legend . . ."
+    "ak ak ak . . ."
       "ak ak ak us us us"
       "ak ak ak us us us"
-      ". peak wy21 us us us"
-      ". melt wy21 us us us"
+      "ak ak ak us us us"
+      ". legend legend us us us"
+      ". wy21 peak us us us"
+      ". wy21 peak us us us"
+      ". wy21 melt us us us"
+      ". wy21 melt us us us"
+      ". . . us us us"
     ;
-    max-height: 50vh;
   }
   #grid-left{
     width: 30vw; // careful editing this, it's sizing the maps to the same scale
-    margin-left: 2.5vw;
+    //margin-left: 10vw;
+  }
+  #legendContainer {
+    margin-top: -50px;
   }
   #ak {
-   width: 55vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
+   width: 53vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
   }
   #grid-right {
     width: 70vw;// careful editing this, it's sizing the maps to the same scale
     margin-right: 2.5vw;
+    margin-left: 0px;
   }
   #usa{
-    width: 85vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
+    width: 90vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
   }
+ 
+}
+
+@media screen and (min-height: 900px){
+  #melt-svg {
+  transform: translate(0, -20px);
+}
+#peak-svg {
+  transform: translate(0, -5px);
+}
+  .map-grid{
+    
+    grid-template-areas: 
+      "ak ak ak us us us"
+      "ak ak ak us us us"
+      "ak ak ak us us us"
+      ". legend legend us us us"
+      ". wy21 peak us us us"
+      ". wy21 peak us us us"
+      ". wy21 melt us us us"
+      ". wy21 melt us us us"
+    ;
+  }
+  #grid-left{
+    width: 30vw; // careful editing this, it's sizing the maps to the same scale
+    //margin-left: 10vw;
+  }
+  #legendContainer {
+    margin-top: -30px;
+    margin-left: 20px;
+  }
+  #ak {
+   width: 65vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
+   margin-left: 30px;
+  }
+  #grid-right {
+    width: 70vw;// careful editing this, it's sizing the maps to the same scale
+    margin-right: 2.5vw;
+    margin-left: 0px;
+  }
+  #usa{
+    width: 100vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
+    margin-left: -25px;
+  }
+ 
 }
 
 
