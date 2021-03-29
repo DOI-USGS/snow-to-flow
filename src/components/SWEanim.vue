@@ -74,20 +74,20 @@
             id="mmd-line-both"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
-            viewBox="0 -50 550 520"
+            viewBox="-50 -50 600 500"
             aria-labelledby="page-title page-desc"
             width="100%"
             height="auto"
           >
 
-            <text class="yr-label"
-              x="150"
-              y="450"
-            >High snow year</text>
-            <text class="yr-label"
-              x="400"
-              y="450"
-            >Low snow year</text>
+            <text class="yr-label" id="wy11"
+              x="50"
+              y="175"
+            >High snow</text>
+            <text class="yr-label" id="wy12"
+              x="50"
+              y="375"
+            >Low snow</text>
           </svg>
         </div>
         <div class="compare">
@@ -147,6 +147,8 @@ export default {
               site_elev: [],
               site_sp: [],
               tickDates: ["Oct", "Jan", "Apr", "July"],
+              highlabel: null,
+              lowlabel: null,
         
 
               checkedData: ["mmd"],
@@ -224,8 +226,8 @@ export default {
         var mar = mid*0.05
 
         // set chart - separate for each year, using 2011 for max values to set the scaless
-        self.initRidges(this.svgboth, 'ridge_2011', data.mmd11, data.days, 0, x_long, this.margin, this.height/2-mar);
-        self.initRidges(this.svgboth, 'ridge_2012', data.mmd12, data.days, 0, x_long, this.height/2+mar,  this.height);
+        self.initRidges(this.svgboth, 'ridge_2011', data.mmd11, data.days, 0, x_long, this.margin, this.height/2);
+        self.initRidges(this.svgboth, 'ridge_2012', data.mmd12, data.days, 0, x_long, this.height/2+mar+2,  this.height+2);
 
 
 
@@ -260,9 +262,9 @@ export default {
 
         // define & style x &  y axes
         var xAxis = g => g
-          .attr("transform", `translate(0,${this.height})`)
+          .attr("transform", `translate(0,${this.height+2})`)
           .call(this.d3.axisBottom(x)
-              .tickValues([50, 143, 223, 313])
+              .tickValues([1, 93, 183, 273])
               .tickFormat(function(d,i) { return self.tickDates[i] })
               .tickSizeOuter(0).tickSize(0))
 
@@ -283,15 +285,6 @@ export default {
           
         this.line = this.area.lineY1()
           .defined(d => !isNaN(d));
-        
-        var colorStack = this.d3.scaleOrdinal()
-        .domain(["site_6614800", "site_9063900","site_9034900","site_9035500","site_6746095",
-            "site_9064000","site_9065500","site_9066200","site_9022000","site_9032100","site_9065100","site_7083000","site_9035700","site_9046490","site_9035900", 
-            "site_9024000","site_9358550","site_9025000","site_9066000","site_9074000","site_9026500","site_9032000","site_9051050","site_9025300","site_9067200",
-            "site_9066300","site_9047700","site_9067000","site_9132995","site_9134000","site_9306242"])
-        .range(["blue", "blue", "blue", "blue", "blue", "dodgerblue", "dodgerblue", "dodgerblue", "dodgerblue", "dodgerblue", 
-                "green","green","green","green","green","lightgreen","lightgreen","lightgreen","lightgreen","lightgreen",
-                "gold","gold","gold","gold","gold","yellow","yellow","yellow","yellow","yellow"])
 
       // append g for each ridgeline/site_no
         this.group = svg.append("g")
@@ -312,26 +305,47 @@ export default {
           .attr("stroke", "dodgerblue")
           .attr("d", d => this.line(d.mmd))
           .attr("stroke-width", "1px")
-          .attr("stroke", function(d) { return colorStack(d.key)})
+          .attr("stroke", "dodgerblue")
+          .attr("opacity", 0.7)
           .attr("class", function(d) { return d.key })
           .classed("ridge", true);
 
           
         this.y2011 = this.svgboth.selectAll("g.ridge_2011")
         this.y2012 = this.svgboth.selectAll("g.ridge_2012")
+        this.highlabel = this.svgboth.select("#wy11")
+        this.lowlabel = this.svgboth.select("#wy12")
 
-          self.stackRidges();
-          self.shiftRidges(svg, days);
-          self.spreadRidges();
+      self.timingToMagnitude(svg, days);
+
+          //self.spreadRidges(); 
 
       },
+      timingToMagnitude(svg, days){
+        const self = this;
+        self.stackRidges();
+      self.shiftRidges(svg, days);
+      },
       stackRidges(){
+        const self = this;
 
         this.y2011.selectAll("path.ridge")
           .transition()
-          .delay(function(d,i) { return i*20 })
-          .duration(500)
-          .attr("transform", "translate(0," + (this.height/2+(this.height/2)*0.05) + ")" )
+          .delay(function(d,i) { return i*15 })
+          .duration(1100)
+          .attr("transform", "translate(0," + (this.height/2+2) + ")" )
+
+        self.highlabel
+        .transition()
+          .delay(700)
+          .duration(700)
+          .attr("transform", "translate(90," + (0) + ")" )
+
+          self.lowlabel
+        .transition()
+          .delay(600)
+          .duration(800)
+          .attr("transform", "translate(330,-40)" )
 
       },
       shiftRidges(svg, days){
@@ -355,14 +369,14 @@ export default {
         var xAxisL = g => g
           .attr("transform", `translate(0,${this.height+5})`)
           .call(this.d3.axisBottom(xhalfL)
-              .tickValues([50, 143, 223, 313])
+              .tickValues([1, 93, 183, 273])
               .tickFormat(function(d,i) { return self.tickDates[i] })
               .tickSizeOuter(0).tickSize(0))
 
          var xAxisR = g => g
           .attr("transform", `translate(0,${this.height+5})`)
           .call(this.d3.axisBottom(xhalfR)
-              .tickValues([50, 143, 223, 313])
+              .tickValues([1, 93, 183, 273])
               .tickFormat(function(d,i) { return self.tickDates[i] })
               .tickSizeOuter(0).tickSize(0))
 
@@ -373,38 +387,38 @@ export default {
         // transform axes
         this.d3.select(".xaxis.ridge_2011")
         .transition()
-        .duration(1000)
-        .delay(2000)
+        .duration(300)
+        .delay(350)
         .call(xAxisL);
 
         this.d3.select(".xaxis.ridge_2012")
         .transition()
-        .duration(1000)
-        .delay(2000)
+        .duration(500)
+        .delay(250)
         .call(xAxisR);
 
         this.d3.select(".yaxis.ridge_2012")
         .transition()
-        .duration(1000)
-        .delay(2000)
+        .duration(700)
+        .delay(250)
         .call(yAxisTall);
 
         this.d3.select(".yaxis.ridge_2011")
         .transition()
-        .duration(1000)
-        .delay(2000)
+        .duration(500)
+        .delay(250)
         .call(yAxisTall);
 
         this.d3.selectAll("g.ridge_2011.curve")
         .transition()
-        .delay(2000)
-        .duration(1000)
+        .delay(270)
+        .duration(500)
         .attr("transform", "translate(0, 0) scale(.49, 1)")
 
          this.d3.selectAll("g.ridge_2012.curve")
         .transition()
-        .delay(2000)
-        .duration(1000)
+        .delay(250)
+        .duration(500)
         .attr("transform", "translate(270, 0) scale(.49, 1)")
 
       },
@@ -456,7 +470,7 @@ export default {
 
         this.group.append("path")
           .attr("fill", "none")
-          .attr("stroke",function(d) { return colorStack(d.key)})
+          .attr("stroke","dodgerblue")
           .attr("d", d => self.line(d.mmd))
           .attr("stroke-width", "1.5px");
 
@@ -471,7 +485,6 @@ export default {
           .x((d, i) => x(days[i]))
           .y0(0)
           .y1(d => z_swe(d))
-
 
 /*          this.group.append("path")
           .attr("fill", "grey")
@@ -524,6 +537,8 @@ export default {
   font-size: 16px;
   font-weight: 700;
   text-anchor: middle;
+  font-style: italic;
+  fill: rgb(165, 163, 163);
 }
 input[name="radiogroup1"] {
             display: none;
@@ -537,8 +552,8 @@ input[name="radiogroup1"] {
 
     input[name="radiogroup1"]:checked+label {
         /* style checked state as you like */
-        border: 7px solid orchid;
-        background-color: orchid;
+        border: 7px solid dodgerblue;
+        background-color: dodgerblue;
         color: white;
     }
 </style>
