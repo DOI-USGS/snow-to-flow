@@ -6,7 +6,7 @@
       <h2>High Snow + Late Melt = Lots of Flow</h2>
     </template>
     <template v-slot:aboveExplanation>
-      <p>In a good snow year, there's lots of snow and it doesn't melt at all until the spring when it melts all at once.</p>
+      <p>In a year with lots of snow accumulation and a cold spring where the snowpack persists longer, snowmelt occurs late and the melt rate is rapid. This can result in greater annual water availability.</p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>

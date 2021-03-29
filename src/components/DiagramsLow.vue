@@ -6,7 +6,7 @@
       <h2>Low Snow + Early Melting = Less Flow</h2>
     </template>
     <template v-slot:aboveExplanation>
-      <p>But warmer winters mean less snow and earlier melt, which means low spring flows.</p>
+      <p>An early, warm spring can lead to slow and prolonged snowmelt. Melting this way means that the slow trickle of melt can be absorbed by the soil, delaying streamflow generation and reducing annual water availability. This slower snowmelt is also more susceptible to losses from plant water use.</p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
@@ -40,7 +40,7 @@
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
-      <p>Parmesan cheeseburger emmental. Monterey jack dolcelatte stinking bishop paneer croque monsieur manchego airedale squirty cheese. The big cheese mozzarella red leicester port-salut the big cheese cheeseburger queso cheesy grin. Boursin babybel.</p>
+      <p> </p>
     </template>
   </VizSection>
 </template>
