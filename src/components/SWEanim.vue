@@ -12,14 +12,6 @@
         This was because of differences in the amount of snowpack between years - in 2011 peak SWE was  2x higher.  there were considerable difference in the magnitude of SWE and subsequently discharge at the shown locations in the Upper Colorado river basin.
         With 2 times higher snowpack shown int he line chart. 
       </p>
-      <div class="compare">
-        <h4>Compare: <input type="radio" id="one" value="One" v-model="picked">
-          <label for="one">timing</label>   
-        <input type="radio" id="two" value="Two" v-model="picked">
-          <label for="two">magnitude</label>
-        <input type="radio" id="two" value="Two" v-model="picked">   
-          <label for="three">elevation</label></h4>
-        </div>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
@@ -82,21 +74,32 @@
             id="mmd-line-both"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
-            viewBox="-50 -50 600 500"
+            viewBox="-50 -50 600 550"
             aria-labelledby="page-title page-desc"
             width="100%"
           >
 
             <text
-              x="100"
-              y="0"
-            >High snow</text>
+              x="90"
+              y="470"
+            >High snow year</text>
             <text
-              x="400"
-              y="0"
-            >Low snow</text>
+              x="350"
+              y="470"
+            >Low snow year</text>
           </svg>
         </div>
+        <div class="compare">
+        <div class="btn-group" data-toggle="buttons">
+                  <h4 class="butt-head" >Compare streamflow: 
+  <input class="butt" id="rb1" type="radio" name="radiogroup1" checked=true >
+    <label class="butt" for="rb1">timing</label>
+    <input  class="butt" id="rb2" type="radio" name="radiogroup1">
+    <label class="butt" for="rb2">magnitude</label>
+    <input class="butt" id="rb3" type="radio" name="radiogroup1">
+    <label class="butt" for="rb3">by elevation</label></h4>
+</div>
+      </div>
       </div>
     </template>
     <!-- FIGURE CAPTION -->
@@ -122,6 +125,7 @@ export default {
     },
     data() {
             return {
+              isActive: false,
               title: process.env.VUE_APP_TITLE,
               publicPath: process.env.BASE_URL,
               d3: null,
@@ -477,6 +481,9 @@ export default {
  
     }
     },
+    toggle() {
+   this.isActive = !this.isActive;
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -487,11 +494,40 @@ export default {
 
 }
 .maxWidth {
-  max-width: 50vw;
+  width: 90vw;
+  max-width: 700px;
+  margin: auto;
 }
 input {
   margin-left: 20px;
   margin-right: 5px;
   display: inline-block;
 }
+.compare {
+  border: 2px solid black;
+  display: inline-block;
+  font-size: 18px;
+  text-align: center;
+    padding: 5px 10px;
+}
+
+.butt {
+  padding: 5px 10px;
+}
+input[name="radiogroup1"] {
+            display: none;
+        }
+         input[name="radiogroup1"]+label {
+            /* style passive state as you like */
+            border: 2px solid transparent;
+            color: black;
+            font-weight: 400;
+        }
+
+    input[name="radiogroup1"]:checked+label {
+        /* style checked state as you like */
+        border: 7px solid orchid;
+        background-color: orchid;
+        color: white;
+    }
 </style>
