@@ -3,7 +3,7 @@
   <VizSection id="firstSection">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>Changing snow in the west can have enormous impacts on water availability.</h2>
+      <h2>Changing snow in the west can have enormous impacts on water availability</h2>
       <!--    <div class="checks">
         <input type="checkbox"
                value="in_swe" 
@@ -23,11 +23,10 @@
     <!-- EXPLANATION -->
     <template v-slot:aboveExplanation>
       <p>
-        The differences between a high a low snow year illustrate the downstream effects of changing snow on water resources. For example, in 2011 snowmelt occurred ## days later than 2012.
-        This was because of differences in the amount of snowpack between years - in 2011 peak SWE was  2x higher.  there were considerable difference in the magnitude of SWE and subsequently discharge at the shown locations in the Upper Colorado river basin.
-        With 2 times higher snowpack shown int he line chart. 
-        Because of less snowpack, melt rates were faster and SM50 occurred between ## to ## days earlier at these sites.
-        Elevation.
+        The differences between a high and low snow year illustrate the effects of changing snow on water resources. In the Upper Colorado river basin, between 2011 and 2012 there was a two-fold difference in the magnitude of SWE at the selected sites, which has downstream consequences for the timing and magnitude of streamflow and water availability. 
+      </p>
+      <p>
+        When peak SWE is high, there is a large pulse of streamflow as it melts. With decreasing SWE the influx of discharge is lower and slower, and snowmelt occurs earlier in the year. These things matter because it alters when and where water is downstream and can have serious ecological implications and well as impact water availability for human use.
       </p>
     </template>
     <!-- FIGURES -->
@@ -111,12 +110,12 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        Snow-water equivalent (left) and stream discharge (right) through the 2011 water year in Colorado. Dots on map correspond to hydrographs on the right. 
+        Caption: Use the toggles to compare the timing and magnitude of snow-to-flow between a high and a low snow year at a selection of sites across an elevational range.  
       </p>
     </template>
     <template v-slot:belowExplanation>
       <p>
-        Cheese and biscuits taleggio melted cheese say cheese cheesy feet cheesecake paneer roquefort. Squirty cheese cottage cheese manchego jarlsberg lancashire blue castello fromage frais cottage cheese. Pepper jack.
+        These dynamics are complex and intertwined with other factors that vary with elevation, like snow persistence, Y, & Z. This is why the USGS is pursuing research that looks at XYZ...[plug for current monitoring and modeling directions goes here, include links to any pages of related  programs, cite any recent papers].
       </p>
     </template>
   </VizSection>
