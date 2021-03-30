@@ -8,9 +8,7 @@
     <!-- EXPLANATION -->
     <template v-slot:aboveExplanation>
       <p>
-        The differences between a high a low snow year illustrate the downstream effects of changing snow on water resources. For example, in 2011 snowmelt occurred ## days later than 2012.
-        This was because of differences in the amount of snowpack between years - in 2011 peak SWE was  2x higher.  there were considerable difference in the magnitude of SWE and subsequently discharge at the shown locations in the Upper Colorado river basin.
-        With 2 times higher snowpack shown int he line chart. 
+        The differences between a high a low snow year illustrate the downstream effects of changing snow on water resources. For example, between 2011 and 2012 there was a two-fold difference in snowpack in some parts of the Upper Colorado River Basin which corresponded to differences in the timing of snowmelt and water availability downstream. 
       </p>
     </template>
     <!-- FIGURES -->
