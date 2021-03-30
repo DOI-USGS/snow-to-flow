@@ -106,12 +106,12 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        Snow-water equivalent (left) and stream discharge (right) through the 2011 water year in Colorado. Dots on map correspond to hydrographs on the right. 
+        Caption: Use the toggles to compare the timing and magnitude of snow-to-flow between a high and a low snow year at a selection of sites across an elevational range.  
       </p>
     </template>
     <template v-slot:belowExplanation>
       <p>
-        Cheese and biscuits taleggio melted cheese say cheese cheesy feet cheesecake paneer roquefort. Squirty cheese cottage cheese manchego jarlsberg lancashire blue castello fromage frais cottage cheese. Pepper jack.
+        These dynamics are complex and intertwined with other factors that vary with elevation, like snow persistence, Y, & Z. This is why the USGS is pursuing research that looks at XYZ...[plug for current monitoring and modeling directions goes here, include links to any pages of related  programs, cite any recent papers].
       </p>
     </template>
   </VizSection>

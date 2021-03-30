@@ -7,8 +7,13 @@
     </template>
     <!-- FIGURES -->
     <template v-slot:aboveExplanation>
-      <p>Hydrologists measure snowpack as the <span class="emph">snow water equivalent</span>.  That measurement normalizes between light, fluffy snow and heavy, wet snow - ultimately because it will all melt into water anyway.  The USGS wants to know - how much water is contained in this snowpack?</p>
-      <p>Cheese strings cheese and biscuits bavarian bergkase. Halloumi queso when the cheese comes out everybody's happy ricotta babybel cream cheese port-salut boursin. Fromage cow when the cheese comes out everybody's happy hard cheese blue castello stilton mozzarella dolcelatte. Melted cheese croque monsieur smelly cheese swiss blue castello gouda halloumi paneer. Airedale everyone loves.</p>
+      <p>Hydrologists measure snowpack as the snow water equivalent, or the amount of liquid water contained in snowpack. That measurement normalizes between light, fluffy snow and heavy, wet snow – to the total amount of water. </p>
+      <p>
+        To understand how snow becomes flow we can look use streamflow measurements from the USGS streamgaging network. Some of the oldest (100-125 year old) gages derive their flow from seasonal snow, contributing to a long record of data. Read more about the <a
+          href="https://labs.waterdata.usgs.gov/visualizations/gages-through-the-ages/index.html#/"
+          target="_blank"
+        >history of streamgaging</a>
+      </p>
       <Sidebar>
         <template v-slot:sidebarTitle>
           What is SWE?
@@ -46,9 +51,7 @@
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
-      <p>April 1st is here, but there are other ways to assess these snowpack accumulation curves. We can ask - when was peak snowpack? Earlier or later than the traditional April 1st?</p>
-      <p>Or - how big was the peak? Did all the snow accumulate and stay there? Or did it intermittently melt during some early warmer days?</p>
-      <p>Dolcelatte pepper jack goat. Melted cheese parmesan danish fontina swiss monterey jack babybel stinking bishop caerphilly. Mascarpone halloumi danish fontina everyone loves feta cut the cheese cheese triangles chalk and cheese. Ricotta cheddar cheese strings cottage cheese cheeseburger halloumi mascarpone say cheese. Macaroni cheese cheese strings smelly cheese cut the cheese.</p>
+      <p>Peak SWE and SM50 measure  the magnitude and timing of snowmelt, respectively. Peak snow water equivalent is the maximum daily snow water equivalent for the year, corresponding to the day when the greatest amount of water was contained in the snowpack. The date at which half of the year’s peak SWE has melted, provides a measure of the timing of snowmelt that can be compared across years or sites.</p>
     </template>
   </VizSection>
 </template>

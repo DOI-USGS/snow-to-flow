@@ -13,7 +13,7 @@
         U.S. Geological Survey<br>Water Resources Mission Area</p><br><br> -->
       <p>Historically, <span class="emph">April 1st</span> is the date which hydrologists generally use to mark "peak snowpack" in places where snow accumulates all winter.</p>
       <p>Compared to the historical record for this date, 2021 is shaping to be considerably dry in many regions of the western U.S. While interannual variation in peak SWE is normal and fluctuates with natural climatological patterns, an exceptionally dry or wet season can have dramatic impacts to the water supply in locations where snowmelt is a major source of water.</p>
-      <p>Highlight here how snowpack is super important for water supply in these areas.  In places like these, snowmelt makes up a major part of the water budget for that year!</p>
+      <p>Mouseover sites on the map to see the full SWE timeseries from the 2021 water year in addition to the magnitude (peak SWE) and timing (SM50) of snow since 1981. </p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
@@ -1468,8 +1468,7 @@
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
-      <p>Find what snowpack has looked like this year in SNOTEL monitoring locations across the country.</p>
-      <p>Cheeseburger cut the cheese taleggio. Emmental croque monsieur mascarpone red leicester blue castello airedale everyone loves st. agur blue cheese. Cottage cheese cheese strings ricotta babybel cheeseburger queso manchego fromage. Paneer pepper jack cheese slices halloumi cream cheese jarlsberg chalk and cheese everyone loves. Smelly cheese stinking bishop cheesy grin pepper jack.</p>
+      <p>The USGS has teams of hydrologists studying the impacts of changing snow dynamics on water supply. </p>
     </template>
   </VizSection>
 </template>
