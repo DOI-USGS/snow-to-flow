@@ -369,14 +369,15 @@ export default {
         .transition()
         .duration(700)
         .delay(250)
-        .call(self.yAxis);
+        .call(self.yAxis)
+        .attr("transform", "translate(0, -205)");
 
         this.d3.select(".yaxis.ridge_2011")
         .transition()
         .duration(500)
         .delay(450)
         .call(self.yAxis)
-        .attr("transform", "translate(0, -207)");
+        .attr("transform", "translate(0, 0)");
         
 
         this.d3.selectAll("g.ridge_2011.curve")
@@ -409,6 +410,12 @@ export default {
           return "translate(0," + (0) + ") scale(1, 1)"
         })
 
+        this.d3.selectAll("g.yaxis g")
+        .transition()
+        .duration(500)
+        .delay(300)
+        .attr("opacity", 1)
+
 
 
       },
@@ -434,7 +441,19 @@ export default {
           return "translate(0," + (0) + ") scale(1, 1)"
         })
 
+        this.d3.selectAll("g.yaxis g")
+        .transition()
+        .duration(500)
+        .delay(300)
+        .attr("opacity", 1)
+
         
+        this.d3.select(".yaxis.ridge_2011")
+        .transition()
+        .duration(500)
+        .delay(450)
+        .call(self.yAxis)
+        .attr("transform", "translate(0, -2)");
 
         
       },
@@ -476,6 +495,12 @@ export default {
         .duration(500)
         .delay(350)
         .call(yAxisTall);
+
+        this.d3.selectAll("g.yaxis g")
+        .transition()
+        .duration(500)
+        .delay(300)
+        .attr("opacity", 0)
 
 
       },
