@@ -23,6 +23,10 @@ import { faInstagram } from "@fortawesome/free-brands-svg-icons";
 import VueCarousel from 'vue-carousel';
 import VueImg from 'v-img'
 
+const vueImgConfig = {
+  altAsTitle: true
+}
+
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.prototype.$gsap = gsap;
 
@@ -40,7 +44,7 @@ Vue.use(browserDetect);
 Vue.use(Vuetify);
 Vue.use(ScrubbableVideo);
 Vue.use(VueCarousel);
-Vue.use(VueImg)
+Vue.use(VueImg, vueImgConfig)
 
 const app = new Vue({
   router,
