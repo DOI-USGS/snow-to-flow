@@ -19,6 +19,7 @@
             <img 
               id="diagram-normal-winter"
               v-img:diagram-normal
+              class="sliderImage"
               src="@/assets/diagrams/Diagram_normal-winter.jpg"
               alt="Diagram of a mountain watershed covered in snow in winter"
               loading="lazy"
@@ -39,6 +40,7 @@
             <img 
               id="diagram-normal-early-spring"
               v-img:diagram-normal
+              class="sliderImage"
               src="@/assets/diagrams/Diagram_normal-spring.jpg"
               alt="Diagram of a mountain watershed covered in snow in early spring"
               loading="lazy"
@@ -58,6 +60,7 @@
             <img 
               id="diagram-normal-late-spring"
               v-img:diagram-normal
+              class="sliderImage"
               src="@/assets/diagrams/Diagram_normal-summer.jpg"
               alt="Diagram of a mountain watershed covered in snow in late spring"
               loading="lazy"
