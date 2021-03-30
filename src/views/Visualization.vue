@@ -107,12 +107,20 @@ export default {
       }
     },
     mounted(){
+      const self = this;
       //Waits until the first DOM paint is complete
       //Allows us to only run the functionality when we know the DOM elements are loaded
       this.$gsap.registerPlugin(ScrollToPlugin, ScrollTrigger); // register gsap plugins for scrollTrigger
-      this.$nextTick(() => {
+      this.$nextTick(function() {
         this.parallaxScroll();
+      });
+      //Wait for page to load then run this function
+      window.addEventListener("load", function(){
+        self.findCarouselContainers();
       })
+    },
+    beforeUpdate(){
+      
     },
     updated(){
       this.lazyLoadImages();
@@ -159,11 +167,45 @@ export default {
         imgTargets.forEach(img => {
           imgObserver.observe(img)
         });
+      },
+      findCarouselContainers(){
+        let self = this;
+        const carouselContainers = document.querySelectorAll(".carouselContainer");
+        carouselContainers.forEach(function(container){
+          container.addEventListener("click", self.addFooterCaption);
+        });
+      },
+      //Carousel full size image captions
+      addFooterCaption(e){
+        const self = this;
+        const imgContainer = document.querySelector(".fullscreen-v-img");
+        const title = document.querySelector(".title-v-img");
+      
+        if(e.target.classList.contains("sliderImage")){
+          const captionHTML = `
+            <div id="captionArea">
+              <div class="caption">
+                ${title.textContent}
+              </div>
+            </div>`;
+          imgContainer.insertAdjacentHTML("afterbegin", captionHTML);
+        }
+
+        imgContainer.addEventListener("click", function(e){
+          self.switchCaptionText(title);
+        })
+      },
+      switchCaptionText(text){
+        const caption = document.querySelector(".caption");
+        caption.textContent = text.textContent;
       }
     }
 } 
 </script>
 
 <style lang="scss">
-
+//Hides v-img title element
+.title-v-img{
+  display: none;
+}
 </style>
