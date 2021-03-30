@@ -93,12 +93,12 @@
         <div class="compare">
         <div class="btn-group" data-toggle="buttons">
                   <h4 class="butt-head" >Compare streamflow: 
-  <input class="butt" id="rb1" type="radio" name="radiogroup1" checked=true >
+  <input class="butt" id="rb1" type="radio" name="radiogroup1" checked=true @change="changePos" value="time" >
     <label class="butt" for="rb1">timing</label>
-    <input  class="butt" id="rb2" type="radio" name="radiogroup1">
+    <input  class="butt" id="rb2" type="radio" name="radiogroup1" @change="changePos" value="peak">
     <label class="butt" for="rb2">magnitude</label>
-<!--     <input class="butt" id="rb3" type="radio" name="radiogroup1">
-    <label class="butt" for="rb3">by elevation</label> --></h4>
+    <input class="butt" id="rb3" type="radio" name="radiogroup1" @change="changePos" value="el">
+    <label class="butt" for="rb3">by elevation</label></h4>
 </div>
       </div>
       </div>
@@ -149,6 +149,8 @@ export default {
               tickDates: ["Oct", "Jan", "Apr", "July"],
               highlabel: null,
               lowlabel: null,
+              xAxis: null,
+              yAxis: null,
         
 
               checkedData: ["mmd"],
@@ -214,7 +216,7 @@ export default {
               data.mmd12.push({key: key, mmd: mmd, day:day, swe:swe})
           };
 
-          data.days = data_2011.map(function(d) { return  d['site_water_day']}) // array of j days for good luck
+        data.days = data_2011.map(function(d) { return  d['site_water_day']}) // array of j days for good luck
 
         // set up g that holds ridgelines
         this.svgboth = this.d3.select('svg#mmd-line-both');
@@ -256,24 +258,20 @@ export default {
           .domain([25, 0]).nice()
           .range([y_start, y_end])
 
-        /* var y = this.d3.scalePoint()
-          .domain(gages.map(d => d.site_no))
-          .range([y_start, y_end]) */
-
         // define & style x &  y axes
-        var xAxis = g => g
+        this.xAxis = g => g
           .attr("transform", `translate(0,${this.height+2})`)
           .call(this.d3.axisBottom(x)
               .tickValues([1, 93, 183, 273])
               .tickFormat(function(d,i) { return self.tickDates[i] })
               .tickSizeOuter(0).tickSize(0))
 
-        var yAxis = g => g
+        this.yAxis = g => g
           .attr("transform", `translate(${0},-2)`)
           .call(this.d3.axisLeft(y).tickSize(0).tickPadding(4))
         // append axes
-        svg.append("g").classed("xaxis", true).classed(ridge_class, true).call(xAxis).attr("font-style", "italic");
-        svg.append("g").classed("yaxis", true).classed(ridge_class, true).call(yAxis).attr("font-style", "italic");
+        svg.append("g").classed("xaxis", true).classed(ridge_class, true).call(this.xAxis).attr("font-style", "italic");
+        svg.append("g").classed("yaxis", true).classed(ridge_class, true).call(this.yAxis).attr("font-style", "italic");
 
         // define area chart parameters
         this.area = this.d3.area()
@@ -316,15 +314,170 @@ export default {
         this.highlabel = this.svgboth.select("#wy11")
         this.lowlabel = this.svgboth.select("#wy12")
 
-      self.timingToMagnitude(svg, days);
+      //self.timingToMagnitude(svg, days);
 
           //self.spreadRidges(); 
 
       },
-      timingToMagnitude(svg, days){
+      changePos(){
+        const self = this;
+          if(event.target.value == "peak"){
+            self.timingToMagnitude()
+          }
+          if(event.target.value == "time"){
+            self.magnitudeToTiming();
+          }
+           if(event.target.value == "el"){
+             self.timingToMagnitude()
+            self.toElevation();
+          }
+      },
+      magnitudeToTiming(){
+        const self = this;
+        this.y2011.selectAll("path.ridge")
+          .transition()
+          .delay(function(d,i) { return i*15 })
+          .duration(1100)
+          .attr("transform", "translate(0," + (0) + ")" )
+
+        self.highlabel
+        .transition()
+          .delay(700)
+          .duration(700)
+          .attr("transform", "translate(0," + (0) + ")" )
+
+          self.lowlabel
+        .transition()
+          .delay(600)
+          .duration(800)
+          .attr("transform", "translate(0,0)" )
+
+                     // transform axes
+        this.d3.select(".xaxis.ridge_2011")
+        .transition()
+        .duration(300)
+        .delay(350)
+        .call(self.xAxis);
+
+        this.d3.select(".xaxis.ridge_2012")
+        .transition()
+        .duration(500)
+        .delay(250)
+        .call(self.xAxis);
+
+        this.d3.select(".yaxis.ridge_2012")
+        .transition()
+        .duration(700)
+        .delay(250)
+        .call(self.yAxis);
+
+        this.d3.select(".yaxis.ridge_2011")
+        .transition()
+        .duration(500)
+        .delay(450)
+        .call(self.yAxis)
+        .attr("transform", "translate(0, -207)");
+        
+
+        this.d3.selectAll("g.ridge_2011.curve")
+        .transition()
+        .delay(270)
+        .duration(500)
+        .attr("transform", "translate(0, 0) scale(1, 1)")
+
+         this.d3.selectAll("g.ridge_2012.curve")
+        .transition()
+        .delay(250)
+        .duration(500)
+        .attr("transform", "translate(0, 0) scale(1, 1)")
+
+        
+        // spread ridge
+        this.d3.selectAll("g.ridge_2011.curve g")
+        .transition()
+        .delay(200)
+        .duration(400)
+        .attr("transform", function(d, i) { 
+          return "translate(0," + (0+i*0)  + ") scale(1, 1)"
+        })
+
+          this.d3.selectAll("g.ridge_2012.curve g")
+        .transition()
+        .delay(200)
+        .duration(400)
+        .attr("transform", function(d, i) { 
+          return "translate(0," + (0) + ") scale(1, 1)"
+        })
+
+
+
+      },
+      timingToMagnitude(){
         const self = this;
         self.stackRidges();
-      self.shiftRidges(svg, days);
+        self.shiftRidges();
+
+        // spread ridge
+        this.d3.selectAll("g.ridge_2011.curve g")
+        .transition()
+        .delay(200)
+        .duration(400)
+        .attr("transform", function(d, i) { 
+          return "translate(0," + (0+i*0)  + ") scale(1, 1)"
+        })
+
+          this.d3.selectAll("g.ridge_2012.curve g")
+        .transition()
+        .delay(200)
+        .duration(400)
+        .attr("transform", function(d, i) { 
+          return "translate(0," + (0) + ") scale(1, 1)"
+        })
+
+        
+
+        
+      },
+      toElevation(){
+        const self = this;
+        self.spreadRidges();
+
+        var color = this.d3.interpolateRainbow;
+
+         var y = this.d3.scaleLinear()
+          .domain([25, 0]).nice()
+          .range([0, this.height])
+
+        var yAxisTall = g => g
+          .attr("transform", `translate(${0},-2)`)
+          .call(this.d3.axisLeft(y).tickSize(0).tickPadding(4))
+
+        self.highlabel
+        .transition()
+          .delay(350)
+          .duration(600)
+          .attr("transform", "translate(20," + (-100) + ")" )
+
+          self.lowlabel
+        .transition()
+          .delay(450)
+          .duration(500)
+          .attr("transform", "translate(300,-300)" )
+
+       this.d3.select(".yaxis.ridge_2011")
+        .transition()
+        .duration(500)
+        .delay(350)
+        .call(yAxisTall);
+
+
+ this.d3.select(".yaxis.ridge_2012")
+        .transition()
+        .duration(500)
+        .delay(350)
+        .call(yAxisTall);
+
+
       },
       stackRidges(){
         const self = this;
@@ -347,6 +500,7 @@ export default {
           .duration(800)
           .attr("transform", "translate(330,-40)" )
 
+
       },
       shiftRidges(svg, days){
         const self = this;
@@ -364,7 +518,7 @@ export default {
 
         var y = this.d3.scaleLinear()
           .domain([25, 0]).nice()
-          .range([this.margin, this.height])
+          .range([this.height/2+mar, this.height])
 
         var xAxisL = g => g
           .attr("transform", `translate(0,${this.height+5})`)
@@ -387,7 +541,7 @@ export default {
         // transform axes
         this.d3.select(".xaxis.ridge_2011")
         .transition()
-        .duration(300)
+        .duration(400)
         .delay(350)
         .call(xAxisL);
 
@@ -399,14 +553,14 @@ export default {
 
         this.d3.select(".yaxis.ridge_2012")
         .transition()
-        .duration(700)
-        .delay(250)
+        .duration(500)
+        .delay(350)
         .call(yAxisTall);
 
         this.d3.select(".yaxis.ridge_2011")
         .transition()
         .duration(500)
-        .delay(250)
+        .delay(350)
         .call(yAxisTall);
 
         this.d3.selectAll("g.ridge_2011.curve")
@@ -426,31 +580,26 @@ export default {
      // spread ridge
         this.d3.selectAll("g.ridge_2011.curve g")
         .transition()
-        .delay(3000)
-        .duration(1000)
+        .delay(300)
+        .duration(500)
         .attr("transform", function(d, i) { 
           return "translate(0," + (30+i*-10)  + ") scale(1, .9)"
         })
 
           this.d3.selectAll("g.ridge_2012.curve g")
         .transition()
-        .delay(3000)
-        .duration(1000)
+        .delay(300)
+        .duration(500)
         .attr("transform", function(d, i) { 
           return "translate(0," + (30+i*-10) + ") scale(1, .9)"
         })
 
-        this.d3.selectAll("g.yaxis g")
+/*         this.d3.selectAll("g.yaxis g")
         .transition()
-        .duration(1000)
-        .delay(3000)
-        .attr("opacity", 0)
-        
-
-        
-
-
-      },
+        .duration(500)
+        .delay(300)
+        .attr("opacity", 0) */
+    },
       drawHydro(svg, data_nest, days, gage_sp, x_start, x_end, data_max){
        const self = this;
 
