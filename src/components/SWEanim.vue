@@ -104,7 +104,7 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        Caption: Use the toggles to compare the timing and magnitude of snow-to-flow between a high and a low snow year at a selection of sites across an elevational range.  
+        Use the toggles to compare the timing and magnitude of snow-to-flow between a high and a low snow year at a selection of sites across an elevational range.  
       </p>
     </template>
     <template v-slot:belowExplanation>
@@ -135,12 +135,10 @@ export default {
               height: 400,
               margin: 25,
 
-              
               line_swe: null,
               area_swe: null,
               line: null,
               area: null,
-              group: null,
               ridge_o: 0.3,
               site_elev: [],
               site_sp: [],
@@ -149,9 +147,11 @@ export default {
               lowlabel: null,
               xAxis: null,
               yAxis: null,
-        
+              x11: null,
+              x12: null,
+              y11: null,
+              y12: null,
 
-              checkedData: ["mmd"],
             }
         },
     mounted() {
@@ -225,20 +225,10 @@ export default {
         var mid = x_long/2;
         var mar = mid*0.05
 
-        // set chart - separate for each year, using 2011 for max values to set the scaless
+        // set chart - separate for each year, using 2011 for max values to set the scales
+        //  first draw is
         self.initRidges(this.svgboth, 'ridge_2011', data.mmd11, data.days, 0, x_long, this.margin, this.height/2);
         self.initRidges(this.svgboth, 'ridge_2012', data.mmd12, data.days, 0, x_long, this.height/2+mar+2,  this.height+2);
-
-
-
-        // draw both years  adjacent to one another
-        //self.drawHydro(this.svgstack, data.mmd11, days, gage_sp, 0, mid-mid*0.1, data.mmd11);
-        //self.drawHydro(this.svgstack, data.mmd11, days, gage_sp, mid+mid*0.1, x_long, data.mmd11);
-
-        // apply separate transition to each plot that
-        // 1 - collapses or spreads the y axis
-        // 2- transitions to width and height of x and z axes
-        // 3 - moves the whole chart to a new location
 
       },
       initRidges(svg, ridge_class, data_nest, days, x_start, x_end,  y_start, y_end){
@@ -290,12 +280,6 @@ export default {
           .join("g")
           .attr("transform", d => `translate(0,0)`)
 
-/* 
-        this.group.append("path")
-          .attr("fill", "dodgerblue")
-          .attr("d", d => this.area(d.mmd))
-          .attr("opacity", 1); //#5C3406", "#C28D3D", "#ECD8A6", "#F0F0E6", "#AADDD6","#2A8C83", "#004439"]
- */
         this.group.append("path")
           .attr("fill", "none")
           .attr("stroke", "dodgerblue")
@@ -306,32 +290,32 @@ export default {
           .attr("class", function(d) { return d.key })
           .classed("ridge", true);
 
-          
-        this.y2011 = this.svgboth.selectAll("g.ridge_2011")
+        this.y2011 = this.svgboth.selectAll("g.ridge_2011") // ridge group
         this.y2012 = this.svgboth.selectAll("g.ridge_2012")
-        this.highlabel = this.svgboth.select("#wy11")
+        this.highlabel = this.svgboth.select("#wy11") // high and low snow labels
         this.lowlabel = this.svgboth.select("#wy12")
-
-      //self.timingToMagnitude(svg, days);
-
-          //self.spreadRidges(); 
+        this.y11 = this.d3.select(".yaxis.ridge_2011") // axes
+        this.y12 = this.d3.select(".yaxis.ridge_2012")
+        this.x11 = this.d3.select(".xaxis.ridge_2011")
+        this.x12 = this.d3.select(".xaxis.ridge_2012")
 
       },
       changePos(){
         const self = this;
           if(event.target.value == "peak"){
-            self.timingToMagnitude()
+            self.toMagnitude()
           }
           if(event.target.value == "time"){
-            self.magnitudeToTiming();
+            self.toTiming();
           }
            if(event.target.value == "el"){
-             self.timingToMagnitude()
+            self.toMagnitude()
             self.toElevation();
           }
       },
-      magnitudeToTiming(){
+      toTiming(){
         const self = this;
+
         this.y2011.selectAll("path.ridge")
           .transition()
           .delay(function(d,i) { return i*15 })
@@ -350,27 +334,27 @@ export default {
           .duration(800)
           .attr("transform", "translate(0,0)" )
 
-                     // transform axes
-        this.d3.select(".xaxis.ridge_2011")
+        // transform axes
+        this.x11
         .transition()
         .duration(300)
         .delay(350)
         .call(self.xAxis);
 
-        this.d3.select(".xaxis.ridge_2012")
+        this.x12
         .transition()
         .duration(500)
         .delay(250)
         .call(self.xAxis);
 
-        this.d3.select(".yaxis.ridge_2012")
+        this.y12
         .transition()
         .duration(700)
         .delay(250)
         .call(self.yAxis)
         .attr("transform", "translate(0, -205)");
 
-        this.d3.select(".yaxis.ridge_2011")
+        this.y11
         .transition()
         .duration(500)
         .delay(450)
@@ -390,7 +374,6 @@ export default {
         .duration(500)
         .attr("transform", "translate(0, 0) scale(1, 1)")
 
-        
         // spread ridge
         this.d3.selectAll("g.ridge_2011.curve g")
         .transition()
@@ -417,7 +400,7 @@ export default {
 
 
       },
-      timingToMagnitude(){
+      toMagnitude(){
         const self = this;
         self.stackRidges();
         self.shiftRidges();
@@ -481,14 +464,13 @@ export default {
           .duration(500)
           .attr("transform", "translate(300,-300)" )
 
-       this.d3.select(".yaxis.ridge_2011")
+       this.y11
         .transition()
         .duration(500)
         .delay(350)
         .call(yAxisTall);
 
-
- this.d3.select(".yaxis.ridge_2012")
+     this.y12 
         .transition()
         .duration(500)
         .delay(350)
@@ -525,7 +507,7 @@ export default {
 
 
       },
-      shiftRidges(svg, days){
+      shiftRidges(){
         const self = this;
         var x_long = this.width-(this.margin*3);
         var mid = x_long/2;
@@ -562,25 +544,25 @@ export default {
           .call(this.d3.axisLeft(y).tickSize(0).tickPadding(4))
 
         // transform axes
-        this.d3.select(".xaxis.ridge_2011")
+        this.x11
         .transition()
         .duration(400)
         .delay(350)
         .call(xAxisL);
 
-        this.d3.select(".xaxis.ridge_2012")
+        this.x12
         .transition()
         .duration(500)
         .delay(250)
         .call(xAxisR);
 
-        this.d3.select(".yaxis.ridge_2012")
+       this.y12
         .transition()
         .duration(500)
         .delay(350)
         .call(yAxisTall);
 
-        this.d3.select(".yaxis.ridge_2011")
+        this.y11
         .transition()
         .duration(500)
         .delay(350)
@@ -617,11 +599,6 @@ export default {
           return "translate(0," + (30+i*-10) + ") scale(1, .9)"
         })
 
-/*         this.d3.selectAll("g.yaxis g")
-        .transition()
-        .duration(500)
-        .delay(300)
-        .attr("opacity", 0) */
     },
       drawHydro(svg, data_nest, days, gage_sp, x_start, x_end, data_max){
        const self = this;
@@ -671,9 +648,6 @@ export default {
  
     }
     },
-    toggle() {
-   this.isActive = !this.isActive;
-  },
 }
 </script>
 <style lang="scss" scoped>
@@ -698,10 +672,6 @@ export default {
     padding: 5px 10px;
     margin: auto;
 }
-/* #mmd-line-both {
-  margin: auto;
-  padding: 1em;
-} */
 .butt {
   padding: 5px 10px;
 }
