@@ -63,8 +63,8 @@
 
  // IMPORT
 $nearBlack: #1a1b1c; //#1a1b1c;
-$frostyGreen: #76A28E; // good contrast against black (original was #5e8a76)
-$deepGreen: #2A4C40; // good contrast against white
+$frostyGreen: #90d3b5; // good contrast against black (original was #5e8a76)
+$deepGreen: #235845; // good contrast against white
 $frostyPurple: #C9ADE6;
 $deepPurple: #301546; // good contrast against black
 $skyBlue: #7AC3FF;
@@ -107,7 +107,7 @@ h2{
   font-weight: 600;
   text-align: left;
   font-family:$familyMain;
-  font-size: 1.5em;
+  font-size: 1.3em;
   margin-top: 5px;
   line-height: 1.2;
   @media screen and (max-width: 600px) {
