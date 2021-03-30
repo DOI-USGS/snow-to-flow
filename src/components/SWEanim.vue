@@ -97,8 +97,8 @@
     <label class="butt" for="rb1">timing</label>
     <input  class="butt" id="rb2" type="radio" name="radiogroup1">
     <label class="butt" for="rb2">magnitude</label>
-    <input class="butt" id="rb3" type="radio" name="radiogroup1">
-    <label class="butt" for="rb3">by elevation</label></h4>
+<!--     <input class="butt" id="rb3" type="radio" name="radiogroup1">
+    <label class="butt" for="rb3">by elevation</label> --></h4>
 </div>
       </div>
       </div>
