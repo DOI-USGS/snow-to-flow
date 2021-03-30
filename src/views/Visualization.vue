@@ -119,9 +119,6 @@ export default {
         self.findCarouselContainers();
       })
     },
-    beforeUpdate(){
-      
-    },
     updated(){
       this.lazyLoadImages();
     },
