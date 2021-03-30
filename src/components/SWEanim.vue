@@ -179,6 +179,7 @@ export default {
               area_swe: null,
               line: null,
               area: null,
+              group: null,
               ridge_o: 0.3,
               site_elev: [],
               site_sp: [],
@@ -268,14 +269,13 @@ export default {
         var mar = mid*0.05
 
         // set chart - separate for each year, using 2011 for max values to set the scales
-        //  first draw is
-        self.initRidges(this.svgboth, 'ridge_2011', data.mmd11, data.days, 0, x_long, this.margin, this.height/2);
+        //  first draw is MMD
+        self.initRidges(this.svgboth, 'ridge_2011', data.mmd11, data.days, 0, x_long, this.margin, this.height/2-5);
         self.initRidges(this.svgboth, 'ridge_2012', data.mmd12, data.days, 0, x_long, this.height/2+mar+2,  this.height+2);
 
       },
       initRidges(svg, ridge_class, data_nest, days, x_start, x_end,  y_start, y_end){
         const self = this;
-        let overlap = 3;
 
         // x axis - time
         var x = this.d3.scaleLinear()
@@ -283,14 +283,13 @@ export default {
           .range([x_start, x_end]);
 
         // y axis = group for each site
-        // this is ordered by snow persistence....in the csv
         var y = this.d3.scaleLinear()
           .domain([25, 0]).nice()
           .range([y_start, y_end])
 
         // define & style x &  y axes
         this.xAxis = g => g
-          .attr("transform", `translate(0,${this.height+2})`)
+          .attr("transform", `translate(0,${y_end})`)
           .call(this.d3.axisBottom(x)
               .tickValues([1, 93, 183, 273])
               .tickFormat(function(d,i) { return self.tickDates[i] })
@@ -357,199 +356,155 @@ export default {
             self.toElevation();
           }
       },
+      transPosition(el, delay, duration, x, y, xscale, yscale){
+        el
+        .transition()
+          .delay(delay)
+          .duration(duration)
+          .attr("transform", "translate(" + (x) + ", " + (y) + ") scale(" + xscale + "," + yscale + ")")
+
+      },
+      transFade(el, delay, duration, alpha){
+       el
+        .transition()
+        .duration(duration)
+        .delay(delay)
+        .attr("opacity", alpha)
+      },
+      transAxis(el, delay, duration, axis, x, y, xscale, yscale){
+        el
+        .transition()
+        .duration(duration)
+        .delay(delay)
+        .call(axis)
+        .attr("transform", "translate(" + (x) + ", " + (y) + ") scale(" + xscale + "," + yscale + ")" )
+
+      },
       toTiming(){
         const self = this;
+        
+        // fade in y axis
+        self.transFade(this.d3.selectAll("g.yaxis g"), 300, 500, 1)
 
+        // make sure ridges are stacked flat
         this.y2011.selectAll("path.ridge")
           .transition()
           .delay(function(d,i) { return i*15 })
           .duration(1100)
           .attr("transform", "translate(0," + (0) + ")" )
 
-        self.highlabel
-        .transition()
-          .delay(700)
-          .duration(700)
-          .attr("transform", "translate(0," + (0) + ")" )
-
-          self.lowlabel
-        .transition()
-          .delay(600)
-          .duration(800)
-          .attr("transform", "translate(0,0)" )
+        // move labels
+        self.transPosition(self.lowlabel, 600, 800, 0, 0, 1, 1)
+        self.transPosition(self.highlabel, 700, 700, 0, 0, 1, 1)
 
         // transform axes
-        this.x11
-        .transition()
-        .duration(300)
-        .delay(350)
-        .call(self.xAxis);
+        self.transAxis(this.x11, 350, 300, self.xAxis, 0, this.height/2-5, 1, 1)
+        self.transAxis(this.x12, 250, 500, self.xAxis, 0, this.height, 1, 1)
+        self.transAxis(this.y11, 350, 300, self.yAxis, 0, -this.height/2-5, 1, 1)
+        self.transAxis(this.y12, 250, 500, self.yAxis, 0, 0, 1, 1)
 
-        this.x12
-        .transition()
-        .duration(500)
-        .delay(250)
-        .call(self.xAxis);
+        // stretch ridges to full x and y extent
+        self.transPosition(this.d3.selectAll("g.ridge_2011.curve"), 270, 500,  0, 0, 1, 1)
+        self.transPosition(this.d3.selectAll("g.ridge_2012.curve"), 250, 500,  0, 0, 1, 1)
 
-        this.y12
-        .transition()
-        .duration(700)
-        .delay(250)
-        .call(self.yAxis)
-        .attr("transform", "translate(0, -205)");
-
-        this.y11
-        .transition()
-        .duration(500)
-        .delay(450)
-        .call(self.yAxis)
-        .attr("transform", "translate(0, 0)");
-        
-
-        this.d3.selectAll("g.ridge_2011.curve")
-        .transition()
-        .delay(270)
-        .duration(500)
-        .attr("transform", "translate(0, 0) scale(1, 1)")
-
-         this.d3.selectAll("g.ridge_2012.curve")
-        .transition()
-        .delay(250)
-        .duration(500)
-        .attr("transform", "translate(0, 0) scale(1, 1)")
-
-        // spread ridge
+        // un-spread ridge
         this.ridge11
         .transition()
-        .delay(200)
+        .delay(function(d,i) { return i*15 })
         .duration(400)
         .attr("transform", function(d, i) { 
-          return "translate(0," + (0+i*0)  + ") scale(1, 1)"
+          return "translate(0," + (0+i*0)  + ")"
         })
 
         this.ridge12
         .transition()
-        .delay(200)
+        .delay(function(d,i) { return i*15 })
         .duration(400)
         .attr("transform", function(d, i) { 
-          return "translate(0," + (0) + ") scale(1, 1)"
+          return "translate(0," + (0) + ")"
         })
-
-        this.d3.selectAll("g.yaxis g")
-        .transition()
-        .duration(500)
-        .delay(300)
-        .attr("opacity", 1)
-
 
 
       },
       toMagnitude(){
         const self = this;
-        self.stackRidges();
+        
         self.shiftRidges();
 
-        // spread ridge
-        this.ridge11
-        .transition()
-        .delay(200)
-        .duration(400)
-        .attr("transform", function(d, i) { 
-          return "translate(0," + (0+i*0)  + ") scale(1, 1)"
-        })
-
-        this.ridge12
-        .transition()
-        .delay(200)
-        .duration(400)
-        .attr("transform", function(d, i) { 
-          return "translate(0," + (0) + ") scale(1, 1)"
-        })
-
-        this.d3.selectAll("g.yaxis g")
-        .transition()
-        .duration(500)
-        .delay(300)
-        .attr("opacity", 1)
-
-        
-        this.y11
-        .transition()
-        .duration(500)
-        .delay(450)
-        .call(self.yAxis)
-        .attr("transform", "translate(0, -2)");
-
-        
-      },
-      toElevation(){
-        const self = this;
-        self.spreadRidges();
-
-        var color = this.d3.interpolateRainbow;
-
-         var y = this.d3.scaleLinear()
-          .domain([25, 0]).nice()
-          .range([0, this.height])
-
-        var yAxisTall = g => g
-          .attr("transform", `translate(${0},-2)`)
-          .call(this.d3.axisLeft(y).tickSize(0).tickPadding(4))
-
-        self.highlabel
-        .transition()
-          .delay(350)
-          .duration(600)
-          .attr("transform", "translate(20," + (-100) + ")" )
-
-          self.lowlabel
-        .transition()
-          .delay(450)
-          .duration(500)
-          .attr("transform", "translate(300,-300)" )
-
-       this.y11
-        .transition()
-        .duration(500)
-        .delay(350)
-        .call(yAxisTall);
-
-     this.y12 
-        .transition()
-        .duration(500)
-        .delay(350)
-        .call(yAxisTall);
-
-        this.d3.selectAll("g.yaxis g")
-        .transition()
-        .duration(500)
-        .delay(300)
-        .attr("opacity", 0)
-
-
-      },
-      stackRidges(){
-        const self = this;
-
+        // flatten stacks
         this.y2011.selectAll("path.ridge")
           .transition()
           .delay(function(d,i) { return i*15 })
           .duration(1100)
           .attr("transform", "translate(0," + (this.height/2+2) + ")" )
 
-        self.highlabel
+        this.ridge11
         .transition()
-          .delay(700)
-          .duration(700)
-          .attr("transform", "translate(90," + (0) + ")" )
+        .delay(200)
+        .duration(400)
+        .attr("transform", function(d, i) { 
+          return "translate(0," + (5+i*0)  + ") scale(1, 1)"
+        })
 
-          self.lowlabel
+        this.ridge12
         .transition()
-          .delay(600)
-          .duration(800)
-          .attr("transform", "translate(330,-40)" )
+        .delay(200)
+        .duration(400)
+        .attr("transform", function(d, i) { 
+          return "translate(0," + (0) + ") scale(1, 1)"
+        })
+        
+        // move labels
+        self.transPosition(self.lowlabel, 600, 800, 330, -40, 1,1)
+        self.transPosition(self.highlabel, 700, 700, 90, 0, 1, 1)  
+        self.transFade(this.d3.selectAll("g.yaxis g"), 300, 500, 1)
+
+        // transform axes
+        self.transAxis(this.y11, 450, 500, self.yAxis, 0, 0, 1, 1)
+        self.transAxis(this.y12, 450, 500, self.yAxis, 0, 0, 1, 1)
+
+      },
+      toElevation(){
+        const self = this;
+
+        // spread ridges
+        this.ridge11
+        .transition()
+        .delay(300)
+        .duration(500)
+        .attr("transform", function(d, i) { 
+          return "translate(0," + (40+i*-10)  + ") scale(1, .9)"
+        })
+
+        this.ridge12
+        .transition()
+        .delay(300)
+        .duration(500)
+        .attr("transform", function(d, i) { 
+          return "translate(0," + (40+i*-10) + ") scale(1, .9)"
+        })
+
+        //var color = this.d3.interpolateRainbow;
+
+        // make bigger axes
+         var y = this.d3.scaleLinear()
+          .domain([25, 0]).nice()
+          .range([0, this.height])
+
+        var yAxisTall = g => g
+          .attr("transform", `translate(${0},0)`)
+          .call(this.d3.axisLeft(y).tickSize(0).tickPadding(4))
+
+        // move labels
+        self.transPosition(self.highlabel, 350, 600, 20, -100, 1, 1)
+        self.transPosition(self.lowlabel, 450, 500, 320, -300, 1, 1)
 
 
+       // transform axes
+        self.transAxis(this.y11, 350, 500, yAxisTall, 0, 0, 1, 1)
+        self.transAxis(this.y12, 350, 500, yAxisTall, 0, 0, 1, 1)
+
+        self.transFade(this.d3.selectAll("g.yaxis g"), 300, 400, 0)
       },
       shiftRidges(){
         const self = this;
@@ -588,29 +543,10 @@ export default {
           .call(this.d3.axisLeft(y).tickSize(0).tickPadding(4))
 
         // transform axes
-        this.x11
-        .transition()
-        .duration(400)
-        .delay(350)
-        .call(xAxisL);
-
-        this.x12
-        .transition()
-        .duration(500)
-        .delay(250)
-        .call(xAxisR);
-
-       this.y12
-        .transition()
-        .duration(500)
-        .delay(350)
-        .call(yAxisTall);
-
-        this.y11
-        .transition()
-        .duration(500)
-        .delay(350)
-        .call(yAxisTall);
+        self.transAxis(this.x11, 350, 400, xAxisL, 0, this.height, 1, 1)
+        self.transAxis(this.x12, 250, 500, xAxisR, 0, this.height, 1, 1)
+        self.transAxis(this.y11, 350, 500, yAxisTall, 0, 0, 1, 1)
+        self.transAxis(this.y12, 350, 400, yAxisTall, 0, 0, 1, 1)
 
         this.d3.selectAll("g.ridge_2011.curve")
         .transition()
@@ -624,25 +560,7 @@ export default {
         .duration(500)
         .attr("transform", "translate(270, 0) scale(.49, 1)")
 
-      },
-      spreadRidges(){
-     // spread ridge
-        this.ridge11
-        .transition()
-        .delay(300)
-        .duration(500)
-        .attr("transform", function(d, i) { 
-          return "translate(0," + (30+i*-10)  + ") scale(1, .9)"
-        })
-
-        this.ridge12
-        .transition()
-        .delay(300)
-        .duration(500)
-        .attr("transform", function(d, i) { 
-          return "translate(0," + (30+i*-10) + ") scale(1, .9)"
-        })
-    }
+      }
     }
 }
 </script>
