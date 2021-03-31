@@ -2,8 +2,8 @@
   <!---VizSection-->
   <VizSection id="measuring-swe">
     <!-- TAKEAWAY TITLE -->
-    <template v-slot:takeAway>
-      <h2>The USGS has been studying the connection between snowpack and stream flow for decades.</h2>
+    <template v-slot:takeAway><!-- 
+      <h2>The USGS has been studying the connection between snowpack and stream flow for decades.</h2> -->
     </template>
     <template v-slot:aboveExplanation>
       <p>The USGS has been advancing snow science through both measuring and modeling snowpack, and linking these results to streamflow.  Explain what SNOTEL sites are here, as well as the other field data collection techniques here.</p>

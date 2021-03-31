@@ -3,12 +3,12 @@
   <VizSection id="firstSection">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>Changing snow in the west can have enormous impacts on water availability.</h2>
+      <!-- <h2>Changing snow in the west can have enormous impacts on water availability.</h2> -->
     </template>
     <!-- EXPLANATION -->
     <template v-slot:aboveExplanation>
       <p>
-        The differences between a high a low snow year illustrate the downstream effects of changing snow on water resources. For example, between 2011 and 2012 there was a two-fold difference in snowpack in some parts of the Upper Colorado River Basin which corresponded to differences in the timing of snowmelt and water availability downstream. 
+         The differences between a high a low snow year illustrate the downstream effects of changing snow on water resources. For example, between 2011 and 2012 there was a two-fold difference in snowpack in some parts of the Upper Colorado River Basin which corresponded to differences in the timing of snowmelt and water availability downstream. 
       </p>
     </template>
     <!-- FIGURES -->
@@ -498,7 +498,6 @@ export default {
         // move labels
         self.transPosition(self.highlabel, 350, 600, 20, -100, 1, 1)
         self.transPosition(self.lowlabel, 450, 500, 320, -300, 1, 1)
-
 
        // transform axes
         self.transAxis(this.y11, 350, 500, yAxisTall, 0, 0, 1, 1)
