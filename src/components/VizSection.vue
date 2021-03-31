@@ -56,7 +56,9 @@ $border: 10px solid #000;
 }
 /*#####TAKE AWAY#####*/
 .takeAway{
-    font-size: 1.4em;
+    h2{
+      font-size: 1.4em;
+    }
     margin: 0 auto $spacing auto;
     max-width: 700px;
     font-weight: 800;
@@ -132,7 +134,9 @@ $border: 10px solid #000;
 }
 @media screen and (min-width: 1024px){
   .takeAway{
-    font-size: 1.7em
+    h2{
+      font-size: 1.7em
+    }
   }
   /*#####CUSTOMIZATION CLASSES#####*/
     .group{
