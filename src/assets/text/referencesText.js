@@ -1,6 +1,6 @@
 export default {
   referencesContent: {
-    title: "Method",
+    title: "Methods",
     references: [
       {
         id: "ref-methods",

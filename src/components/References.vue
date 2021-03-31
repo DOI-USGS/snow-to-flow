@@ -85,7 +85,7 @@ button:not([disabled]):focus{
   outline: none;
 }
 .usa-accordion__heading{
-  font-size: 1.4em;
+  font-size: 1.2em;
 }
 .usa-accordion__button{
   background-image: get-icon("chevronDown", #fff);
@@ -111,8 +111,8 @@ button:not([disabled]):focus{
 }
 .target p{
   padding: 0;
-  font-size: 16pt;
-  line-height: 1.5em;;
+  font-size: 1em;
+  line-height: 1.5em; 
 }
 /*Accordion title CSS*/
 h2.usa-accordion__heading {
