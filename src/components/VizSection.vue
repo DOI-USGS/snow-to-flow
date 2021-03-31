@@ -1,7 +1,10 @@
 <template>
   <section class="vizSection">
     <div class="vizSectionContent">
-      <div class="takeAway">
+      <div
+        v-if="takeAway"
+        class="takeAway"
+      >
         <slot name="takeAway">
           <!--    Take Away Title -->
         </slot>
@@ -35,6 +38,10 @@
 export default {
     name: "VizSection",
     props:{
+        takeAway:{
+          type: Boolean,
+          default: true
+        },
         figCaption:{
           type: Boolean,
           default: true
