@@ -306,8 +306,8 @@ export default {
 
         // set chart - separate for each year, using 2011 for max values to set the scales
         //  first draw is MMD
-        self.initRidges(this.svgboth, 'ridge_2011', data.mmd11, data.days, 0, x_long, this.margin, this.height/2-5);
-        self.initRidges(this.svgboth, 'ridge_2012', data.mmd12, data.days, 0, x_long, this.height/2+mar+2,  this.height+2);
+        self.initRidges(this.svgboth, 'ridge_2011', data.mmd11, data.days, 0, x_long, 0, this.height/2);
+        self.initRidges(this.svgboth, 'ridge_2012', data.mmd12, data.days, 0, x_long, this.height/2,  this.height);
 
       },
       initRidges(svg, ridge_class, data_nest, days, x_start, x_end,  y_start, y_end){
@@ -348,8 +348,8 @@ export default {
 
         // append axes
         svg.append("g").classed("xaxis", true).classed(ridge_class, true).call(this.xAxis).attr("font-style", "italic");
-        svg.append("g").classed("yaxis", true).classed(ridge_class, true).call(this.yAxis_mmd).attr("font-style", "italic").attr("color", this.color_mmd);
-        svg.append("g").classed("yaxis", true).classed(ridge_class, true).call(this.yAxis_swe).attr("font-style", "italic").attr("color", this.color_swe);
+        svg.append("g").classed("yaxis", true).classed(ridge_class, true).call(this.yAxis_mmd).attr("font-style", "italic").attr("color", this.color_mmd).classed("mmd", true);
+        svg.append("g").classed("yaxis", true).classed(ridge_class, true).call(this.yAxis_swe).attr("font-style", "italic").attr("color", this.color_swe).classed("swe", true);
 
         // define area chart parameters
         this.area_mmd = this.d3.area()
@@ -493,12 +493,12 @@ export default {
         this.fast.transition().delay(100).duration(300).attr("opacity",1)
 
         // transform axes
-        self.transAxis(this.x11, 350, 300, self.xAxis, 0, this.height/2-5, 1, 1)
+        self.transAxis(this.x11, 350, 300, self.xAxis, 0, this.height/2, 1, 1)
         self.transAxis(this.x12, 250, 500, self.xAxis, 0, this.height, 1, 1)
-        self.transAxis(this.y11_swe, 350, 300, self.yAxis_swe, 0, -this.height/2-5, 1, 1)
+        self.transAxis(this.y11_swe, 350, 300, self.yAxis_swe, 0, -this.height/2, 1, 1)
         self.transAxis(this.y12_swe, 250, 500, self.yAxis_swe, 0, 0, 1, 1)
-        self.transAxis(this.y11_mmd, 350, 300, self.yAxis_mmd, 0, -this.height/2-5, 1, 1)
-        self.transAxis(this.y12_mmd, 250, 500, self.yAxis_mmd, 0, 0, 1, 1)
+        self.transAxis(this.y11_mmd, 350, 300, self.yAxis_mmd, this.width-75, -this.height/2, 1, 1)
+        self.transAxis(this.y12_mmd, 250, 500, self.yAxis_mmd, this.width-75, 0, 1, 1)
 
         // stretch ridges to full x and y extent
         self.transPosition(this.d3.selectAll("g.ridge_2011.curve"), 270, 500,  0, 0, 1, 1)
@@ -533,14 +533,14 @@ export default {
           .transition()
           .delay(function(d,i) { return i*15 })
           .duration(1100)
-          .attr("transform", "translate(0," + (this.height/2+2) + ")" )
+          .attr("transform", "translate(0," + (this.height/2) + ")" )
 
         this.ridge11
         .transition()
         .delay(200)
         .duration(400)
         .attr("transform", function(d, i) { 
-          return "translate(0," + (5+i*0)  + ") scale(1, 1)"
+          return "translate(0," + (0+i*0)  + ") scale(1, 1)"
         })
 
         this.ridge12
@@ -550,22 +550,47 @@ export default {
         .attr("transform", function(d, i) { 
           return "translate(0," + (0) + ") scale(1, 1)"
         })
+
+        // y mmd
+        var y_mmd = this.d3.scaleLinear()
+          .domain([30, 0]).nice()
+          .range([this.height/2, this.height])
+
+          // y swe
+        var y_swe = this.d3.scaleLinear()
+          .domain([1100, 0]).nice()
+          .range([this.height/2, this.height])
+
+      // mmd axes
+        var y_mmd_low = g => g
+          .attr("transform", `translate(${this.width-75},0)`)
+          .call(this.d3.axisRight(y_mmd).tickSize(0).tickPadding(4).tickValues([0, 10, 20, 30]))
+
+          // mmd axes
+        var y_swe_low = g => g
+          .attr("transform", `translate(${0},0)`)
+          .call(this.d3.axisLeft(y_swe).tickSize(0).tickPadding(4).tickValues([0, 250, 500, 750, 1000]))
         
         // move labels
         //self.transPosition(self.lowlabel, 600, 800, 310, -50, 1,1)
         //self.transPosition(self.highlabel, 700, 700, 80, 40, 1, 1)  
         self.transFade(this.d3.selectAll("g.yaxis g"), 300, 500, 1)
 
-        // transform axes
-        self.transAxis(this.y11_mmd, 450, 500, self.yAxis_mmd, 0, 0, 1, 1)
-        self.transAxis(this.y12_mmd, 450, 500, self.yAxis_mmd,0, 0, 1, 1)
-        self.transAxis(this.y11_swe, 450, 500, self.yAxis_swe, 0, 0, 1, 1)
-        self.transAxis(this.y12_swe, 450, 500, self.yAxis_swe, 0, 0, 1, 1)
+         // transform axes
+        self.transAxis(this.y11_mmd, 450, 500, y_mmd_low, this.width-75,0, 1, 1)
+        self.transAxis(this.y12_mmd, 450, 500, y_mmd_low,this.width-75, 0,1, 1)
+        self.transAxis(this.y11_swe, 450, 500, y_swe_low, 0, 0, 1, 1)
+        self.transAxis(this.y12_swe, 450, 500, y_swe_low, 0, 0, 1, 1) 
 
-        this.lowlabel.transition().delay(100).duration(300).attr("opacity",0)
-        this.highlabel.transition().delay(100).duration(300).attr("opacity",0)
-        this.lowel.transition().delay(100).duration(300).attr("opacity",1)
-        this.highel.transition().delay(100).duration(300).attr("opacity",1)
+
+/*         this.y11_mmd.transition().duration(100).attr("opacity", 0)
+         this.y12_mmd.transition().duration(100).attr("opacity", 0) */
+
+
+        this.lowlabel.transition().delay(100).duration(300).attr("opacity",1)
+        this.highlabel.transition().delay(100).duration(300).attr("opacity",1)
+        this.lowel.transition().delay(100).duration(300).attr("opacity",0)
+        this.highel.transition().delay(100).duration(300).attr("opacity",0)
         this.slow.transition().delay(100).duration(300).attr("opacity",0)
         this.fast.transition().delay(100).duration(300).attr("opacity",0)
 
@@ -612,8 +637,10 @@ export default {
         this.fast.transition().delay(100).duration(300).attr("opacity",0)
 
        // transform axes
-        self.transAxis(this.y11_swe, 350, 500, yAxisTall, 0, 0, 1, 1)
-        self.transAxis(this.y12_swe, 350, 500, yAxisTall, 0, 0, 1, 1)
+        self.transAxis(this.y11_swe, 350, 500, self.yAxis_swe, 0, -100, 1, 1)
+        self.transAxis(this.y12_swe, 350, 500, self.yAxis_swe, 0, 0, 1, 1) 
+        self.transAxis(this.y11_mmd, 350, 500, self.yAxis_mmd, this.width-75, -100, 1, 1)
+        self.transAxis(this.y12_mmd, 350, 500, self.yAxis_mmd, this.width-75, 0, 1, 1) 
 
         self.transFade(this.d3.selectAll("g.yaxis g"), 300, 400, 0)
       },
@@ -631,33 +658,28 @@ export default {
           .domain([1,365])
           .range([mid+5, x_long]);
 
-        var y = this.d3.scaleLinear()
-          .domain([25, 0]).nice()
-          .range([this.height/2+mar, this.height])
-
+        
         var xAxisL = g => g
-          .attr("transform", `translate(0,${this.height+5})`)
+          .attr("transform", `translate(0,${this.height})`)
           .call(this.d3.axisBottom(xhalfL)
               .tickValues([1, 93, 183, 273])
               .tickFormat(function(d,i) { return self.tickDates[i] })
               .tickSizeOuter(0).tickSize(0))
 
          var xAxisR = g => g
-          .attr("transform", `translate(0,${this.height+5})`)
+          .attr("transform", `translate(0,${this.height})`)
           .call(this.d3.axisBottom(xhalfR)
               .tickValues([1, 93, 183, 273])
               .tickFormat(function(d,i) { return self.tickDates[i] })
               .tickSizeOuter(0).tickSize(0))
 
-        var yAxisTall = g => g
-          .attr("transform", `translate(${0},-2)`)
-          .call(this.d3.axisLeft(y).tickSize(0).tickPadding(4))
-
-        // transform axes
+   // transform axes
         self.transAxis(this.x11, 350, 400, xAxisL, 0, this.height, 1, 1)
         self.transAxis(this.x12, 250, 500, xAxisR, 0, this.height, 1, 1)
-        self.transAxis(this.y11_swe, 350, 500, yAxisTall, 0, 0, 1, 1)
-        self.transAxis(this.y12_swe, 350, 400, yAxisTall, 0, 0, 1, 1)
+         /*    self.transAxis(this.y11_swe, 350, 500, self.yAxis_swe, 0, this.height/2, 1, 1)
+        self.transAxis(this.y12_swe, 350, 400, self.yAxis_swe, 0, 0, 1, 1)
+        self.transAxis(this.y11_mmd, 350, 500, self.yAxis_mmd, this.width-75, this.height/2, 1, 1)
+        self.transAxis(this.y12_mmd, 350, 400, self.yAxis_mmd, this.width-75, 0, 1, 1) */
 
         this.d3.selectAll("g.ridge_2011.curve")
         .transition()
