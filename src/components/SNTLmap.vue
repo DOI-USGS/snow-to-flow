@@ -2,11 +2,8 @@
   <!---VizSection-->
   <VizSection
     id="SNTLMap"
+    :take-away="false"
   >
-    <!-- TAKEAWAY TITLE -->
-    <template v-slot:takeAway>
-     <!--  <h2>Snowmelt season has already begun.</h2> -->
-    </template>    
     <!-- EXPLANATION -->
     <template v-slot:aboveExplanation>
       <!--   <p class="byline" >
