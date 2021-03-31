@@ -115,9 +115,6 @@ $border: 10px solid #000;
 }
 .single{
     text-align: center;
-    figure{
-        min-height: 300px;
-    }
 }
 .group{
     /* prevent too large mobile graphs from creating a x scroll */

@@ -495,8 +495,8 @@ export default {
 
 <style lang="scss" scoped>
     svg {
-        width: 800px;
-        height: 500px;
+        width: 100%;
+        height: 100%;
     }
 
    .axis-tick, .annotation-line {
