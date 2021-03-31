@@ -79,17 +79,43 @@
           >
 
             <text
-              id="wy11"
+              id="melt11"
               class="yr-label"
-              x="50"
-              y="175"
-            >High snow</text>
+              x="200"
+              y="20"
+            >later and <tspan x="200" y="40px">faster melt</tspan></text>
             <text
-              id="wy12"
+              id="melt12"
               class="yr-label"
-              x="50"
-              y="375"
-            >Low snow</text>
+              x="300"
+              y="290"
+            >earlier and <tspan x="300" y="310px">longer melt</tspan></text>
+
+            <text
+              id="peak11"
+              class="yr-label"
+              x="80"
+              y="230"
+            >high snow</text>
+            <text
+              id="peak12"
+              class="yr-label"
+              x="350"
+              y="320"
+            >low snow</text>
+            
+            <text
+              id="el11"
+              class="yr-label"
+              x="20"
+              y="20"
+            >high elevation</text>
+            <text
+              id="el12"
+              class="yr-label"
+              x="-20"
+              y="390"
+            >low</text>
           </svg>
         </div>
         <div class="compare">
@@ -294,12 +320,12 @@ export default {
 
         // y mmd
         var y_mmd = this.d3.scaleLinear()
-          .domain([25, 0]).nice()
+          .domain([30, 0]).nice()
           .range([y_start, y_end])
 
           // y swe
         var y_swe = this.d3.scaleLinear()
-          .domain([1000, 0]).nice()
+          .domain([1100, 0]).nice()
           .range([y_start, y_end])
 
         // define & style x &  y axes
@@ -313,12 +339,12 @@ export default {
       // mmd axes
         this.yAxis_mmd = g => g
           .attr("transform", `translate(${this.width-75},0)`)
-          .call(this.d3.axisRight(y_mmd).tickSize(0).tickPadding(4))
+          .call(this.d3.axisRight(y_mmd).tickSize(0).tickPadding(4).tickValues([0, 10, 20, 30]))
 
           // mmd axes
         this.yAxis_swe = g => g
           .attr("transform", `translate(${0},0)`)
-          .call(this.d3.axisLeft(y_swe).tickSize(0).tickPadding(4))
+          .call(this.d3.axisLeft(y_swe).tickSize(0).tickPadding(4).tickValues([0, 250, 500, 750, 1000]))
 
         // append axes
         svg.append("g").classed("xaxis", true).classed(ridge_class, true).call(this.xAxis).attr("font-style", "italic");
@@ -382,14 +408,27 @@ export default {
         this.y2012 = this.svgboth.selectAll("g.ridge_2012")
         this.ridge11 = this.d3.selectAll("g.ridge_2011.curve g") // ridge themselves for staggered animation
         this.ridge12 = this.d3.selectAll("g.ridge_2012.curve g") 
-        this.highlabel = this.svgboth.select("#wy11") // high and low snow labels
-        this.lowlabel = this.svgboth.select("#wy12")
+
+        this.highlabel = this.svgboth.select("text#peak11") // high and low snow labels
+        this.lowlabel = this.svgboth.select("text#peak12")
+        this.highel = this.svgboth.select("text#el11") // high and low snow labels
+        this.lowel = this.svgboth.select("text#el12")
+        this.fast = this.svgboth.select("text#melt11") // high and low snow labels
+        this.slow = this.svgboth.select("text#melt12")    
+
         this.y11_swe = this.d3.select(".yaxis.ridge_2011.swe") // axes
         this.y12_swe = this.d3.select(".yaxis.ridge_2012.swe")
         this.y11_mmd = this.d3.select(".yaxis.ridge_2011.mmd") // axes
         this.y12_mmd = this.d3.select(".yaxis.ridge_2012.mmd")
         this.x11 = this.d3.select(".xaxis.ridge_2011")
         this.x12 = this.d3.select(".xaxis.ridge_2012")
+
+        this.lowlabel.transition().duration(0).attr("opacity",0)
+        this.highlabel.transition().duration(0).attr("opacity",0)
+        this.lowel.transition().duration(0).attr("opacity",0)
+        this.highel.transition().duration(0).attr("opacity",0)
+        this.slow.transition().duration(0).attr("opacity",1)
+        this.fast.transition().duration(0).attr("opacity",1)
 
       },
       changePos(){
@@ -443,14 +482,23 @@ export default {
           .attr("transform", "translate(0," + (0) + ")" )
 
         // move labels
-        self.transPosition(self.lowlabel, 600, 800, 0, 0, 1, 1)
-        self.transPosition(self.highlabel, 700, 700, 0, 0, 1, 1)
+        //self.transPosition(self.lowlabel, 600, 800, 0, 0, 1, 1)
+        //self.transPosition(self.highlabel, 700, 700, 0, 0, 1, 1)
+
+        this.lowlabel.transition().delay(100).duration(300).attr("opacity",0)
+        this.highlabel.transition().delay(100).duration(300).attr("opacity",0)
+        this.lowel.transition().delay(100).duration(300).attr("opacity",0)
+        this.highel.transition().delay(100).duration(300).attr("opacity",0)
+        this.slow.transition().delay(100).duration(300).attr("opacity",1)
+        this.fast.transition().delay(100).duration(300).attr("opacity",1)
 
         // transform axes
         self.transAxis(this.x11, 350, 300, self.xAxis, 0, this.height/2-5, 1, 1)
         self.transAxis(this.x12, 250, 500, self.xAxis, 0, this.height, 1, 1)
-        self.transAxis(this.y11_swe, 350, 300, self.yAxis, 0, -this.height/2-5, 1, 1)
-        self.transAxis(this.y12_swe, 250, 500, self.yAxis, 0, 0, 1, 1)
+        self.transAxis(this.y11_swe, 350, 300, self.yAxis_swe, 0, -this.height/2-5, 1, 1)
+        self.transAxis(this.y12_swe, 250, 500, self.yAxis_swe, 0, 0, 1, 1)
+        self.transAxis(this.y11_mmd, 350, 300, self.yAxis_mmd, 0, -this.height/2-5, 1, 1)
+        self.transAxis(this.y12_mmd, 250, 500, self.yAxis_mmd, 0, 0, 1, 1)
 
         // stretch ridges to full x and y extent
         self.transPosition(this.d3.selectAll("g.ridge_2011.curve"), 270, 500,  0, 0, 1, 1)
@@ -504,8 +552,8 @@ export default {
         })
         
         // move labels
-        self.transPosition(self.lowlabel, 600, 800, 330, -40, 1,1)
-        self.transPosition(self.highlabel, 700, 700, 90, 0, 1, 1)  
+        //self.transPosition(self.lowlabel, 600, 800, 310, -50, 1,1)
+        //self.transPosition(self.highlabel, 700, 700, 80, 40, 1, 1)  
         self.transFade(this.d3.selectAll("g.yaxis g"), 300, 500, 1)
 
         // transform axes
@@ -513,6 +561,13 @@ export default {
         self.transAxis(this.y12_mmd, 450, 500, self.yAxis_mmd,0, 0, 1, 1)
         self.transAxis(this.y11_swe, 450, 500, self.yAxis_swe, 0, 0, 1, 1)
         self.transAxis(this.y12_swe, 450, 500, self.yAxis_swe, 0, 0, 1, 1)
+
+        this.lowlabel.transition().delay(100).duration(300).attr("opacity",0)
+        this.highlabel.transition().delay(100).duration(300).attr("opacity",0)
+        this.lowel.transition().delay(100).duration(300).attr("opacity",1)
+        this.highel.transition().delay(100).duration(300).attr("opacity",1)
+        this.slow.transition().delay(100).duration(300).attr("opacity",0)
+        this.fast.transition().delay(100).duration(300).attr("opacity",0)
 
       },
       toElevation(){
@@ -547,8 +602,14 @@ export default {
           .call(this.d3.axisLeft(y).tickSize(0).tickPadding(4))
 
         // move labels
-        self.transPosition(self.highlabel, 350, 600, 20, -100, 1, 1)
-        self.transPosition(self.lowlabel, 450, 500, 320, -300, 1, 1)
+        //self.transPosition(self.highlabel, 350, 600, 20, -100, 1, 1)
+        //self.transPosition(self.lowlabel, 450, 500, 320, -300, 1, 1)
+        this.lowlabel.transition().delay(100).duration(300).attr("opacity",0)
+        this.highlabel.transition().delay(100).duration(300).attr("opacity",0)
+        this.lowel.transition().delay(100).duration(300).attr("opacity",1)
+        this.highel.transition().delay(100).duration(300).attr("opacity",1)
+        this.slow.transition().delay(100).duration(300).attr("opacity",0)
+        this.fast.transition().delay(100).duration(300).attr("opacity",0)
 
        // transform axes
         self.transAxis(this.y11_swe, 350, 500, yAxisTall, 0, 0, 1, 1)
