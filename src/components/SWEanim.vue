@@ -99,44 +99,48 @@
           >
             <h4 class="butt-head">
               Compare streamflow: 
-              <input
-                id="rb1"
-                class="butt"
-                type="radio"
-                name="radiogroup1"
-                checked="true"
-                value="time"
-                @change="changePos"
-              >
-              <label
-                class="butt"
-                for="rb1"
-              >timing</label>
-              <input
-                id="rb2"
-                class="butt"
-                type="radio"
-                name="radiogroup1"
-                value="peak"
-                @change="changePos"
-              >
-              <label
-                class="butt"
-                for="rb2"
-              >magnitude</label>
-              <input
-                id="rb3"
-                class="butt"
-                type="radio"
-                name="radiogroup1"
-                value="el"
-                @change="changePos"
-              >
-              <label
-                class="butt"
-                for="rb3"
-              >by elevation</label>
-            </h4>
+            </h4> 
+            <div class="inputsContainer">
+              <div class="inputs">
+                <input
+                  id="rb1"
+                  class="butt"
+                  type="radio"
+                  name="radiogroup1"
+                  checked="true"
+                  value="time"
+                  @change="changePos"
+                >
+                <label
+                  class="butt"
+                  for="rb1"
+                >timing</label>
+                <input
+                  id="rb2"
+                  class="butt"
+                  type="radio"
+                  name="radiogroup1"
+                  value="peak"
+                  @change="changePos"
+                >
+                <label
+                  class="butt"
+                  for="rb2"
+                >magnitude</label>
+                <input
+                  id="rb3"
+                  class="butt"
+                  type="radio"
+                  name="radiogroup1"
+                  value="el"
+                  @change="changePos"
+                >
+                <label
+                  class="butt"
+                  for="rb3"
+                >by elevation</label>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -582,8 +586,12 @@ export default {
   display: inline-block;
   font-size: 18px;
   text-align: center;
-    padding: 5px 10px;
-    margin: auto;
+  padding: 15px 10px;
+  margin: auto;
+  position: relative;
+  h4{
+    margin-bottom: 15px;
+  }
 }
 .butt {
   padding: 5px 10px;
@@ -611,4 +619,36 @@ input[name="radiogroup1"] {
         background-color: dodgerblue;
         color: white;
     }
+@media screen and (min-width: 650px){
+  .compare{
+    width: 100%;
+    max-width: 570px;
+    padding: 5px 5px;
+    .btn-group{
+      display: flex;
+      align-items: center;
+      .inputsContainer{
+        flex: 2;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .inputs{
+          position: absolute;
+          left: 10px;
+          .butt{
+            margin-right: 25px;
+          }
+          .butt:last-child{
+            margin-right: 0;;
+          }
+        }
+      }
+      h4{
+        flex: 1;
+        margin-bottom: 0;
+      }
+    }
+  } 
+}
 </style>
