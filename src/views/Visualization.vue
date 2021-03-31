@@ -31,7 +31,7 @@
     <Chapter
       v-if="checkIfSplashIsRendered"
       id="chapter1"
-      image="chapter6"
+      image="chapter5"
       alt="An image of snowpack with wind-swept ripples on top, faded into the background to serve as a backdrop for the section title."
       :height="50"
     >
@@ -49,7 +49,7 @@
       :height="50"
     >
       <template v-slot:chapterTitle>
-        Changes in snow have downstream consequences
+        Changes in snowmelt have downstream consequences
       </template>    
     </Chapter>
     <SWEanim v-if="checkIfSplashIsRendered" />
@@ -61,7 +61,7 @@
       :height="50"
     >
       <template v-slot:chapterTitle>
-        What Spring Flow Means for Water Supply
+        Snowmelt season has already begun
       </template>
     </Chapter>
     <SNTLMap v-if="checkIfSplashIsRendered" />
@@ -78,6 +78,7 @@
     </Chapter>
     
     <References v-if="checkIfSplashIsRendered" />
+    <Methods  v-if="checkIfSplashIsRendered" />
   </div>
 </template>
 
@@ -97,8 +98,8 @@ export default {
       DiagramsNormal: () => import( /*webpackChunkName: "diagramsnormal"*/ "./../components/DiagramsNormal"),
       DiagramsHigh: () => import( /*webpackChunkName: "diagramshigh"*/ "./../components/DiagramsHigh"),
       DiagramsLow: () => import( /*webpackChunkName: "diagramslow"*/ "./../components/DiagramsLow"),
-      //Impact: () => import( /*webpackChunkName: "impact"*/ "./../components/Impact"),
       References: () => import( /*webpackChunkName: "References"*/ "./../components/References"),
+      Methods: () => import( /*webpackChunkName: "References"*/ "./../components/Methods"),
       Chapter: () => import( /*webpackChunkName: "ChapterTitles"*/ "./../components/SectionTitle"),
     },
     computed: {

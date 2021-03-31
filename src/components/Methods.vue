@@ -1,5 +1,5 @@
 <template>
-  <section id="references">       
+  <section id="methods">       
     <div class="text-content">
       <h2>{{ text.title }}</h2>
       <div class="usa-accordion usa-accordion--bordered">
@@ -7,7 +7,21 @@
           v-for="reference in text.references"
           :key="reference.subTitle"
         >
+          <h3 class="usa-accordion__heading">
+            <button
+              class="usa-accordion__button"
+              aria-expanded="false"
+              :aria-controls="reference.id"
+            >
+              {{ reference.subTitle }}
+            </button>
+          </h3>
+          <div
+            :id="reference.id"
+            class="usa-accordion__content usa-prose target"
+          >
             <p><span v-html="reference.reference" /></p>
+          </div>
         </div>
       </div>
     </div>
@@ -15,11 +29,11 @@
 </template>
 
 <script>
-    import referencesText from "@/assets/text/referencesText";
+    import referencesText from "@/assets/text/methodsText";
     import USWDS from "uswds/src/js/components";
     const { accordion } = USWDS;
     export default {
-        name: 'References',
+        name: 'Methods',
         components: {
         },
         data() {
