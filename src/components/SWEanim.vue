@@ -181,8 +181,8 @@ export default {
 
               line_swe: null,
               area_swe: null,
-              line: null,
-              area: null,
+              line_mmd: null,
+              area_mmd: null,
               group: null,
               ridge_o: 0.3,
               site_elev: [],
@@ -191,13 +191,17 @@ export default {
               highlabel: null,
               lowlabel: null,
               xAxis: null,
-              yAxis: null,
+              yAxis_mmd: null,
+              yAxis_swe: null,
               x11: null,
               x12: null,
               y11: null,
               y12: null,
               ridge11:null,
               ridge12: null,
+
+              color_mmd: "dodgerblue",
+              color_swe: "grey",
 
             }
         },
@@ -286,9 +290,14 @@ export default {
           .domain([1,365])
           .range([x_start, x_end]);
 
-        // y axis = group for each site
-        var y = this.d3.scaleLinear()
+        // y mmd
+        var y_mmd = this.d3.scaleLinear()
           .domain([25, 0]).nice()
+          .range([y_start, y_end])
+
+          // y swe
+        var y_swe = this.d3.scaleLinear()
+          .domain([1000, 0]).nice()
           .range([y_start, y_end])
 
         // define & style x &  y axes
@@ -299,22 +308,40 @@ export default {
               .tickFormat(function(d,i) { return self.tickDates[i] })
               .tickSizeOuter(0).tickSize(0))
 
-        this.yAxis = g => g
+      // mmd axes
+        this.yAxis_mmd = g => g
           .attr("transform", `translate(${0},-2)`)
-          .call(this.d3.axisLeft(y).tickSize(0).tickPadding(4))
+          .call(this.d3.axisLeft(y_mmd).tickSize(0).tickPadding(4))
+
+          // mmd axes
+        this.yAxis_swe = g => g
+          .attr("transform", `translate(${0},-2)`)
+          .call(this.d3.axisLeft(y_swe).tickSize(0).tickPadding(4))
+
         // append axes
         svg.append("g").classed("xaxis", true).classed(ridge_class, true).call(this.xAxis).attr("font-style", "italic");
-        svg.append("g").classed("yaxis", true).classed(ridge_class, true).call(this.yAxis).attr("font-style", "italic");
+        svg.append("g").classed("yaxis", true).classed(ridge_class, true).call(this.yAxis_mmd).attr("font-style", "italic").attr("color", this.color_mmd);
+        svg.append("g").classed("yaxis", true).classed(ridge_class, true).call(this.yAxis_swe).attr("font-style", "italic").attr("color", this.color_swe);
 
         // define area chart parameters
-        this.area = this.d3.area()
+        this.area_mmd = this.d3.area()
           .curve(this.d3.curveBasis)
           .defined(d => !isNaN(d))
           .x((d, i) => x(days[i]))
           .y0(0)
-          .y1(d => y(d))
+          .y1(d => y_mmd(d))
+
+        this.area_swe = this.d3.area()
+          .curve(this.d3.curveBasis)
+          .defined(d => !isNaN(d))
+          .x((d, i) => x(days[i]))
+          .y0(0)
+          .y1(d => y_swe(d))
           
-        this.line = this.area.lineY1()
+        this.line_mmd = this.area_mmd.lineY1()
+          .defined(d => !isNaN(d));
+
+        this.line_swe = this.area_swe.lineY1()
           .defined(d => !isNaN(d));
 
       // append g for each ridgeline/site_no
@@ -325,12 +352,24 @@ export default {
           .join("g")
           .attr("transform", d => `translate(0,0)`)
 
+        // draw MMD curves
         this.group.append("path")
           .attr("fill", "none")
-          .attr("stroke", "dodgerblue")
-          .attr("d", d => this.line(d.mmd))
+          .attr("stroke", this.color_mmd)
+          .attr("d", d => this.line_mmd(d.mmd))
           .attr("stroke-width", "1px")
-          .attr("stroke", "dodgerblue")
+          .attr("stroke", this.color_mmd)
+          .attr("opacity", 0.7)
+          .attr("class", function(d) { return d.key })
+          .classed("ridge", true);
+
+         // draw SWE curves
+        this.group.append("path")
+          .attr("fill", "none")
+          .attr("stroke", this.color_swe)
+          .attr("d", d => this.line_swe(d.swe))
+          .attr("stroke-width", "1px")
+          .attr("stroke", this.color_swe)
           .attr("opacity", 0.7)
           .attr("class", function(d) { return d.key })
           .classed("ridge", true);
