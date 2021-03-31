@@ -195,8 +195,10 @@ export default {
               yAxis_swe: null,
               x11: null,
               x12: null,
-              y11: null,
-              y12: null,
+              y11_swe: null,
+              y12_swe: null,
+              y11_mmd: null,
+              y12_mmd: null,
               ridge11:null,
               ridge12: null,
 
@@ -310,12 +312,12 @@ export default {
 
       // mmd axes
         this.yAxis_mmd = g => g
-          .attr("transform", `translate(${0},-2)`)
-          .call(this.d3.axisLeft(y_mmd).tickSize(0).tickPadding(4))
+          .attr("transform", `translate(${this.width-75},0)`)
+          .call(this.d3.axisRight(y_mmd).tickSize(0).tickPadding(4))
 
           // mmd axes
         this.yAxis_swe = g => g
-          .attr("transform", `translate(${0},-2)`)
+          .attr("transform", `translate(${0},0)`)
           .call(this.d3.axisLeft(y_swe).tickSize(0).tickPadding(4))
 
         // append axes
@@ -361,7 +363,8 @@ export default {
           .attr("stroke", this.color_mmd)
           .attr("opacity", 0.7)
           .attr("class", function(d) { return d.key })
-          .classed("ridge", true);
+          .classed("ridge", true)
+          .classed("mmd", true);
 
          // draw SWE curves
         this.group.append("path")
@@ -372,7 +375,8 @@ export default {
           .attr("stroke", this.color_swe)
           .attr("opacity", 0.7)
           .attr("class", function(d) { return d.key })
-          .classed("ridge", true);
+          .classed("ridge", true)
+          .classed("swe", true);
 
         this.y2011 = this.svgboth.selectAll("g.ridge_2011") // ridge group
         this.y2012 = this.svgboth.selectAll("g.ridge_2012")
@@ -380,8 +384,10 @@ export default {
         this.ridge12 = this.d3.selectAll("g.ridge_2012.curve g") 
         this.highlabel = this.svgboth.select("#wy11") // high and low snow labels
         this.lowlabel = this.svgboth.select("#wy12")
-        this.y11 = this.d3.select(".yaxis.ridge_2011") // axes
-        this.y12 = this.d3.select(".yaxis.ridge_2012")
+        this.y11_swe = this.d3.select(".yaxis.ridge_2011.swe") // axes
+        this.y12_swe = this.d3.select(".yaxis.ridge_2012.swe")
+        this.y11_mmd = this.d3.select(".yaxis.ridge_2011.mmd") // axes
+        this.y12_mmd = this.d3.select(".yaxis.ridge_2012.mmd")
         this.x11 = this.d3.select(".xaxis.ridge_2011")
         this.x12 = this.d3.select(".xaxis.ridge_2012")
 
@@ -443,8 +449,8 @@ export default {
         // transform axes
         self.transAxis(this.x11, 350, 300, self.xAxis, 0, this.height/2-5, 1, 1)
         self.transAxis(this.x12, 250, 500, self.xAxis, 0, this.height, 1, 1)
-        self.transAxis(this.y11, 350, 300, self.yAxis, 0, -this.height/2-5, 1, 1)
-        self.transAxis(this.y12, 250, 500, self.yAxis, 0, 0, 1, 1)
+        self.transAxis(this.y11_swe, 350, 300, self.yAxis, 0, -this.height/2-5, 1, 1)
+        self.transAxis(this.y12_swe, 250, 500, self.yAxis, 0, 0, 1, 1)
 
         // stretch ridges to full x and y extent
         self.transPosition(this.d3.selectAll("g.ridge_2011.curve"), 270, 500,  0, 0, 1, 1)
@@ -503,8 +509,10 @@ export default {
         self.transFade(this.d3.selectAll("g.yaxis g"), 300, 500, 1)
 
         // transform axes
-        self.transAxis(this.y11, 450, 500, self.yAxis, 0, 0, 1, 1)
-        self.transAxis(this.y12, 450, 500, self.yAxis, 0, 0, 1, 1)
+        self.transAxis(this.y11_mmd, 450, 500, self.yAxis_mmd, 0, 0, 1, 1)
+        self.transAxis(this.y12_mmd, 450, 500, self.yAxis_mmd,0, 0, 1, 1)
+        self.transAxis(this.y11_swe, 450, 500, self.yAxis_swe, 0, 0, 1, 1)
+        self.transAxis(this.y12_swe, 450, 500, self.yAxis_swe, 0, 0, 1, 1)
 
       },
       toElevation(){
@@ -543,8 +551,8 @@ export default {
         self.transPosition(self.lowlabel, 450, 500, 320, -300, 1, 1)
 
        // transform axes
-        self.transAxis(this.y11, 350, 500, yAxisTall, 0, 0, 1, 1)
-        self.transAxis(this.y12, 350, 500, yAxisTall, 0, 0, 1, 1)
+        self.transAxis(this.y11_swe, 350, 500, yAxisTall, 0, 0, 1, 1)
+        self.transAxis(this.y12_swe, 350, 500, yAxisTall, 0, 0, 1, 1)
 
         self.transFade(this.d3.selectAll("g.yaxis g"), 300, 400, 0)
       },
@@ -587,8 +595,8 @@ export default {
         // transform axes
         self.transAxis(this.x11, 350, 400, xAxisL, 0, this.height, 1, 1)
         self.transAxis(this.x12, 250, 500, xAxisR, 0, this.height, 1, 1)
-        self.transAxis(this.y11, 350, 500, yAxisTall, 0, 0, 1, 1)
-        self.transAxis(this.y12, 350, 400, yAxisTall, 0, 0, 1, 1)
+        self.transAxis(this.y11_swe, 350, 500, yAxisTall, 0, 0, 1, 1)
+        self.transAxis(this.y12_swe, 350, 400, yAxisTall, 0, 0, 1, 1)
 
         this.d3.selectAll("g.ridge_2011.curve")
         .transition()
