@@ -2,11 +2,8 @@
   <!---VizSection-->
   <VizSection
     id="SNTLMap"
+    :take-away="false"
   >
-    <!-- TAKEAWAY TITLE -->
-    <template v-slot:takeAway>
-      <h2>Snowmelt season has already begun.</h2>
-    </template>    
     <!-- EXPLANATION -->
     <template v-slot:aboveExplanation>
       <!--   <p class="byline" >
@@ -1463,7 +1460,7 @@
         The map above shows snow TODAY (use April 1st for release) as the percentile of this date in the historic record (1981-2010). Snow is quantified as the daily snow-water equivalent (SWE) from <a
           href="https://www.wcc.nrcs.usda.gov/snow/"
           target="_blank"
-        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the western U.S.</a>. When a site is hovered or selected, the left panels show the trend in peak SWE and the melt date (SM50) is drawn for all years with data. The right panel shows SWE in the current water year (2021) to date, with points indicating peak SWE in 2021 (purple) and the melt date (yellow). Unfilled points indicate these landmarksare yet to occur in the current water year.
+        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the western U.S.</a>. The left chart panels show the trend in peak SWE and the melt date (SM50) for all years with data at a given site. The right panel shows SWE in the current water year (2021) to date, with points indicating peak SWE in 2021 (purple) and the melt date (yellow). Unfilled points indicate these landmark are yet to occur in the current water year.
       </p>
     </template>
     <!-- EXPLANATION -->

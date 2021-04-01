@@ -7,21 +7,7 @@
           v-for="reference in text.references"
           :key="reference.subTitle"
         >
-          <h3 class="usa-accordion__heading">
-            <button
-              class="usa-accordion__button"
-              aria-expanded="false"
-              :aria-controls="reference.id"
-            >
-              {{ reference.subTitle }}
-            </button>
-          </h3>
-          <div
-            :id="reference.id"
-            class="usa-accordion__content usa-prose target"
-          >
             <p><span v-html="reference.reference" /></p>
-          </div>
         </div>
       </div>
     </div>
@@ -85,7 +71,7 @@ button:not([disabled]):focus{
   outline: none;
 }
 .usa-accordion__heading{
-  font-size: 1.4em;
+  font-size: 1.2em;
 }
 .usa-accordion__button{
   background-image: get-icon("chevronDown", #fff);
@@ -111,8 +97,8 @@ button:not([disabled]):focus{
 }
 .target p{
   padding: 0;
-  font-size: 16pt;
-  line-height: 1.5em;;
+  font-size: 1em;
+  line-height: 1.5em; 
 }
 /*Accordion title CSS*/
 h2.usa-accordion__heading {

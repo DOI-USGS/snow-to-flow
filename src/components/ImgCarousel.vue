@@ -1,5 +1,5 @@
 <template>
-  <div class="maxWidth">
+  <div class="maxWidth carouselContainer">
     <carousel
       class="image-slider"
       :autoplay="true"
@@ -16,7 +16,8 @@
             >
             <img 
               id="field1"
-              v-img:group
+              v-img="{group: 'group', title: 'Test title'}"
+              class="sliderImage"
               src="@/assets/methods/person1.jpg"
               alt="Collecting snow depth data in the field"
               loading="lazy"
@@ -35,6 +36,7 @@
             <img 
               id="field2"
               v-img:group
+              class="sliderImage"
               src="@/assets/methods/drone1.jpg"
               alt="Collecting snow depth data in the field"
               loading="lazy"
@@ -53,6 +55,7 @@
             <img 
               id="field3"
               v-img:group
+              class="sliderImage"
               src="@/assets/methods/person2.jpg"
               alt="Collecting snow depth data in the field"
               loading="lazy"
@@ -71,6 +74,7 @@
             <img 
               id="field4"
               v-img:group
+              class="sliderImage"
               src="@/assets/methods/station1.jpg"
               alt="Collecting snow depth data in the field"
               loading="lazy"
@@ -89,6 +93,7 @@
             <img 
               id="field5"
               v-img:group
+              class="sliderImage"
               src="@/assets/methods/person3.jpg"
               alt="Collecting snow depth data in the field"
               loading="lazy"
@@ -107,6 +112,7 @@
             <img 
               id="field6"
               v-img:group
+              class="sliderImage"
               src="@/assets/methods/station2.jpg"
               alt="Collecting snow depth data in the field"
               loading="lazy"
@@ -125,6 +131,7 @@
             <img 
               id="field7"
               v-img:group
+              class="sliderImage"
               src="@/assets/methods/person4.jpg"
               alt="Collecting snow depth data in the field"
               loading="lazy"
@@ -143,6 +150,7 @@
             <img 
               id="field8"
               v-img:group
+              class="sliderImage"
               src="@/assets/methods/station3.jpg"
               alt="Collecting snow depth data in the field"
               loading="lazy"
@@ -161,6 +169,7 @@
             <img 
               id="field9"
               v-img:group
+              class="sliderImage"
               src="@/assets/methods/person5.jpg"
               alt="Collecting snow depth data in the field"
               loading="lazy"

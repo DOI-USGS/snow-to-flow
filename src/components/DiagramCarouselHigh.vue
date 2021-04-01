@@ -1,5 +1,7 @@
 <template>
-  <div class="carouselContainer">
+  <div
+    class="carouselContainer"
+  >
     <carousel
       id="diagrams-high"
       class="image-slider"
@@ -19,6 +21,7 @@
             <img 
               id="diagram-high-winter"
               v-img:diagram-high
+              class="sliderImage"
               src="@/assets/diagrams/Diagram_high-winter.jpg"
               alt="Diagram of a mountain watershed covered in snow in winter"
               loading="lazy"
@@ -39,6 +42,7 @@
             <img 
               id="diagram-high-early-spring"
               v-img:diagram-high
+              class="sliderImage"
               src="@/assets/diagrams/Diagram_high-spring.jpg"
               alt="Diagram of a mountain watershed covered in snow in early spring"
               loading="lazy"
@@ -58,6 +62,7 @@
             <img 
               id="diagram-high-late-spring"
               v-img:diagram-high
+              class="sliderImage"
               src="@/assets/diagrams/Diagram_high-summer.jpg"
               alt="Diagram of a mountain watershed covered in snow in late spring"
               loading="lazy"
@@ -105,6 +110,26 @@
       height: auto; 
       width: 100%;
       margin: auto;
+    }
+  }
+</style>
+<style lang="scss">
+.fullscreen-v-img{
+  position: relative;
+}
+  #captionArea{
+    background: rgb(0,0,0);
+    background: rgba(0,0,0,.3);
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    z-index: 9000;
+    text-align: center;
+    padding: 10px;
+    color: #fff;
+    .caption{
+      margin: 0 auto;
+      max-width: 700px;
     }
   }
 </style>

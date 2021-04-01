@@ -1,7 +1,10 @@
 <template>
   <section class="vizSection">
     <div class="vizSectionContent">
-      <div class="takeAway">
+      <div
+        v-if="takeAway"
+        class="takeAway"
+      >
         <slot name="takeAway">
           <!--    Take Away Title -->
         </slot>
@@ -35,6 +38,10 @@
 export default {
     name: "VizSection",
     props:{
+        takeAway:{
+          type: Boolean,
+          default: true
+        },
         figCaption:{
           type: Boolean,
           default: true
@@ -56,7 +63,9 @@ $border: 10px solid #000;
 }
 /*#####TAKE AWAY#####*/
 .takeAway{
-    font-size: 1.4em;
+    h2{
+      font-size: 1.4em;
+    }
     margin: 0 auto $spacing auto;
     max-width: 700px;
     font-weight: 800;
@@ -115,9 +124,6 @@ $border: 10px solid #000;
 }
 .single{
     text-align: center;
-    figure{
-        min-height: 300px;
-    }
 }
 .group{
     /* prevent too large mobile graphs from creating a x scroll */
@@ -132,7 +138,9 @@ $border: 10px solid #000;
 }
 @media screen and (min-width: 1024px){
   .takeAway{
-    font-size: 1.7em
+    h2{
+      font-size: 1.7em
+    }
   }
   /*#####CUSTOMIZATION CLASSES#####*/
     .group{

@@ -88,5 +88,6 @@ export default {
   #swe-chart-container {
     width: 100%;
     height: auto;
+    margin-bottom: 0;
   }
 </style>
