@@ -143,7 +143,7 @@
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/methods/station3.jpg"
+              srcset="@/assets/methods/station4.jpg"
               media="(max-width: 992px)"
               type="image/jpg"
             >
@@ -151,7 +151,7 @@
               id="field8"
               v-img:group
               class="sliderImage"
-              src="@/assets/methods/station3.jpg"
+              src="@/assets/methods/station4.jpg"
               alt="Collecting snow depth data in the field"
               loading="lazy"
             >
