@@ -3,16 +3,15 @@
   <VizSection id="swe-line-chart">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>Each year, scientists find relationships between a snowpack curve and discharge at a streamgage downstream.</h2>
+      <h2>What does snow and flow data look like?</h2>
     </template>
     <!-- FIGURES -->
     <template v-slot:aboveExplanation>
-      <p>Hydrologists measure snowpack as the snow water equivalent, or the amount of liquid water contained in snowpack. That measurement normalizes between light, fluffy snow and heavy, wet snow – to the total amount of water. </p>
       <p>
-        To understand how snow becomes flow we can look use streamflow measurements from the USGS streamgaging network. Some of the oldest (100-125 year old) gages derive their flow from seasonal snow, contributing to a long record of data. Read more about the <a
-          href="https://labs.waterdata.usgs.gov/visualizations/gages-through-the-ages/index.html#/"
-          target="_blank"
-        >history of streamgaging</a>
+        Peak SWE is an important measurement – it tells us the magnitude of the maximum snowpack that year, as well as the timing of when snow accumulation tips towards snow melt. Peak SWE is the maximum daily snow water equivalent for the year, corresponding to the day when the greatest amount of water was contained in the snowpack.
+      </p>
+      <p>
+        Other points, like the date at which half of the year’s peak SWE has melted (“SM50”), provides a measure of the how quickly snowmelt is happening, which can be compared across years or sites.
       </p>
       <Sidebar>
         <template v-slot:sidebarTitle>
@@ -51,7 +50,9 @@
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
-      <p>Peak SWE and SM50 measure  the magnitude and timing of snowmelt, respectively. Peak snow water equivalent is the maximum daily snow water equivalent for the year, corresponding to the day when the greatest amount of water was contained in the snowpack. The date at which half of the year’s peak SWE has melted, provides a measure of the timing of snowmelt that can be compared across years or sites.</p>
+      <p>
+        Notice X Y and Z.
+      </p>
     </template>
   </VizSection>
 </template>
