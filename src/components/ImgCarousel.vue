@@ -19,7 +19,7 @@
               v-img="{group: 'group', title: 'Test title'}"
               class="sliderImage"
               src="@/assets/methods/person1.jpg"
-              alt="Collecting snow depth data in the field"
+              alt="USGS Research Hydrologist Graham Sexstone completes snowpit measurement at Buffalo Pass, CO. Photographer: Colin Penn."
               loading="lazy"
             >
           </picture>
@@ -38,7 +38,7 @@
               v-img:group
               class="sliderImage"
               src="@/assets/methods/drone1.jpg"
-              alt="Collecting snow depth data in the field"
+              alt="USGS scientists flying UAS near Winter Park, CO under a DOI readiness waiver. Lidar and photogrammetry were used to map snow depth. Photographer: Mark Bauer "
               loading="lazy"
             >
           </picture>
@@ -57,7 +57,7 @@
               v-img:group
               class="sliderImage"
               src="@/assets/methods/person2.jpg"
-              alt="Collecting snow depth data in the field"
+              alt="USGS Research Hydrologist Graham Sexstone measures the snow depth at Molas Pass, CO. Photographer: Joe Mills"
               loading="lazy"
             >
           </picture>
@@ -67,7 +67,7 @@
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/methods/station1.jpg"
+              srcset="@/assets/methods/station4.jpg"
               media="(max-width: 992px)"
               type="image/jpg"
             >
@@ -75,27 +75,8 @@
               id="field4"
               v-img:group
               class="sliderImage"
-              src="@/assets/methods/station1.jpg"
-              alt="Collecting snow depth data in the field"
-              loading="lazy"
-            >
-          </picture>
-        </div>
-      </slide>
-      <slide class="slide">
-        <div class="slider-image-container">
-          <picture>
-            <source
-              srcset="@/assets/methods/person3.jpg"
-              media="(max-width: 992px)"
-              type="image/jpg"
-            >
-            <img 
-              id="field5"
-              v-img:group
-              class="sliderImage"
-              src="@/assets/methods/person3.jpg"
-              alt="Collecting snow depth data in the field"
+              src="@/assets/methods/station4.jpg"
+              alt="USGS NGWOS snow test bed site (Ranch Creek Meadow) in Winter Park, Colorado shown recording snow water equivalent, snow depth, soil moisture, and other meteorological variables. Photographer: Graham Sexstone"
               loading="lazy"
             >
           </picture>
@@ -114,7 +95,7 @@
               v-img:group
               class="sliderImage"
               src="@/assets/methods/station2.jpg"
-              alt="Collecting snow depth data in the field"
+              alt="NRCS SNOTEL site (Lake Irene, CO) shown recording snow water equivalent, snow depth, and other meteorological variables. Photographer: Graham Sexstone"
               loading="lazy"
             >
           </picture>
@@ -133,7 +114,7 @@
               v-img:group
               class="sliderImage"
               src="@/assets/methods/person4.jpg"
-              alt="Collecting snow depth data in the field"
+              alt="USGS scientists Graham Sexstone and Colin Penn collecting a snow sample to analyze for snow chemistry in Rocky Mountain National Park, CO. Photographer: Garrett Akie."
               loading="lazy"
             >
           </picture>
@@ -143,7 +124,7 @@
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/methods/station4.jpg"
+              srcset="@/assets/methods/station3.jpg"
               media="(max-width: 992px)"
               type="image/jpg"
             >
@@ -151,8 +132,8 @@
               id="field8"
               v-img:group
               class="sliderImage"
-              src="@/assets/methods/station4.jpg"
-              alt="Collecting snow depth data in the field"
+              src="@/assets/methods/station3.jpg"
+              alt="USGS snow monitoring site (Loch Vale – Andrews Meadow) in Rocky Mountain National Park, Colorado shown recording snow sublimation and other meteorological variables. Photographer: Graham Sexstone"
               loading="lazy"
             >
           </picture>
@@ -162,7 +143,7 @@
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/methods/person5.jpg"
+              srcset="@/assets/methods/person3.jpg"
               media="(max-width: 992px)"
               type="image/jpg"
             >
@@ -170,8 +151,8 @@
               id="field9"
               v-img:group
               class="sliderImage"
-              src="@/assets/methods/person5.jpg"
-              alt="Collecting snow depth data in the field"
+              src="@/assets/methods/person3.jpg"
+              alt="USGS Hydrologist Colin Penn measures the snow density and snow temperature of the snowpack at Noisy Basin, MT. Photographer: Evan Gohring"
               loading="lazy"
             >
           </picture>
