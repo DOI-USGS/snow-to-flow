@@ -8,8 +8,12 @@
     <template v-slot:aboveExplanation>
       <!--   <p class="byline" >
         U.S. Geological Survey<br>Water Resources Mission Area</p><br><br> -->
-      <p>Historically, <span class="emph">April 1st</span> is the date which hydrologists generally use to mark "peak snowpack" in places where snow accumulates all winter.</p>
-      <p>Compared to the historical record for this date, 2021 is shaping to be considerably dry in many regions of the western U.S. While interannual variation in peak SWE is normal and fluctuates with natural climatological patterns, an exceptionally dry or wet season can have dramatic impacts to the water supply in locations where snowmelt is a major source of water.</p>
+      <p>
+        April 1st has historically been used as a proxy date to measure peak SWE in the western U.S.. While the actual date of peak SWE is variable from year-to-year and site-to-site (CITE), by comparing this date in the historic record (1981-2010) we can get a general sense of water availability for the rest of the water year.
+      </p>
+      <p>
+        Select sites on the map to see the full SWE timeseries from the 2021 water year in addition to the magnitude (peak SWE) and timing (SM50) of snow since 1981. 
+      </p>
       <p>Mouseover sites on the map to see the full SWE timeseries from the 2021 water year in addition to the magnitude (peak SWE) and timing (SM50) of snow since 1981. </p>
     </template>
     <!-- FIGURES -->

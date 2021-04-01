@@ -99,6 +99,10 @@ $border: 10px solid #000;
   p{
     padding: 0 0 10px 0;
   }
+  ul{
+    margin-left: $spacing*2;
+    margin-bottom: $spacing;
+  }
 }
 /*#####SHARED CSS#####*/
 .takeAway,
