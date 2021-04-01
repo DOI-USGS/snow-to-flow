@@ -6,30 +6,12 @@
       <h2>Low Snow + Early Melting = Less Flow</h2>
     </template>
     <template v-slot:aboveExplanation>
-      <p>An early, warm spring can lead to slow and prolonged snowmelt. Melting this way means that the slow trickle of melt can be absorbed by the soil, delaying streamflow generation and reducing annual water availability. This slower snowmelt is also more susceptible to losses from plant water use.</p>
+      <p>
+        But in some years, there’s not much snow accumulation at all.  If those years also face an early, warm spring, the snowmelt season releases liquid meltwater slowly and gradually. Melting this way means that the slow trickle of melt can be absorbed by the soil, which slows down meltwater on its journey over and through the soil towards streams. It may even mean that the water availability for the year is reduced.
+      </p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
-      <!-- <div class="group two maxWidth diagram">
-        <figure id="bad-snow">
-          <img 
-            id="diagram-bad-winter"
-            v-img:group-bad
-            src="@/assets/diagrams/Diagrams_snow-bad.png"
-            alt="A diagram of a mountain hillside in a low-snow winter, where there's not much snowpack and warm weather is melting the snow intermittently."
-            loading="lazy"
-          >
-        </figure>
-        <figure id="bad-flow">
-          <img 
-            id="diagram-bad-spring"
-            v-img:group-design
-            src="@/assets/diagrams/Diagrams_flow-bad.png"
-            alt="A diagram of a mountain hillside in spring after a low-snow winter, where there is little snow left and little water in streams."
-            loading="lazy"
-          >
-        </figure>
-      </div> -->
       <DiagramCarouselLow />
     </template>
     <!-- FIGURE CAPTION -->
@@ -40,7 +22,30 @@
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
-      <p />
+      <p>
+        What’s worse is that slower snowmelt risks losing even more of its flow volume to plant uptake and soil absorption. Drier soils can lead to less water for plants, which can set up conditions that increase the risk of <a href="https://labs.waterdata.usgs.gov/visualizations/fire-hydro/index.html#/" target="_blank">wildfire</a>. Plus, dry soils set the stage for the next year, making it harder for snow to turn into flow. 
+      </p>
+      <p>
+        Studying all these dynamics across multiple ecosystems in the west is a huge task, but even that list isn’t complete.  In addition to soil saturation, snowpack thickness, and melt timing, there are lots of other factors that impact how snow turns into flow.  
+      </p>
+      <p>
+        Take sunniness, for example. Some snow never creates meltwater because it evaporates directly back into the atmosphere in a process called <a href="https://www.usgs.gov/centers/co-water/science/snowpack-sublimation-measurements-and-modeling-colorado-river-basin?qt-science_center_objects=0#qt-science_center_objects" target="_blank">sublimation</a>. The longer snow is exposed to weather that is sunny but still cold, the more snow vaporizes directly back into the atmosphere. 
+      </p>
+      <p>
+        Warmer temperatures have an added effect if winter precipitation falls as rain instead of snow. Late-season precipitation that falls as rain on snow also accelerates snowmelt, resulting in rapid snowmelt that can lead to flooding.
+      </p>
+      <p>
+        In addition to climatic factors, permeability, slope, and vegetation affect the release of water from snow and how it moves through the landscape. Water moves quickly across impermeable surfaces like bedrock or asphalt, into drainages, through streams, and filling reservoirs downstream. Permeable surfaces like soil, gravel, and sand allowing more water to infiltrate into the ground and reach streams more slowly, which also increases soil saturation.
+      </p>
+      <p>
+        A steep slope is more likely to promote water movement across the surface rather than infiltrating. If snowmelt is slower and over more permeable soils like gravel or sand, more of the liquid water will infiltrate into the subsurface, taking longer for water to reach the stream. Further, a steep slope is more likely to promote water movement across the surface rather than infiltrating.
+      </p>
+      <p>
+        Vegetation and wind patterns matter too. Snow fall can be intercepted by trees and then sublimated, reducing the on the ground total snowpack. Fallen snow can also be blown over ridges, scouring windward rises or trees, and accumulating on the leeward side of the ridge. These spatial differences in snowpack depth can result in different snowmelt timing and rates, in addition to other climatic factors.
+      </p>
+      <p>
+        All of these factors intertwine to determine how much meltwater will become available to use downstream.  Understanding the math behind it all is an enormous task, but it’s one that the USGS is intensely focused on given its implications for human and ecological life.
+      </p>
     </template>
   </VizSection>
 </template>

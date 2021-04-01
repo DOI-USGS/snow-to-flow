@@ -6,30 +6,12 @@
       <h2>High Snow + Late Melt = Lots of Flow</h2>
     </template>
     <template v-slot:aboveExplanation>
-      <p>In a year with lots of snow accumulation and a cold spring where the snowpack persists longer, snowmelt occurs late and the melt rate is rapid. This can result in greater annual water availability.</p>
+      <p>
+        In a high snow year, lots of snow accumulates and stays frozen late into the spring.  The later the peak snowpack day occurs, the more likely it is that the snow will melt all at once in a rapid surge.  Even dry soils aren’t able to absorb all the meltwater, and a huge among of water becomes available downstream, sometimes so much so that there’s downstream flooding.  
+      </p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
-      <!-- <div class="group two maxWidth">
-        <figure id="good-snow">
-          <img 
-            id="diagram-good-winter"
-            v-img:group-good
-            src="@/assets/diagrams/Diagrams_snow-good.png"
-            alt="A diagram of a mountain hillside in a high-snow winter, where there's thick snowpack and saturated soils from good snow years previously."
-            loading="lazy"
-          >
-        </figure>
-        <figure id="good-flow">
-          <img 
-            id="diagram-good-spring"
-            v-img:group-good
-            src="@/assets/diagrams/Diagrams_flow-good.png"
-            alt="A diagram of a mountain hillside in spring after a high-snow winter, where the snowpack melts all at once and makes lots of meltwater available for water supply."
-            loading="lazy"
-          >
-        </figure>
-      </div> -->
       <DiagramCarouselHigh />
     </template>
     <!-- FIGURE CAPTION -->
