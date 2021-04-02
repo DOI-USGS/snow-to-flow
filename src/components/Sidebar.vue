@@ -61,18 +61,22 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+$deepBlue: #0962b2; //#005AA3;
+$familyMain: 'Public sans', sans-serif;
 .sidebar{
     display: flex;
     flex-direction: column;
     margin-top: 15px;
     transition: width 2s, height 2s, transform 2s;
     will-change: width;
-    background: rgb(100,100,100);
+    background: $deepBlue;
+    border-radius: 5px;
 }
 .titleAndExit{
     position: relative;
     color:#fff;
     font-weight: bold;
+    
 }
 .reveal{
     padding: 5px 10px;
@@ -80,13 +84,14 @@ export default {
 }
 .exit{
     position: absolute;
-    right: 0;
+    right: 5px;
     top: 0;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5em;
+    font-family: $familyMain;
+    font-size: 1em;
     padding: 10px;
     cursor: pointer;
     &:hover{

@@ -18,7 +18,7 @@
             >
             <img 
               id="diagram-normal-winter"
-              v-img:diagram-normal
+              v-img="{group: 'diagram-normal', title: 'Caption about winter in a normal snow year'}"
               class="sliderImage"
               src="@/assets/diagrams/Diagram_normal-winter.jpg"
               alt="Diagram of a mountain watershed covered in snow in winter"
@@ -39,7 +39,7 @@
             >
             <img 
               id="diagram-normal-early-spring"
-              v-img:diagram-normal
+              v-img="{group: 'diagram-normal', title: 'Caption about spring in a normal snow year'}"
               class="sliderImage"
               src="@/assets/diagrams/Diagram_normal-spring.jpg"
               alt="Diagram of a mountain watershed covered in snow in early spring"
@@ -59,7 +59,7 @@
             >
             <img 
               id="diagram-normal-late-spring"
-              v-img:diagram-normal
+              v-img="{group: 'diagram-high', title: 'Caption about summer in a normal snow year'}"
               class="sliderImage"
               src="@/assets/diagrams/Diagram_normal-summer.jpg"
               alt="Diagram of a mountain watershed covered in snow in late spring"

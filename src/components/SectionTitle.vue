@@ -55,7 +55,7 @@ export default {
         },
         overlayOpacity:{
             type: Number,
-            default: .5
+            default: .7
         }
     },
     computed:{

@@ -26,7 +26,7 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        Click to enlarge.  Typical snow accumulation during winter months forms snowpack, which acts as water storage until warmer temperatures in the spring and summer months lead to snowmeltand ultimately streamflow that flow through the landscape.
+        Click each diagram to enlarge it and learn more.
       </p>
     </template>
     <!-- EXPLANATION -->

@@ -36,7 +36,7 @@
       :height="50"
     >
       <template v-slot:chapterTitle>
-        It Starts with Snowpack
+        Measuring Snowpack
       </template>
     </Chapter>
     <MeasuringSWE v-if="checkIfSplashIsRendered" /> 

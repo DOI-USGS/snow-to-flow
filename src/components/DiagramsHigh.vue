@@ -7,7 +7,12 @@
     </template>
     <template v-slot:aboveExplanation>
       <p>
-        In a high snow year, lots of snow accumulates and stays frozen late into the spring.  The later the peak snowpack day occurs, the more likely it is that the snow will melt all at once in a rapid surge.  Even dry soils aren’t able to absorb all the meltwater, and a huge among of water becomes available downstream, sometimes so much so that there’s downstream flooding.  
+        When scientists observe a large <span class="emph">snowpack magnitude</span>, a late <span class="emph">melt timing</span> 
+        and short <span class="emph">melt duration</span>, they mark that as a high snow year.  The later the peak snowpack day occurs, 
+        the more likely it is that the snow will melt all at once in a rapid surge. When these dynamics line up, it's a good 
+        estimation that there will be a good amount of <span class="emph">flow</span> to provide good water available for the 
+        rest of the year, even if the <span class="emph">soil saturation</span> soaks up some of the water. Even dry soils aren’t 
+        able to absorb all the meltwater, and there can even be spring flooding.  
       </p>
     </template>
     <!-- FIGURES -->
@@ -17,7 +22,7 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        Click to enlarge. Typical snow accumulation during winter months forms snowpack, which acts as water storage until warmer temperatures in the spring and summer months lead to snowmeltand ultimately streamflow that flow through the landscape.
+        Click each diagram to enlarge it and learn more.
       </p>
     </template>
     <!-- EXPLANATION -->

@@ -67,7 +67,7 @@ $frostyGreen: #90d3b5; // good contrast against black (original was #5e8a76)
 $deepGreen: #235845; // good contrast against white
 $frostyPurple: #C9ADE6;
 $deepPurple: #301546; // good contrast against black
-$skyBlue: #4980ad; //#7AC3FF;
+$skyBlue: #539fdd; //#7AC3FF;
 $deepBlue: #0962b2; //#005AA3;
 $lightGrey: #c2c4c5;
 $darkGrey: #212122;
@@ -271,7 +271,7 @@ p {
   color: white;
   font-family: $familyMain;
   font-weight: 600;
-  background: $deepBlue;
+  background: $skyBlue;
   // background: linear-gradient(180deg, white 70%, $deepBlue 30%);
   padding: 5px;
   border-radius: 3px;
@@ -289,7 +289,7 @@ a:link {
   padding: 5px 0;
 } 
 a:visited { 
-  color: $skyBlue; 
+  color: $deepBlue; 
 } 
 a:hover {
   text-decoration:none;
