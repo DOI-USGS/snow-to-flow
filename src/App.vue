@@ -67,8 +67,8 @@ $frostyGreen: #90d3b5; // good contrast against black (original was #5e8a76)
 $deepGreen: #235845; // good contrast against white
 $frostyPurple: #C9ADE6;
 $deepPurple: #301546; // good contrast against black
-$skyBlue: #7AC3FF;
-$deepBlue:#005AA3;
+$skyBlue: #4980ad; //#7AC3FF;
+$deepBlue: #0962b2; //#005AA3;
 $lightGrey: #c2c4c5;
 $darkGrey: #212122;
 $familyMain: 'Public sans', sans-serif;
@@ -280,4 +280,27 @@ p {
 .italic {
   font-style: italic;
 }
+
+// Link Styling
+a:link { 
+  text-decoration: underline;
+  font-weight: bold;
+  color: $deepBlue;
+  padding: 5px 0;
+} 
+a:visited { 
+  color: $skyBlue; 
+} 
+a:hover {
+  text-decoration:none;
+  text-shadow: 0 0 2px lightGrey;  
+  cursor: pointer;
+} 
+a:focus { 
+
+}
+a:active {
+  padding-top: 3px;
+}
+
 </style>
