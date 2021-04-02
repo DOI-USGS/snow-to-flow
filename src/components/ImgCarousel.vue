@@ -16,7 +16,7 @@
             >
             <img 
               id="field1"
-              v-img="{group: 'group', title: 'Test title'}"
+              v-img="{group: 'group', title: 'USGS Research Hydrologist Graham Sexstone completes snowpit measurement at Buffalo Pass, CO. Photographer: Colin Penn.'}"
               class="sliderImage"
               src="@/assets/methods/person1.jpg"
               alt="USGS Research Hydrologist Graham Sexstone completes snowpit measurement at Buffalo Pass, CO. Photographer: Colin Penn."

@@ -6,18 +6,16 @@
       <h2>From Winter Snow to Spring Flow</h2>
     </template>
     <template v-slot:aboveExplanation>
-      <p>Snowpack in high elevation areas functions like frozen water towers by storing water into the spring. When that snow finally melts, these high elevation areas produce a large pulse of meltwater that flows downstream through the landscape.</p>
-      <p>For people and ecosystems below, that huge pulse of streamflow is critical for water supply.  Most of the water that will be available for the entire year will be generated in that rush of meltwater.  Therefore, the seasonal dynamics of snowmelt are critical components of the energy balance and water cycle in mountainous areas.</p>
-      <p>Factors that impact snowmelt can tell us a lot about the water that will be produced in the spring melt. Three dynamics largely determine how much snow turns into flow:</p>
+      <p>For people and ecosystems in the western U.S., most of the water that will be available for the entire year will be generated in the spring melt. There are few important dynamics that largely determine how much snow turns into flow:</p>
       <ul>
-        <li>How much snow there is (snowpack magnitude)</li>
-        <li>When it begins to melt (melt timing), and </li>
-        <li>How late into the spring/summer melting lasts (melt duration).</li>
+        <li><span class="emph">Snowpack Thickness</span> ie, how much snow there is,</li>
+        <li><span class="emph">Melt Timing</span> ie, when the snow begins to melt,</li>
+        <li><span class="emph">Melt Duration</span> ie, how long it takes to all melt.</li>
       </ul>
       <p>Two more dynamics impact how much of that meltwater actually becomes available for humans and ecosystems to use:</p>
       <ul>
-        <li>How much water the soil absorbs during melting (soil saturation), and </li>
-        <li>How much of the remaining water gets carried down by streams into reservoirs below (flow).</li>
+        <li><span class="emph">Soil Saturation</span> ie, how much the soil soaks up meltwater, </li>
+        <li><span class="emph">Flow</span> ie, much meltwater is left for streams and reservoirs.</li>
       </ul>
       <p>Studying these snowmelt dynamics is critical to understanding how water moves through the watershed, contributes to streamflow, and ultimately becomes available for use.</p>
     </template>
@@ -28,19 +26,19 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        Click to enlarge.  Typical snow accumulation during winter months forms snowpack, which acts as water storage until warmer temperatures in the spring and summer months lead to snowmeltand ultimately streamflow that flow through the landscape.
+        Click each diagram to enlarge it and learn more.
       </p>
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
       <p>
-        It all starts with a baseline of how the previous water year went – the soil saturation depends on whether it was a wet or a dry year.  Then around October, snow begins to accumulate. Snow in high elevations store enormous amounts of water in thick snowpacks.  In normal years, the snow stays frozen all winter leading up to a “peak snowpack” day, historically marked around April 1st.
+        The <span class="emph">soil saturation</span> depends on whether it was wet or dry the year before, and sets the stage for the coming melt season.  Around October, snow begins to fall, adding bit by bit to the <span class="emph">snowpack magnitude</span>. Especially in high elevations, snowpacks can be several feet thick and store several inches worth of water.  In the spring - historically around April 1st - the snowpacks reach their peak thickness.  Then it all begins to melt.  The start of <span class="emph">melt timing</span> is marked by that day of peak snowpack, and from that point until all the snow is gone marks the <span class="emph">melt duration</span>.
       </p>
       <p>
-        Then, it all begins to melt - slowly at first, and then faster, and then in a huge rush. The soil soaks up some of the meltwater, but not all of it. The rest moves quickly over and through the soil, filling streams with a surge of water that can be captured in reservoirs downstream.
+        In normal years, most of the meltwater rushes into streams to generate <span class="emph">flow</span> which is the source of water availability. The soil soaks up some of the meltwater, but not all of it. The rest moves quickly over and through the soil, filling streams with a surge of water that can be captured in reservoirs downstream.
       </p>
       <p>
-        There’s lots of variability from year to year, so let’s see how changing snowpack magnitude and melt timing impacts water availability.
+        But there's lots of variability from year to year even in a single place. So let’s see how changing these dynamics impacts water availability.
       </p>
     </template>
   </VizSection>

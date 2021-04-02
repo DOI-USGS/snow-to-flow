@@ -1469,7 +1469,15 @@
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
-      <p>The USGS has teams of hydrologists studying the impacts of changing snow dynamics on water supply. </p>
+      <p>
+        The USGS is undertaking new efforts to advance snow science through both measuring and modeling snowpack and linking these results to streamflow. As a part of the <a
+          href="https://www.usgs.gov/mission-areas/water-resources/science/usgs-next-generation-water-observing-system-ngwos?qt-science_center_objects=0#qt-science_center_objects"
+          target="_blank"
+        >USGS Next Generation Water Observing System (NGWOS)</a> new spatial and temporal snow and streamflow observations in unmonitored environments are being planned.  Those observations will provide valuable data which will inform modeling of water-cycle components in the Upper Colorado River Basin. New snow monitoring will include continuous snowpack and soil moisture stations, remotely sensed mapping of snow conditions, and manual snow surveys.
+      </p>
+      <p>
+        The USGS has also been contributing to snow science research through modeling snowpack and snowmelt dynamics from local to National extents. These models use measured data of snow, landscape and vegetation as well as meteorologic variables to understand how snowpack evolves from accumulation through melt, as well as how these changes influence streamflow. 
+      </p>
     </template>
   </VizSection>
 </template>

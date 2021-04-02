@@ -17,32 +17,65 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        Click to enlarge. With global changes in precipitation and temperature, snowmelt and sublimintation can occur at accelerated rates leading to lower levels of streamflow.
+        Click each diagram to enlarge it and learn more.
       </p>
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
       <p>
-        What’s worse is that slower snowmelt risks losing even more of its flow volume to plant uptake and soil absorption. Drier soils can lead to less water for plants, which can set up conditions that increase the risk of <a href="https://labs.waterdata.usgs.gov/visualizations/fire-hydro/index.html#/" target="_blank">wildfire</a>. Plus, dry soils set the stage for the next year, making it harder for snow to turn into flow. 
+        What’s worse is that slower snowmelt risks losing even more of its flow volume to plant uptake and soil absorption. Drier soils can lead to less water for plants, which can set up conditions that increase the risk of <a
+          href="https://labs.waterdata.usgs.gov/visualizations/fire-hydro/index.html#/"
+          target="_blank"
+        >wildfire</a>. Plus, dry soils set the stage for the next year, making it harder for snow to turn into flow. 
       </p>
       <p>
-        Studying all these dynamics across multiple ecosystems in the west is a huge task, but even that list isn’t complete.  In addition to soil saturation, snowpack thickness, and melt timing, there are lots of other factors that impact how snow turns into flow.  
+        Studying all these dynamics across multiple ecosystems in the west is a huge task, but even that list isn’t complete.  In addition to soil saturation, snowpack thickness, and melt timing, there are lots of other factors that impact how snow turns into flow, such as:  
       </p>
-      <p>
-        Take sunniness, for example. Some snow never creates meltwater because it evaporates directly back into the atmosphere in a process called <a href="https://www.usgs.gov/centers/co-water/science/snowpack-sublimation-measurements-and-modeling-colorado-river-basin?qt-science_center_objects=0#qt-science_center_objects" target="_blank">sublimation</a>. The longer snow is exposed to weather that is sunny but still cold, the more snow vaporizes directly back into the atmosphere. 
-      </p>
-      <p>
-        Warmer temperatures have an added effect if winter precipitation falls as rain instead of snow. Late-season precipitation that falls as rain on snow also accelerates snowmelt, resulting in rapid snowmelt that can lead to flooding.
-      </p>
-      <p>
-        In addition to climatic factors, permeability, slope, and vegetation affect the release of water from snow and how it moves through the landscape. Water moves quickly across impermeable surfaces like bedrock or asphalt, into drainages, through streams, and filling reservoirs downstream. Permeable surfaces like soil, gravel, and sand allowing more water to infiltrate into the ground and reach streams more slowly, which also increases soil saturation.
-      </p>
-      <p>
-        A steep slope is more likely to promote water movement across the surface rather than infiltrating. If snowmelt is slower and over more permeable soils like gravel or sand, more of the liquid water will infiltrate into the subsurface, taking longer for water to reach the stream. Further, a steep slope is more likely to promote water movement across the surface rather than infiltrating.
-      </p>
-      <p>
-        Vegetation and wind patterns matter too. Snow fall can be intercepted by trees and then sublimated, reducing the on the ground total snowpack. Fallen snow can also be blown over ridges, scouring windward rises or trees, and accumulating on the leeward side of the ridge. These spatial differences in snowpack depth can result in different snowmelt timing and rates, in addition to other climatic factors.
-      </p>
+      <Sidebar>
+        <template v-slot:sidebarTitle>
+          Sublimation
+        </template>
+        <template v-slot:sidebarMessage>
+          <p>
+            Some snow never creates meltwater because it evaporates directly back into the atmosphere in a process called <a
+              href="https://www.usgs.gov/centers/co-water/science/snowpack-sublimation-measurements-and-modeling-colorado-river-basin?qt-science_center_objects=0#qt-science_center_objects"
+              target="_blank"
+            >sublimation</a>. The longer snow is exposed to weather that is sunny but still cold, the more snow vaporizes directly back into the atmosphere.
+          </p>
+        </template>
+      </Sidebar>
+      <Sidebar>
+        <template v-slot:sidebarTitle>
+          Warmer Temperatures and Rain
+        </template>
+        <template v-slot:sidebarMessage>
+          <p>Warmer temperatures have an added effect if winter precipitation falls as rain instead of snow. Late-season precipitation that falls as rain on snow also accelerates snowmelt, resulting in rapid snowmelt that can lead to flooding.</p>
+        </template>
+      </Sidebar>
+      <Sidebar>
+        <template v-slot:sidebarTitle>
+          Permeability
+        </template>
+        <template v-slot:sidebarMessage>
+          <p>Water moves quickly across impermeable surfaces like bedrock or asphalt, into drainages, through streams, and filling reservoirs downstream. Permeable surfaces like soil, gravel, and sand allowing more water to infiltrate into the ground and reach streams more slowly, which also increases soil saturation.</p>
+        </template>
+      </Sidebar>
+      <Sidebar>
+        <template v-slot:sidebarTitle>
+          Slope Steepness
+        </template>
+        <template v-slot:sidebarMessage>
+          <p>A steep slope is more likely to promote water movement across the surface rather than infiltrating. If snowmelt is slower and over more permeable soils like gravel or sand, more of the liquid water will infiltrate into the subsurface, taking longer for water to reach the stream. Further, a steep slope is more likely to promote water movement across the surface rather than infiltrating.</p>
+        </template>
+      </Sidebar>
+      <Sidebar>
+        <template v-slot:sidebarTitle>
+          Vegetation and Wind
+        </template>
+        <template v-slot:sidebarMessage>
+          <p>Vegetation and wind patterns matter too. Snow fall can be intercepted by trees and then sublimated, reducing the on the ground total snowpack. Fallen snow can also be blown over ridges, scouring windward rises or trees, and accumulating on the leeward side of the ridge. These spatial differences in snowpack depth can result in different snowmelt timing and rates, in addition to other climatic factors.</p>
+        </template>
+      </Sidebar>
       <p>
         All of these factors intertwine to determine how much meltwater will become available to use downstream.  Understanding the math behind it all is an enormous task, but it’s one that the USGS is intensely focused on given its implications for human and ecological life.
       </p>
@@ -52,11 +85,13 @@
 <script>
 import VizSection from '@/components/VizSection';
 import DiagramCarouselLow from '@/components/DiagramCarouselLow';
+import Sidebar from '@/components/Sidebar';
 export default {
     name: "DiagramsLow",
     components:{
         VizSection,
-        DiagramCarouselLow
+        DiagramCarouselLow,
+        Sidebar
     }
 }
 </script>

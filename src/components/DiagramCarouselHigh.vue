@@ -20,10 +20,10 @@
             >
             <img 
               id="diagram-high-winter"
-              v-img:diagram-high
+              v-img="{group: 'diagram-high', title: 'Soil saturation is determined by the years prior.  If soil saturation is good, it sets the stage for a high snow year to mean lots of water availability.'}"
               class="sliderImage"
               src="@/assets/diagrams/Diagram_high-winter.jpg"
-              alt="Diagram of a mountain watershed covered in snow in winter"
+              alt="A diagram of a watershed with snowy mountain tops."
               loading="lazy"
             >
           </picture>
@@ -40,8 +40,8 @@
               type="image/jpg"
             >
             <img 
-              id="diagram-high-early-spring"
-              v-img:diagram-high
+              id="diagram-high-spring"
+              v-img="{group: 'diagram-high', title: 'Caption about spring in a high snow year'}"
               class="sliderImage"
               src="@/assets/diagrams/Diagram_high-spring.jpg"
               alt="Diagram of a mountain watershed covered in snow in early spring"
@@ -60,11 +60,11 @@
               type="image/png"
             >
             <img 
-              id="diagram-high-late-spring"
-              v-img:diagram-high
+              id="diagram-high-summer"
+              v-img="{group: 'diagram-high', title: 'Caption about summer in a high snow year'}"
               class="sliderImage"
               src="@/assets/diagrams/Diagram_high-summer.jpg"
-              alt="Diagram of a mountain watershed covered in snow in late spring"
+              alt="Diagram of a mountain watershed covered in snow in the summer."
               loading="lazy"
             >
           </picture>
@@ -114,22 +114,24 @@
   }
 </style>
 <style lang="scss">
+// This is the globally scoped styling for the captions of images in the lightbox
 .fullscreen-v-img{
   position: relative;
 }
   #captionArea{
     background: rgb(0,0,0);
-    background: rgba(0,0,0,.3);
+    background: rgba(0,0,0,.5);
     position: absolute;
     width: 100%;
     bottom: 0;
     z-index: 9000;
-    text-align: center;
-    padding: 10px;
+    text-align: left;
+    padding: 30px 10px;
     color: #fff;
     .caption{
       margin: 0 auto;
       max-width: 700px;
+      line-height: 1.5em;
     }
   }
 </style>

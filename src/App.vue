@@ -67,8 +67,8 @@ $frostyGreen: #90d3b5; // good contrast against black (original was #5e8a76)
 $deepGreen: #235845; // good contrast against white
 $frostyPurple: #C9ADE6;
 $deepPurple: #301546; // good contrast against black
-$skyBlue: #7AC3FF;
-$deepBlue:#005AA3;
+$skyBlue: #539fdd; //#7AC3FF;
+$deepBlue: #0962b2; //#005AA3;
 $lightGrey: #c2c4c5;
 $darkGrey: #212122;
 $familyMain: 'Public sans', sans-serif;
@@ -84,7 +84,7 @@ body {
       background-color: white;
       line-height: 1.2;
       font-size: 16px;
-      font-family:$familyMain;
+      font-family:$familySerif;
       font-weight: 400;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -268,16 +268,39 @@ p {
 }
 
 .emph {
-  font-weight:800;
-  fill: white;
+  color: white;
   font-family: $familyMain;
-  background: linear-gradient(180deg,rgba(255,255,255,0) 70%, $skyBlue 30%);
-  line-height: 1.3em;
-  margin: 0 2px;
-  padding: 0 2px;
+  font-weight: 600;
+  background: $skyBlue;
+  // background: linear-gradient(180deg, white 70%, $deepBlue 30%);
+  padding: 5px;
+  border-radius: 3px;
 }
 
 .italic {
   font-style: italic;
 }
+
+// Link Styling
+a:link { 
+  text-decoration: underline;
+  font-weight: bold;
+  color: $deepBlue;
+  padding: 5px 0;
+} 
+a:visited { 
+  color: $deepBlue; 
+} 
+a:hover {
+  text-decoration:none;
+  text-shadow: 0 0 2px lightGrey;  
+  cursor: pointer;
+} 
+a:focus { 
+    text-shadow: 0 0 2px lightGrey;
+}
+a:active {
+  padding-top: 3px;
+}
+
 </style>

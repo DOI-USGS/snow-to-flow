@@ -18,7 +18,7 @@
             >
             <img 
               id="diagram-low-winter"
-              v-img:diagram-low
+              v-img="{group: 'diagram-low', title: 'Caption about winter in a low snow year'}"
               class="sliderImage"
               src="@/assets/diagrams/Diagram_low-winter.jpg"
               alt="Diagram of a mountain watershed covered in snow in winter"
@@ -39,7 +39,7 @@
             >
             <img 
               id="diagram-low-early-spring"
-              v-img:diagram-low
+              v-img="{group: 'diagram-low', title: 'Caption about spring in a low snow year'}"
               class="sliderImage"
               src="@/assets/diagrams/Diagram_low-spring.jpg"
               alt="Diagram of a mountain watershed covered in snow in early spring"
@@ -59,7 +59,7 @@
             >
             <img 
               id="diagram-normal-late-spring"
-              v-img:diagram-low
+              v-img="{group: 'diagram-low', title: 'Caption about summer in a low snow year'}"
               class="sliderImage"
               src="@/assets/diagrams/Diagram_low-summer.jpg"
               alt="Diagram of a mountain watershed covered in snow in late spring"
