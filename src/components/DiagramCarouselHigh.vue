@@ -114,18 +114,19 @@
   }
 </style>
 <style lang="scss">
+// This is the globally scoped styling for the captions of images in the lightbox
 .fullscreen-v-img{
   position: relative;
 }
   #captionArea{
     background: rgb(0,0,0);
-    background: rgba(0,0,0,.3);
+    background: rgba(0,0,0,.5);
     position: absolute;
     width: 100%;
     bottom: 0;
     z-index: 9000;
     text-align: center;
-    padding: 10px;
+    padding: 30px 10px;
     color: #fff;
     .caption{
       margin: 0 auto;
