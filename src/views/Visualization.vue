@@ -78,7 +78,7 @@
     </Chapter>
     
     <References v-if="checkIfSplashIsRendered" />
-    <Methods  v-if="checkIfSplashIsRendered" />
+    <Methods v-if="checkIfSplashIsRendered" />
   </div>
 </template>
 
@@ -118,7 +118,7 @@ export default {
       //Wait for page to load then run this function
       window.addEventListener("load", function(){
         self.findCarouselContainers();
-      })
+      });
     },
     updated(){
       this.lazyLoadImages();
@@ -191,7 +191,18 @@ export default {
 
         imgContainer.addEventListener("click", function(e){
           self.switchCaptionText(title);
-        })
+        });
+        //Add arrow click funtionality
+        document.addEventListener("keydown", function(e){
+          //Make sure its either right or left arrow keys
+          if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+            //only do something if imgcontainer exists
+            if(imgContainer){
+              //Switch caption
+              self.switchCaptionText(title);
+            }
+          }
+        });
       },
       switchCaptionText(text){
         const caption = document.querySelector(".caption");
