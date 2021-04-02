@@ -178,6 +178,19 @@ export default {
         const self = this;
         const imgContainer = document.querySelector(".fullscreen-v-img");
         const title = document.querySelector(".title-v-img");
+        const img = document.querySelector(".content-v-img img");
+
+        //Mutation observer
+        //If img src changes, update caption
+        const observer = new MutationObserver((changes) => {
+          changes.forEach(change => {
+            if(change.attributeName.includes('src')){
+              self.switchCaptionText(title);
+            }
+          })
+        })
+        //Telling observer what to observe
+        observer.observe(img, {attributes: true});
       
         if(e.target.classList.contains("sliderImage")){
           const captionHTML = `
@@ -188,21 +201,6 @@ export default {
             </div>`;
           imgContainer.insertAdjacentHTML("afterbegin", captionHTML);
         }
-
-        imgContainer.addEventListener("click", function(e){
-          self.switchCaptionText(title);
-        });
-        //Add arrow click funtionality
-        document.addEventListener("keydown", function(e){
-          //Make sure its either right or left arrow keys
-          if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
-            //only do something if imgcontainer exists
-            if(imgContainer){
-              //Switch caption
-              self.switchCaptionText(title);
-            }
-          }
-        });
       },
       switchCaptionText(text){
         const caption = document.querySelector(".caption");
