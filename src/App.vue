@@ -84,7 +84,7 @@ body {
       background-color: white;
       line-height: 1.2;
       font-size: 16px;
-      font-family:$familyMain;
+      font-family:$familySerif;
       font-weight: 400;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
