@@ -78,7 +78,7 @@
     </Chapter>
     
     <References v-if="checkIfSplashIsRendered" />
-    <Methods  v-if="checkIfSplashIsRendered" />
+    <Methods v-if="checkIfSplashIsRendered" />
   </div>
 </template>
 
@@ -118,7 +118,7 @@ export default {
       //Wait for page to load then run this function
       window.addEventListener("load", function(){
         self.findCarouselContainers();
-      })
+      });
     },
     updated(){
       this.lazyLoadImages();
@@ -178,6 +178,19 @@ export default {
         const self = this;
         const imgContainer = document.querySelector(".fullscreen-v-img");
         const title = document.querySelector(".title-v-img");
+        const img = document.querySelector(".content-v-img img");
+
+        //Mutation observer
+        //If img src changes, update caption
+        const observer = new MutationObserver((changes) => {
+          changes.forEach(change => {
+            if(change.attributeName.includes('src')){
+              self.switchCaptionText(title);
+            }
+          })
+        })
+        //Telling observer what to observe
+        observer.observe(img, {attributes: true});
       
         if(e.target.classList.contains("sliderImage")){
           const captionHTML = `
@@ -188,10 +201,6 @@ export default {
             </div>`;
           imgContainer.insertAdjacentHTML("afterbegin", captionHTML);
         }
-
-        imgContainer.addEventListener("click", function(e){
-          self.switchCaptionText(title);
-        })
       },
       switchCaptionText(text){
         const caption = document.querySelector(".caption");
