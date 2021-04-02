@@ -41,7 +41,7 @@
     </Chapter>
     <MeasuringSWE v-if="checkIfSplashIsRendered" /> 
     <SWE v-if="checkIfSplashIsRendered" />
-    <Chapter
+    <!-- <Chapter
       v-if="checkIfSplashIsRendered"
       id="chapter2-3"
       image="chapter9"
@@ -51,7 +51,7 @@
       <template v-slot:chapterTitle>
         Changes in snowmelt have downstream consequences
       </template>    
-    </Chapter>
+    </Chapter> -->
     <SWEanim v-if="checkIfSplashIsRendered" />
     <Chapter
       v-if="checkIfSplashIsRendered"

@@ -8,25 +8,26 @@
     <!-- FIGURES -->
     <template v-slot:aboveExplanation>
       <p>
-        Peak SWE is an important measurement – it tells us the magnitude of the maximum snowpack that year, as well as the timing of when snow accumulation tips towards snow melt. Peak SWE is the maximum daily snow water equivalent for the year, corresponding to the day when the greatest amount of water was contained in the snowpack.
+        Peak SWE is an important measurement – it tells us the magnitude of the maximum snowpack that year, as well as the timing of when snow accumulation tips towards snow melt.
       </p>
       <p>
-        Other points, like the date at which half of the year’s peak SWE has melted (“SM50”), provides a measure of the how quickly snowmelt is happening, which can be compared across years or sites.
+        The peak SWE measurement determines <span class="emph">snowpack magnitude</span>, and it's date determines the start of <span class="emph">melt timing</span>
       </p>
       <Sidebar>
         <template v-slot:sidebarTitle>
-          What is SWE?
+          Calculating Peak SWE
         </template>
         <template v-slot:sidebarMessage>
-          <p>Pork tenderloin turducken, tri-tip ribeye shoulder pancetta. T-bone kevin porchetta, shoulder sirloin boudin spare ribs filet mignon bresaola chicken corned beef frankfurter biltong. Jerky brisket pig, meatball beef flank bresaola landjaeger. Tenderloin beef pork loin andouille flank t-bone tri-tip chislic porchetta. Pork loin frankfurter spare ribs chuck short ribs.</p>
+          <p>Peak SWE is the maximum daily snow water equivalent for the year, corresponding to the day when the greatest amount of water was contained in the snowpack.</p>
+          <p>Any math??</p>
         </template>
       </Sidebar>
       <Sidebar>
         <template v-slot:sidebarTitle>
-          What is Discharge?
+          Calculating SM50
         </template>
         <template v-slot:sidebarMessage>
-          <p>Pork tenderloin turducken, tri-tip ribeye shoulder pancetta. T-bone kevin porchetta, shoulder sirloin boudin spare ribs filet mignon bresaola chicken corned beef frankfurter biltong. Jerky brisket pig, meatball beef flank bresaola landjaeger. Tenderloin beef pork loin andouille flank t-bone tri-tip chislic porchetta. Pork loin frankfurter spare ribs chuck short ribs.</p>
+          <p>Other points, like the date at which half of the year’s peak SWE has melted (“SM50”), provides a measure of the how quickly snowmelt is happening, which can be compared across years or sites.</p>
         </template>
       </Sidebar>
     </template>
