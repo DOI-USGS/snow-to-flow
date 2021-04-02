@@ -55,7 +55,7 @@ export default {
         },
         overlayOpacity:{
             type: Number,
-            default: .1
+            default: .5
         }
     },
     computed:{
@@ -73,6 +73,11 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+
+$familyMain: 'Public sans', sans-serif;
+$familySerif:  'Noto Serif', serif;
+$darkGrey: #212122;
+
 .chapter{
     position: relative;
     height: var(--height);
@@ -124,13 +129,14 @@ picture{
 .chapterTitle{
     position: relative;
     z-index: 2;
+    font-family: $familyMain;
     font-size:clamp(1.5em, 7vw, 5em);
-    font-style: italic;
+    // font-style: italic;
     font-weight: 800;
-    color: #fff;
+    color: $darkGrey;
     padding: 0 20px;
     text-align: center;
     max-width: 960px;
-    text-shadow: 1px 1px 40px rgba(0,0,0,1);
+    text-shadow: 1px 1px 80px rgba(255,255,255,1);
 }
 </style>
