@@ -268,13 +268,13 @@ p {
 }
 
 .emph {
-  font-weight:800;
-  fill: white;
+  color: white;
   font-family: $familyMain;
-  background: linear-gradient(180deg,rgba(255,255,255,0) 70%, $skyBlue 30%);
-  line-height: 1.3em;
-  margin: 0 2px;
-  padding: 0 2px;
+  font-weight: 600;
+  background: $deepBlue;
+  // background: linear-gradient(180deg, white 70%, $deepBlue 30%);
+  padding: 5px;
+  border-radius: 3px;
 }
 
 .italic {
@@ -297,7 +297,7 @@ a:hover {
   cursor: pointer;
 } 
 a:focus { 
-
+    text-shadow: 0 0 2px lightGrey;
 }
 a:active {
   padding-top: 3px;
