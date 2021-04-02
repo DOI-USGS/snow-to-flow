@@ -31,7 +31,6 @@
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
-
       <p>
         The <span class="emph">soil saturation</span> depends on whether it was wet or dry the year before, and sets the stage for the coming melt season.  Around October, snow begins to fall, adding bit by bit to the <span class="emph">snowpack magnitude</span>. Especially in high elevations, snowpacks can be several feet thick and store several inches worth of water.  In the spring - historically around April 1st - the snowpacks reach their peak thickness.  Then it all begins to melt.  The start of <span class="emph">melt timing</span> is marked by that day of peak snowpack, and from that point until all the snow is gone marks the <span class="emph">melt duration</span>.
       </p>

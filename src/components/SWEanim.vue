@@ -85,13 +85,19 @@
               class="yr-label"
               x="200"
               y="20"
-            >later and <tspan x="200" y="40px">faster melt</tspan></text>
+            >later and <tspan
+              x="200"
+              y="40px"
+            >faster melt</tspan></text>
             <text
               id="melt12"
               class="yr-label"
               x="300"
               y="290"
-            >earlier and <tspan x="300" y="310px">longer melt</tspan></text>
+            >earlier and <tspan
+              x="300"
+              y="310px"
+            >longer melt</tspan></text>
 
             <text
               id="peak11"

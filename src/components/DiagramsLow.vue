@@ -23,7 +23,10 @@
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
       <p>
-        What’s worse is that slower snowmelt risks losing even more of its flow volume to plant uptake and soil absorption. Drier soils can lead to less water for plants, which can set up conditions that increase the risk of <a href="https://labs.waterdata.usgs.gov/visualizations/fire-hydro/index.html#/" target="_blank">wildfire</a>. Plus, dry soils set the stage for the next year, making it harder for snow to turn into flow. 
+        What’s worse is that slower snowmelt risks losing even more of its flow volume to plant uptake and soil absorption. Drier soils can lead to less water for plants, which can set up conditions that increase the risk of <a
+          href="https://labs.waterdata.usgs.gov/visualizations/fire-hydro/index.html#/"
+          target="_blank"
+        >wildfire</a>. Plus, dry soils set the stage for the next year, making it harder for snow to turn into flow. 
       </p>
       <p>
         Studying all these dynamics across multiple ecosystems in the west is a huge task, but even that list isn’t complete.  In addition to soil saturation, snowpack thickness, and melt timing, there are lots of other factors that impact how snow turns into flow, such as:  
@@ -33,7 +36,12 @@
           Sublimation
         </template>
         <template v-slot:sidebarMessage>
-          <p>Some snow never creates meltwater because it evaporates directly back into the atmosphere in a process called <a href="https://www.usgs.gov/centers/co-water/science/snowpack-sublimation-measurements-and-modeling-colorado-river-basin?qt-science_center_objects=0#qt-science_center_objects" target="_blank">sublimation</a>. The longer snow is exposed to weather that is sunny but still cold, the more snow vaporizes directly back into the atmosphere. </p>
+          <p>
+            Some snow never creates meltwater because it evaporates directly back into the atmosphere in a process called <a
+              href="https://www.usgs.gov/centers/co-water/science/snowpack-sublimation-measurements-and-modeling-colorado-river-basin?qt-science_center_objects=0#qt-science_center_objects"
+              target="_blank"
+            >sublimation</a>. The longer snow is exposed to weather that is sunny but still cold, the more snow vaporizes directly back into the atmosphere.
+          </p>
         </template>
       </Sidebar>
       <Sidebar>

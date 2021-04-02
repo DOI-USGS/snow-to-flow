@@ -39,7 +39,7 @@
             >
             <img 
               id="diagram-low-early-spring"
-             v-img="{group: 'diagram-low', title: 'Caption about spring in a low snow year'}"
+              v-img="{group: 'diagram-low', title: 'Caption about spring in a low snow year'}"
               class="sliderImage"
               src="@/assets/diagrams/Diagram_low-spring.jpg"
               alt="Diagram of a mountain watershed covered in snow in early spring"

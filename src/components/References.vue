@@ -7,7 +7,7 @@
           v-for="reference in text.references"
           :key="reference.subTitle"
         >
-            <p><span v-html="reference.reference" /></p>
+          <p><span v-html="reference.reference" /></p>
         </div>
       </div>
     </div>
