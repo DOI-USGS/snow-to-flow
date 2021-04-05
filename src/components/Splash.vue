@@ -12,7 +12,7 @@
       data-depth="0.10"
     >
       <picture>
-        <source srcset="@/assets/titleImages/splash/mountainMG.png">
+<!--         <source srcset="@/assets/titleImages/splash/mountainMG.png"> -->
         <!-- Most compressed -->
         <source
           type="image/webp"
@@ -52,7 +52,7 @@
     >
       <picture>
         <!-- Not sure what the browser wants to do with this first one, but it's the largest original -->
-        <source srcset="@/assets/titleImages/splash/frozen-lakeFG.png">
+<!--         <source srcset="@/assets/titleImages/splash/frozen-lakeFG.png"> -->
         <!-- Most compressed -->
         <source
           type="image/webp"
@@ -92,7 +92,7 @@
     >
       <picture>
         <!-- Not sure what the browser wants to do with this first one, but it's the largest original -->
-        <source srcset="@/assets/titleImages/splash/people.png">
+<!--         <source srcset="@/assets/titleImages/splash/people.png"> -->
         <!-- Most compressed -->
         <source
           type="image/webp"
@@ -170,7 +170,7 @@
     >
       <picture>
         <!-- Not sure what the browser wants to do with this first one, but it's the largest original -->
-        <source srcset="@/assets/titleImages/splash/more-clouds.png">
+<!--         <source srcset="@/assets/titleImages/splash/more-clouds.png"> -->
         <!-- Most compressed -->
         <source
           type="image/webp"
