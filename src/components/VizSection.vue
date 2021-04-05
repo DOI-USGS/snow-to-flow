@@ -88,13 +88,13 @@ $border: 10px solid #000;
 .figureCaption{
   display: flex;
   justify-content: center;
-  font-size: 1em;
+  font-size: .85em;
   line-height: 1.5em; 
   font-style: italic;
 }
 /*#####EXPLANATION#####*/
 .explanation{
-  font-size: 1.125em;
+  font-size: 1em;
   line-height: 1.75em;
   p{
     padding: 0 0 10px 0;
