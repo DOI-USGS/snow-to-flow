@@ -17,7 +17,7 @@
     <template v-slot:figures>
       <div
         id="figs"
-        class="single one maxWidth"
+        class="single one"
       >
         <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -50 600 500">
       
@@ -728,6 +728,8 @@ export default {
 .compare {
   border: 2px solid black;
   display: inline-block;
+  width: 80vw;
+  max-width: 600px;
   font-size: 18px;
   text-align: center;
   padding: 15px 10px;
@@ -742,10 +744,18 @@ export default {
 }
 .yr-label {
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 400;
   text-anchor: middle;
   font-style: italic;
   fill: rgb(165, 163, 163);
+}
+#mmd-container-both {
+  width: 90vw;
+  max-width: 900px;
+  margin: auto;
+}
+svg#mmd-line-both{
+  transform: translate(-5px, 0);
 }
 input[name="radiogroup1"] {
             display: none;
@@ -766,7 +776,7 @@ input[name="radiogroup1"] {
 @media screen and (min-width: 650px){
   .compare{
     width: 100%;
-    max-width: 570px;
+    max-width: 600px;
     padding: 5px 5px;
     .btn-group{
       display: flex;
@@ -781,12 +791,17 @@ input[name="radiogroup1"] {
           position: absolute;
           left: 10px;
           .butt{
-            margin-right: 25px;
+            margin-right: 10px;
           }
           .butt:last-child{
-            margin-right: 0;;
+            margin-right: 0;
           }
         }
+      }
+      #mmd-container-both {
+        width: 90vw;
+        max-width: 1200px;
+        margin: auto;
       }
       h4{
         flex: 1;
@@ -794,5 +809,14 @@ input[name="radiogroup1"] {
       }
     }
   } 
+}
+// adding a break for full screen laptop adjustments
+@media screen and (max-height: 750px){
+  #mmd-container-both {
+  width: 90vw;
+  max-width: 700px;
+  margin: auto;
+}
+
 }
 </style>
