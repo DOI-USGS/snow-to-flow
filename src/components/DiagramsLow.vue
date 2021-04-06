@@ -23,7 +23,7 @@
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
       <p>
-        What’s worse is that slower snowmelt risks losing even more of its flow volume to plant uptake and soil absorption. Drier soils can lead to less water for plants, which can set up conditions that increase the risk of <a
+        What’s worse is that slower snowmelt risks losing even more of its flow volume to plant uptake and soil absorption<sup>10</sup>. Drier soils can lead to less water for plants, which can set up conditions that increase the risk of <a
           href="https://labs.waterdata.usgs.gov/visualizations/fire-hydro/index.html#/"
           target="_blank"
         >wildfire</a>. Plus, dry soils set the stage for the next year, making it harder for snow to turn into flow. 
@@ -40,7 +40,7 @@
             Some snow never creates meltwater because it evaporates directly back into the atmosphere in a process called <a
               href="https://www.usgs.gov/centers/co-water/science/snowpack-sublimation-measurements-and-modeling-colorado-river-basin?qt-science_center_objects=0#qt-science_center_objects"
               target="_blank"
-            >sublimation</a>. The longer snow is exposed to weather that is sunny but still cold, the more snow vaporizes directly back into the atmosphere.
+            >sublimation</a>. The longer snow is exposed to weather that is sunny but still cold, the more snow vaporizes directly back into the atmosphere<sup>11</sup>.
           </p>
         </template>
       </Sidebar>
@@ -73,7 +73,7 @@
           Vegetation and Wind
         </template>
         <template v-slot:sidebarMessage>
-          <p>Vegetation and wind patterns matter too. Snow fall can be intercepted by trees and then sublimated, reducing the on the ground total snowpack. Fallen snow can also be blown over ridges, scouring windward rises or trees, and accumulating on the leeward side of the ridge. These spatial differences in snowpack depth can result in different snowmelt timing and rates, in addition to other climatic factors.</p>
+          <p>Vegetation and wind patterns matter too. Snow fall can be intercepted by trees and then sublimated, reducing the on the ground total snowpack. Fallen snow can also be blown over ridges, scouring windward rises or trees, and accumulating on the leeward side of the ridge. These spatial differences in snowpack depth can result in different snowmelt timing and rates, in addition to other climatic factors<sup>12</sup>.</p>
         </template>
       </Sidebar>
       <p>
