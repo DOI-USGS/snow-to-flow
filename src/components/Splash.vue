@@ -1,9 +1,13 @@
 <template>
   <div class="splash">
     <div class="splashTitle">
-      <h1 id="title">From Snow to Flow</h1>
-      <h2 id="subtitle">What changing snowmelt means for western water</h2>
-     <!--  <p>U.S. Geological Survey, Water Mission Area</p> -->
+      <h1 id="title">
+        From Snow to Flow
+      </h1>
+      <h2 id="subtitle">
+        What changing snowmelt means for western water
+      </h2>
+      <!--  <p>U.S. Geological Survey, Water Mission Area</p> -->
     </div>
     <!-- <div class="splashOverlay" /> -->
     <div
@@ -12,7 +16,7 @@
       data-depth="0.10"
     >
       <picture>
-<!--         <source srcset="@/assets/titleImages/splash/mountainMG.png"> -->
+        <!--         <source srcset="@/assets/titleImages/splash/mountainMG.png"> -->
         <!-- Most compressed -->
         <source
           type="image/webp"
@@ -52,7 +56,7 @@
     >
       <picture>
         <!-- Not sure what the browser wants to do with this first one, but it's the largest original -->
-<!--         <source srcset="@/assets/titleImages/splash/frozen-lakeFG.png"> -->
+        <!--         <source srcset="@/assets/titleImages/splash/frozen-lakeFG.png"> -->
         <!-- Most compressed -->
         <source
           type="image/webp"
@@ -92,7 +96,7 @@
     >
       <picture>
         <!-- Not sure what the browser wants to do with this first one, but it's the largest original -->
-<!--         <source srcset="@/assets/titleImages/splash/people.png"> -->
+        <!--         <source srcset="@/assets/titleImages/splash/people.png"> -->
         <!-- Most compressed -->
         <source
           type="image/webp"
@@ -170,7 +174,7 @@
     >
       <picture>
         <!-- Not sure what the browser wants to do with this first one, but it's the largest original -->
-     <!--    <source srcset="@/assets/titleImages/splash/more-clouds.png"> -->
+        <!--    <source srcset="@/assets/titleImages/splash/more-clouds.png"> -->
         <!-- Most compressed -->
         <source
           type="image/webp"
@@ -235,7 +239,7 @@ export default {
                         .fromTo("#clouds", {yPercent: 20}, {yPercent: -10}, 0)
                         .fromTo("#people", {yPercent: 17}, {yPercent: -11}, 0)
                         .fromTo("#water", {yPercent: 15}, {yPercent: -10}, 0)
-                        .fromTo("#mountains", {yPercent: 10}, {yPercent: -2}, 0)
+                        .fromTo("#mountains", {yPercent: 0}, {yPercent: -2}, 0)
                     },
                     "(min-width: 2620px)": function(){
                         self.$gsap.timeline({
