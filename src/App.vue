@@ -16,6 +16,7 @@
 <script>
     import WindowSize from "./components/WindowSize";
     import HeaderUSGS from './components/HeaderUSGS';
+    import { isMobile } from 'mobile-device-detect';
     export default {
         name: 'App',
         components: {
@@ -32,6 +33,7 @@
                 isInternetExplorer: false,
                 title: process.env.VUE_APP_TITLE,
                 publicPath: process.env.BASE_URL, // this is need for the data files in the public folder
+                mobileView: isMobile
             }
         },
         computed: {
@@ -67,8 +69,8 @@ $frostyGreen: #90d3b5; // good contrast against black (original was #5e8a76)
 $deepGreen: #235845; // good contrast against white
 $frostyPurple: #C9ADE6;
 $deepPurple: #301546; // good contrast against black
-$skyBlue: dodgerblue; //#7AC3FF;
-$deepBlue: dodgerblue; //#005AA3;
+$skyBlue: dodgerblue; //lets use just one blue
+$deepBlue: dodgerblue; //lets use just one blue
 $lightGrey: #c2c4c5;
 $darkGrey: #212122;
 $familyMain: 'Public sans', sans-serif;
