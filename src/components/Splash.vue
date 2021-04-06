@@ -109,12 +109,12 @@
         >
         <!-- Medium Screen -->
         <source
-          media="(max-width: 500px) and (max-width: 799px)"
+          media="(min-width: 500px) and (max-width: 799px)"
           srcset="@/assets/titleImages/splash/people-m.png"
         >
         <!-- Large screen -->
         <source
-          media="(max-width: 800px) and (max-width: 1199px)"
+          media="(min-width: 800px) and (max-width: 1199px)"
           srcset="@/assets/titleImages/splash/people-l.png"
         >
         <!-- X Large Screen -->
