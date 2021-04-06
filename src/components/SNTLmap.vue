@@ -7,12 +7,12 @@
     <!-- EXPLANATION -->
     <template v-slot:aboveExplanation>
       <p>
-        April 1st has historically been used as a proxy date to measure peak SWE in the western U.S.. While the actual date of peak SWE is variable from year-to-year and site-to-site (CITE), by comparing this date in the historic record (1981-2010) we can get a general sense of water availability for the rest of the water year.
+        As temperatures are warming and snow is starting to melt, the western U.S. is entering an important phase in their water cycle. Looking at this year's snow - and how it turns into flow - can tell us a lot about water availability in the coming summer and fall. 
       </p>
-      <p>
-        Select sites on the map to see the full SWE timeseries from the 2021 water year in addition to the magnitude (peak SWE) and timing (SM50) of snow since 1981. 
+      <p v-if="mobileView" class="explain figureCaption">
+        Select a site to see this year's SWE and the magnitude (peak SWE) and timing (SM50) of snow since 1981. 
       </p>
-      <p>Mouseover sites on the map to see the full SWE timeseries from the 2021 water year in addition to the magnitude (peak SWE) and timing (SM50) of snow since 1981. </p>
+      <p v-if="!mobileView" class="explain figureCaption">Mouseover a site to see this year's SWE and the magnitude (peak SWE) and timing (SM50) of snow since 1981.</p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
@@ -1459,10 +1459,10 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p id="explain-bottom">
-        The map above shows snow TODAY (use April 1st for release) as the percentile of this date in the historic record (1981-2010). Snow is quantified as the daily snow-water equivalent (SWE) from <a
+        The map shows April 1st snow as a percentile of this date in the historic record (1981-2010). Snow is quantified as the daily snow-water equivalent (SWE) at  <a
           href="https://www.wcc.nrcs.usda.gov/snow/"
           target="_blank"
-        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the western U.S.</a>. The left chart panels show the trend in peak SWE and the melt date (SM50) for all years with data at a given site. The right panel shows SWE in the current water year (2021) to date, with points indicating peak SWE in 2021 (purple) and the melt date (yellow). Unfilled points indicate these landmark are yet to occur in the current water year.
+        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the western U.S.</a>. The left chart shows SWE in the current water year (2021) to date, with points indicating peak SWE in 2021 (purple) and the melt date (yellow). The panels on the right show peak SWE and the melt date (SM50) for all years with data at a given site.
       </p>
     </template>
     <!-- EXPLANATION -->
@@ -1482,6 +1482,7 @@
 <script>
 import VizSection from '@/components/VizSection';
 import * as d3Base from "d3";
+import { isMobile } from 'mobile-device-detect';
 export default {
     name: "SNTLmap",
     components:{
@@ -1491,6 +1492,8 @@ export default {
             return {
               publicPath: process.env.BASE_URL,
               d3: null,
+              mobileView: isMobile,
+              tickDates: ["Oct '20","Jan '21", "Apr '21", "Jul '21"],
 
               sntl_variable: "ptile_swe", // map site colors
 
@@ -1536,7 +1539,13 @@ export default {
 
         },
     methods: {
-
+      isMobile() {
+                if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                    return true
+                } else {
+                    return false
+                }
+            },
       loadData() {
         const self = this;
         // read in data 
@@ -1599,9 +1608,8 @@ export default {
           .append("g")
           .classed("corr-legend", true)
           .call(this.d3.axisLeft(yCorr)
-            .ticks(5)
-            .tickValues(["0", "25", "50", "75", "100"])
-            .tickFormat(this.d3.format("d")))
+            .ticks(4)
+            .tickValues(["0", "25", "50", "75", "100"]))
           .attr("transform", "translate(" + (0) + "," + 0 + ")");
 
       // position axis labels
@@ -1616,7 +1624,7 @@ export default {
 
         this.d3.select("svg#peak-svg").append("text")
           .classed("ele", true)
-            .attr("fill", "grey")
+            .attr("fill", "black")
             .attr("font-size", "1em")
             .attr("font-weight", "bold")
             .attr("text-anchor", "start")
@@ -1639,21 +1647,15 @@ export default {
             .tickFormat(this.d3.format("d")))
           .attr("transform", "translate(" + (0) + "," + 100 + ")");
 
-         var ticklabs = ["Oct","Jan", "Apr", "Jul","Sept"];
-
         this.d3.select("svg#melt-svg")
           .append("g")
           .classed("melt-legend", true)
-          .call(this.d3.axisLeft(ymelt)
-            .ticks(5)
-            //.tickValues(["50", "100", "150", "200", "250", "300"])
-            //.tickFormat((d,i) => ticklabs[i])
-            )
+          .call(this.d3.axisLeft(ymelt).ticks(5))
           .attr("transform", "translate(" + (0) + "," + 0 + ")");
 
       // position axis labels
         this.d3.select("svg#melt-svg").append("text")
-          .attr("fill", "grey")
+          .attr("fill", "black")
           .attr("font-size", "1em")
           .attr("text-anchor", "start")
           .attr("font-weight", "bold")
@@ -1663,7 +1665,7 @@ export default {
 
         this.d3.select("svg#melt-svg").append("text")
           .classed("ele", true)
-            .attr("fill", "grey")
+            .attr("fill", "black")
             .attr("font-size", "1em")
             .attr("font-weight", "bold")
             .attr("text-anchor", "start")
@@ -1679,28 +1681,27 @@ export default {
 
         self.xwy = this.d3.scaleLinear()
           .range([0,  200])
-          .domain([1, 180]);
+          .domain([1, 250]);
 
         this.d3.select("svg#wy21-svg")
           .append("g")
           .classed("melt-legend", true)
           .call(this.d3.axisBottom(self.xwy)
-            .ticks(5)
-            .tickFormat(this.d3.format("d")))
+            .tickValues([1, 93, 183, 273])
+              .tickFormat(function(d,i) { return self.tickDates[i] })
+              .tickSizeOuter(0).tickSize(0))
           .attr("transform", "translate(" + (0) + "," + 215 + ")");
 
-         var ticklabs = ["Oct","Jan", "Apr", "Jul","Sept"];
 
         this.d3.select("svg#wy21-svg")
           .append("g")
           .classed("melt-legend", true)
-          .call(this.d3.axisLeft(self.ywy)
-            .ticks(5))
+          .call(this.d3.axisLeft(self.ywy))
           .attr("transform", "translate(" + (0) + "," + 0 + ")");
 
       // position axis labels
         this.d3.select("svg#wy21-svg").append("text")
-          .attr("fill", "grey")
+          .attr("fill", "black")
           .attr("font-size", "1em")
           .attr("text-anchor", "center")
           .attr("font-weight", "bold")
@@ -1710,7 +1711,7 @@ export default {
 
         this.d3.select("svg#wy21-svg").append("text")
           .classed("ele", true)
-            .attr("fill", "grey")
+            .attr("fill", "black")
             .attr("font-size", "1em")
             .attr("font-weight", "bold")
             .attr("text-anchor", "start")
@@ -1969,7 +1970,7 @@ export default {
                   .attr("font-size", "1em")
                   .attr("text-anchor", "start")
                   .attr("y", -5)
-                  .text("Percentile, historic median (1981-2010)");
+                  .text("Percentile (1981-2010)");
 
                   g.append("text")
                   .attr("fill", "#000")
@@ -1978,7 +1979,7 @@ export default {
                   .attr("text-anchor", "start")
                   .attr("x", 0)
                   .attr("y", -20)
-                  .text("Snow-water equivalent: March 22nd, 2021");
+                  .text("Snow-water equivalent, April 1st, 2021");
 
        // set color for both maps using the same color scale
        this.sntl_sites.selectAll("circle.SNTL")
@@ -2014,6 +2015,9 @@ line, polyline, polygon, path, rect, circle {
       stroke-linejoin: round;
       stroke-miterlimit: 10.00;
     }
+.explain {
+  font-style: italic;
+}
 .state {
   stroke: white;
   stroke-width: 2px;
