@@ -1965,7 +1965,7 @@ export default {
                   .attr("font-size", "1em")
                   .attr("text-anchor", "start")
                   .attr("y", -5)
-                  .text("Percentile (1981-2010)");
+                  .text("Percentile based on historic record (1981-2010)");
 
                   g.append("text")
                   .attr("fill", "#000")
