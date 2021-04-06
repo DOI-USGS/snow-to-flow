@@ -1,9 +1,13 @@
 <template>
   <div class="splash">
     <div class="splashTitle">
-      <h1>From Snow to Flow</h1>
-      <p>U.S. Geological Survey</p>
-      <p>Water Resources Mission Area</p>
+      <h1 id="title">
+        From Snow to Flow
+      </h1>
+      <h2 id="subtitle">
+        What changing snowmelt means for western water
+      </h2>
+      <!--  <p>U.S. Geological Survey, Water Mission Area</p> -->
     </div>
     <!-- <div class="splashOverlay" /> -->
     <div
@@ -12,7 +16,7 @@
       data-depth="0.10"
     >
       <picture>
-        <source srcset="@/assets/titleImages/splash/mountainMG.png">
+        <!--         <source srcset="@/assets/titleImages/splash/mountainMG.png"> -->
         <!-- Most compressed -->
         <source
           type="image/webp"
@@ -20,17 +24,17 @@
         > 
         <!-- Smallest Screen -->
         <source
-          media="(min-width: 350px)"
+          media="(min-width: 350px) and (max-width: 499px)"
           srcset="@/assets/titleImages/splash/mountainMG-sm.png"
         >
         <!-- Medium Screen -->
         <source
-          media="(min-width: 500px)"
+          media="(min-width: 500px) and (max-width: 799px)"
           srcset="@/assets/titleImages/splash/mountainMG-m.png"
         >
         <!-- Large screen -->
         <source
-          media="(min-width: 800px)"
+          media="(min-width: 800px) and (max-width: 1199px)"
           srcset="@/assets/titleImages/splash/mountainMG-l.png"
         >
         <!-- X Large Screen -->
@@ -52,25 +56,20 @@
     >
       <picture>
         <!-- Not sure what the browser wants to do with this first one, but it's the largest original -->
-        <source srcset="@/assets/titleImages/splash/frozen-lakeFG.png">
-        <!-- Most compressed -->
-        <source
-          type="image/webp"
-          srcset="@/assets/titleImages/splash/frozen-lakeFG.webp"
-        > 
+        <!--         <source srcset="@/assets/titleImages/splash/frozen-lakeFG.png"> -->
         <!-- Smallest Screen -->
         <source
-          media="(min-width: 350px)"
+          media="(min-width: 350px) and (max-width: 499px)"
           srcset="@/assets/titleImages/splash/frozen-lakeFG-sm.png"
         >
         <!-- Medium Screen -->
         <source
-          media="(min-width: 500px)"
+          media="(min-width: 500px) and (max-width: 799px)"
           srcset="@/assets/titleImages/splash/frozen-lakeFG-m.png"
         >
         <!-- Large screen -->
         <source
-          media="(min-width: 800px)"
+          media="(min-width: 800px) and (max-width: 1199px)"
           srcset="@/assets/titleImages/splash/frozen-lakeFG-l.png"
         >
         <!-- X Large Screen -->
@@ -78,8 +77,13 @@
           media="(min-width: 1200px)"
           srcset="@/assets/titleImages/splash/frozen-lakeFG-xl.png"
         >
+        <!-- Most compressed -->
+        <source
+          type="image/webp"
+          srcset="@/assets/titleImages/splash/frozen-lakeFG.webp"
+        > 
         <img 
-          src="@/assets/titleImages/splash/frozen-lakeFG.png"
+          src="@/assets/titleImages/splash/frozen-lakeFG-xl.png"
           href="@/assets/titleImages/splash/frozen-lakeFG.png"
           alt="A frozen lake in front of rocky, snow-covered mountains."
         >
@@ -92,7 +96,7 @@
     >
       <picture>
         <!-- Not sure what the browser wants to do with this first one, but it's the largest original -->
-        <source srcset="@/assets/titleImages/splash/people.png">
+        <!--         <source srcset="@/assets/titleImages/splash/people.png"> -->
         <!-- Most compressed -->
         <source
           type="image/webp"
@@ -100,17 +104,17 @@
         > 
         <!-- Smallest Screen -->
         <source
-          media="(min-width: 350px)"
+          media="(min-width: 350px) and (max-width: 499px)"
           srcset="@/assets/titleImages/splash/people-sm.png"
         >
         <!-- Medium Screen -->
         <source
-          media="(min-width: 500px)"
+          media="(min-width: 500px) and (max-width: 799px)"
           srcset="@/assets/titleImages/splash/people-m.png"
         >
         <!-- Large screen -->
         <source
-          media="(min-width: 800px)"
+          media="(min-width: 800px) and (max-width: 1199px)"
           srcset="@/assets/titleImages/splash/people-l.png"
         >
         <!-- X Large Screen -->
@@ -138,17 +142,17 @@
         > 
         <!-- Smallest Screen -->
         <source
-          media="(min-width: 350px)"
+          media="(min-width: 350px) and (max-width: 499px)"
           srcset="@/assets/titleImages/splash/cloud-sm.png"
         >
         <!-- Medium Screen -->
         <source
-          media="(min-width: 500px)"
+          media="(min-width: 500px) and (max-width: 799px)"
           srcset="@/assets/titleImages/splash/cloud-m.png"
         >
         <!-- Large screen -->
         <source
-          media="(min-width: 800px)"
+          media="(min-width: 800px) and (max-width: 1199px)"
           srcset="@/assets/titleImages/splash/cloud-l.png"
         >
         <!-- X Large Screen -->
@@ -170,7 +174,7 @@
     >
       <picture>
         <!-- Not sure what the browser wants to do with this first one, but it's the largest original -->
-        <source srcset="@/assets/titleImages/splash/more-clouds.png">
+        <!--    <source srcset="@/assets/titleImages/splash/more-clouds.png"> -->
         <!-- Most compressed -->
         <source
           type="image/webp"
@@ -178,17 +182,17 @@
         > 
         <!-- Smallest Screen -->
         <source
-          media="(min-width: 350px)"
+          media="(min-width: 350px) and (max-width: 499px)"
           srcset="@/assets/titleImages/splash/more-clouds-sm.png"
         >
         <!-- Medium Screen -->
         <source
-          media="(min-width: 500px)"
+          media="(min-width: 500px) and (max-width: 799px)"
           srcset="@/assets/titleImages/splash/more-clouds-m.png"
         >
         <!-- Large screen -->
         <source
-          media="(min-width: 800px)"
+          media="(min-width: 800px) and (max-width: 1199px)"
           srcset="@/assets/titleImages/splash/more-clouds.png"
         >
         <!-- X Large Screen -->
@@ -235,7 +239,7 @@ export default {
                         .fromTo("#clouds", {yPercent: 20}, {yPercent: -10}, 0)
                         .fromTo("#people", {yPercent: 17}, {yPercent: -11}, 0)
                         .fromTo("#water", {yPercent: 15}, {yPercent: -10}, 0)
-                        .fromTo("#mountains", {yPercent: 10}, {yPercent: -2}, 0)
+                        .fromTo("#mountains", {yPercent: 0}, {yPercent: -2}, 0)
                     },
                     "(min-width: 2620px)": function(){
                         self.$gsap.timeline({
@@ -273,11 +277,16 @@ export default {
     margin-bottom: 20px;
     padding: 0 15px;
     h1{
-        font-size:clamp(5em, 10vw, 2em);
-        font-weight: 600;
+        font-size:clamp(5.4em, 20vw, 2em);
+        font-weight: 500;
     }
-    h1, p{
+    h2 {
+      font-size:2.05em;
+        font-weight: 400;
+    }
+    h1, h2, p{
         color: #fff;
+        margin: auto;
     } 
     p{
         padding-top: 10px;
@@ -301,6 +310,7 @@ export default {
     object-position: center;
     width: 100%;
     height: 100%;
+    image-rendering: auto;
 }
 #mountains{
     z-index: 10;

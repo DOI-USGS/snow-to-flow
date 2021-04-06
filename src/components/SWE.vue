@@ -3,7 +3,7 @@
   <VizSection id="swe-line-chart">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>What does snow and flow data look like?</h2>
+      <h2>Peak SWE and snowmelt timing</h2>
     </template>
     <!-- FIGURES -->
     <template v-slot:aboveExplanation>
@@ -15,19 +15,18 @@
       </p>
       <Sidebar>
         <template v-slot:sidebarTitle>
-          Calculating Peak SWE
+          Peak SWE
         </template>
         <template v-slot:sidebarMessage>
           <p>Peak SWE is the maximum daily snow water equivalent for the year, corresponding to the day when the greatest amount of water was contained in the snowpack.</p>
-          <p>Any math??</p>
         </template>
       </Sidebar>
       <Sidebar>
         <template v-slot:sidebarTitle>
-          Calculating SM50
+          Melt date
         </template>
         <template v-slot:sidebarMessage>
-          <p>Other points, like the date at which half of the year’s peak SWE has melted (“SM50”), provides a measure of the how quickly snowmelt is happening, which can be compared across years or sites.</p>
+          <p>The timing of snowmelt can be characterized using the date that half of the year’s snowpack has melted (based on peak SWE), also known as SM50.</p>
         </template>
       </Sidebar>
     </template>
@@ -50,11 +49,11 @@
       </p>
     </template>
     <!-- EXPLANATION -->
-    <template v-slot:belowExplanation>
+<!--     <template v-slot:belowExplanation>
       <p>
         Notice X Y and Z.
       </p>
-    </template>
+    </template> -->
   </VizSection>
 </template>
 
@@ -74,7 +73,6 @@ export default {
     data() {
       return {
          publicPath: process.env.BASE_URL,
-        //  message: "hey"
       }      
     },
     mounted() {
@@ -88,8 +86,9 @@ export default {
 
 <style lang="scss" scoped>
   #swe-chart-container {
-    width: 100%;
+    width: 90vw;
+    max-width: 1100px;
     height: auto;
-    margin-bottom: 0;
+    margin: auto;
   }
 </style>

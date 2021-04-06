@@ -2,73 +2,23 @@
   <!---VizSection-->
   <VizSection
     id="firstSection"
-    :take-away="false"
-  >
+    :take-away="true"
+  ><!-- TAKEAWAY TITLE -->
+    <template v-slot:takeAway>
+      <h2>Changes in snowmelt have downstream consequences</h2>
+    </template>
     <!-- EXPLANATION -->
     <template v-slot:aboveExplanation>
       <p>
-        Seasonal snowpacks vary widely from place to place, and from year to year (Lopez‐Moreno et al., 2015), and this variability can have a strong influence on the timing and magnitude of snowmelt, delivery to a watershed, and subsequent streamflow response. 
-      </p>
-      <p>
-        The differences between a high a low snow year illustrate the downstream effects of changing snow on water resources. In the Upper Colorado river basin, between 2011 and 2012 there was a two-fold difference in the magnitude of SWE at the selected sites, shaping the timing and magnitude of streamflow, and subsequently, water availability. Use the buttons below to explore how differences in snow between two years impact streamflow dynamics measured by USGS streamgages. 
+        Seasonal snowpack varies widely from place to place, and from year to year<sup>16</sup>. In the Upper Colorado river basin, between 2011 and 2012 there was a two-fold difference in the magnitude of SWE at a selection of sites. This variability in snow had far-reaching effects on the timing and magnitude of snowmelt, and subsequently, water availability. Explore differences in SWE and streamflow at a subset by USGS streamgages in the chart below.
       </p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
       <div
         id="figs"
-        class="single one maxWidth"
+        class="single one"
       >
-        <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -50 600 500">
-      
-          <text
-            x="50"
-            y="25"
-          >Snow-water equivalent (SWE) 2011-2012</text>
-          <path transform="scale(1.19) translate(0, -25)" d="M429,141l-.32.44L430,172.61l0,.84,1.05,32,.19,5.9,1.19,26.54.19,5.9.84,26.14L435,308.31l.19,6.32.27,19.4.88,28.25L432,363.66l-9.13.27-12.18.34-15.53.4-8.13.17-7.12-1.09-4.72.5-4.71.94-13.18.23-14.53.24-14.19.18-8.13.09-5.73.06-16.9.13-23.67.1h-26l-8.8,0-12.49-.06-7.1,0-16.9-.17-27.38-.36-7.44-.1-18.24-.34-21.61-1.32-9.82.61-1-.89-5.4-.14-21.62-.61-21-.69-7.1-.26-5.73-.63-11.84,0-13.52-.54-7.1-.3,1.32-46.82,1.09-17.26.59-21.1L27.91,249l2.79-62.82L30.83,176l.84-11.38,1.91-41.74,1.47-32L36.52,66l-.34.4,63.33.42,34.18,1,25.22,1,29.35.94,7,.11-.32-.42,51.42.86,19.15-.4,49.18.15,27.15-.38,11.17-.19,39.93-.9,2.23-.07,31-.52.63,18.56L426.62,90l.35.82.3,18.56.23,6.76Z" style="fill: none;stroke: #000;stroke-linejoin: round;stroke-width: 2.246646621121159px"/>
-          <g id="sites">
-            <circle cx="192.89" cy="136.47" r="2" class="gage" />
-            <circle cx="190.45" cy="196.01" r="2" class="gage" />
-            <circle cx="199.03" cy="178.19" r="2" class="gage" />
-            <circle cx="192.21" cy="134.2" r="2" class="gage" />
-            <circle cx="171.22" cy="204.38" r="2" class="gage" />
-            <circle cx="171.46" cy="203.69" r="2" class="gage" />
-            <circle cx="197.05" cy="170" r="2" class="gage" />
-            <circle cx="196.09" cy="167.19" r="2" class="gage" />
-            <circle cx="195.75" cy="166.15" r="2" class="gage" />
-            <circle cx="193.87" cy="167.72" r="2" class="gage" />
-            <circle cx="192.07" cy="166.65" r="2" class="gage" />
-            <circle cx="196.55" cy="164.62" r="2" class="gage" />
-            <circle cx="197.39" cy="162.78" r="2" class="gage" />
-            <circle cx="190.88" cy="174.35" r="2" class="gage" />
-            <circle cx="190.01" cy="173.38" r="2" class="gage" />
-            <circle cx="186.14" cy="172.4" r="2" class="gage" />
-            <circle cx="186.13" cy="172.22" r="2" class="gage" />
-            <circle cx="185.95" cy="172.45" r="2" class="gage" />
-            <circle cx="185.72" cy="189.97" r="2" class="gage" />
-            <circle cx="188.16" cy="182.86" r="2" class="gage" />
-            <circle cx="185.48" cy="180.49" r="2" class="gage" />
-            <circle cx="168.17" cy="193.1" r="2" class="gage" />
-            <circle cx="169.64" cy="192.34" r="2" class="gage" />
-            <circle cx="170.61" cy="183.98" r="2" class="gage" />
-            <circle cx="176" cy="181.08" r="2" class="gage" />
-            <circle cx="176.5" cy="182.61" r="2" class="gage" />
-            <circle cx="174.22" cy="179.91" r="2" class="gage" />
-            <circle cx="171.87" cy="179.99" r="2" class="gage" />
-            <circle cx="166.26" cy="180.73" r="2" class="gage" />
-            <circle cx="162.83" cy="179.76" r="2" class="gage" />
-            <circle cx="161.73" cy="206.89" r="2" class="gage" />
-            <circle cx="162.02" cy="208.98" r="2" class="gage" />
-            <circle cx="154.9" cy="202.36" r="2" class="gage" />
-            <circle cx="123.71" cy="214.03" r="2" class="gage" />
-            <circle cx="123.82" cy="217.18" r="2" class="gage" />
-            <circle cx="126.1" cy="218.99" r="2" class="gage" />
-            <circle cx="109.36" cy="216.86" r="2" class="gage" />
-            <circle cx="89.18" cy="163.61" r="2" class="gage" />
-            <circle cx="118.12" cy="272.88" r="2" class="gage" />
-          </g>
-        
-        </svg> -->
         <div id="mmd-container-both">
           <svg
             id="mmd-line-both"
@@ -132,7 +82,7 @@
             data-toggle="buttons"
           >
             <h4 class="butt-head">
-              Compare streamflow: 
+              Compare: 
             </h4> 
             <div class="inputsContainer">
               <div class="inputs">
@@ -182,18 +132,12 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        Use the toggles to compare the timing and magnitude of snow-to-flow between a high and a low snow year at a selection of sites across an elevational range.  
+        Use the buttons reorganize the chart and compare SWE and streamflow across a selection of USGS streamgages.
       </p>
     </template>
     <template v-slot:belowExplanation>
       <p>
-        When peak SWE is high, there is a large pulse of streamflow as it melts. With decreasing SWE the influx of discharge is lower and slower, and snowmelt occurs earlier in the year. These things matter because it alters when and where water is downstream and can have serious ecological implications and well as impact water availability for human use. 
-      </p>
-      <p>
         Elevation is intertwined with numerous factors like snow persistence, wind redistribution, and slope that drive complex snow-to-flow dynamics from site to site. At higher elevations, fallen snow can be blown over ridges, scouring windward rises or trees, leading to snow accumulating on the leeward side of the ridge. This results in spatial differences in snowpack depth that contribute to variation in snowmelt timing and rates, in addition to other climatic factors.
-      </p>
-      <p>
-        These dynamics are complex, which is why the USGS is pursuing research that looks at XYZ...[plug for current monitoring and modeling directions goes here, include links to any pages of related  programs, cite any recent papers].
       </p>
     </template>
   </VizSection>
@@ -728,6 +672,8 @@ export default {
 .compare {
   border: 2px solid black;
   display: inline-block;
+  width: 80vw;
+  max-width: 600px;
   font-size: 18px;
   text-align: center;
   padding: 15px 10px;
@@ -742,10 +688,18 @@ export default {
 }
 .yr-label {
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 400;
   text-anchor: middle;
   font-style: italic;
   fill: rgb(165, 163, 163);
+}
+#mmd-container-both {
+  width: 90vw;
+  max-width: 900px;
+  margin: auto;
+}
+svg#mmd-line-both{
+  transform: translate(-5px, 0);
 }
 input[name="radiogroup1"] {
             display: none;
@@ -766,7 +720,7 @@ input[name="radiogroup1"] {
 @media screen and (min-width: 650px){
   .compare{
     width: 100%;
-    max-width: 570px;
+    max-width: 600px;
     padding: 5px 5px;
     .btn-group{
       display: flex;
@@ -781,12 +735,17 @@ input[name="radiogroup1"] {
           position: absolute;
           left: 10px;
           .butt{
-            margin-right: 25px;
+            margin-right: 10px;
           }
           .butt:last-child{
-            margin-right: 0;;
+            margin-right: 0;
           }
         }
+      }
+      #mmd-container-both {
+        width: 90vw;
+        max-width: 1200px;
+        margin: auto;
       }
       h4{
         flex: 1;
@@ -794,5 +753,14 @@ input[name="radiogroup1"] {
       }
     }
   } 
+}
+// adding a break for full screen laptop adjustments
+@media screen and (max-height: 750px){
+  #mmd-container-both {
+  width: 90vw;
+  max-width: 700px;
+  margin: auto;
+}
+
 }
 </style>
