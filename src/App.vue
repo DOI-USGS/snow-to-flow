@@ -91,6 +91,9 @@ body {
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       width: 100%;
+      @media screen and (max-width: 600px) {
+        font-size: 14px;
+      }
   }
 h1{
   font-size: 3em;
