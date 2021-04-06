@@ -2,8 +2,11 @@
   <!---VizSection-->
   <VizSection
     id="firstSection"
-    :take-away="false"
-  >
+    :take-away="true"
+  ><!-- TAKEAWAY TITLE -->
+    <template v-slot:takeAway>
+      <h2>Changes in snowmelt have downstream consequences</h2>
+    </template>
     <!-- EXPLANATION -->
     <template v-slot:aboveExplanation>
       <p>
