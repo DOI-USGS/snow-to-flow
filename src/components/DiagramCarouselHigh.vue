@@ -119,15 +119,18 @@
   position: relative;
 }
   #captionArea{
-    background: rgb(0,0,0);
-    background: rgba(0,0,0,.5);
+    background: rgba(0,0,0,.9);
     position: absolute;
     width: 100%;
     bottom: 0;
     z-index: 9000;
     text-align: left;
-    padding: 30px 10px;
+    padding: 50px 10px;
     color: #fff;
+    @media screen and (max-width: 600px) {
+      padding: 20px 10px;
+      font-size: .9em;
+    }
     .caption{
       margin: 0 auto;
       max-width: 700px;
