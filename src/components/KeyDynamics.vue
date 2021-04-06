@@ -59,15 +59,15 @@
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
-        <p/>
+        <p class="hide"/>
     </template>
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
-      <p/>
+      <p class="hide"/>
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
-      <p/>
+      <p class="hide"/>
     </template>
   </VizSection>
 </template>
@@ -87,5 +87,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 
-
+    .hide {
+        display: none;
+        margin: 0;
+    }
 </style>
