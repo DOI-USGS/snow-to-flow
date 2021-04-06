@@ -24,17 +24,17 @@
         > 
         <!-- Smallest Screen -->
         <source
-          media="(min-width: 350px)"
+          media="(min-width: 350px) and (max-width: 499px)"
           srcset="@/assets/titleImages/splash/mountainMG-sm.png"
         >
         <!-- Medium Screen -->
         <source
-          media="(min-width: 500px)"
+          media="(min-width: 500px) and (max-width: 799px)"
           srcset="@/assets/titleImages/splash/mountainMG-m.png"
         >
         <!-- Large screen -->
         <source
-          media="(min-width: 800px)"
+          media="(min-width: 800px) and (max-width: 1199px)"
           srcset="@/assets/titleImages/splash/mountainMG-l.png"
         >
         <!-- X Large Screen -->
@@ -57,24 +57,19 @@
       <picture>
         <!-- Not sure what the browser wants to do with this first one, but it's the largest original -->
         <!--         <source srcset="@/assets/titleImages/splash/frozen-lakeFG.png"> -->
-        <!-- Most compressed -->
-        <source
-          type="image/webp"
-          srcset="@/assets/titleImages/splash/frozen-lakeFG.webp"
-        > 
         <!-- Smallest Screen -->
         <source
-          media="(min-width: 350px)"
+          media="(min-width: 350px) and (max-width: 499px)"
           srcset="@/assets/titleImages/splash/frozen-lakeFG-sm.png"
         >
         <!-- Medium Screen -->
         <source
-          media="(min-width: 500px)"
+          media="(min-width: 500px) and (max-width: 799px)"
           srcset="@/assets/titleImages/splash/frozen-lakeFG-m.png"
         >
         <!-- Large screen -->
         <source
-          media="(min-width: 800px)"
+          media="(min-width: 800px) and (max-width: 1199px)"
           srcset="@/assets/titleImages/splash/frozen-lakeFG-l.png"
         >
         <!-- X Large Screen -->
@@ -82,6 +77,11 @@
           media="(min-width: 1200px)"
           srcset="@/assets/titleImages/splash/frozen-lakeFG-xl.png"
         >
+        <!-- Most compressed -->
+        <source
+          type="image/webp"
+          srcset="@/assets/titleImages/splash/frozen-lakeFG.webp"
+        > 
         <img 
           src="@/assets/titleImages/splash/frozen-lakeFG-xl.png"
           href="@/assets/titleImages/splash/frozen-lakeFG.png"
@@ -104,17 +104,17 @@
         > 
         <!-- Smallest Screen -->
         <source
-          media="(min-width: 350px)"
+          media="(min-width: 350px) and (max-width: 499px)"
           srcset="@/assets/titleImages/splash/people-sm.png"
         >
         <!-- Medium Screen -->
         <source
-          media="(min-width: 500px)"
+          media="(max-width: 500px) and (max-width: 799px)"
           srcset="@/assets/titleImages/splash/people-m.png"
         >
         <!-- Large screen -->
         <source
-          media="(min-width: 800px)"
+          media="(max-width: 800px) and (max-width: 1199px)"
           srcset="@/assets/titleImages/splash/people-l.png"
         >
         <!-- X Large Screen -->
@@ -142,17 +142,17 @@
         > 
         <!-- Smallest Screen -->
         <source
-          media="(min-width: 350px)"
+          media="(min-width: 350px) and (max-width: 499px)"
           srcset="@/assets/titleImages/splash/cloud-sm.png"
         >
         <!-- Medium Screen -->
         <source
-          media="(min-width: 500px)"
+          media="(min-width: 500px) and (max-width: 799px)"
           srcset="@/assets/titleImages/splash/cloud-m.png"
         >
         <!-- Large screen -->
         <source
-          media="(min-width: 800px)"
+          media="(min-width: 800px) and (max-width: 1199px)"
           srcset="@/assets/titleImages/splash/cloud-l.png"
         >
         <!-- X Large Screen -->
@@ -182,17 +182,17 @@
         > 
         <!-- Smallest Screen -->
         <source
-          media="(min-width: 350px)"
+          media="(min-width: 350px) and (max-width: 499px)"
           srcset="@/assets/titleImages/splash/more-clouds-sm.png"
         >
         <!-- Medium Screen -->
         <source
-          media="(min-width: 500px)"
+          media="(min-width: 500px) and (max-width: 799px)"
           srcset="@/assets/titleImages/splash/more-clouds-m.png"
         >
         <!-- Large screen -->
         <source
-          media="(min-width: 800px)"
+          media="(min-width: 800px) and (max-width: 1199px)"
           srcset="@/assets/titleImages/splash/more-clouds.png"
         >
         <!-- X Large Screen -->
@@ -310,6 +310,7 @@ export default {
     object-position: center;
     width: 100%;
     height: 100%;
+    image-rendering: auto;
 }
 #mountains{
     z-index: 10;
