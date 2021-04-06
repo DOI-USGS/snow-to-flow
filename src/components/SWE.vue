@@ -74,7 +74,6 @@ export default {
     data() {
       return {
          publicPath: process.env.BASE_URL,
-        //  message: "hey"
       }      
     },
     mounted() {
@@ -88,8 +87,9 @@ export default {
 
 <style lang="scss" scoped>
   #swe-chart-container {
-    width: 100%;
+    width: 90vw;
+    max-width: 1100px;
     height: auto;
-    margin-bottom: 0;
+    margin: auto;
   }
 </style>

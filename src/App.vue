@@ -67,8 +67,8 @@ $frostyGreen: #90d3b5; // good contrast against black (original was #5e8a76)
 $deepGreen: #235845; // good contrast against white
 $frostyPurple: #C9ADE6;
 $deepPurple: #301546; // good contrast against black
-$skyBlue: #539fdd; //#7AC3FF;
-$deepBlue: #0962b2; //#005AA3;
+$skyBlue: dodgerblue; //#7AC3FF;
+$deepBlue: dodgerblue; //#005AA3;
 $lightGrey: #c2c4c5;
 $darkGrey: #212122;
 $familyMain: 'Public sans', sans-serif;
@@ -270,7 +270,7 @@ p {
 .emph {
   color: white;
   font-family: $familyMain;
-  font-weight: 600;
+  font-weight: 400;
   background: $skyBlue;
   // background: linear-gradient(180deg, white 70%, $deepBlue 30%);
   padding: 5px;

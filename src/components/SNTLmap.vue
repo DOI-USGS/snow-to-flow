@@ -6,8 +6,6 @@
   >
     <!-- EXPLANATION -->
     <template v-slot:aboveExplanation>
-      <!--   <p class="byline" >
-        U.S. Geological Survey<br>Water Resources Mission Area</p><br><br> -->
       <p>
         April 1st has historically been used as a proxy date to measure peak SWE in the western U.S.. While the actual date of peak SWE is variable from year-to-year and site-to-site (CITE), by comparing this date in the historic record (1981-2010) we can get a general sense of water availability for the rest of the water year.
       </p>
@@ -1484,8 +1482,6 @@
 <script>
 import VizSection from '@/components/VizSection';
 import * as d3Base from "d3";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin"; // to trigger scroll events
-import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
 export default {
     name: "SNTLmap",
     components:{
@@ -1538,23 +1534,9 @@ export default {
           this.loadData();
           this.site_vars.setColor = this.sntl_variable; // set chart color to selected color
 
-          this.$nextTick(() => {
-            this.gsapOpacity();
-          });
         },
     methods: {
-      gsapOpacity(){
-        this.$gsap.from("#SNTLMap", {
-          scrollTrigger:{
-            trigger: "#SNTLMap",
-            start: "-200px center",
-            end: "top center",
-            scrub: true,
-            toggleOptions: "restart pause reverse pause"
-          },
-          opacity: 0
-        });
-      },
+
       loadData() {
         const self = this;
         // read in data 

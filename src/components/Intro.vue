@@ -57,11 +57,32 @@
 </template>
 <script>
 import VizSection from '@/components/VizSection';
+import { ScrollToPlugin } from "gsap/ScrollToPlugin"; // to trigger scroll events
+import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
 export default {
     name: "Intro",
     components:{
         VizSection
-    }
+    },
+     mounted() {
+          this.$nextTick(() => {
+            this.gsapOpacity();
+          });
+        },
+     methods: {
+      gsapOpacity(){
+        this.$gsap.from("#intro", {
+          scrollTrigger:{
+            trigger: "#intro",
+            start: "-200px center",
+            end: "top center",
+            scrub: true,
+            toggleOptions: "restart pause reverse pause"
+          },
+          opacity: 0
+        });
+      }
+     }
 }
 </script>
 <style lang="scss" scoped>
