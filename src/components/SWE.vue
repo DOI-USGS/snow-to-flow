@@ -49,11 +49,11 @@
       </p>
     </template>
     <!-- EXPLANATION -->
-    <template v-slot:belowExplanation>
+<!--     <template v-slot:belowExplanation>
       <p>
         Notice X Y and Z.
       </p>
-    </template>
+    </template> -->
   </VizSection>
 </template>
 
