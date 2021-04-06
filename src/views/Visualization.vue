@@ -4,7 +4,7 @@
     <Intro
       v-if="checkIfSplashIsRendered"
     />
-    <!--     <Chapter
+    <Chapter
       v-if="checkIfSplashIsRendered"
       id="chapter2"
       image="chapter5"
@@ -14,7 +14,8 @@
       <template v-slot:chapterTitle>
         From Winter Snow to Spring Flow
       </template>
-    </Chapter> -->
+    </Chapter>
+    <KeyDynamics/>
     <DiagramsNormal 
       v-if="checkIfSplashIsRendered"
       id="diagrams-normal"
@@ -95,6 +96,7 @@ export default {
       SWEanim: () => import( /*webpackChunkName: "SWE"*/ "./../components/SWEanim"),
       MeasuringSWE: () => import( /*webpackChunkName: "SWE"*/ "./../components/MeasuringSWE"),
       // SWEtoDischarge: () => import( /*webpackChunkName: "SWE"*/ "./../components/SWEtoDischarge"),
+      KeyDynamics: () => import( /*webpackChunkName: "keydynamics"*/ "./../components/KeyDynamics"),
       DiagramsNormal: () => import( /*webpackChunkName: "diagramsnormal"*/ "./../components/DiagramsNormal"),
       DiagramsHigh: () => import( /*webpackChunkName: "diagramshigh"*/ "./../components/DiagramsHigh"),
       DiagramsLow: () => import( /*webpackChunkName: "diagramslow"*/ "./../components/DiagramsLow"),

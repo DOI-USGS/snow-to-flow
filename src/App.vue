@@ -273,13 +273,16 @@ p {
 }
 
 .emph {
-  color: dodgerBlue;
-  font-family: $familyMain;
-  font-weight: 400;
+  font-weight: bold;
 }
 
 .italic {
   font-style: italic;
+}
+
+.pseudo-caption {
+  font-size: .9em;
+  margin: 0 10px;
 }
 
 // Link Styling

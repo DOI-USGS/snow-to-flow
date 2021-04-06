@@ -66,8 +66,7 @@ $familyMain: 'Public sans', sans-serif;
 .sidebar{
     display: flex;
     flex-direction: row;
-    margin-top: 15px;
-    margin-left: 30px; // indent the sidebar buttons a bit
+    margin: 15px 20px;
     transition: width 2s, height 2s, transform 2s;
     will-change: width;
     background: $deepBlue;
@@ -106,10 +105,6 @@ $familyMain: 'Public sans', sans-serif;
 .message{
     background: #fff;
     padding: 10px;
-    p{
-        margin: 0;
-        padding: 0;
-    }
 }
 .collapsed{
     .message{
