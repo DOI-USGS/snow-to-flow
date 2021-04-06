@@ -61,6 +61,10 @@ export default {
       {
         reference:
           "15. Dettinger, M. D. & Cayan, D. R. Large-Scale Atmospheric Forcing of Recent Trends toward Early Snowmelt Runoff in California. J. Clim. 8, 606–623 (1995).",
+      },
+      {
+        reference:
+          "16. López-Moreno, J. I. et al. Snowpack variability across various spatio-temporal resolutions. Hydrol. Process. 29, 1213–1224 (2015).",
       }
     ],
   },
