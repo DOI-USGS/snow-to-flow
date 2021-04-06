@@ -268,13 +268,11 @@ p {
 }
 
 .emph {
-  color: white;
+  color: dodgerBlue;
   font-family: $familyMain;
-  font-weight: 600;
-  background: $skyBlue;
-  // background: linear-gradient(180deg, white 70%, $deepBlue 30%);
-  padding: 5px;
-  border-radius: 3px;
+  font-weight: 400;
+  // background: $skyBlue;
+  // // background: linear-gradient(180deg, white 70%, $deepBlue 30%);
 }
 
 .italic {
@@ -285,11 +283,11 @@ p {
 a:link { 
   text-decoration: underline;
   font-weight: bold;
-  color: $deepBlue;
+  color: dodgerBlue;
   padding: 5px 0;
 } 
 a:visited { 
-  color: $deepBlue; 
+  color: dodgerBlue; 
 } 
 a:hover {
   text-decoration:none;
