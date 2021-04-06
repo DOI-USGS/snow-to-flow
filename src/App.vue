@@ -271,8 +271,6 @@ p {
   color: dodgerBlue;
   font-family: $familyMain;
   font-weight: 400;
-  // background: $skyBlue;
-  // // background: linear-gradient(180deg, white 70%, $deepBlue 30%);
 }
 
 .italic {

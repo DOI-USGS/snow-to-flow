@@ -61,12 +61,13 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-$deepBlue: #0962b2; //#005AA3;
+$deepBlue: dodgerBlue; //#005AA3;
 $familyMain: 'Public sans', sans-serif;
 .sidebar{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     margin-top: 15px;
+    margin-left: 30px; // indent the sidebar buttons a bit
     transition: width 2s, height 2s, transform 2s;
     will-change: width;
     background: $deepBlue;
