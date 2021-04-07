@@ -119,14 +119,14 @@
   position: relative;
 }
   #captionArea{
-    background: rgba(0,0,0,.9);
+    background: rgba(255,255,255,1);
     position: absolute;
     width: 100%;
     bottom: 0;
     z-index: 9000;
     text-align: left;
     padding: 50px 10px;
-    color: #fff;
+    color: black;
     @media screen and (max-width: 600px) {
       padding: 20px 10px;
       font-size: .9em;
