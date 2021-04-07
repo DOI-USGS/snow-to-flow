@@ -3,7 +3,7 @@
   <VizSection id="diagrams-normal">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>A Typical Year</h2>
+      <h2>A typical year</h2>
     </template>
     <template v-slot:aboveExplanation>
       <p>Studying these snowmelt dynamics is critical to understanding how water moves through the watershed, contributes to streamflow, and ultimately becomes available for use.</p>
@@ -15,7 +15,7 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        Click each diagram to enlarge it and see each dynamic at play during winter, spring, and summer.
+        Click each diagram to enlarge it and learn more.
       </p>
     </template>
     <!-- EXPLANATION -->
