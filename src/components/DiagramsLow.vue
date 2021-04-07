@@ -7,7 +7,13 @@
     </template>
     <template v-slot:aboveExplanation>
       <p>
-        But in some years, there’s not much snow accumulation at all.  If those years also face an early, warm spring, the snowmelt season releases liquid meltwater slowly and gradually. Melting this way means that the slow trickle of melt can be absorbed by the soil, which slows down meltwater on its journey over and through the soil towards streams. It may even mean that the water availability for the year is reduced.
+        But in some years, a combination of low SWE accumulation, warmer and earlier spring, and dry soils can lead to a greatly reduced flow and water availability.
+      </p>
+      <p>
+        Lower, slower, and earlier snowmelt can also mean that more meltwater is lost to plant uptake and soil absorption<sup>10</sup>. Drier soils can lead to less water for plants, which can set up conditions that increase the risk of <a
+          href="https://labs.waterdata.usgs.gov/visualizations/fire-hydro/index.html#/"
+          target="_blank"
+        >wildfire</a>. 
       </p>
     </template>
     <!-- FIGURES -->
@@ -21,13 +27,7 @@
       </p>
     </template>
     <!-- EXPLANATION -->
-    <template v-slot:belowExplanation>
-      <p>
-        What’s worse is that slower snowmelt risks losing even more of its flow volume to plant uptake and soil absorption<sup>10</sup>. Drier soils can lead to less water for plants, which can set up conditions that increase the risk of <a
-          href="https://labs.waterdata.usgs.gov/visualizations/fire-hydro/index.html#/"
-          target="_blank"
-        >wildfire</a>. Plus, dry soils set the stage for the next year, making it harder for snow to turn into flow. 
-      </p>
+    <template v-slot:belowExplanation>      
       <p>
         Studying all these dynamics across multiple ecosystems in the west is a huge task, but even that list isn’t complete.  In addition to soil saturation, snowpack thickness, and melt timing, there are lots of other factors that impact how snow turns into flow, such as:  
       </p>
