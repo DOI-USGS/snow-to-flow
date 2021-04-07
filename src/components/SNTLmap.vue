@@ -8,7 +8,8 @@
     <template v-slot:aboveExplanation>
       <p>
         As temperatures are warming and snow is starting to melt, the western U.S. is entering an important phase in their water cycle. Looking at this year's snow - and how it turns into flow - can tell us a lot about water availability in the coming summer and fall. 
-     </p></template>
+      </p>
+    </template>
     <!-- FIGURES -->
     <template v-slot:figures>
       <div class="map-grid">

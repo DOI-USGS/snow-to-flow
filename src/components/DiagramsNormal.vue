@@ -20,7 +20,7 @@
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
-        <p>
+      <p>
         But there's lots of variability from year to year even in a single place. Changes in these dynamics deeply impacts water availability.
       </p>
     </template>

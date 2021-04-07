@@ -59,15 +59,15 @@
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
-        <p class="hide"/>
+      <p class="hide" />
     </template>
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
-      <p class="hide"/>
+      <p class="hide" />
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
-      <p class="hide"/>
+      <p class="hide" />
     </template>
   </VizSection>
 </template>

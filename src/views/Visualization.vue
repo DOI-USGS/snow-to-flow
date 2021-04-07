@@ -15,7 +15,7 @@
         From Winter Snow to Spring Flow
       </template>
     </Chapter>
-    <KeyDynamics/>
+    <KeyDynamics />
     <DiagramsNormal 
       v-if="checkIfSplashIsRendered"
       id="diagrams-normal"
