@@ -1462,6 +1462,14 @@
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
+      <Sidebar>
+        <template v-slot:sidebarTitle>
+          But peak SWE hasn't happened yet in some places.
+        </template>
+        <template v-slot:sidebarMessage>
+          <p>This data is complete up through <span class="emph">April 1st, 2021</span>, which means that in many places in the west, peak SWE has not happened yet.  We've generated a reproducible data pipline to pull data and reprocess it again this summer after the melt season is over.</p>
+        </template>
+      </Sidebar>
       <p>
         The USGS is undertaking new efforts to advance snow science through both measuring and modeling snowpack and linking these results to streamflow. As a part of the <a
           href="https://www.usgs.gov/mission-areas/water-resources/science/usgs-next-generation-water-observing-system-ngwos?qt-science_center_objects=0#qt-science_center_objects"
@@ -1478,10 +1486,13 @@
 import VizSection from '@/components/VizSection';
 import * as d3Base from "d3";
 import { isMobile } from 'mobile-device-detect';
+import Sidebar from '@/components/Sidebar';
+
 export default {
     name: "SNTLmap",
     components:{
-        VizSection
+        VizSection,
+        Sidebar
     },
     data() {
             return {

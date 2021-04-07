@@ -139,16 +139,26 @@
       <p>
         Elevation is intertwined with numerous factors like snow persistence, wind redistribution, and slope that drive complex snow-to-flow dynamics from site to site. At higher elevations, fallen snow can be blown over ridges, scouring windward rises or trees, leading to snow accumulating on the leeward side of the ridge. This results in spatial differences in snowpack depth that contribute to variation in snowmelt timing and rates, in addition to other climatic factors.
       </p>
+      <Sidebar>
+        <template v-slot:sidebarTitle>
+          Why is the year measured from October-to-October?
+        </template>
+        <template v-slot:sidebarMessage>
+          <p>Hydrologists use a <span class="emph">water year</span> to delineate a  year because it captures a full snow cycle.</p>
+        </template>
+      </Sidebar>
     </template>
   </VizSection>
 </template>
 <script>
 import VizSection from '@/components/VizSection';
 import * as d3Base from "d3";
+import Sidebar from '@/components/Sidebar';
 export default {
     name: "SWEanim",
     components:{
-        VizSection
+        VizSection,
+        Sidebar
     },
     data() {
             return {
