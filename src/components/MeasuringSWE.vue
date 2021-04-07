@@ -34,7 +34,7 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        There are lots of ways to measure SWE! Click on any of the images to learn more.
+        Click on the images to learn more about how USGS snow hydrologists measure SWE in the field. 
       </p>
     </template>
     <!-- EXPLANATION -->

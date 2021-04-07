@@ -262,13 +262,15 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+$familySerif:  'Noto Serif', serif;
+
 .splash{
     position: relative;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: linear-gradient(#0c5fb4 0%, #fff 50%);
+    background-image: linear-gradient(#00478F 0%, #fff 50%);
 }
 .splashTitle{
     position: absolute;
@@ -278,11 +280,13 @@ export default {
     padding: 0 15px;
     h1{
         font-size:clamp(5.4em, 20vw, 2em);
-        font-weight: 500;
+        font-weight: 800;
     }
     h2 {
-      font-size:2.05em;
-        font-weight: 400;
+      font-family: $familySerif;
+      font-size:1.4em;
+      line-height: 1.4em;
+      // font-weight: 400;
     }
     h1, h2, p{
         color: #fff;
