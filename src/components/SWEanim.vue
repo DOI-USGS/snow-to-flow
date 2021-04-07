@@ -17,6 +17,52 @@
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
+       <div
+        id="figs"
+        class="single one"
+      >
+       <div class="compare">
+          <div
+            class="btn-group"
+            data-toggle="buttons"
+          >
+            <h4 class="butt-head">
+              Show: 
+            </h4> 
+            <div class="inputsContainer">
+              <div class="inputs">
+                <input
+                  id="cb1"
+                  class="butt"
+                  type="checkbox"
+                  name="checkboxgroup2"
+                  checked="true"
+                  value="swe"
+                  @change="showSWE"
+                >
+                <label
+                  class="butt"
+                  for="cb1"
+                >SWE</label>
+                <input
+                  id="cb2"
+                  class="butt"
+                  type="checkbox"
+                  name="checkboxgroup1"
+                  checked="true"
+                  value="flow"
+                  @change="showFlow"
+                >
+                <label
+                  class="butt"
+                  for="cb2"
+                >streamflow</label>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
       <div
         id="figs"
         class="single one"
@@ -401,6 +447,12 @@ export default {
         this.fast.transition().duration(0).attr("opacity",1)
 
       },
+      showSWE(){
+
+      },
+      showFlow(){
+
+      },
       changePos(){
         const self = this;
           if(event.target.value == "peak"){
@@ -729,6 +781,39 @@ input[name="radiogroup1"] {
         background-color: dodgerblue;
         color: white;
     }
+input[name="checkboxgroup1"] {
+            display: none;
+        }
+         input[name="checkboxgroup1"]+label {
+            /* style passive state as you like */
+            border: 2px solid transparent;
+            color: black;
+            font-weight: 400;
+        }
+
+    input[name="checkboxgroup1"]:checked+label {
+        /* style checked state as you like */
+        border: 7px solid dodgerblue;
+        background-color: dodgerblue;
+        color: white;
+    }
+    input[name="checkboxgroup2"] {
+            display: none;
+        }
+         input[name="checkboxgroup2"]+label {
+            /* style passive state as you like */
+            border: 2px solid transparent;
+            color: black;
+            font-weight: 400;
+        }
+
+    input[name="checkboxgroup2"]:checked+label {
+        /* style checked state as you like */
+        border: 7px solid grey;
+        background-color: grey;
+        color: white;
+    }
+    
 @media screen and (min-width: 650px){
   .compare{
     width: 100%;
