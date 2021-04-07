@@ -12,7 +12,7 @@
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/diagrams/Diagrams_normal-winter.jpg"
+              srcset="@/assets/diagrams/Diagram_normal-winter.jpg"
               media="(max-width: 992px)"
               type="image/jpg"
             >
