@@ -7,7 +7,7 @@
     </template>
     <template v-slot:aboveExplanation>
       <p>
-        Scientists have observed that in years with lots of water availability, the snow dynamics line up to produce a huge surge of flow during the spring melt.
+        In a year with lots of precipitation and .
       </p>
     </template>
     <!-- FIGURES -->
