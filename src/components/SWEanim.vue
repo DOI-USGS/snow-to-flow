@@ -465,27 +465,27 @@ export default {
           .transition()
           .delay(100)
           .duration(300)
-          .attr("opacity", 1)
+          .attr("opacity", 0.7)
         }
 
       },
       showFlow(){
-          if (this.sweActive == true){
-          this.sweActive = false;
+          if (this.flowActive == true){
+          this.flowActive = false;
 
           this.d3.selectAll(".ridge.mmd")
           .transition()
           .delay(100)
           .duration(300)
           .attr("opacity", 0)
-        } else if (this.sweActive == false){
-          this.sweActive = true;
+        } else if (this.flowActive == false){
+          this.flowActive = true;
 
           this.d3.selectAll(".ridge.mmd")
           .transition()
           .delay(100)
           .duration(300)
-          .attr("opacity", 1)
+          .attr("opacity", 0.7)
         }
       },
       changePos(){
