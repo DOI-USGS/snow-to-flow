@@ -69,8 +69,8 @@ $frostyGreen: #90d3b5; // good contrast against black (original was #5e8a76)
 $deepGreen: #235845; // good contrast against white
 $frostyPurple: #C9ADE6;
 $deepPurple: #301546; // good contrast against black
-$skyBlue: dodgerblue; //lets use just one blue
-$deepBlue: dodgerblue; //lets use just one blue
+$skyBlue: rgb(12, 117, 221); //lets use just one blue
+$deepBlue: rgb(12, 117, 221); //lets use just one blue
 $lightGrey: #c2c4c5;
 $darkGrey: #212122;
 $familyMain: 'Public sans', sans-serif;

@@ -1896,7 +1896,7 @@ export default {
             .attr("stroke-width", 2)
 
             // add peak swe and sm50 date to wy chart
-            wy.append("circle")
+  /*           wy.append("circle")
             .attr("cx", data.peak_x)
             .attr("cy", data.peak_y )
             .attr("r",4)
@@ -1917,7 +1917,7 @@ export default {
             .classed(data.sm50_met, true)
             .classed("melt", true)
             .attr("fill", "gold")
-            .attr("opacity", 1)
+            .attr("opacity", 1) */
 
             wy.selectAll(".melt.TBD")
             .remove()
