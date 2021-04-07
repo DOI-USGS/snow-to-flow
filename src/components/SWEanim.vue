@@ -10,18 +10,18 @@
     </template>
     <!-- EXPLANATION -->
     <template v-slot:aboveExplanation>
-      <p></p>
+      <p />
       <p>
         Seasonal snowpack varies widely from place to place, and from year to year<sup>16</sup>. In the Upper Colorado river basin, between 2011 and 2012 there was a two-fold difference in the magnitude of SWE at the selected sites, shaping the timing and magnitude of streamflow, and subsequently, water availability. Use the buttons below to explore how differences in snow between two years impact streamflow dynamics measured by USGS streamgages.
       </p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
-       <div
+      <div
         id="figs"
         class="single one"
       >
-       <div class="compare">
+        <div class="compare">
           <div
             class="btn-group"
             data-toggle="buttons"
@@ -57,12 +57,11 @@
                   class="butt"
                   for="cb2"
                 >streamflow</label>
-
               </div>
             </div>
           </div>
         </div>
-        </div>
+      </div>
       <div
         id="figs"
         class="single one"

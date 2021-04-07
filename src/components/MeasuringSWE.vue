@@ -24,8 +24,8 @@
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
-       <p>
-     The <a
+      <p>
+        The <a
           href="https://www.nrcs.usda.gov/wps/portal/nrcs/site/national/home/"
           target="_blank"
         >Natural Resources Conservation Service (NRCS)</a> operates a snow monitoring program that includes manual snow course measurements as well as over 800 automated <a

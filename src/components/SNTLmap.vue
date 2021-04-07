@@ -8,11 +8,19 @@
     <template v-slot:aboveExplanation>
       <p>
         As temperatures are warming and snow is starting to melt, the western U.S. is entering an important phase in their water cycle. Looking at this year's snow - and how it turns into flow - can tell us a lot about water availability in the coming summer and fall. 
-     </p>
-      <p v-if="mobileView" class="explain figureCaption">
+      </p>
+      <p
+        v-if="mobileView"
+        class="explain figureCaption"
+      >
         Select a site to see this year's SWE and the magnitude (peak SWE) and timing (SM50) of snow since 1981. 
       </p>
-      <p v-if="!mobileView" class="explain figureCaption">Mouseover a site to see this year's SWE and the magnitude (peak SWE) and timing (SM50) of snow since 1981.</p>
+      <p
+        v-if="!mobileView"
+        class="explain figureCaption"
+      >
+        Mouseover a site to see this year's SWE and the magnitude (peak SWE) and timing (SM50) of snow since 1981.
+      </p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
@@ -1468,7 +1476,7 @@
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
-       <Sidebar>
+      <Sidebar>
         <template v-slot:sidebarTitle>
           What is a percentile?
         </template>

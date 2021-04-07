@@ -75,10 +75,12 @@
           Vegetation
         </template>
         <template v-slot:sidebarMessage>
-          <p>Snow fall can be intercepted by trees and then sublimated, reducing the on the ground total snowpack. Lower, slower, and earlier snowmelt can also mean that more meltwater is lost to plant uptake and soil absorption<sup>10</sup>. Drier soils can lead to less water for plants, which can set up conditions that increase the risk of <a
-          href="https://labs.waterdata.usgs.gov/visualizations/fire-hydro/index.html#/"
-          target="_blank"
-        >wildfire</a>.</p>
+          <p>
+            Snow fall can be intercepted by trees and then sublimated, reducing the on the ground total snowpack. Lower, slower, and earlier snowmelt can also mean that more meltwater is lost to plant uptake and soil absorption<sup>10</sup>. Drier soils can lead to less water for plants, which can set up conditions that increase the risk of <a
+              href="https://labs.waterdata.usgs.gov/visualizations/fire-hydro/index.html#/"
+              target="_blank"
+            >wildfire</a>.
+          </p>
         </template>
       </Sidebar>
     </template>
