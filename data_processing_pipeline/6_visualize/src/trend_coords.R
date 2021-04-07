@@ -92,17 +92,9 @@ all_stat <- read_csv('2_process/out/SNOTEL_stats_POR.csv')%>%
 range(all_stat$water_year)
 range(all_stat$peak_swe)
 range(all_stat$sm50_day)
-all_stat%>%filter(sm50_day <= 50)
 range(na.omit(all_stat$apr1_swe))
-all_stat%>%
-  ggplot()+
-  geom_histogram(aes(sm50_day))+
-  scale_color_scico(palette="lajolla")
-
 range(all_stat$peak_swe_log)
 range(all_stat$peak_swe_sqrt)
-
-str(all_stat)
 
 ## timeseries across years - peak SWE, SM50
 ## sizing of the mini plot that pops up
@@ -140,7 +132,7 @@ for  (i in unique(all_stat$site_id)){
   all_site$y <- all_site$sm50_day
   site_obj <- all_site %>% dplyr::select(x,y)
   sm50 <- convert_trend_to_svg(obj = site_obj, svg_width = time_w, svg_height = time_h, 
-                               ymax=300, ymin = 50, xmin = 1981, xmax= 2021) %>%
+                               ymax=350, ymin = 0, xmin = 1981, xmax= 2021) %>%
     build_path_from_coords()
   
   # swe date
@@ -164,16 +156,14 @@ str(df_out)
 wy_files <- list.files('1_fetch/out/SNOTEL', pattern="wy2021", full.names=TRUE)
 wy_data <- lapply(wy_files, read_csv) %>% bind_rows()
 str(wy_data)
-range(na.omit(log(wy_data$swe+1)))
-
-wy_stats <- read_csv('2_process/out/SNOTEL_stats_2021.csv')
+wy_data%>%filter()
 
 year_w <- 200
 year_h <- 200
+max_day <-as.numeric(Sys.Date()-as.Date('2020-10-01'))
 
 # create dataframe with svg d paths
 df_swe <- NULL
-i <- unique(wy_data$site_id)[1]
 for  (i in unique(wy_data$site_id)){
   
   # swe through time
@@ -183,7 +173,7 @@ for  (i in unique(wy_data$site_id)){
   site_obj <- all_site %>% dplyr::select(x,y)
   swe <- convert_trend_to_svg(obj = site_obj, 
                               svg_width = year_w, svg_height = year_h, 
-                              ymax=100, ymin = 0, xmin = 1, xmax = 180) %>%
+                              ymax=100, ymin = 0, xmin = 1, xmax = max_day) %>%
     build_path_from_coords()
   
   
@@ -192,7 +182,7 @@ for  (i in unique(wy_data$site_id)){
   site_obj <- all_site %>% dplyr::select(x,y)
   swe_sqrt <- convert_trend_to_svg(obj = site_obj, 
                               svg_width = year_w, svg_height = year_h, 
-                              ymax=12, ymin = 0, xmin = 1, xmax = 180) %>%
+                              ymax=12, ymin = 0, xmin = 1, xmax = max_day) %>%
     build_path_from_coords()
   
 
@@ -200,7 +190,7 @@ for  (i in unique(wy_data$site_id)){
   sitey <- all_stat  %>% 
     filter(site_id == i & water_year == 2021) %>%
     dplyr::select(water_year, site_id, peak_swe, peak_day, sm50_swe, sm50_day, apr1_swe)%>%
-    mutate(apr1_day = 173) %>%
+    mutate(apr1_day = 182) %>%
     melt(id.vars=c('site_id','water_year'))%>%
     separate(variable, into=c('metric','var'), sep='_') %>%
     dcast(site_id + water_year + metric ~ var)
@@ -209,12 +199,14 @@ for  (i in unique(wy_data$site_id)){
   site_obj <- sitey %>% dplyr::select(x,y)
   swe_pts <- convert_pt_to_svg(obj = site_obj, 
                               svg_width = year_w, svg_height = year_h, 
-                              ymax=100, ymin = 0, xmin = 1, xmax = 180) %>%
+                              ymax=100, ymin = 0, xmin = 1, xmax = max_day) %>%
     mutate(metric = sitey$metric, site_id = i) %>%
     melt(id.vars=c("site_id","metric")) %>%
     dcast(site_id ~ metric + variable)
 
-  swe_today<-data.frame(site_id = i, sntl_id = sprintf("sntl_%s", i), d_swe = swe, d_swe_log = swe_sqrt,
+  swe_today<-data.frame(site_id = i, sntl_id = sprintf("sntl_%s", i), 
+                        d_swe = swe, 
+                        d_swe_log = swe_sqrt,
                         d_swe_scaled = swe_scaled)%>%
     left_join(swe_pts)
   
@@ -223,6 +215,9 @@ for  (i in unique(wy_data$site_id)){
 }
 str(df_swe)
 
+
+ptile_df
+
 # bind to site coordinates and export -------------------------------------
 
 ## add back to site-level coordinate data linked to mouseover effect
@@ -230,7 +225,7 @@ str(df_swe)
 read.csv('2_process/out/SNOTEL_conus.csv') %>%
   mutate(sntl_id  = gsub("SNTL:", "sntl_", sntl_id)) %>%
   left_join(df_out)%>%
-  left_join(df_swe) %>% str
+  left_join(df_swe) %>% 
   write_csv("6_visualize/out/SNOTEL_conus_d.csv")
 
 read.csv('2_process/out/SNOTEL_ak.csv') %>%
@@ -312,4 +307,4 @@ all_dia %>%
                      labels=c("-100 days", "-50 days", "0", "+50 days", "+100 days"))
 ggsave("trend_diff_peak.png", width = 8, height = 10)
 
-range()
+str()
