@@ -3,7 +3,7 @@
   <VizSection id="diagrams-normal">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>A Normal Year</h2>
+      <h2>A Typical Year</h2>
     </template>
     <template v-slot:aboveExplanation>
       <p>Studying these snowmelt dynamics is critical to understanding how water moves through the watershed, contributes to streamflow, and ultimately becomes available for use.</p>
