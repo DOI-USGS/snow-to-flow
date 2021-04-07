@@ -31,7 +31,7 @@
           Melt Timing (SM50)
         </template>
         <template v-slot:sidebarMessage>
-          <p><span class="emph">Timing</span> is a measure of when snowmelt is happening, marked by the date at which the maximum SWE accumulated during the winter is half gone.</p>
+          <p><span class="emph">Timing</span> is a measure of when snowmelt is happening, marked by the date at which the maximum SWE accumulated during the winter is half gone<sup>7</sup>.</p>
           <p>A late melt timing often means that there has been a long winter during which SWE can accumulate, and that the snow will melt all at once. An early melt timing often means that it was a short winter, and that snow will melt gradually.</p>
           <p>Units are in <span class="emph">days since October 1</span>, which is the beginning of the water year.</p>
         </template>
