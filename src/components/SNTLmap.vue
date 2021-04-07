@@ -9,11 +9,17 @@
       <p>
         As temperatures are warming and snow is starting to melt, the western U.S. is entering an important phase in their water cycle. Looking at this year's snow - and how it turns into flow - can tell us a lot about water availability in the coming summer and fall. 
       </p>
-      <p class="italic">
-        Select sites on the map to see the full SWE timeseries from the 2021 water year in addition to the magnitude (peak SWE) and timing (SM50) of snow since 1981.
+      <p
+        v-if="mobileView"
+        class="explain figureCaption"
+      >
+        Select a site to see this year's SWE and the magnitude (peak SWE) and timing (SM50) of snow since 1981. 
       </p>
-      <p class="italic">
-        Mouseover sites on the map to see the full SWE timeseries from the 2021 water year in addition to the magnitude (peak SWE) and timing (SM50) of snow since 1981.
+      <p
+        v-if="!mobileView"
+        class="explain figureCaption"
+      >
+        Mouseover a site to see this year's SWE and the magnitude (peak SWE) and timing (SM50) of snow since 1981.
       </p>
     </template>
     <!-- FIGURES -->
@@ -1458,18 +1464,19 @@
         </div>
       </div>
     </template>
+    
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p id="explain-bottom">
         The map shows April 1st snow as a percentile of this date in the historic record (1981-2010). Snow is quantified as the daily snow-water equivalent (SWE) at  <a
           href="https://www.wcc.nrcs.usda.gov/snow/"
           target="_blank"
-        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the western U.S.</a>. The left chart shows SWE in the current water year (2021) to date, with points indicating peak SWE in 2021 (purple) and the melt date (yellow). The panels on the right show peak SWE and the melt date (SM50) for all years with data at a given site.
+        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the western U.S.</a>. The left chart shows SWE in the current water year (2021) to date. The panels on the right show peak SWE and the melt date (SM50) for all years with data at a given site.
       </p>
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
-       <Sidebar>
+      <Sidebar>
         <template v-slot:sidebarTitle>
           What is a percentile?
         </template>
@@ -1609,7 +1616,7 @@ export default {
 
         var yCorr = this.d3.scaleLinear()
           .range([100, 10])
-          .domain([0, 11.5]);
+          .domain([0, 130]);
 
         var xCorr = this.d3.scaleLinear()
           .range([0,  200])
@@ -1629,8 +1636,8 @@ export default {
           .append("g")
           .classed("corr-legend", true)
           .call(this.d3.axisLeft(yCorr)
-            .ticks(4)
-            .tickValues(["0", "25", "50", "75", "100"]))
+            .ticks(3)
+            .tickValues(["0",  "130"]))
           .attr("transform", "translate(" + (0) + "," + 0 + ")");
 
       // position axis labels
@@ -1657,14 +1664,14 @@ export default {
       // melt mini
        var ymelt = this.d3.scaleLinear()
           .range([100, 10])
-          .domain([50, 300]);
+          .domain([0, 350]);
 
         this.d3.select("svg#melt-svg")
           .append("g")
           .classed("melt-legend", true)
           .call(this.d3.axisBottom(xCorr)
             .ticks(5)
-            .tickValues(["1981", "1991", "2001", "2011", "2021"])
+            .tickValues(["1981", "1991", "2001", "2011", "2021"]).tickSize(0)
             .tickFormat(this.d3.format("d")))
           .attr("transform", "translate(" + (0) + "," + 100 + ")");
 
@@ -1702,7 +1709,7 @@ export default {
 
         self.xwy = this.d3.scaleLinear()
           .range([0,  200])
-          .domain([1, 250]);
+          .domain([1, 187]);
 
         this.d3.select("svg#wy21-svg")
           .append("g")
@@ -1751,14 +1758,6 @@ export default {
         .attr("y", 50)
         .attr("x", 30)
         .text("Hover over a site");
-
-        
-        // add hover effect to all sites
-        this.d3.select("svg#wy21-svg")
-          .on("mouseover", function(data) {
-          })
-          .on("mouseout", function(data){
-          }) 
 
 
       },
@@ -1814,10 +1813,6 @@ export default {
             self.hover(data, self.site_radius*2, "orchid");
             self.d3.select("text.hover_info").remove()
           })
-         /*  .on("click", function(data) {
-            self.hover(data, self.site_radius*2, "orchid");
-            self.d3.select("text.hover_info").remove()
-          }) */
           .on("mouseout", function(data){
             self.hoverOut(data, self.site_radius);
             //hover/click prompt
@@ -1890,7 +1885,7 @@ export default {
             .attr("stroke-width", 2)
 
             // add peak swe and sm50 date to wy chart
-            wy.append("circle")
+  /*           wy.append("circle")
             .attr("cx", data.peak_x)
             .attr("cy", data.peak_y )
             .attr("r",4)
@@ -1911,11 +1906,10 @@ export default {
             .classed(data.sm50_met, true)
             .classed("melt", true)
             .attr("fill", "gold")
-            .attr("opacity", 1)
+            .attr("opacity", 1) */
 
             wy.selectAll(".melt.TBD")
             .remove()
-
 
       this.d3.select("svg#wy21-svg").append("text")
         .classed("site_name", true)
@@ -1961,7 +1955,7 @@ export default {
 
           var x = this.d3.scaleLinear()
             .domain([0, 1])
-            .range([0, 200]);
+            .range([0, 190]);
 
             var xAxis = this.d3.axisBottom(x)
               .tickSize(10)
@@ -1969,7 +1963,8 @@ export default {
 
           var g = this.d3.select("svg#legend-percentile").append("g")
           .classed("thresh-legend", true).call(xAxis)
-          .attr("transform", "translate(" + (0) + "," + 45 + ")");
+          .attr("transform", "translate(" + (20) + "," + 45 + ")");
+
 
           g.select(".domain").remove();
 
@@ -1988,19 +1983,35 @@ export default {
 
                 g.append("text")
                   .attr("fill", "#000")
-                  .attr("font-size", "1em")
+                  .attr("font-size", "1.25em")
                   .attr("text-anchor", "start")
-                  .attr("y", -5)
-                  .text("Percentile based on historic record (1981-2010)");
+                  .attr("y", -10)
+                  .text("April 1st SWE percentile");
 
                   g.append("text")
                   .attr("fill", "#000")
-                  .attr("font-size", "1.2em")
+                  .attr("font-size", "1.25em")
+                  .attr("text-anchor", "start")
+                  .attr("y", 15)
+                  .text(" ");
+
+                  g.append("text")
+                  .attr("fill", "#000")
+                  .attr("font-size", "2em")
                   .attr("font-weight", "bold")
                   .attr("text-anchor", "start")
                   .attr("x", 0)
-                  .attr("y", -20)
-                  .text("Snow-water equivalent, April 1st, 2021");
+                  .attr("y", -30)
+                  .text("Snow this year");
+
+                  g.append("text")
+                  .attr("fill", "#000")
+                  .attr("font-size", "2em")
+                  .attr("font-weight", "bold")
+                  .attr("text-anchor", "start")
+                  .attr("x", -100)
+                  .attr("y", -25)
+                  .text("");
 
        // set color for both maps using the same color scale
        this.sntl_sites.selectAll("circle.SNTL")
@@ -2096,15 +2107,15 @@ line, polyline, polygon, path, rect, circle {
   .map-grid{
     
     grid-template-areas: 
-    "ak ak ak . . ."
-      "ak ak ak us us us"
-      "ak ak ak us us us"
-      "ak ak ak us us us"
-      ". legend legend us us us"
-      ". wy21 peak us us us"
+    ". legend legend us us us"
+    ". wy21 peak us us us"
       ". wy21 peak us us us"
       ". wy21 melt us us us"
       ". wy21 melt us us us"
+      ". ak ak us us us"
+      ". ak ak us us us"
+      ". ak ak us us us"
+      ". ak ak us us us"
       ". . . us us us"
     ;
   }
@@ -2113,10 +2124,10 @@ line, polyline, polygon, path, rect, circle {
     //margin-left: 10vw;
   }
   #legendContainer {
-    margin-top: -50px;
+    margin-top: 0px;
   }
   #ak {
-   width: 53vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
+   width: 55vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
   }
   #grid-right {
     width: 70vw;// careful editing this, it's sizing the maps to the same scale
@@ -2124,42 +2135,44 @@ line, polyline, polygon, path, rect, circle {
     margin-left: 0px;
   }
   #usa{
-    width: 90vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
+    width: 80vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
   }
  
 }
 
 @media screen and (min-height: 900px){
   #melt-svg {
-  transform: translate(0, -20px);
+  transform: translate(0, 5px);
 }
 #peak-svg {
-  transform: translate(0, -5px);
+  transform: translate(0, 0px);
 }
   .map-grid{
     
     grid-template-areas: 
-      "ak ak ak us us us"
-      "ak ak ak us us us"
-      "ak ak ak us us us"
-      ". legend legend us us us"
-      ". wy21 peak us us us"
+    ". legend legend us us us"
+    ". wy21 peak us us us"
       ". wy21 peak us us us"
       ". wy21 melt us us us"
       ". wy21 melt us us us"
-    ;
+      "ak ak .  us us us"
+      "ak ak . us us us"
+      "ak ak . us us us"
+      "ak ak .us us us"
+      ". . . us us us";
   }
   #grid-left{
     width: 30vw; // careful editing this, it's sizing the maps to the same scale
     //margin-left: 10vw;
   }
   #legendContainer {
-    margin-top: -30px;
+    margin-top: 0px;
     margin-left: 20px;
   }
   #ak {
-   width: 65vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
+   width: 60vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
    margin-left: 30px;
+   padding-top: 50px;
   }
   #grid-right {
     width: 70vw;// careful editing this, it's sizing the maps to the same scale
