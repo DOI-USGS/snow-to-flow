@@ -8,7 +8,12 @@
     <template v-slot:aboveExplanation>
       <p>
         As temperatures are warming and snow is starting to melt, the western U.S. is entering an important phase in their water cycle. Looking at this year's snow - and how it turns into flow - can tell us a lot about water availability in the coming summer and fall. 
-     </p></template>
+     </p>
+      <p v-if="mobileView" class="explain figureCaption">
+        Select a site to see this year's SWE and the magnitude (peak SWE) and timing (SM50) of snow since 1981. 
+      </p>
+      <p v-if="!mobileView" class="explain figureCaption">Mouseover a site to see this year's SWE and the magnitude (peak SWE) and timing (SM50) of snow since 1981.</p>
+    </template>
     <!-- FIGURES -->
     <template v-slot:figures>
       <div class="map-grid">
@@ -1451,6 +1456,14 @@
         </div>
       </div>
     </template>
+    <Sidebar>
+        <template v-slot:sidebarTitle>
+          What is a percentile?
+        </template>
+        <template v-slot:sidebarMessage>
+          <p>P Percentiles tell us how snow today (in 2021) compares to snow in past years that we have data for. This number can be interpreted as the percent of years that had lower SWE than in 2021. For example, if SWE is in the 90th percentile, it is higher than 90% of years on record for this date.</p>
+        </template>
+      </Sidebar>
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p id="explain-bottom">
@@ -1583,7 +1596,7 @@ export default {
 
         var yCorr = this.d3.scaleLinear()
           .range([100, 10])
-          .domain([0, 11.5]);
+          .domain([0, 130]);
 
         var xCorr = this.d3.scaleLinear()
           .range([0,  200])
@@ -1603,8 +1616,8 @@ export default {
           .append("g")
           .classed("corr-legend", true)
           .call(this.d3.axisLeft(yCorr)
-            .ticks(4)
-            .tickValues(["0", "25", "50", "75", "100"]))
+            .ticks(3)
+            .tickValues(["0",  "130"]))
           .attr("transform", "translate(" + (0) + "," + 0 + ")");
 
       // position axis labels
@@ -1638,7 +1651,7 @@ export default {
           .classed("melt-legend", true)
           .call(this.d3.axisBottom(xCorr)
             .ticks(5)
-            .tickValues(["1981", "1991", "2001", "2011", "2021"])
+            .tickValues(["1981", "1991", "2001", "2011", "2021"]).tickSize(0)
             .tickFormat(this.d3.format("d")))
           .attr("transform", "translate(" + (0) + "," + 100 + ")");
 
@@ -1890,7 +1903,6 @@ export default {
             wy.selectAll(".melt.TBD")
             .remove()
 
-
       this.d3.select("svg#wy21-svg").append("text")
         .classed("site_name", true)
         .attr("fill", "#000")
@@ -1935,7 +1947,7 @@ export default {
 
           var x = this.d3.scaleLinear()
             .domain([0, 1])
-            .range([0, 200]);
+            .range([0, 190]);
 
             var xAxis = this.d3.axisBottom(x)
               .tickSize(10)
@@ -1943,7 +1955,8 @@ export default {
 
           var g = this.d3.select("svg#legend-percentile").append("g")
           .classed("thresh-legend", true).call(xAxis)
-          .attr("transform", "translate(" + (0) + "," + 45 + ")");
+          .attr("transform", "translate(" + (110) + "," + 40 + ")");
+
 
           g.select(".domain").remove();
 
@@ -1962,19 +1975,35 @@ export default {
 
                 g.append("text")
                   .attr("fill", "#000")
-                  .attr("font-size", "1em")
+                  .attr("font-size", "1.25em")
                   .attr("text-anchor", "start")
-                  .attr("y", -5)
-                  .text("Percentile based on historic record (1981-2010)");
+                  .attr("y", -10)
+                  .text("April 1st SWE percentile");
 
                   g.append("text")
                   .attr("fill", "#000")
-                  .attr("font-size", "1.2em")
+                  .attr("font-size", "1.25em")
+                  .attr("text-anchor", "start")
+                  .attr("y", 15)
+                  .text(" ");
+
+                  g.append("text")
+                  .attr("fill", "#000")
+                  .attr("font-size", "3.8em")
                   .attr("font-weight", "bold")
                   .attr("text-anchor", "start")
-                  .attr("x", 0)
-                  .attr("y", -20)
-                  .text("Snow-water equivalent, April 1st, 2021");
+                  .attr("x", -100)
+                  .attr("y", 0)
+                  .text("2021");
+
+                  g.append("text")
+                  .attr("fill", "#000")
+                  .attr("font-size", "3.2em")
+                  .attr("font-weight", "bold")
+                  .attr("text-anchor", "start")
+                  .attr("x", -100)
+                  .attr("y", 25)
+                  .text("snow");
 
        // set color for both maps using the same color scale
        this.sntl_sites.selectAll("circle.SNTL")
@@ -2070,15 +2099,15 @@ line, polyline, polygon, path, rect, circle {
   .map-grid{
     
     grid-template-areas: 
-    "ak ak ak . . ."
-      "ak ak ak us us us"
-      "ak ak ak us us us"
-      "ak ak ak us us us"
-      ". legend legend us us us"
-      ". wy21 peak us us us"
+    ". legend legend us us us"
+    ". wy21 peak us us us"
       ". wy21 peak us us us"
       ". wy21 melt us us us"
       ". wy21 melt us us us"
+      ". ak ak us us us"
+      ". ak ak us us us"
+      ". ak ak us us us"
+      ". ak ak us us us"
       ". . . us us us"
     ;
   }
@@ -2087,10 +2116,10 @@ line, polyline, polygon, path, rect, circle {
     //margin-left: 10vw;
   }
   #legendContainer {
-    margin-top: -50px;
+    margin-top: 0px;
   }
   #ak {
-   width: 53vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
+   width: 55vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
   }
   #grid-right {
     width: 70vw;// careful editing this, it's sizing the maps to the same scale
@@ -2098,42 +2127,44 @@ line, polyline, polygon, path, rect, circle {
     margin-left: 0px;
   }
   #usa{
-    width: 90vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
+    width: 80vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
   }
  
 }
 
 @media screen and (min-height: 900px){
   #melt-svg {
-  transform: translate(0, -20px);
+  transform: translate(0, 5px);
 }
 #peak-svg {
-  transform: translate(0, -5px);
+  transform: translate(0, 0px);
 }
   .map-grid{
     
     grid-template-areas: 
-      "ak ak ak us us us"
-      "ak ak ak us us us"
-      "ak ak ak us us us"
-      ". legend legend us us us"
-      ". wy21 peak us us us"
+    ". legend legend us us us"
+    ". wy21 peak us us us"
       ". wy21 peak us us us"
       ". wy21 melt us us us"
       ". wy21 melt us us us"
-    ;
+      "ak ak .  us us us"
+      "ak ak . us us us"
+      "ak ak . us us us"
+      "ak ak .us us us"
+      ". . . us us us";
   }
   #grid-left{
     width: 30vw; // careful editing this, it's sizing the maps to the same scale
     //margin-left: 10vw;
   }
   #legendContainer {
-    margin-top: -30px;
+    margin-top: 0px;
     margin-left: 20px;
   }
   #ak {
-   width: 65vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
+   width: 60vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
    margin-left: 30px;
+   padding-top: 50px;
   }
   #grid-right {
     width: 70vw;// careful editing this, it's sizing the maps to the same scale
