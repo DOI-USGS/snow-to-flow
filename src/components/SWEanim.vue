@@ -142,10 +142,10 @@
       </p>
       <Sidebar>
         <template v-slot:sidebarTitle>
-          Why is the year measured from October-to-October?
+          What is a "water year"?
         </template>
         <template v-slot:sidebarMessage>
-          <p>Hydrologists use a <span class="emph">water year</span> to delineate a  year because it captures a full snow cycle.</p>
+          <p>Instead starting the year at Janauary 1, USGS hydrologists mark the start of the <span class="emph">water year</span> on October 1, three months early.  The USGS has been using water years since 1911 to mark the start of hydrologic activity, and use it here because it captures a full snow cycle.</p>
         </template>
       </Sidebar>
     </template>
