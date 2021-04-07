@@ -1701,7 +1701,7 @@ export default {
 
         self.xwy = this.d3.scaleLinear()
           .range([0,  200])
-          .domain([1, 250]);
+          .domain([1, 187]);
 
         this.d3.select("svg#wy21-svg")
           .append("g")
