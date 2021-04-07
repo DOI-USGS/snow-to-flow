@@ -91,6 +91,9 @@ body {
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       width: 100%;
+      @media screen and (max-width: 600px) {
+        font-size: 14px;
+      }
   }
 h1{
   font-size: 3em;
@@ -270,28 +273,27 @@ p {
 }
 
 .emph {
-  color: white;
-  font-family: $familyMain;
-  font-weight: 400;
-  background: $skyBlue;
-  // background: linear-gradient(180deg, white 70%, $deepBlue 30%);
-  padding: 5px;
-  border-radius: 3px;
+  font-weight: bold;
 }
 
 .italic {
   font-style: italic;
 }
 
+.pseudo-caption {
+  font-size: .9em;
+  margin: 0 10px;
+}
+
 // Link Styling
 a:link { 
   text-decoration: underline;
   font-weight: bold;
-  color: $deepBlue;
+  color: dodgerBlue;
   padding: 5px 0;
 } 
 a:visited { 
-  color: $deepBlue; 
+  color: dodgerBlue; 
 } 
 a:hover {
   text-decoration:none;

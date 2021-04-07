@@ -6,7 +6,6 @@
   >
     <template v-slot:aboveExplanation>
       <p>Using high-quality manual and station observations of snowpack and streamflow, USGS scientists have conducted important studies on trends in snow chemistry, snowfall, snow cover, snow versus rain<sup>13</sup>, snow water equivalent, snowmelt runoff<sup>14</sup>, and snowmelt timing<sup>12</sup> in the U.S. USGS science has also evaluated the influence of changing climate on hydrological processes and runoff in snowmelt dominated basins<sup>15</sup></p>
-
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
@@ -20,13 +19,13 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        There are lots of ways to measure SWE! Click on any of the images to learn more.
+        Click on the images to learn more about how USGS snow hydrologists measure SWE in the field. 
       </p>
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
        <p>
-        Hydrologists measure snow as the <span class="emph">snow-water equivalent</span> or <span class="emph">SWE</span>, which is the amount of liquid water contained in snowpack. That measurement normalizes between light, fluffy snow and heavy, wet snow, all of which melts down to the same thing - liquid water. The <a
+     The <a
           href="https://www.nrcs.usda.gov/wps/portal/nrcs/site/national/home/"
           target="_blank"
         >Natural Resources Conservation Service (NRCS)</a> operates a snow monitoring program that includes manual snow course measurements as well as over 800 automated <a

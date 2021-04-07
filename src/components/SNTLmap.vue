@@ -1475,6 +1475,22 @@
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
+       <Sidebar>
+        <template v-slot:sidebarTitle>
+          What is a percentile?
+        </template>
+        <template v-slot:sidebarMessage>
+          <p>Percentiles tell us how snow today (in 2021) compares to snow in past years that we have data for. This number can be interpreted as the percent of years that had lower SWE than in 2021. For example, if SWE at a particular SNOTEL site is in the 90th percentile, that means this year's SWE is higher than 90% of years on record for this date.</p>
+        </template>
+      </Sidebar>
+      <Sidebar>
+        <template v-slot:sidebarTitle>
+          When is peak SWE in 2021?
+        </template>
+        <template v-slot:sidebarMessage>
+          <p>Peak SWE has not happened yet for many places in the western U.S. This data is complete up through <span class="emph">April 1st, 2021</span>. We've generated a reproducible data pipline to pull data and reprocess it again this summer after the melt season is over.</p>
+        </template>
+      </Sidebar>
       <p>
         The USGS is undertaking new efforts to advance snow science through both measuring and modeling snowpack and linking these results to streamflow. As a part of the <a
           href="https://www.usgs.gov/mission-areas/water-resources/science/usgs-next-generation-water-observing-system-ngwos?qt-science_center_objects=0#qt-science_center_objects"
@@ -1491,10 +1507,13 @@
 import VizSection from '@/components/VizSection';
 import * as d3Base from "d3";
 import { isMobile } from 'mobile-device-detect';
+import Sidebar from '@/components/Sidebar';
+
 export default {
     name: "SNTLmap",
     components:{
-        VizSection
+        VizSection,
+        Sidebar
     },
     data() {
             return {
