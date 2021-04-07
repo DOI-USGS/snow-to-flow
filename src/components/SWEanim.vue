@@ -3,14 +3,16 @@
   <VizSection
     id="firstSection"
     :take-away="true"
-  ><!-- TAKEAWAY TITLE -->
+  >
+    <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
       <h2>Changes in snowmelt have downstream consequences</h2>
     </template>
     <!-- EXPLANATION -->
     <template v-slot:aboveExplanation>
+      <p></p>
       <p>
-        Seasonal snowpack varies widely from place to place, and from year to year<sup>16</sup>. In the Upper Colorado river basin, between 2011 and 2012 there was a two-fold difference in the magnitude of SWE at a selection of sites. This variability in snow had far-reaching effects on the timing and magnitude of snowmelt, and subsequently, water availability. Explore differences in SWE and streamflow at a subset by USGS streamgages in the chart below.
+        Seasonal snowpack varies widely from place to place, and from year to year<sup>16</sup>. In the Upper Colorado river basin, between 2011 and 2012 there was a two-fold difference in the magnitude of SWE at the selected sites, shaping the timing and magnitude of streamflow, and subsequently, water availability. Use the buttons below to explore how differences in snow between two years impact streamflow dynamics measured by USGS streamgages.
       </p>
     </template>
     <!-- FIGURES -->
@@ -139,16 +141,26 @@
       <p>
         Elevation is intertwined with numerous factors like snow persistence, wind redistribution, and slope that drive complex snow-to-flow dynamics from site to site. At higher elevations, fallen snow can be blown over ridges, scouring windward rises or trees, leading to snow accumulating on the leeward side of the ridge. This results in spatial differences in snowpack depth that contribute to variation in snowmelt timing and rates, in addition to other climatic factors.
       </p>
+      <!-- <Sidebar>
+        <template v-slot:sidebarTitle>
+          What is a "water year"?
+        </template>
+        <template v-slot:sidebarMessage>
+          <p>Instead starting the year at Janauary 1, USGS hydrologists mark the start of the <span class="emph">water year</span> on October 1, three months early.  The USGS has been using water years since 1911 to mark the start of hydrologic activity, and use it here because it captures a full snow cycle.</p>
+        </template>
+      </Sidebar> -->
     </template>
   </VizSection>
 </template>
 <script>
 import VizSection from '@/components/VizSection';
 import * as d3Base from "d3";
+// import Sidebar from '@/components/Sidebar';
 export default {
     name: "SWEanim",
     components:{
-        VizSection
+        VizSection,
+        // Sidebar
     },
     data() {
             return {

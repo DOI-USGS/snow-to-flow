@@ -3,11 +3,11 @@
   <VizSection id="diagrams-low">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>Low Snow + Early Melting = Less Flow</h2>
+      <h2>Low snow + early melting = less flow</h2>
     </template>
     <template v-slot:aboveExplanation>
       <p>
-        But in some years, there’s not much snow accumulation at all.  If those years also face an early, warm spring, the snowmelt season releases liquid meltwater slowly and gradually. Melting this way means that the slow trickle of melt can be absorbed by the soil, which slows down meltwater on its journey over and through the soil towards streams. It may even mean that the water availability for the year is reduced.
+        But in some years, a combination of low SWE accumulation, warmer and earlier spring, and dry soils can lead to a greatly reduced flow and water availability.
       </p>
     </template>
     <!-- FIGURES -->
@@ -21,13 +21,7 @@
       </p>
     </template>
     <!-- EXPLANATION -->
-    <template v-slot:belowExplanation>
-      <p>
-        What’s worse is that slower snowmelt risks losing even more of its flow volume to plant uptake and soil absorption<sup>10</sup>. Drier soils can lead to less water for plants, which can set up conditions that increase the risk of <a
-          href="https://labs.waterdata.usgs.gov/visualizations/fire-hydro/index.html#/"
-          target="_blank"
-        >wildfire</a>. Plus, dry soils set the stage for the next year, making it harder for snow to turn into flow. 
-      </p>
+    <template v-slot:belowExplanation>      
       <p>
         Studying all these dynamics across multiple ecosystems in the west is a huge task, but even that list isn’t complete.  In addition to soil saturation, snowpack thickness, and melt timing, there are lots of other factors that impact how snow turns into flow, such as:  
       </p>
@@ -70,15 +64,23 @@
       </Sidebar>
       <Sidebar>
         <template v-slot:sidebarTitle>
-          Vegetation and Wind
+          Wind
         </template>
         <template v-slot:sidebarMessage>
           <p>Vegetation and wind patterns matter too. Snow fall can be intercepted by trees and then sublimated, reducing the on the ground total snowpack. Fallen snow can also be blown over ridges, scouring windward rises or trees, and accumulating on the leeward side of the ridge. These spatial differences in snowpack depth can result in different snowmelt timing and rates, in addition to other climatic factors<sup>12</sup>.</p>
         </template>
       </Sidebar>
-      <p>
-        All of these factors intertwine to determine how much meltwater will become available to use downstream.  Understanding the math behind it all is an enormous task, but it’s one that the USGS is intensely focused on given its implications for human and ecological life.
-      </p>
+      <Sidebar>
+        <template v-slot:sidebarTitle>
+          Vegetation
+        </template>
+        <template v-slot:sidebarMessage>
+          <p>Snow fall can be intercepted by trees and then sublimated, reducing the on the ground total snowpack. Lower, slower, and earlier snowmelt can also mean that more meltwater is lost to plant uptake and soil absorption<sup>10</sup>. Drier soils can lead to less water for plants, which can set up conditions that increase the risk of <a
+          href="https://labs.waterdata.usgs.gov/visualizations/fire-hydro/index.html#/"
+          target="_blank"
+        >wildfire</a>.</p>
+        </template>
+      </Sidebar>
     </template>
   </VizSection>
 </template>

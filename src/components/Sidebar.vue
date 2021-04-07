@@ -61,12 +61,12 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-$deepBlue: #0962b2; //#005AA3;
+$deepBlue: #00478F; //#005AA3;
 $familyMain: 'Public sans', sans-serif;
 .sidebar{
     display: flex;
-    flex-direction: column;
-    margin-top: 15px;
+    flex-direction: row;
+    margin: 15px 20px;
     transition: width 2s, height 2s, transform 2s;
     will-change: width;
     background: $deepBlue;
@@ -105,10 +105,6 @@ $familyMain: 'Public sans', sans-serif;
 .message{
     background: #fff;
     padding: 10px;
-    p{
-        margin: 0;
-        padding: 0;
-    }
 }
 .collapsed{
     .message{

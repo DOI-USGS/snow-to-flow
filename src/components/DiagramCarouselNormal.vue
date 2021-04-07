@@ -12,15 +12,15 @@
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/diagrams/Diagrams_normal-winter.jpg"
+              srcset="@/assets/diagrams/Diagram_typical-winter.jpg"
               media="(max-width: 992px)"
               type="image/jpg"
             >
             <img 
               id="diagram-normal-winter"
-              v-img="{group: 'diagram-normal', title: 'Caption about winter in a normal snow year'}"
+              v-img="{group: 'diagram-normal', title: 'A Typical Winter: Soil saturation sets the stage for the coming snow season - whether it was wet or dry the year before determines how saturated it is.  Around October, snow begins to fall and SWE begins to accumulate. Especially in high elevations, snowpacks can be several feet thick and store several inches worth of water.'}"
               class="sliderImage"
-              src="@/assets/diagrams/Diagram_normal-winter.jpg"
+              src="@/assets/diagrams/Diagram_typical-winter.jpg"
               alt="Diagram of a mountain watershed covered in snow in winter"
               loading="lazy"
             >
@@ -33,15 +33,15 @@
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/diagrams/Diagram_normal-spring.jpg"
+              srcset="@/assets/diagrams/Diagram_typical-spring.jpg"
               media="(max-width: 992px)"
               type="image/jpg"
             >
             <img 
-              id="diagram-normal-early-spring"
-              v-img="{group: 'diagram-normal', title: 'Caption about spring in a normal snow year'}"
+              id="diagram-normal-spring"
+              v-img="{group: 'diagram-normal', title: 'A Typical Spring:  At some point, snowpack SWE reaches its peak and then tips downward as the snow begins to melt.  The date of peak SWE determines the melt timing, and the melt duration measures how long it takes for all the snow to melt from that peak.'}"
               class="sliderImage"
-              src="@/assets/diagrams/Diagram_normal-spring.jpg"
+              src="@/assets/diagrams/Diagram_typical-spring.jpg"
               alt="Diagram of a mountain watershed covered in snow in early spring"
               loading="lazy"
             >
@@ -53,15 +53,15 @@
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/diagrams/Diagram_normal-summer.jpg"
+              srcset="@/assets/diagrams/Diagram_typical-summer.jpg"
               media="(max-width: 992px)"
               type="image/png"
             >
             <img 
-              id="diagram-normal-late-spring"
-              v-img="{group: 'diagram-high', title: 'Caption about summer in a normal snow year'}"
+              id="diagram-normal-summer"
+              v-img="{group: 'diagram-normal', title: 'A Typical Summer: During the melt season, soils soak up some of the meltwater, but not all of it. The rest moves quickly over and through the soil, filling streams with a surge of water that can be captured in reservoirs downstream.  For many places in the Western U.S., this meltwater makes up the majority of their water budget for the year.'}"
               class="sliderImage"
-              src="@/assets/diagrams/Diagram_normal-summer.jpg"
+              src="@/assets/diagrams/Diagram_typical-summer.jpg"
               alt="Diagram of a mountain watershed covered in snow in late spring"
               loading="lazy"
             >

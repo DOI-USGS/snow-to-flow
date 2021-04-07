@@ -20,7 +20,7 @@
             >
             <img 
               id="diagram-high-winter"
-              v-img="{group: 'diagram-high', title: 'Soil saturation is determined by the years prior.  If soil saturation is good, it sets the stage for a high snow year to mean lots of water availability.'}"
+              v-img="{group: 'diagram-high', title: 'A High Snow Winter: If soils are not dried out by previous years of drought and lots of snow begins to accumulate, the stage is set for a year with lots of meltwater availability.'}"
               class="sliderImage"
               src="@/assets/diagrams/Diagram_high-winter.jpg"
               alt="A diagram of a watershed with snowy mountain tops."
@@ -41,7 +41,7 @@
             >
             <img 
               id="diagram-high-spring"
-              v-img="{group: 'diagram-high', title: 'Caption about spring in a high snow year'}"
+              v-img="{group: 'diagram-high', title: 'A High Snow Spring: In a high snow year, SWE continues to accumulate late into the spring as temperatures stay cold.  Usually, high SWE goes hand-in-hand with a late melt date, since both are a result of temperatures staying cold late into the spring. The later the peak snowpack day occurs, the more likely it is that the snow will melt all at once in a rapid surge.'}"
               class="sliderImage"
               src="@/assets/diagrams/Diagram_high-spring.jpg"
               alt="Diagram of a mountain watershed covered in snow in early spring"
@@ -61,7 +61,7 @@
             >
             <img 
               id="diagram-high-summer"
-              v-img="{group: 'diagram-high', title: 'Caption about summer in a high snow year'}"
+              v-img="{group: 'diagram-high', title: 'A High Snow Summer: A late, large melt combined with good soil saturation means that the resulting surge of stream flow can be enormous. Even dry soils might not be able to absorb all the meltwater, and there can be flooding. But much of the water can be captured in reservoirs to provide lots of water for the rest of the year.'}"
               class="sliderImage"
               src="@/assets/diagrams/Diagram_high-summer.jpg"
               alt="Diagram of a mountain watershed covered in snow in the summer."
@@ -119,15 +119,18 @@
   position: relative;
 }
   #captionArea{
-    background: rgb(0,0,0);
-    background: rgba(0,0,0,.5);
+    background: rgba(255,255,255,1);
     position: absolute;
     width: 100%;
     bottom: 0;
     z-index: 9000;
     text-align: left;
-    padding: 30px 10px;
-    color: #fff;
+    padding: 50px 10px;
+    color: black;
+    @media screen and (max-width: 600px) {
+      padding: 20px 10px;
+      font-size: .9em;
+    }
     .caption{
       margin: 0 auto;
       max-width: 700px;
