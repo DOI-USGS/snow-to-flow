@@ -1465,10 +1465,10 @@
     <template v-slot:belowExplanation>
       <Sidebar>
         <template v-slot:sidebarTitle>
-          But peak SWE hasn't happened yet in some places.
+          When is peak SWE?
         </template>
         <template v-slot:sidebarMessage>
-          <p>This data is complete up through <span class="emph">April 1st, 2021</span>, which means that in many places in the west, peak SWE has not happened yet.  We've generated a reproducible data pipline to pull data and reprocess it again this summer after the melt season is over.</p>
+          <p>This data is complete up through <span class="emph">April 1st, 2021</span>.  That means peak SWE has not happened yet for many places in the western U.S.  We've generated a reproducible data pipline to pull data and reprocess it again this summer after the melt season is over.</p>
         </template>
       </Sidebar>
       <p>
