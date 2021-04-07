@@ -32,7 +32,7 @@
     <Chapter
       v-if="checkIfSplashIsRendered"
       id="chapter1"
-      image="chapter5"
+      image="chapter4"
       alt="An image of snowpack with wind-swept ripples on top, faded into the background to serve as a backdrop for the section title."
       :height="50"
     >

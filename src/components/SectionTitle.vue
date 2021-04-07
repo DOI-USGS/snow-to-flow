@@ -103,7 +103,7 @@ picture{
     position: absolute;
     width: 100%;
     height: 100%;
-    background: #00478F;
+    background: black;
     opacity: var(--overlay-opacity);
     top:0;
     left: 0;
