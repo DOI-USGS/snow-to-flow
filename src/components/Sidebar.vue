@@ -61,7 +61,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-$deepBlue: dodgerBlue; //#005AA3;
+$deepBlue: #00478F; //#005AA3;
 $familyMain: 'Public sans', sans-serif;
 .sidebar{
     display: flex;

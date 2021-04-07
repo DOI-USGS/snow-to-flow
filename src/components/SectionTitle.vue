@@ -103,7 +103,7 @@ picture{
     position: absolute;
     width: 100%;
     height: 100%;
-    background: #fff;
+    background: #00478F;
     opacity: var(--overlay-opacity);
     top:0;
     left: 0;
@@ -121,10 +121,7 @@ picture{
       height: 100%;
     }
     
-    // background-image: var(--bg-image);
-    // background-position: center;
-    // background-size: cover;
-    // background-repeat: no-repeat;
+ 
 }
 .chapterTitle{
     position: relative;
@@ -133,10 +130,9 @@ picture{
     font-size:clamp(1.5em, 7vw, 5em);
     // font-style: italic;
     font-weight: 800;
-    color: $darkGrey;
+    color: white;
     padding: 0 20px;
     text-align: center;
     max-width: 960px;
-    text-shadow: 1px 1px 80px rgba(255,255,255,1);
 }
 </style>
