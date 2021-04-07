@@ -211,6 +211,8 @@ export default {
     data() {
             return {
               isActive: false,
+              flowActive: true,
+              sweActive: true,
               title: process.env.VUE_APP_TITLE,
               publicPath: process.env.BASE_URL,
               d3: null,
@@ -448,10 +450,43 @@ export default {
 
       },
       showSWE(){
+        if (this.sweActive == true){
+          this.sweActive = false;
+
+          this.d3.selectAll(".ridge.swe")
+          .transition()
+          .delay(100)
+          .duration(300)
+          .attr("opacity", 0)
+        } else if (this.sweActive == false){
+          this.sweActive = true;
+
+          this.d3.selectAll(".ridge.swe")
+          .transition()
+          .delay(100)
+          .duration(300)
+          .attr("opacity", 1)
+        }
 
       },
       showFlow(){
+          if (this.sweActive == true){
+          this.sweActive = false;
 
+          this.d3.selectAll(".ridge.mmd")
+          .transition()
+          .delay(100)
+          .duration(300)
+          .attr("opacity", 0)
+        } else if (this.sweActive == false){
+          this.sweActive = true;
+
+          this.d3.selectAll(".ridge.mmd")
+          .transition()
+          .delay(100)
+          .duration(300)
+          .attr("opacity", 1)
+        }
       },
       changePos(){
         const self = this;
