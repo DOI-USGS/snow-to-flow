@@ -9,6 +9,12 @@
       <p>
         As temperatures are warming and snow is starting to melt, the western U.S. is entering an important phase in their water cycle. Looking at this year's snow - and how it turns into flow - can tell us a lot about water availability in the coming summer and fall. 
       </p>
+      <p class="italic">
+        Select sites on the map to see the full SWE timeseries from the 2021 water year in addition to the magnitude (peak SWE) and timing (SM50) of snow since 1981.
+      </p>
+      <p class="italic">
+        Mouseover sites on the map to see the full SWE timeseries from the 2021 water year in addition to the magnitude (peak SWE) and timing (SM50) of snow since 1981.
+      </p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
@@ -1463,6 +1469,14 @@
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
+       <Sidebar>
+        <template v-slot:sidebarTitle>
+          What is a percentile?
+        </template>
+        <template v-slot:sidebarMessage>
+          <p>Percentiles tell us how snow today (in 2021) compares to snow in past years that we have data for. This number can be interpreted as the percent of years that had lower SWE than in 2021. For example, if SWE at a particular SNOTEL site is in the 90th percentile, that means this year's SWE is higher than 90% of years on record for this date.</p>
+        </template>
+      </Sidebar>
       <Sidebar>
         <template v-slot:sidebarTitle>
           When is peak SWE in 2021?
