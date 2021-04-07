@@ -813,7 +813,7 @@ input[name="checkboxgroup1"] {
         }
          input[name="checkboxgroup1"]+label {
             /* style passive state as you like */
-            border: 2px solid transparent;
+            border: 0px solid transparent;
             color: black;
             font-weight: 400;
         }
