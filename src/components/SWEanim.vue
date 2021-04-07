@@ -324,8 +324,8 @@ export default {
 
         // set chart - separate for each year, using 2011 for max values to set the scales
         //  first draw is MMD
-        self.initRidges(this.svgboth, 'ridge_2011', data.mmd11, data.days, 0, x_long, 0, this.height/2);
-        self.initRidges(this.svgboth, 'ridge_2012', data.mmd12, data.days, 0, x_long, this.height/2,  this.height);
+        self.initRidges(this.svgboth, 'ridge_2011', data.mmd11, data.days, 0, x_long, 0, this.height/2-10);
+        self.initRidges(this.svgboth, 'ridge_2012', data.mmd12, data.days, 0, x_long, this.height/2+10,  this.height);
 
       },
       initRidges(svg, ridge_class, data_nest, days, x_start, x_end,  y_start, y_end){
@@ -528,7 +528,7 @@ export default {
       toTiming(){
         const self = this;
         
-        // fade in y axis
+        // fade in y axis if coming from elevation
         self.transFade(this.d3.selectAll("g.yaxis g"), 300, 500, 1)
 
         // make sure ridges are stacked flat
@@ -550,11 +550,11 @@ export default {
         this.fast.transition().delay(100).duration(300).attr("opacity",1)
 
         // transform axes
-        self.transAxis(this.x11, 350, 300, self.xAxis, 0, this.height/2, 1, 1)
+        self.transAxis(this.x11, 350, 300, self.xAxis, 0, this.height/2-10, 1, 1)
         self.transAxis(this.x12, 250, 500, self.xAxis, 0, this.height, 1, 1)
-        self.transAxis(this.y11_swe, 350, 300, self.yAxis_swe, 0, -this.height/2, 1, 1)
+        self.transAxis(this.y11_swe, 350, 300, self.yAxis_swe, 0, -this.height/2-10, 1, 1)
         self.transAxis(this.y12_swe, 250, 500, self.yAxis_swe, 0, 0, 1, 1)
-        self.transAxis(this.y11_mmd, 350, 300, self.yAxis_mmd, this.width-75, -this.height/2, 1, 1)
+        self.transAxis(this.y11_mmd, 350, 300, self.yAxis_mmd, this.width-75, -this.height/2-10, 1, 1)
         self.transAxis(this.y12_mmd, 250, 500, self.yAxis_mmd, this.width-75, 0, 1, 1)
 
         // stretch ridges to full x and y extent
@@ -590,7 +590,7 @@ export default {
           .transition()
           .delay(function(d,i) { return i*15 })
           .duration(1100)
-          .attr("transform", "translate(0," + (this.height/2) + ")" )
+          .attr("transform", "translate(0," + (this.height/2+10) + ")" )
 
         this.ridge11
         .transition()
@@ -611,12 +611,12 @@ export default {
         // y mmd
         var y_mmd = this.d3.scaleLinear()
           .domain([30, 0]).nice()
-          .range([this.height/2, this.height])
+          .range([this.height/2+10, this.height])
 
           // y swe
         var y_swe = this.d3.scaleLinear()
           .domain([1100, 0]).nice()
-          .range([this.height/2, this.height])
+          .range([this.height/2+10, this.height])
 
       // mmd axes
         var y_mmd_low = g => g
@@ -628,21 +628,13 @@ export default {
           .attr("transform", `translate(${0},0)`)
           .call(this.d3.axisLeft(y_swe).tickSize(0).tickPadding(4).tickValues([0, 250, 500, 750, 1000]))
         
-        // move labels
-        //self.transPosition(self.lowlabel, 600, 800, 310, -50, 1,1)
-        //self.transPosition(self.highlabel, 700, 700, 80, 40, 1, 1)  
         self.transFade(this.d3.selectAll("g.yaxis g"), 300, 500, 1)
 
          // transform axes
         self.transAxis(this.y11_mmd, 450, 500, y_mmd_low, this.width-75,0, 1, 1)
-        self.transAxis(this.y12_mmd, 450, 500, y_mmd_low,this.width-75, 0,1, 1)
+        self.transAxis(this.y12_mmd, 450, 500, y_mmd_low, this.width-75, 0,1, 1)
         self.transAxis(this.y11_swe, 450, 500, y_swe_low, 0, 0, 1, 1)
         self.transAxis(this.y12_swe, 450, 500, y_swe_low, 0, 0, 1, 1) 
-
-
-/*         this.y11_mmd.transition().duration(100).attr("opacity", 0)
-         this.y12_mmd.transition().duration(100).attr("opacity", 0) */
-
 
         this.lowlabel.transition().delay(100).duration(300).attr("opacity",1)
         this.highlabel.transition().delay(100).duration(300).attr("opacity",1)
