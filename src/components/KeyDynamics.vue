@@ -1,10 +1,7 @@
 <template>
   <!---VizSection-->
-  <VizSection id="diagrams-normal">
-    <!-- TAKEAWAY TITLE -->
-    <template v-slot:takeAway>
-      <h2>Key Dynamics</h2>
-    </template>
+  <VizSection id="diagrams-normal"
+      :take-away="false">
     <template v-slot:aboveExplanation>
       <p>Spring snowmelt affects water availability and streamflow for the rest of the year. Consider the following dynamics that are critical to understanding how water moves through the watershed, contributes to streamflow, and ultimately becomes available for use:</p>
       <Sidebar>
