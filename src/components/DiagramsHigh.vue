@@ -7,12 +7,7 @@
     </template>
     <template v-slot:aboveExplanation>
       <p>
-        When scientists observe a large <span class="emph">snowpack magnitude</span>, a late <span class="emph">melt timing</span> 
-        and short <span class="emph">melt duration</span>, they mark that as a high snow year.  The later the peak snowpack day occurs, 
-        the more likely it is that the snow will melt all at once in a rapid surge. When these dynamics line up, it's a good 
-        estimation that there will be a good amount of <span class="emph">flow</span> to provide good water available for the 
-        rest of the year, even if the <span class="emph">soil saturation</span> soaks up some of the water. Even dry soils aren’t 
-        able to absorb all the meltwater, and there can even be spring flooding.  
+        Scientists have observed that in years with lots of water availability, the snow dynamics line up to produce a huge surge of flow during the spring melt.
       </p>
     </template>
     <!-- FIGURES -->
