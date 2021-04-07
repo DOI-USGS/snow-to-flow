@@ -1456,21 +1456,14 @@
         </div>
       </div>
     </template>
-    <Sidebar>
-        <template v-slot:sidebarTitle>
-          What is a percentile?
-        </template>
-        <template v-slot:sidebarMessage>
-          <p>P Percentiles tell us how snow today (in 2021) compares to snow in past years that we have data for. This number can be interpreted as the percent of years that had lower SWE than in 2021. For example, if SWE is in the 90th percentile, it is higher than 90% of years on record for this date.</p>
-        </template>
-      </Sidebar>
+    
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p id="explain-bottom">
         The map shows April 1st snow as a percentile of this date in the historic record (1981-2010). Snow is quantified as the daily snow-water equivalent (SWE) at  <a
           href="https://www.wcc.nrcs.usda.gov/snow/"
           target="_blank"
-        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the western U.S.</a>. The left chart shows SWE in the current water year (2021) to date, with points indicating peak SWE in 2021 (purple) and the melt date (yellow). The panels on the right show peak SWE and the melt date (SM50) for all years with data at a given site.
+        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the western U.S.</a>. The left chart shows SWE in the current water year (2021) to date. The panels on the right show peak SWE and the melt date (SM50) for all years with data at a given site.
       </p>
     </template>
     <!-- EXPLANATION -->
@@ -1663,7 +1656,7 @@ export default {
       // melt mini
        var ymelt = this.d3.scaleLinear()
           .range([100, 10])
-          .domain([50, 300]);
+          .domain([0, 350]);
 
         this.d3.select("svg#melt-svg")
           .append("g")
@@ -1974,7 +1967,7 @@ export default {
 
           var g = this.d3.select("svg#legend-percentile").append("g")
           .classed("thresh-legend", true).call(xAxis)
-          .attr("transform", "translate(" + (110) + "," + 40 + ")");
+          .attr("transform", "translate(" + (20) + "," + 45 + ")");
 
 
           g.select(".domain").remove();
@@ -2008,21 +2001,21 @@ export default {
 
                   g.append("text")
                   .attr("fill", "#000")
-                  .attr("font-size", "3.8em")
+                  .attr("font-size", "2em")
                   .attr("font-weight", "bold")
                   .attr("text-anchor", "start")
-                  .attr("x", -100)
-                  .attr("y", 0)
-                  .text("2021");
+                  .attr("x", 0)
+                  .attr("y", -30)
+                  .text("Snow this year");
 
                   g.append("text")
                   .attr("fill", "#000")
-                  .attr("font-size", "3.2em")
+                  .attr("font-size", "2em")
                   .attr("font-weight", "bold")
                   .attr("text-anchor", "start")
                   .attr("x", -100)
-                  .attr("y", 25)
-                  .text("snow");
+                  .attr("y", -25)
+                  .text("");
 
        // set color for both maps using the same color scale
        this.sntl_sites.selectAll("circle.SNTL")
