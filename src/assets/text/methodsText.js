@@ -6,13 +6,13 @@ export default {
         id: "ref-methods",
         subTitle: "SWE and streamflow ridgelines",
         reference:
-          "The ridgeline charts show data from a selection of USGS GAGES-2 locations in the Upper Colorado River Basin that are part of NGWOS monitoring and modeling efforts in the region. For each location, SWE values are sourced from [CN needs to ask John about these details] and discharge data came from  NWIS instantaneous streamflow measurements at each site, multiplied by drainage area. See the code that pulls this data here: [CN still needs to add this to the github repo] <a href='https://www.google.com' target='_blank'>Test Link</a>",
+          "The ridgeline charts show data from a selection of USGS GAGES-2 locations in the Upper Colorado River Basin that are part of NGWOS monitoring and modeling efforts in the region. Daily 4 km gridded SWE values were obtained for the 2011 and 2012 water years at each location from the <a href='https://nsidc.org/data/NSIDC-0719/versions/1' target='_blank'>National Snow & Ice Data Center</a>. Streamflow was obtained from the <a href='https://waterdata.usgs.gov/nwis?' target='_blank'>USGS National Water Information System</a>.",
       },
       {
         id: "ref-april-1-map",
         subTitle: "Mapping SNOTEL sites",
         reference:
-          "April 1st SWE, peak SWE, and SM50 measurements are derived from snow telemetry (SNOTEL) data provided by the USDA NRCS. This map shows all SNOTEL sites that were active as of 03/22/2021 (n = 835) with site color indicating April 1st SWE as the percentile of the historic record (from 1981 to 2010 ) for the subset of sites with a minimum of 20 years of data in the historical record (n = 533). Unfilled circles indicate currently active sites that lack this historic record for comparison (n = ). 	On mouseover, the site-level line charts that appear show peak SWE and SM50 for every year that had data available starting with 1981. <a href='https://www.google.com' target='_blank'>See the code</a> behind this map.",
+          "April 1st SWE, peak SWE, and SM50 measurements are derived from snow telemetry (SNOTEL) data provided by the <a href='https://www.wcc.nrcs.usda.gov/snow/' target='_blank'>USDA NRCS</a>. This map shows all SNOTEL sites that were active as of 04/05/2021 (n = 835) with site color indicating April 1st SWE as the percentile of the historic record (from 1981 to 2010 ) for the subset of sites with a minimum of 20 years of data in the historical record (n = 533). Unfilled circles indicate currently active sites that lack this historic record for comparison. 	On mouseover, the site-level line charts that appear show peak SWE and SM50 for every year that had data available starting with 1981. <a href='https://github.com/USGS-VIZLAB/snow-to-flow/blob/main/data_processing_pipeline/6_visualize/src/make_map.R' target='_blank'>See the code</a> behind this map.",
       }
     ],
   },

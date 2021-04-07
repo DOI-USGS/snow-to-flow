@@ -12,7 +12,6 @@
           href="https://wcc.sc.egov.usda.gov/nwcc/site?sitenum=838"
           target="_blank"
         >University Camp SNOTEL Site 838</a> in Boulder Colorado shows a significant difference in snowpack from the winter of 2011 - a big year for snow.  However, 2012 was a very low snow year, with some early intermittent melting.
-        
       </p>
     </template>
     <template v-slot:figures>
