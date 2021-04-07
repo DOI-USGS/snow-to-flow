@@ -408,7 +408,7 @@ export default {
           .attr("class", function(d) { return d.key })
           .classed("ridge", true)
           .classed("mmd", true);
-
+console.log(data_nest)
          // draw SWE curves
         this.group.append("path")
           .attr("fill", "none")
@@ -419,7 +419,15 @@ export default {
           .attr("opacity", 0.7)
           .attr("class", function(d) { return d.key })
           .classed("ridge", true)
-          .classed("swe", true);
+          .classed("swe", true)
+          .on("mouseover", function(data_nest) {
+            self.hover(data_nest);
+            console.log(data_nest)
+          })
+          .on("mouseout", function(data_nest){
+            self.hoverOut(data_nest);
+          })
+
 
         this.y2011 = this.svgboth.selectAll("g.ridge_2011") // ridge group
         this.y2012 = this.svgboth.selectAll("g.ridge_2012")
@@ -446,6 +454,38 @@ export default {
         this.highel.transition().duration(0).attr("opacity",0)
         this.slow.transition().duration(0).attr("opacity",1)
         this.fast.transition().duration(0).attr("opacity",1)
+
+      },
+      hover(data){
+         const self = this;
+
+          self.d3.selectAll('g.curve path.mmd.' + data.key)
+            .transition()
+            .duration(50)
+            .attr('stroke-width', "2px")
+            .attr('stroke', "blue");
+
+            self.d3.selectAll('g.curve path.swe.' + data.key)
+            .transition()
+            .duration(50)
+            .attr('stroke-width', "2px")
+            .attr('stroke', "black")
+
+      },
+      hoverOut(data){
+         const self = this;
+
+          self.d3.selectAll('g.curve path.mmd.' + data.key)
+            .transition()
+            .duration(50)
+            .attr("stroke-width", "1px")
+            .attr("stroke", this.color_mmd);
+
+                 self.d3.selectAll('g.curve path.swe.' + data.key)
+            .transition()
+            .duration(50)
+            .attr("stroke-width", "1px")
+            .attr("stroke", this.color_swe);
 
       },
       showSWE(){

@@ -1759,14 +1759,6 @@ export default {
         .attr("x", 30)
         .text("Hover over a site");
 
-        
-        // add hover effect to all sites
-        this.d3.select("svg#wy21-svg")
-          .on("mouseover", function(data) {
-          })
-          .on("mouseout", function(data){
-          }) 
-
 
       },
 
@@ -1821,10 +1813,6 @@ export default {
             self.hover(data, self.site_radius*2, "orchid");
             self.d3.select("text.hover_info").remove()
           })
-         /*  .on("click", function(data) {
-            self.hover(data, self.site_radius*2, "orchid");
-            self.d3.select("text.hover_info").remove()
-          }) */
           .on("mouseout", function(data){
             self.hoverOut(data, self.site_radius);
             //hover/click prompt
