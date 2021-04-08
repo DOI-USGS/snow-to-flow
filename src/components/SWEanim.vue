@@ -401,7 +401,7 @@ export default {
         this.group.append("path")
           .attr("stroke", this.color_mmd)
           .attr("fill", "transparent")
-          .attr("stroke-opacity", .3)
+          .attr("stroke-opacity", .5)
           .attr("d", d => this.line_mmd(d.mmd))
           .attr("stroke-width", "1px")
           .attr("class", function(d) { return d.key })
@@ -419,7 +419,7 @@ export default {
         this.group.append("path")
           .attr("stroke", this.color_swe)
           .attr("fill", "transparent")
-          .attr("stroke-opacity", .3)
+          .attr("stroke-opacity", .5)
           .attr("d", d => this.line_swe(d.swe))
           .attr("stroke-width", "1px")
           .attr("class", function(d) { return d.key })
@@ -498,7 +498,7 @@ export default {
             .duration(5)
             .attr("stroke-width", "1px")
             .attr("stroke", this.color_mmd)
-            .attr('stroke-opacity', .3)
+            .attr('stroke-opacity', .5)
             .attr("z-index", -1);
 
         self.d3.selectAll('g.curve path.swe.' + data.key)
@@ -506,21 +506,21 @@ export default {
             .duration(5)
             .attr("stroke-width", "1px")
             .attr("stroke", this.color_swe)
-            .attr('stroke-opacity', .3)
+            .attr('stroke-opacity', .5)
             .attr("z-index", -1);
 
              self.d3.selectAll('g.curve path.mmd')
               .transition()
               .attr("stroke-width", "1px")
               .attr("stroke", this.color_mmd)
-              .attr('stroke-opacity', .3)
+              .attr('stroke-opacity', .5)
               .attr("z-index", -1)
 
             self.d3.selectAll('g.curve path.swe')
               .transition()
               .attr("stroke-width", "1px")
               .attr("stroke", this.color_swe)
-              .attr('stroke-opacity', .3)
+              .attr('stroke-opacity', .5)
 
       },
       showSWE(){
