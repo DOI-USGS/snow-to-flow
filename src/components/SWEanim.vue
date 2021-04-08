@@ -399,8 +399,6 @@ export default {
 
         // draw MMD curves
         this.group.append("path")
-          .attr("fill", this.color_mmd)
-          .attr("fill-opacity", .1)
           .attr("stroke", this.color_mmd)
           .attr("stroke-opacity", .3)
           .attr("d", d => this.line_mmd(d.mmd))
@@ -408,11 +406,9 @@ export default {
           .attr("class", function(d) { return d.key })
           .classed("ridge", true)
           .classed("mmd", true);
-console.log(data_nest)
+
          // draw SWE curves
         this.group.append("path")
-          .attr("fill", this.color_swe)
-          .attr("fill-opacity", .1)
           .attr("stroke", this.color_swe)
           .attr("stroke-opacity", .3)
           .attr("d", d => this.line_swe(d.swe))
@@ -771,13 +767,13 @@ console.log(data_nest)
 
         this.d3.selectAll("g.ridge_2011.curve")
         .transition()
-        .delay(270)
+        .delay(170)
         .duration(500)
         .attr("transform", "translate(0, 0) scale(.49, 1)")
 
          this.d3.selectAll("g.ridge_2012.curve")
         .transition()
-        .delay(250)
+        .delay(150)
         .duration(500)
         .attr("transform", "translate(270, 0) scale(.49, 1)")
 
