@@ -418,7 +418,6 @@ export default {
           .classed("swe", true)
           .on("mouseover", function(data_nest) {
             self.hover(data_nest);
-            console.log(data_nest)
           })
           .on("mouseout", function(data_nest){
             self.hoverOut(data_nest);
@@ -477,7 +476,7 @@ export default {
             .attr("stroke-width", "1px")
             .attr("stroke", this.color_mmd);
 
-                 self.d3.selectAll('g.curve path.swe.' + data.key)
+        self.d3.selectAll('g.curve path.swe.' + data.key)
             .transition()
             .duration(50)
             .attr("stroke-width", "1px")
@@ -796,13 +795,13 @@ $familySerif:  'Noto Serif', serif;
 }
 
 .compare {
-  border: 2px solid black;
+  border: 0px solid black;
   display: inline-block;
   width: 80vw;
   max-width: 600px;
   font-size: 18px;
   text-align: center;
-  padding: 15px 10px;
+  padding: 15px 0px;
   margin: auto;
   position: relative;
   h4{
