@@ -1955,11 +1955,12 @@ export default {
 
           var x = this.d3.scaleLinear()
             .domain([0, 1])
-            .range([0, 190]);
+            .range([0, 250]);
 
             var xAxis = this.d3.axisBottom(x)
               .tickSize(10)
-              .tickValues(self.threshold.domain());
+              .tickValues(self.threshold.domain())
+              .tickFormat(function(d) { return d*100 + '%' });
 
           var g = this.d3.select("svg#legend-percentile").append("g")
           .classed("thresh-legend", true).call(xAxis)
