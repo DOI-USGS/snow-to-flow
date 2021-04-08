@@ -5,7 +5,7 @@
         From Snow to Flow
       </h1>
       <h2 id="subtitle">
-        What changing snowmelt means for western water
+        What changing snowmelt means for Water in the Western U.S.
       </h2>
       <!--  <p>U.S. Geological Survey, Water Mission Area</p> -->
     </div>
@@ -235,11 +235,11 @@ export default {
                                 scrub: true
                             }
                         })
-                        .fromTo("#more-clouds", {yPercent: 2}, {yPercent: -40}, 0)
-                        .fromTo("#clouds", {yPercent: 20}, {yPercent: -10}, 0)
+                        .fromTo("#more-clouds", {yPercent: 50}, {yPercent: -40}, 0)
+                        .fromTo("#clouds", {yPercent: 30}, {yPercent: -10}, 0)
                         .fromTo("#people", {yPercent: 17}, {yPercent: -11}, 0)
                         .fromTo("#water", {yPercent: 15}, {yPercent: -10}, 0)
-                        .fromTo("#mountains", {yPercent: 0}, {yPercent: -2}, 0)
+                        .fromTo("#mountains", {yPercent: 25}, {yPercent: 0}, 0)
                     },
                     "(min-width: 2620px)": function(){
                         self.$gsap.timeline({
@@ -290,7 +290,7 @@ $familySerif:  'Noto Serif', serif;
     }
     h1, h2, p{
         color: #fff;
-        margin: auto;
+        margin: 10px auto;
     } 
     p{
         padding-top: 10px;

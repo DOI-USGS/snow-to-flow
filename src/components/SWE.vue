@@ -25,7 +25,7 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        SWE at the University Camp SNOTEL Site (in grey) and Flow measured at a gage downstream (in blue) for 2011 and 2012.
+        Water years 2011 (high snow) and 2012 (low snow) comparing snow (as SWE) and flow (as discharge, mm per day)
       </p>
     </template>
   </VizSection>
