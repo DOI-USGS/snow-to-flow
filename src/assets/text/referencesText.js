@@ -48,7 +48,7 @@ export default {
       },
       {
         reference:
-          "12. exstone, G. A. et al. Spatial Variability in Seasonal Snowpack Trends across the Rio Grande Headwaters (1984–2017). J. Hydrometeorol. 21, 2713–2733 (2020).",
+          "12. Sexstone, G. A. et al. Spatial Variability in Seasonal Snowpack Trends across the Rio Grande Headwaters (1984–2017). J. Hydrometeorol. 21, 2713–2733 (2020).",
       },
       {
         reference:

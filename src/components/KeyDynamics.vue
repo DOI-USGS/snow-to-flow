@@ -11,7 +11,7 @@
           Soil Saturation
         </template>
         <template v-slot:sidebarMessage>
-          <p><span class="emph">Soil saturation</span> is a measure of how dry the soil is.  It depends on whether it was wet or dry the year before, and sets the stage for the next snow and melt season.</p>
+          <p><span class="emph">Soil saturation</span> is a measure of how dry the soil is.  It depends on whether it was wet or dry the year before, and sets the stage for the next snow and melt season. This measurement ranges from 0 to 1.</p>
           <!-- <p>Units are <span class="emph">UNITS</span></p> -->
         </template>
       </Sidebar>
