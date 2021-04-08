@@ -228,30 +228,53 @@
           <text
             transform="translate(185 95)"
           >High Peak SWE</text>
-          <circle class="swe" cx="287" cy="96" r="5.5"/>
+          <circle
+            class="swe"
+            cx="287"
+            cy="96"
+            r="5.5"
+          />
         </g>
         <g class="annotation swe swe-cb swe-annotation-2011">
           <text
             transform="translate(240 200)"
           >Late SM50</text>
-          <circle class="swe" cx="315" cy="200" r="5.5"/>
+          <circle
+            class="swe"
+            cx="315"
+            cy="200"
+            r="5.5"
+          />
         </g>
 
         <g class="annotation swe swe-cb swe-annotation-2012">
           <text
             transform="translate(445 240)"
           >Low Peak SWE</text>
-          <circle class="swe" cx="549" cy="241" r="5.5"/>
+          <circle
+            class="swe"
+            cx="549"
+            cy="241"
+            r="5.5"
+          />
         </g>
         <g class="annotation swe swe-cb swe-annotation-2012">
           <text
             transform="translate(520 270)"
           >Early SM50</text>        
-          <circle class="swe" cx="597" cy="272" r="5.5"/>
+          <circle
+            class="swe"
+            cx="597"
+            cy="272"
+            r="5.5"
+          />
         </g>
         
       </g>
-      <g id="discharge-annotations" class="discharge-cb">
+      <g
+        id="discharge-annotations"
+        class="discharge-cb"
+      >
         <text
           class="annotation discharge discharge-annotation-2011"
           transform="translate(330 93)"
