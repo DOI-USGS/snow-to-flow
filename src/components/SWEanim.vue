@@ -400,22 +400,32 @@ export default {
         // draw MMD curves
         this.group.append("path")
           .attr("stroke", this.color_mmd)
+          .attr("fill", "transparent")
           .attr("stroke-opacity", .3)
           .attr("d", d => this.line_mmd(d.mmd))
           .attr("stroke-width", "1px")
           .attr("class", function(d) { return d.key })
           .classed("ridge", true)
-          .classed("mmd", true);
+          .classed("mmd", true)
+          .attr('pointer-events', 'visibleStroke')
+          .on("mouseover", function(data_nest) {
+            self.hover(data_nest);
+          })
+          .on("mouseout", function(data_nest){
+            self.hoverOut(data_nest);
+          });
 
          // draw SWE curves
         this.group.append("path")
           .attr("stroke", this.color_swe)
+          .attr("fill", "transparent")
           .attr("stroke-opacity", .3)
           .attr("d", d => this.line_swe(d.swe))
           .attr("stroke-width", "1px")
           .attr("class", function(d) { return d.key })
           .classed("ridge", true)
           .classed("swe", true)
+          .attr('pointer-events', 'visibleStroke')
           .on("mouseover", function(data_nest) {
             self.hover(data_nest);
           })
@@ -454,17 +464,30 @@ export default {
       hover(data){
          const self = this;
 
+          self.d3.selectAll('g.curve path.mmd')
+          .transition()
+            .attr("z-index", -1)
+
+            self.d3.selectAll('g.curve path.swe')
+          .transition()
+            .attr("z-index", -1)
+
+
           self.d3.selectAll('g.curve path.mmd.' + data.key)
             .transition()
-            .duration(50)
+            .duration(5)
             .attr('stroke-width', "2px")
-            .attr('stroke', "blue");
+            .attr('stroke', "darkblue")
+            .attr('stroke-opacity', .8)
+            .attr("z-index", 100);
 
             self.d3.selectAll('g.curve path.swe.' + data.key)
             .transition()
-            .duration(50)
+            .duration(5)
             .attr('stroke-width', "2px")
             .attr('stroke', "black")
+            .attr('stroke-opacity', .8)
+            .attr("z-index", 100);
 
       },
       hoverOut(data){
@@ -472,15 +495,32 @@ export default {
 
           self.d3.selectAll('g.curve path.mmd.' + data.key)
             .transition()
-            .duration(50)
+            .duration(5)
             .attr("stroke-width", "1px")
-            .attr("stroke", this.color_mmd);
+            .attr("stroke", this.color_mmd)
+            .attr('stroke-opacity', .3)
+            .attr("z-index", -1);
 
         self.d3.selectAll('g.curve path.swe.' + data.key)
             .transition()
-            .duration(50)
+            .duration(5)
             .attr("stroke-width", "1px")
-            .attr("stroke", this.color_swe);
+            .attr("stroke", this.color_swe)
+            .attr('stroke-opacity', .3)
+            .attr("z-index", -1);
+
+             self.d3.selectAll('g.curve path.mmd')
+              .transition()
+              .attr("stroke-width", "1px")
+              .attr("stroke", this.color_mmd)
+              .attr('stroke-opacity', .3)
+              .attr("z-index", -1)
+
+            self.d3.selectAll('g.curve path.swe')
+              .transition()
+              .attr("stroke-width", "1px")
+              .attr("stroke", this.color_swe)
+              .attr('stroke-opacity', .3)
 
       },
       showSWE(){
@@ -499,7 +539,7 @@ export default {
           .transition()
           .delay(100)
           .duration(300)
-          .attr("opacity", 0.7)
+          .attr("opacity", 0.5)
         }
 
       },
@@ -519,7 +559,7 @@ export default {
           .transition()
           .delay(100)
           .duration(300)
-          .attr("opacity", 0.7)
+          .attr("opacity", 0.5)
         }
       },
       changePos(){
@@ -782,11 +822,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 $familySerif:  'Noto Serif', serif;
-.gage {
-  color:black;
-  opacity: .6;
 
-}
 .maxWidth {
   width: 90vw;
   margin-left: 5vw;
