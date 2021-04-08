@@ -1,8 +1,48 @@
 <template>
   <div id="compare-chart-container">
+    <div class="compare">
+       <div
+        class="btn-group"
+        data-toggle="buttons"
+      >
+        <h4 class="butt-head">
+          Show: 
+        </h4> 
+        <div class="inputsContainer">
+          <div class="inputs">
+            <input
+              id="cb-swe1"
+              class="butt"
+              type="checkbox"
+              name="checkboxgroup2"
+              checked="true"
+              value="swe"
+              @change="showSWE1"
+            >
+            <label
+              class="butt"
+              for="cb-swe1"
+            >SWE</label>
+            <input
+              id="cb-disch1"
+              class="butt"
+              type="checkbox"
+              name="checkboxgroup1"
+              checked="true"
+              value="flow"
+              @change="showFlow1"
+            >
+            <label
+              class="butt"
+              for="cb-disch1"
+            >Flow</label>
+          </div>
+        </div>
+      </div>
+    </div>    
     <svg
       id="compare-chart"
-      viewBox="0 0 800 400"
+      viewBox="0 0 800 350"
     >
        <defs>
         <mask id="dischargeMask">
@@ -34,10 +74,10 @@
           <line class="axis-tick" x1="231.5" y1="310.3" x2="231.5" y2="315.1"/>
           <line class="axis-tick" x1="564.3" y1="310.3" x2="564.3" y2="315.1"/>
         </g>
-        <text class="axis-label" transform="translate(58.4 330.6)">October</text>
-        <text class="axis-label" transform="translate(391.9 330.6)">October</text>
-        <text class="axis-label" transform="translate(226.2 330.6)">April</text>
-        <text class="axis-label" transform="translate(559.6 330.6)">April</text>
+        <text class="axis-label" transform="translate(58.4 330.6)">Oct</text>
+        <text class="axis-label" transform="translate(391.9 330.6)">Oct</text>
+        <text class="axis-label" transform="translate(226.2 330.6)">Apr 2011</text>
+        <text class="axis-label" transform="translate(559.6 330.6)">Apr 2012</text>
       </g>
       <g id="hash-lines">       
             <line class="hash-line" x1="727" y1="306.4" x2="67" y2="306.4"/>
@@ -76,11 +116,11 @@
       <g id="swe-annotations"
         class="brush"
       >
-        <text class="annotation swe swe-annotation-2011" transform="translate(240 60)">2011<tspan x="-65" y="16.2">High peak SWE,</tspan><tspan x="-102" y="32.4">Late SM50, after April</tspan></text>
-        <text class="annotation swe swe-annotation-2012" transform="translate(530 195)">2012<tspan x="-63" y="16.2">Low peak SWE,</tspan><tspan x="-80" y="32.4">SM50 before April</tspan></text>
+        <text class="annotation swe swe-annotation-2011" transform="translate(260 50)">2011<tspan x="-65" y="16.2">High peak SWE,</tspan><tspan x="-102" y="32.4">Late SM50, after April</tspan></text>
+        <text class="annotation swe swe-annotation-2012" transform="translate(510 195)">2012<tspan x="-63" y="16.2">Low peak SWE,</tspan><tspan x="-80" y="32.4">SM50 before April</tspan></text>
       </g>
       <g id="discharge-annotations">
-          <text class="annotation discharge discharge-annotation-2011" transform="translate(343.6 93)">Large spring melt</text>
+          <text class="annotation discharge discharge-annotation-2011" transform="translate(330 93)">Large spring melt</text>
           <text class="annotation discharge discharge-annotation-2012" transform="translate(614.8 230)">Small spring melt</text>
       </g>
     </svg>
@@ -98,6 +138,8 @@ export default {
    
     data() {
         return {
+            flowIsActive: true,
+            sweIsActive: true,
             publicPath: process.env.BASE_URL, // this is need for the data files in the public folder, this allows the application to find the files when on different deployment roots
             d3: null,
             svg: null, // not sure
@@ -138,7 +180,7 @@ export default {
 
           // Set origins and locations
           this.$gsap.set("#discharge-reveal-rect", {transformOrigin: "100% 0%", width: 0});
-          this.$gsap.set("#swe-reveal-rect", {transformOrigin: "100% 0%"});
+          this.$gsap.set("#swe-reveal-rect", {transformOrigin: "100% 0%", width: 0});
           // this.$gsap.set("#discharge-title", {opacity: 0})
 
           // declare timeline
@@ -146,22 +188,22 @@ export default {
 
           // add animations to the timeline
           // first reveal 2011 swe
-          tl.to("#swe-reveal-rect", {duration: 3, width: "50%", ease: "none"}); // reveal area
+          tl.to("#swe-reveal-rect", {duration: 1, width: "39%", ease: "none"}); // reveal area
           // then add 2011 swe annotations
           tl.from(".swe-annotation-2011", { duration: 1, opacity: 0, scale: 0.95, ease: "back", stagger: 1})
           //then do 2011 discharge area
-           tl.to("#discharge-reveal-rect", {duration: 3, width: "60%", ease: "none"}); // reveal area
+           tl.to("#discharge-reveal-rect", {duration: 1, width: "39%", ease: "none"}); // reveal area
           // then reveal 2011 discharge annotations
             tl.from(".discharge-annotation-2011", { duration: 1, opacity: 0, scale: 0.8, stagger: .5})
           // then brush 2011
           tl.from(".brush", {duration: 1, opacity: 1}); // fade the brushing
 
           // then reveal 2012 swe
-          tl.to("#swe-reveal-rect", {duration: 3, delay: 1, width: "100%", ease: "none"}); // reveal area
+          tl.to("#swe-reveal-rect", {duration: 1, delay: 1, width: "100%", ease: "none"}); // reveal area
           // then add 2012 swe annotations
            tl.from(".swe-annotation-2012", { duration: 1, opacity: 0, scale: 0.95, ease: "back", stagger: 1})
           // then reveal 2012 discharge area
-          tl.to("#discharge-reveal-rect", {duration: 3, width: "100%", ease: "none"}); // reveal area
+          tl.to("#discharge-reveal-rect", {duration: 1, width: "100%", ease: "none"}); // reveal area
           // then reveal 2012 discharge annotations
           tl.from(".discharge-annotation-2012", { duration: 1, opacity: 0, scale: 0.8, stagger: .5})
 
@@ -175,16 +217,45 @@ export default {
         
 
         },
-        callback(data){
-            const self=this;
-            // this.sweAndDischarge = data[0];
-            // console.log(this.sweAndDischarge, "swe and discharge data!")
-            // console.log(this.width, this.height, "heh?")
-            // set chart defaults
+        showSWE1(){
+        if (this.sweIsActive == true){
+          this.sweIsActive = false;
 
-            // draw the chart
-            // this.initChart(this.sweAndDischarge);
+          this.d3.select("#area-swe")
+          .transition()
+          .delay(100)
+          .duration(300)
+          .attr("opacity", 0)
+        } else if (this.sweIsActive == false){
+          this.sweIsActive = true;
+
+          this.d3.select("#area-swe")
+          .transition()
+          .delay(100)
+          .duration(300)
+          .attr("opacity", 0.7)
         }
+
+      },
+      showFlow1(){
+          if (this.flowIsActive == true){
+          this.flowIsActive = false;
+
+          this.d3.select("#area-discharge")
+          .transition()
+          .delay(100)
+          .duration(300)
+          .attr("opacity", 0)
+        } else if (this.flowIsActive == false){
+          this.flowIsActive = true;
+
+          this.d3.select("#area-discharge")
+          .transition()
+          .delay(100)
+          .duration(300)
+          .attr("opacity", 0.7)
+        }
+      }
     }
 }
 </script>
@@ -262,16 +333,112 @@ $blue: dodgerblue;
         opacity: .3;
       }
 
-// Animation
-
-@keyframes slide {
-  0% { width: 100%; }
-  60% { width: 100%; }
-  90% { width: 0%; }
-  100% { width: 0%; }  
+// Copy button style from SWEanim
+.compare {
+  border: 2px solid black;
+  display: inline-block;
+  width: 80vw;
+  max-width: 600px;
+  font-size: 18px;
+  text-align: center;
+  padding: 15px 10px;
+  margin: auto;
+  position: relative;
+  h4{
+    margin-bottom: 15px;
+  }
 }
-      
+.butt {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+input[name="radiogroup1"] {
+            display: none;
+        }
+         input[name="radiogroup1"]+label {
+            /* style passive state as you like */
+            border: 2px solid transparent;
+            color: black;
+            font-weight: 400;
+        }
+
+    input[name="radiogroup1"]:checked+label {
+        /* style checked state as you like */
+        border: 7px solid dodgerblue;
+        background-color: dodgerblue;
+        color: white;
+    }
+input[name="checkboxgroup1"] {
+            display: none;
+        }
+         input[name="checkboxgroup1"]+label {
+            /* style passive state as you like */
+            border: 0px solid transparent;
+            color: black;
+            font-weight: 400;
+        }
+
+    input[name="checkboxgroup1"]:checked+label {
+        /* style checked state as you like */
+        border: 7px solid dodgerblue;
+        background-color: dodgerblue;
+        color: white;
+    }
+    input[name="checkboxgroup2"] {
+            display: none;
+        }
+         input[name="checkboxgroup2"]+label {
+            /* style passive state as you like */
+            border: 2px solid transparent;
+            color: black;
+            font-weight: 400;
+        }
+
+    input[name="checkboxgroup2"]:checked+label {
+        /* style checked state as you like */
+        border: 7px solid grey;
+        background-color: grey;
+        color: white;
+    }
     
+@media screen and (min-width: 650px){
+  .compare{
+    width: 100%;
+    max-width: 600px;
+    padding: 5px 5px;
+    .btn-group{
+      display: flex;
+      align-items: center;
+      .inputsContainer{
+        flex: 2;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .inputs{
+          position: absolute;
+          left: 10px;
+          .butt{
+            margin-right: 10px;
+          }
+          .butt:last-child{
+            margin-right: 0;
+          }
+        }
+      }
+      #mmd-container-both {
+        width: 90vw;
+        max-width: 1200px;
+        margin: auto;
+      }
+      h4{
+        flex: 1;
+        margin-bottom: 0;
+      }
+    }
+  } 
+}
  
 </style>
 

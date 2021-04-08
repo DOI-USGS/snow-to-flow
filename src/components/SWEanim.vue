@@ -56,7 +56,7 @@
                 <label
                   class="butt"
                   for="cb2"
-                >streamflow</label>
+                >Flow</label>
               </div>
             </div>
           </div>
@@ -399,24 +399,24 @@ export default {
 
         // draw MMD curves
         this.group.append("path")
-          .attr("fill", "none")
+          .attr("fill", this.color_mmd)
+          .attr("fill-opacity", .1)
           .attr("stroke", this.color_mmd)
+          .attr("stroke-opacity", .3)
           .attr("d", d => this.line_mmd(d.mmd))
           .attr("stroke-width", "1px")
-          .attr("stroke", this.color_mmd)
-          .attr("opacity", 0.7)
           .attr("class", function(d) { return d.key })
           .classed("ridge", true)
           .classed("mmd", true);
 console.log(data_nest)
          // draw SWE curves
         this.group.append("path")
-          .attr("fill", "none")
+          .attr("fill", this.color_swe)
+          .attr("fill-opacity", .1)
           .attr("stroke", this.color_swe)
+          .attr("stroke-opacity", .3)
           .attr("d", d => this.line_swe(d.swe))
           .attr("stroke-width", "1px")
-          .attr("stroke", this.color_swe)
-          .attr("opacity", 0.7)
           .attr("class", function(d) { return d.key })
           .classed("ridge", true)
           .classed("swe", true)
@@ -786,7 +786,7 @@ console.log(data_nest)
 }
 </script>
 <style lang="scss" scoped>
-
+$familySerif:  'Noto Serif', serif;
 .gage {
   color:black;
   opacity: .6;
@@ -815,6 +815,7 @@ console.log(data_nest)
 }
 .butt {
   padding: 5px 10px;
+  cursor: pointer;
 }
 .yr-label {
   font-size: 16px;
@@ -831,6 +832,7 @@ console.log(data_nest)
 svg#mmd-line-both{
   transform: translate(-5px, 0);
 }
+
 input[name="radiogroup1"] {
             display: none;
         }
@@ -920,10 +922,10 @@ input[name="checkboxgroup1"] {
 // adding a break for full screen laptop adjustments
 @media screen and (max-height: 750px){
   #mmd-container-both {
-  width: 90vw;
-  max-width: 700px;
-  margin: auto;
-}
+    width: 90vw;
+    max-width: 700px;
+    margin: auto;
+  }
 
 }
 </style>
