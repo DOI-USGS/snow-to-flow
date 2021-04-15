@@ -281,7 +281,7 @@
         >Large spring melt</text>
         <text
           class="annotation discharge discharge-annotation-2012"
-          transform="translate(614.8 230)"
+          transform="translate(614.8 240)"
         >Small spring melt</text>
       </g>
     </svg>
@@ -345,28 +345,33 @@ export default {
           // this.$gsap.set("#discharge-title", {opacity: 0})
 
           // declare timeline
-          let tl = this.$gsap.timeline();
+          let tl = this.$gsap.timeline({
+            scrollTrigger: {
+              trigger: "#compare-chart",
+              toggleActions: "restart pause resume reset"
+            }
+          });
 
           // add animations to the timeline
           // first reveal 2011 swe
-          tl.to("#swe-reveal-rect", {duration: 1, width: "39%", ease: "none"}); // reveal area
+          tl.to("#swe-reveal-rect", {duration: 3, width: "39%", ease: "none"}); // reveal area
           // then add 2011 swe annotations
-          tl.from(".swe-annotation-2011", { duration: 1, opacity: 0, scale: 0.95, ease: "back", stagger: 1})
+          tl.from(".swe-annotation-2011", { duration: .4, opacity: 0, scale: 0.95, ease: "back", stagger: 1})
           //then do 2011 discharge area
-           tl.to("#discharge-reveal-rect", {duration: 1, width: "39%", ease: "none"}); // reveal area
+           tl.to("#discharge-reveal-rect", {duration: 2, width: "39%", ease: "none"}); // reveal area
           // then reveal 2011 discharge annotations
-            tl.from(".discharge-annotation-2011", { duration: 1, opacity: 0, scale: 0.8, stagger: .5})
+            tl.from(".discharge-annotation-2011", { duration: .4, opacity: 0, scale: 0.8, stagger: .5})
           // then brush 2011
           tl.from(".brush", {duration: 1, opacity: 1}); // fade the brushing
 
           // then reveal 2012 swe
-          tl.to("#swe-reveal-rect", {duration: 1, delay: 1, width: "100%", ease: "none"}); // reveal area
+          tl.to("#swe-reveal-rect", {duration: 3, delay: 1, width: "100%", ease: "none"}); // reveal area
           // then add 2012 swe annotations
-           tl.from(".swe-annotation-2012", { duration: 1, opacity: 0, scale: 0.95, ease: "back", stagger: 1})
+           tl.from(".swe-annotation-2012", { duration: .4, opacity: 0, scale: 0.95, ease: "back", stagger: 1})
           // then reveal 2012 discharge area
-          tl.to("#discharge-reveal-rect", {duration: 1, width: "100%", ease: "none"}); // reveal area
+          tl.to("#discharge-reveal-rect", {duration: 2, width: "100%", ease: "none"}); // reveal area
           // then reveal 2012 discharge annotations
-          tl.from(".discharge-annotation-2012", { duration: 1, opacity: 0, scale: 0.8, stagger: .5})
+          tl.from(".discharge-annotation-2012", { duration: .4, opacity: 0, scale: 0.8, stagger: .5})
 
 
 
