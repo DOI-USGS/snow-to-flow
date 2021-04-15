@@ -232,7 +232,7 @@
             class="swe"
             cx="287"
             cy="96"
-            r="5.5"
+            r="3"
           />
         </g>
         <g class="annotation swe swe-cb swe-annotation-2011">
@@ -243,7 +243,7 @@
             class="swe"
             cx="315"
             cy="200"
-            r="5.5"
+            r="3"
           />
         </g>
 
@@ -255,7 +255,7 @@
             class="swe"
             cx="549"
             cy="241"
-            r="5.5"
+            r="3"
           />
         </g>
         <g class="annotation swe swe-cb swe-annotation-2012">
@@ -266,7 +266,7 @@
             class="swe"
             cx="597"
             cy="272"
-            r="5.5"
+            r="3"
           />
         </g>
         
