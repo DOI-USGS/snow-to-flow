@@ -348,7 +348,7 @@ export default {
           let tl = this.$gsap.timeline({
             scrollTrigger: {
               trigger: "#compare-chart",
-              toggleActions: "restart pause resume reset"
+              toggleActions: "restart none none reset"
             }
           });
 
