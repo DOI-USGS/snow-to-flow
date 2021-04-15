@@ -13,7 +13,7 @@
     </template>
     <template v-slot:aboveExplanation>
       <p>
-        Snow-capped mountains, where snow accumulates all winter, function as <span class="emph">water towers</span> by storing water as frozen snow late into the spring<sup>2</sup>. When snow finally melts, the high elevation areas produce a large pulse of streamflow that redistributes water downstream through the landscape.
+        Snow-capped mountains, where snow accumulates all winter, function as <span class="emph">water towers</span> by storing water frozen as snow late into the spring<sup>2</sup>. When snow finally melts, the high elevation areas produce a large pulse of streamflow that redistributes water downstream through the landscape.
         These seasonal dynamics are critical components of the surface water cycle in the western U.S., for both humans and the ecosystems that depend on it<sup>3</sup>.
       </p>
       <p>

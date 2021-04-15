@@ -8,10 +8,7 @@
     <!-- FIGURES -->
     <template v-slot:aboveExplanation>
       <p>
-        The snowpack at the <a
-          href="https://wcc.sc.egov.usda.gov/nwcc/site?sitenum=838"
-          target="_blank"
-        >University Camp SNOTEL Site 838</a> in Boulder Colorado shows a significant difference in snowpack from the winter of 2011 - a big year for snow.  However, 2012 was a very low snow year, with some early intermittent melting.
+        The snowpack at the Upper Colorado Basin shows a significant difference in snowpack from the winter of 2011 - a big year for snow.  However, 2012 was a very low snow year, with some early intermittent melting.
       </p>
     </template>
     <template v-slot:figures>
@@ -25,7 +22,10 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        Water years 2011 (high snow) and 2012 (low snow) comparing snow (as SWE) and flow (as discharge, mm per day) at site 6614800 in the Upper Colorado Basin.
+        Water years 2011 (high snow) and 2012 (low snow) comparing snow (as SWE) and flow (as discharge, mm per day).  SWE measurements are from the <a
+          href="https://wcc.sc.egov.usda.gov/nwcc/site?sitenum=1031"
+          target="_blank"
+        >Never Summer SNOTEL Site 1031</a> and discharge measurements are from <a href='https://waterdata.usgs.gov/monitoring-location/06614800/#parameterCode=00065&period=P7D' targe="_blank">USGS streamgage 06614800</a> on the Michigan River near Cameron Pass, CO.
       </p>
     </template>
   </VizSection>
