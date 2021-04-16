@@ -137,7 +137,7 @@
     background: rgba(255,255,255,1);
     position: absolute;
     width: 100%;
-    bottom: 0;
+    bottom: 0px; // changed to raise it above the thumnail slider
     z-index: 9000;
     text-align: left;
     padding: 20px 10px;
@@ -148,7 +148,7 @@
       font-size: .8em;
     }
     .caption{
-      margin: 0 auto;
+      margin: 0 auto 70px auto;
       max-width: 700px;
       line-height: 1.5em;
     }
