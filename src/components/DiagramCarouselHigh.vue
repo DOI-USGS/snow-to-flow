@@ -137,7 +137,7 @@
     background: rgba(255,255,255,1);
     position: absolute;
     width: 100%;
-    bottom: 0px; // changed to raise it above the thumnail slider
+    bottom: 0px;
     z-index: 9000;
     text-align: left;
     padding: 20px 10px;
