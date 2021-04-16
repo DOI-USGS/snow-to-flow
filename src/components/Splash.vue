@@ -225,8 +225,24 @@ export default {
             const self = this;
             this.$gsap.registerPlugin(ScrollToPlugin, ScrollTrigger); // register gsap plugins for scrollTrigger 
                 ScrollTrigger.matchMedia({
+                    // mobile
+                    "(max-width: 799px)": function(){
+                        self.$gsap.timeline({
+                            scrollTrigger:{
+                                trigger: ".splash",
+                                start: "top top",
+                                end:`bottom center`,
+                                scrub: true
+                            }
+                        })
+                        .fromTo("#more-clouds", {yPercent: 50}, {yPercent: -40}, 0)
+                        .fromTo("#clouds", {yPercent: 30}, {yPercent: -10}, 0)
+                        .fromTo("#people", {yPercent: 17}, {yPercent: -11}, 0)
+                        .fromTo("#water", {yPercent: 25}, {yPercent: -10}, 0)
+                        .fromTo("#mountains", {yPercent: 35}, {yPercent: 0}, 0)
+                    },
                     //desktop 
-                    "(min-width: 800px) and (max-width: 2619px)": function(){
+                    "(min-width: 700px) and (max-width: 2619px)": function(){
                         self.$gsap.timeline({
                             scrollTrigger:{
                                 trigger: ".splash",
@@ -241,6 +257,7 @@ export default {
                         .fromTo("#water", {yPercent: 15}, {yPercent: -10}, 0)
                         .fromTo("#mountains", {yPercent: 25}, {yPercent: 0}, 0)
                     },
+                    // giant screens
                     "(min-width: 2620px)": function(){
                         self.$gsap.timeline({
                             scrollTrigger:{
@@ -270,7 +287,7 @@ $familySerif:  'Noto Serif', serif;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: linear-gradient(#00478F 0%, #fff 50%);
+    background-image: linear-gradient(#00478F 0%, #fff 70%);
 }
 .splashTitle{
     position: absolute;
@@ -279,7 +296,7 @@ $familySerif:  'Noto Serif', serif;
     margin-bottom: 20px;
     padding: 0 15px;
     h1{
-        font-size:clamp(5.4em, 20vw, 2em);
+        font-size:clamp(4em, 20vw, 2em);
         font-weight: 800;
     }
     h2 {
@@ -307,16 +324,18 @@ $familySerif:  'Noto Serif', serif;
 .element{
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 110%;
 }
 .element img{
     object-fit: cover;
-    object-position: center;
+    object-position: 50% 0%;
     width: 100%;
     height: 100%;
     image-rendering: auto;
+    overflow-y: visible;
 }
 #mountains{
+    overflow-y: visible;
     z-index: 10;
 }
 #water{

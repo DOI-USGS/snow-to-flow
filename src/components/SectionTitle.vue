@@ -127,8 +127,7 @@ picture{
     position: relative;
     z-index: 2;
     font-family: $familyMain;
-    font-size:clamp(1.5em, 7vw, 5em);
-    // font-style: italic;
+    font-size:clamp(3em, 20vw, 2em); // changed to not be bigger than the h1 at the top of the splash
     font-weight: 800;
     color: white;
     padding: 0 20px;
