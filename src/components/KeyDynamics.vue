@@ -51,7 +51,7 @@
           Flow
         </template>
         <template v-slot:sidebarMessage>
-          <p><span class="emph">Flow</span> is a measurement of stream discharge, ie how much water is flowing in a stream.  Streamflow can be captured downstream in water intakes or reservoirs and directly contributes to water availability.</p>
+          <p><span class="emph">Flow</span> is a measurement of stream discharge, i.e. how much water is flowing in a stream.  Streamflow can be captured downstream in water intakes or reservoirs and directly contributes to water availability.</p>
           <p>Units are <span class="emph">cubic feet per second (cfs)</span> or <span class="emph">millimeters per day (mm/d).</span></p>
         </template>
       </Sidebar>
