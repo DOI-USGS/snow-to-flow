@@ -25,7 +25,10 @@
         Water years 2011 (high snow) and 2012 (low snow) comparing snow (as SWE) and flow (as discharge, mm per day).  SWE measurements are from the <a
           href="https://wcc.sc.egov.usda.gov/nwcc/site?sitenum=1031"
           target="_blank"
-        >Never Summer SNOTEL Site 1031</a> and discharge measurements are from <a href='https://waterdata.usgs.gov/monitoring-location/06614800/#parameterCode=00065&period=P7D' targe="_blank">USGS streamgage 06614800</a> on the Michigan River near Cameron Pass, CO.
+        >Never Summer SNOTEL Site 1031</a> and discharge measurements are from <a
+          href="https://waterdata.usgs.gov/monitoring-location/06614800/#parameterCode=00065&period=P7D"
+          targe="_blank"
+        >USGS streamgage 06614800</a> on the Michigan River near Cameron Pass, CO.
       </p>
     </template>
   </VizSection>

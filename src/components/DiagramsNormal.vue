@@ -7,7 +7,6 @@
     </template>
     <template v-slot:aboveExplanation>
       <p>Studying these snowmelt dynamics is critical to understanding how water moves through the watershed, contributes to streamflow, and ultimately becomes available for use.</p>
- 
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>

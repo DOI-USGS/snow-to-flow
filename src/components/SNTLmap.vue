@@ -1476,7 +1476,7 @@
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
-       <Sidebar>
+      <Sidebar>
         <template v-slot:sidebarTitle>
           What are the small charts?
         </template>
