@@ -239,7 +239,7 @@ export default {
                         .fromTo("#clouds", {yPercent: 30}, {yPercent: -10}, 0)
                         .fromTo("#people", {yPercent: 17}, {yPercent: -11}, 0)
                         .fromTo("#water", {yPercent: 25}, {yPercent: -10}, 0)
-                        .fromTo("#mountains", {yPercent: 35}, {yPercent: 0}, 0)
+                        .fromTo("#mountains", {yPercent: 30}, {yPercent: 0}, 0)
                     },
                     //desktop 
                     "(min-width: 700px) and (max-width: 2619px)": function(){
@@ -255,7 +255,7 @@ export default {
                         .fromTo("#clouds", {yPercent: 30}, {yPercent: -10}, 0)
                         .fromTo("#people", {yPercent: 17}, {yPercent: -11}, 0)
                         .fromTo("#water", {yPercent: 15}, {yPercent: -10}, 0)
-                        .fromTo("#mountains", {yPercent: 25}, {yPercent: 0}, 0)
+                        .fromTo("#mountains", {yPercent: 25}, {yPercent:-10}, 0)
                     },
                     // giant screens
                     "(min-width: 2620px)": function(){
