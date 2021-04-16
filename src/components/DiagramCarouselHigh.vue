@@ -21,6 +21,7 @@
             <img 
               id="diagram-high-winter"
               v-img="{
+                thumbnails: true,
                 sourceButton: true,
                 group: 'diagram-high', 
                 title: 'A High Snow Winter: If soils are not dried out by previous years of drought and lots of snow begins to accumulate, the stage is set for a year with lots of meltwater availability.'
@@ -46,6 +47,7 @@
             <img 
               id="diagram-high-spring"
               v-img="{
+                thumbnails: true,
                 sourceButton: true,
                 group: 'diagram-high', 
                 title: 'A High Snow Spring: In a high snow year, SWE continues to accumulate late into the spring as temperatures stay cold.  Usually, high SWE goes hand-in-hand with a late melt date, since both are a result of temperatures staying cold late into the spring. The later the peak snowpack day occurs, the more likely it is that the snow will melt all at once in a rapid surge.'
@@ -70,6 +72,7 @@
             <img 
               id="diagram-high-summer"
               v-img="{
+                thumbnails: true,
                 sourceButton: true,
                 group: 'diagram-high', 
                 title: 'A High Snow Summer: A late, large melt combined with good soil saturation means that the resulting surge of stream flow can be enormous. Even dry soils might not be able to absorb all the meltwater, and there can be flooding. But much of the water can be captured in reservoirs to provide lots of water for the rest of the year.'

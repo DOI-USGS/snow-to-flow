@@ -19,6 +19,7 @@
             <img 
               id="diagram-normal-winter"
               v-img="{
+                thumbnails: true,
                 sourceButton: true,
                 group: 'diagram-normal', 
                 title: 'A Typical Winter: Soil saturation sets the stage for the coming snow season - whether it was wet or dry the year before determines how saturated it is.  Around October, snow begins to fall and SWE begins to accumulate. Especially at high elevations, snowpack can be several feet thick and store many inches worth of water.'
@@ -44,6 +45,7 @@
             <img 
               id="diagram-normal-spring"
               v-img="{
+                thumbnails: true,
                 sourceButton: true,
                 group: 'diagram-normal', 
                 title: 'A Typical Spring:  At some point, snowpack SWE reaches its peak and then tips downward as the snow begins to melt.  The date of peak SWE determines the melt timing, and the melt duration measures how long it takes for all the snow to melt from that peak.'
@@ -68,6 +70,7 @@
             <img 
               id="diagram-normal-summer"
               v-img="{
+                thumbnails: true,
                 sourceButton: true,
                 group: 'diagram-normal', 
                 title: 'A Typical Summer: During the melt season, soils soak up some of the meltwater, but not all of it. The rest moves quickly over and through the soil, filling streams with a surge of water that can be captured in reservoirs downstream.  For many places in the Western U.S., this meltwater makes up the majority of their water budget for the year.'
