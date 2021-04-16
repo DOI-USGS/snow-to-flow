@@ -399,30 +399,37 @@ export default {
 
         // draw MMD curves
         this.group.append("path")
-          .attr("fill", this.color_mmd)
-          .attr("fill-opacity", .1)
           .attr("stroke", this.color_mmd)
-          .attr("stroke-opacity", .3)
+          .attr("fill", "this.color_mmd")
+          .attr("stroke-opacity", .5)
+          .attr("fill-opacity",.1)
           .attr("d", d => this.line_mmd(d.mmd))
           .attr("stroke-width", "1px")
           .attr("class", function(d) { return d.key })
           .classed("ridge", true)
-          .classed("mmd", true);
-console.log(data_nest)
+          .classed("mmd", true)
+          .attr('pointer-events', 'visibleStroke')
+          .on("mouseover", function(data_nest) {
+            self.hover(data_nest);
+          })
+          .on("mouseout", function(data_nest){
+            self.hoverOut(data_nest);
+          });
+
          // draw SWE curves
         this.group.append("path")
-          .attr("fill", this.color_swe)
-          .attr("fill-opacity", .1)
           .attr("stroke", this.color_swe)
-          .attr("stroke-opacity", .3)
+          .attr("fill", "this.color_swe")
+          .attr("stroke-opacity", .5)
+          .attr("fill-opacity", .1)
           .attr("d", d => this.line_swe(d.swe))
           .attr("stroke-width", "1px")
           .attr("class", function(d) { return d.key })
           .classed("ridge", true)
           .classed("swe", true)
+          .attr('pointer-events', 'visibleStroke')
           .on("mouseover", function(data_nest) {
             self.hover(data_nest);
-            console.log(data_nest)
           })
           .on("mouseout", function(data_nest){
             self.hoverOut(data_nest);
@@ -459,17 +466,30 @@ console.log(data_nest)
       hover(data){
          const self = this;
 
+          self.d3.selectAll('g.curve path.mmd')
+          .transition()
+            .attr("z-index", -1)
+
+            self.d3.selectAll('g.curve path.swe')
+          .transition()
+            .attr("z-index", -1)
+
+
           self.d3.selectAll('g.curve path.mmd.' + data.key)
             .transition()
-            .duration(50)
+            .duration(5)
             .attr('stroke-width', "2px")
-            .attr('stroke', "blue");
+            .attr('stroke', "darkblue")
+            .attr('stroke-opacity', .8)
+            .attr("z-index", 100);
 
             self.d3.selectAll('g.curve path.swe.' + data.key)
             .transition()
-            .duration(50)
+            .duration(5)
             .attr('stroke-width', "2px")
             .attr('stroke', "black")
+            .attr('stroke-opacity', .8)
+            .attr("z-index", 100);
 
       },
       hoverOut(data){
@@ -477,15 +497,32 @@ console.log(data_nest)
 
           self.d3.selectAll('g.curve path.mmd.' + data.key)
             .transition()
-            .duration(50)
+            .duration(5)
             .attr("stroke-width", "1px")
-            .attr("stroke", this.color_mmd);
+            .attr("stroke", this.color_mmd)
+            .attr('stroke-opacity', .5)
+            .attr("z-index", -1);
 
-                 self.d3.selectAll('g.curve path.swe.' + data.key)
+        self.d3.selectAll('g.curve path.swe.' + data.key)
             .transition()
-            .duration(50)
+            .duration(5)
             .attr("stroke-width", "1px")
-            .attr("stroke", this.color_swe);
+            .attr("stroke", this.color_swe)
+            .attr('stroke-opacity', .5)
+            .attr("z-index", -1);
+
+             self.d3.selectAll('g.curve path.mmd')
+              .transition()
+              .attr("stroke-width", "1px")
+              .attr("stroke", this.color_mmd)
+              .attr('stroke-opacity', .5)
+              .attr("z-index", -1)
+
+            self.d3.selectAll('g.curve path.swe')
+              .transition()
+              .attr("stroke-width", "1px")
+              .attr("stroke", this.color_swe)
+              .attr('stroke-opacity', .5)
 
       },
       showSWE(){
@@ -504,7 +541,7 @@ console.log(data_nest)
           .transition()
           .delay(100)
           .duration(300)
-          .attr("opacity", 0.7)
+          .attr("opacity", 0.5)
         }
 
       },
@@ -524,7 +561,7 @@ console.log(data_nest)
           .transition()
           .delay(100)
           .duration(300)
-          .attr("opacity", 0.7)
+          .attr("opacity", 0.5)
         }
       },
       changePos(){
@@ -771,13 +808,13 @@ console.log(data_nest)
 
         this.d3.selectAll("g.ridge_2011.curve")
         .transition()
-        .delay(270)
+        .delay(170)
         .duration(500)
         .attr("transform", "translate(0, 0) scale(.49, 1)")
 
          this.d3.selectAll("g.ridge_2012.curve")
         .transition()
-        .delay(250)
+        .delay(150)
         .duration(500)
         .attr("transform", "translate(270, 0) scale(.49, 1)")
 
@@ -787,11 +824,7 @@ console.log(data_nest)
 </script>
 <style lang="scss" scoped>
 $familySerif:  'Noto Serif', serif;
-.gage {
-  color:black;
-  opacity: .6;
 
-}
 .maxWidth {
   width: 90vw;
   margin-left: 5vw;
@@ -800,13 +833,13 @@ $familySerif:  'Noto Serif', serif;
 }
 
 .compare {
-  border: 2px solid black;
+  border: 0px solid black;
   display: inline-block;
   width: 80vw;
   max-width: 600px;
   font-size: 18px;
   text-align: center;
-  padding: 15px 10px;
+  padding: 15px 0px;
   margin: auto;
   position: relative;
   h4{

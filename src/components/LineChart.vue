@@ -508,7 +508,7 @@ $blue: dodgerblue;
 
 // Copy button style from SWEanim
 .compare {
-  border: 2px solid black;
+  border: 0px solid black;
   display: inline-block;
   width: 80vw;
   max-width: 600px;
