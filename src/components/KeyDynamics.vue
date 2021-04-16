@@ -20,8 +20,7 @@
           Snow Water Equivalent (SWE)
         </template>
         <template v-slot:sidebarMessage>
-          <p><span class="emph">Snow water equivalent</span> is a measure of how much snow there is by calculating the amount of liquid water contained in snowpack. This measurement normalizes between light, fluffy snow and heavy, wet snow, all of which melts down to the same thing - liquid water.</p>
-          <p>Intuitively, more snow means more meltwater in the spring.</p>
+          <p><span class="emph">Snow water equivalent</span> is a measure of the liquid water contained in snowpack.  It is more useful than snow depth for estimate the volume of meltwater flow.  This is because 3 feet of fresh, dry, fluffy snow may represent only 4-5 inches of SWE, but 3 feet of compacted, wet, spring snow may contain 12 inches or more of SWE.  Using SWE helps scientists measure snowpack in a standardized way.</p>
           <p>Units are <span class="emph">inches (in).</span></p>
         </template>
       </Sidebar>
@@ -35,17 +34,6 @@
           <p>Units are in <span class="emph">days since October 1</span>, which is the beginning of the water year.</p>
         </template>
       </Sidebar>
-      <!-- <Sidebar>
-        <template v-slot:sidebarTitle>
-          Melt Duration
-        </template>
-        <template v-slot:sidebarMessage>
-          <p><span class="emph">Duration</span> is a measure of how long it takes for all the snow to melt, measured from peak SWE to zero SWE.</p>
-          <p>A slow melt means a slow trickle of meltwater. A rapid melt means a big rush of streamflow that can be captured for water use.</p>
-          <p>Units are in <span class="emph">days since beginning of year</span></p>
-        </template>
-      </Sidebar> -->
-
       <Sidebar>
         <template v-slot:sidebarTitle>
           Flow

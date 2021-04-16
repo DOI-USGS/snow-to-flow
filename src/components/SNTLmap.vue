@@ -7,7 +7,7 @@
     <!-- EXPLANATION -->
     <template v-slot:aboveExplanation>
       <p>
-        As temperatures are warming and snow is starting to melt, the western U.S. is entering an important phase in their water cycle. Looking at this year's snow - and how it turns into flow - can tell us a lot about water availability in the coming summer and fall. 
+        As temperatures are warming and snow is starting to melt, the western U.S. is entering an important phase in the water cycle. Looking at this year's snow (WY2021)- and how it turns into flow - can tell us a lot about water availability in the coming summer and fall. 
       </p>
       <p
         v-if="mobileView"
@@ -1471,11 +1471,20 @@
         The map shows April 1st snow as a percentile of this date in the historic record (1981-2010). Snow is quantified as the daily snow-water equivalent (SWE) at  <a
           href="https://www.wcc.nrcs.usda.gov/snow/"
           target="_blank"
-        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the western U.S.</a>. The left chart shows SWE in the current water year (2021) to date. The panels on the right show peak SWE and the melt date (SM50) for all years with data at a given site.
+        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the western U.S.</a>. 
       </p>
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
+       <Sidebar>
+        <template v-slot:sidebarTitle>
+          What are the small charts?
+        </template>
+        <template v-slot:sidebarMessage>
+          <p>The left chart shows SWE in the current water year (2021) to date.</p>
+          <p>The panels on the right show peak SWE and the melt date (SM50) for all years with data at a given site.</p>
+        </template>
+      </Sidebar>
       <Sidebar>
         <template v-slot:sidebarTitle>
           What is a percentile?

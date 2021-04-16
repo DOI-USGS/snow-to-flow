@@ -7,6 +7,7 @@
     </template>
     <template v-slot:aboveExplanation>
       <p>Studying these snowmelt dynamics is critical to understanding how water moves through the watershed, contributes to streamflow, and ultimately becomes available for use.</p>
+ 
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
@@ -28,11 +29,13 @@
 </template>
 <script>
 import VizSection from '@/components/VizSection';
+// import Sidebar from '@/components/Sidebar';
 import DiagramCarouselNormal from '@/components/DiagramCarouselNormal';
 export default {
     name: "DiagramsNormal",
     components:{
         VizSection,
+        // Sidebar,
         DiagramCarouselNormal
     }
 }

@@ -18,7 +18,7 @@
             >
             <img 
               id="diagram-normal-winter"
-              v-img="{group: 'diagram-normal', title: 'A Typical Winter: Soil saturation sets the stage for the coming snow season - whether it was wet or dry the year before determines how saturated it is.  Around October, snow begins to fall and SWE begins to accumulate. Especially in high elevations, snowpacks can be several feet thick and store several inches worth of water.'}"
+              v-img="{group: 'diagram-normal', title: 'A Typical Winter: Soil saturation sets the stage for the coming snow season - whether it was wet or dry the year before determines how saturated it is.  Around October, snow begins to fall and SWE begins to accumulate. Especially at high elevations, snowpack can be several feet thick and store many inches worth of water.'}"
               class="sliderImage"
               src="@/assets/diagrams/Diagram_typical-winter.jpg"
               alt="Diagram of a mountain watershed covered in snow in winter"
