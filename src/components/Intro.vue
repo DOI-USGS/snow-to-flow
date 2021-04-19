@@ -7,6 +7,10 @@
   >
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
+      <div id="byline">
+        <p>U.S. Geological Survey</p>
+        <p>Water Resources Mission Area</p>
+      </div>
       <h2>
         A majority of the water in the western U.S. comes from snowmelt<sup>1</sup>.
       </h2>
@@ -70,4 +74,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+  #byline {
+    font-weight: 400;
+    margin-bottom: 64px;
+  }
 </style>
