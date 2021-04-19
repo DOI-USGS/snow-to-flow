@@ -181,6 +181,7 @@ export default {
         const imgContainer = document.querySelector(".fullscreen-v-img");
         const title = document.querySelector(".title-v-img");
         const img = document.querySelector(".content-v-img img");
+        const background = document.querySelector(".fullscreen-v-img")
 
         //Mutation observer
         //If img src changes, update caption
@@ -203,6 +204,10 @@ export default {
             </div>`;
           imgContainer.insertAdjacentHTML("afterbegin", captionHTML);
         }
+
+        // Override some default styling on the lightbox
+        img.style.maxHeight = "80vh"; // set height
+        img.style.top = "-10vh"; // move up
       },
       switchCaptionText(text){
         const caption = document.querySelector(".caption");
