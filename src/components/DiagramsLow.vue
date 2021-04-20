@@ -23,7 +23,7 @@
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>      
       <p>
-        Studying all these dynamics across multiple ecosystems in the west is a huge task, but even that list isn’t complete.  In addition to soil saturation, snowpack thickness, and melt timing, there are lots of other factors that impact how snow turns into flow, such as:  
+        Studying all these dynamics across multiple ecosystems in the west is a huge task, but even that list isn’t complete.  In addition to soil saturation, SWE depth, and melt timing, there are lots of other factors that impact how snow turns into flow, such as:  
       </p>
       <Sidebar>
         <template v-slot:sidebarTitle>

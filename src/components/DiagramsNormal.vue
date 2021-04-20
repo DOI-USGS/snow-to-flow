@@ -28,11 +28,13 @@
 </template>
 <script>
 import VizSection from '@/components/VizSection';
+// import Sidebar from '@/components/Sidebar';
 import DiagramCarouselNormal from '@/components/DiagramCarouselNormal';
 export default {
     name: "DiagramsNormal",
     components:{
         VizSection,
+        // Sidebar,
         DiagramCarouselNormal
     }
 }

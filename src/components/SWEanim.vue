@@ -400,7 +400,7 @@ export default {
         // draw MMD curves
         this.group.append("path")
           .attr("stroke", this.color_mmd)
-          .attr("fill", "this.color_mmd")
+          .attr("fill", this.color_mmd)
           .attr("stroke-opacity", .5)
           .attr("fill-opacity",.1)
           .attr("d", d => this.line_mmd(d.mmd))
@@ -419,7 +419,7 @@ export default {
          // draw SWE curves
         this.group.append("path")
           .attr("stroke", this.color_swe)
-          .attr("fill", "this.color_swe")
+          .attr("fill", this.color_swe)
           .attr("stroke-opacity", .5)
           .attr("fill-opacity", .1)
           .attr("d", d => this.line_swe(d.swe))

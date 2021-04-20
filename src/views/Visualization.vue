@@ -89,20 +89,19 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
 export default {
     name: 'Visualization',
     components: {
-      Splash: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "section"*/ "./../components/Splash"),
-      Intro: () => import( /*webpackChunkName: "Intro"*/ "./../components/Intro"),
+      Splash: () => import( /* webpackPreload: true */ /*webpackChunkName: "section"*/ "./../components/Splash"),
+      Intro: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "Intro"*/ "./../components/Intro"),
       SNTLMap: () => import( /*webpackChunkName: "SNTLMap"*/ "./../components/SNTLmap"),
       SWE: () => import( /*webpackChunkName: "SWE"*/ "./../components/SWE"),
-      SWEanim: () => import( /*webpackChunkName: "SWE"*/ "./../components/SWEanim"),
-      MeasuringSWE: () => import( /*webpackChunkName: "SWE"*/ "./../components/MeasuringSWE"),
-      // SWEtoDischarge: () => import( /*webpackChunkName: "SWE"*/ "./../components/SWEtoDischarge"),
-      KeyDynamics: () => import( /*webpackChunkName: "keydynamics"*/ "./../components/KeyDynamics"),
-      DiagramsNormal: () => import( /*webpackChunkName: "diagramsnormal"*/ "./../components/DiagramsNormal"),
-      DiagramsHigh: () => import( /*webpackChunkName: "diagramshigh"*/ "./../components/DiagramsHigh"),
-      DiagramsLow: () => import( /*webpackChunkName: "diagramslow"*/ "./../components/DiagramsLow"),
+      SWEanim: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SWE"*/ "./../components/SWEanim"),
+      MeasuringSWE: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SWE"*/ "./../components/MeasuringSWE"),
+      KeyDynamics: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "keydynamics"*/ "./../components/KeyDynamics"),
+      DiagramsNormal: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagramsnormal"*/ "./../components/DiagramsNormal"),
+      DiagramsHigh: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagramshigh"*/ "./../components/DiagramsHigh"),
+      DiagramsLow: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagramslow"*/ "./../components/DiagramsLow"),
       References: () => import( /*webpackChunkName: "References"*/ "./../components/References"),
       Methods: () => import( /*webpackChunkName: "References"*/ "./../components/Methods"),
-      Chapter: () => import( /*webpackChunkName: "ChapterTitles"*/ "./../components/SectionTitle"),
+      Chapter: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "ChapterTitles"*/ "./../components/SectionTitle"),
     },
     computed: {
       checkIfSplashIsRendered() {
@@ -203,6 +202,10 @@ export default {
             </div>`;
           imgContainer.insertAdjacentHTML("afterbegin", captionHTML);
         }
+
+        // Override some default styling on the lightbox
+        img.style.maxHeight = "70vh"; // set height
+        img.style.top = "-15vh"; // move up
       },
       switchCaptionText(text){
         const caption = document.querySelector(".caption");

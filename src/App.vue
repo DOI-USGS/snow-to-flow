@@ -307,4 +307,9 @@ a:active {
   padding-top: 3px;
 }
 
+
+// v-img
+.content-v-img {
+  max-height: 80vh;
+}
 </style>
