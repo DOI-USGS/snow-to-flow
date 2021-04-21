@@ -48,8 +48,6 @@
         </template>
       </Sidebar>
     </template>
-
-      
   </VizSection>
 </template>
 
