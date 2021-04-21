@@ -5,7 +5,7 @@
     :take-away="false"
   >
     <template v-slot:aboveExplanation>
-      <p>Using high-quality manual and station observations of snowpack and streamflow, USGS scientists have conducted important studies on trends in snow chemistry, snowfall, snow cover, snow versus rain<sup>13</sup>, snow water equivalent, snowmelt runoff<sup>14</sup>, and snowmelt timing<sup>12</sup> in the U.S. USGS science has also evaluated the influence of changing climate on hydrological processes and runoff in snowmelt dominated basins<sup>15</sup>.</p>
+      <p>Using high-quality manual and station observations of snowpack and streamflow, USGS scientists are conducting research on trends in snowfall, snow cover, snow versus rain<sup>10</sup>snow water equivalent, snowmelt runoff<sup>11</sup>, snowmelt timing<sup>12</sup> and snow chemistry in the U.S. USGS scientists are also evaluating the influence of changing climate on hydrological processes and runoff in snowmelt dominated basins<sup>13</sup>.</p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
@@ -28,16 +28,16 @@
         The <a
           href="https://www.nrcs.usda.gov/wps/portal/nrcs/site/national/home/"
           target="_blank"
-        >Natural Resources Conservation Service (NRCS)</a> operates a snow monitoring program that includes manual snow course measurements as well as over 800 automated <a
+        >Natural Resources Conservation Service (NRCS)</a> operates a snow monitoring program that includes over 800 automated <a
           href="https://www.wcc.nrcs.usda.gov/snow/"
           target="_blank"
-        >Snow Telemetry (SNOTEL)</a>  data collection sites that monitor SWE, snow depth, precipitation, temperature, and other climatic conditions.
+        >Snow Telemetry (SNOTEL)</a> data collection sites that monitor SWE, snow depth, precipitation, temperature, and other related meteorological variables.
       </p>
       <p>
-        To understand how snow becomes flow we can use streamflow measurements from the <a
+        Streamflow measurements from the <a
           href="https://labs.waterdata.usgs.gov/visualizations/gages-through-the-ages/index.html#/"
           target="_blank"
-        >USGS streamgaging network</a>. Some of the oldest (100-125 year old) gages derive their flow from seasonal snow, contributing to a long record of data.
+        >USGS streamgaging network</a>. are used to further our understanding of snowmelt processes. Some of the oldest USGS streamgages in the Western U.S. (100-125 year records) derive their streamflow from seasonal snowmelt, contributing to a long record of data to analyze seasonal and historical runoff patterns.
       </p>
     </template>
   </VizSection>
