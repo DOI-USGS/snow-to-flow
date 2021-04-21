@@ -10,9 +10,12 @@
         <div class="slider-image-container">
           <picture>
             <source
+              srcset="@/assets/methods/person1.webp"
+              type="image/webp"
+            >
+            <source
               srcset="@/assets/methods/person1.jpg"
-              media="(max-width: 992px)"
-              type="image/png"
+              type="image/jpg"
             >
             <img 
               id="field1"
@@ -33,8 +36,11 @@
         <div class="slider-image-container">
           <picture>
             <source
+              srcset="@/assets/methods/drone1.webp"
+              type="image/webp"
+            >
+            <source
               srcset="@/assets/methods/drone1.jpg"
-              media="(max-width: 992px)"
               type="image/jpg"
             >
             <img 
@@ -55,8 +61,11 @@
         <div class="slider-image-container">
           <picture>
             <source
+              srcset="@/assets/methods/person2.webp"
+              type="image/webp"
+            >
+            <source
               srcset="@/assets/methods/person2.jpg"
-              media="(max-width: 992px)"
               type="image/jpg"
             >
             <img 
@@ -77,8 +86,11 @@
         <div class="slider-image-container">
           <picture>
             <source
+              srcset="@/assets/methods/station4.webp"
+              type="image/webp"
+            >
+            <source
               srcset="@/assets/methods/station4.jpg"
-              media="(max-width: 992px)"
               type="image/jpg"
             >
             <img 
@@ -99,8 +111,11 @@
         <div class="slider-image-container">
           <picture>
             <source
+              srcset="@/assets/methods/station2.webp"
+              type="image/webp"
+            >
+            <source
               srcset="@/assets/methods/station2.jpg"
-              media="(max-width: 992px)"
               type="image/jpg"
             >
             <img 
@@ -121,8 +136,11 @@
         <div class="slider-image-container">
           <picture>
             <source
+              srcset="@/assets/methods/person4.webp"
+              type="image/webp"
+            >
+            <source
               srcset="@/assets/methods/person4.jpg"
-              media="(max-width: 992px)"
               type="image/jpg"
             >
             <img 
@@ -143,8 +161,11 @@
         <div class="slider-image-container">
           <picture>
             <source
+              srcset="@/assets/methods/station3.webp"
+              type="image/webp"
+            >
+            <source
               srcset="@/assets/methods/station3.jpg"
-              media="(max-width: 992px)"
               type="image/jpg"
             >
             <img 
@@ -165,8 +186,11 @@
         <div class="slider-image-container">
           <picture>
             <source
+              srcset="@/assets/methods/person3.webp"
+              type="image/webp"
+            >
+            <source
               srcset="@/assets/methods/person3.jpg"
-              media="(max-width: 992px)"
               type="image/jpg"
             >
             <img 
