@@ -31,9 +31,6 @@
 export default {
     name: "SidebarTwo",
     mounted(){
-        // this.$nextTick(function(){
-        //     this.setDimensions();
-        // });
         window.addEventListener("load", () => this.setDimensions());
     },
     methods:{
