@@ -37,7 +37,7 @@
         Streamflow measurements from the <a
           href="https://labs.waterdata.usgs.gov/visualizations/gages-through-the-ages/index.html#/"
           target="_blank"
-        >USGS streamgaging network</a>. are used to further our understanding of snowmelt processes. Some of the oldest USGS streamgages in the Western U.S. (100-125 year records) derive their streamflow from seasonal snowmelt, contributing to a long record of data to analyze seasonal and historical runoff patterns.
+        >USGS streamgaging network</a> are used to further our understanding of snowmelt processes. Some of the oldest USGS streamgages in the Western U.S. (100-125 year records) derive their streamflow from seasonal snowmelt, contributing to a long record of data to analyze seasonal and historical runoff patterns.
       </p>
     </template>
   </VizSection>
