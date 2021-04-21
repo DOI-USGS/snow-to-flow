@@ -93,10 +93,12 @@ $familyMain: 'Public sans', sans-serif;
     font-family: $familyMain;
     font-size: 1em;
     padding: 10px;
+    border-radius: 5px;
     cursor: pointer;
     &:hover{
         background: #fff;
-        color:#000;
+        color:$deepBlue;
+        transition: background-color .1s;
     }
 }
 .messageArea{
