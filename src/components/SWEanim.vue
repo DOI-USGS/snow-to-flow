@@ -871,6 +871,7 @@ input[name="radiogroup1"] {
         }
          input[name="radiogroup1"]+label {
             /* style passive state as you like */
+            background-color: rgb(221,221,221);
             border: 2px solid transparent;
             color: black;
             font-weight: 400;
