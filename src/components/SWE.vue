@@ -8,7 +8,13 @@
     <!-- FIGURES -->
     <template v-slot:aboveExplanation>
       <p>
-        The snowpack at the University Camp SNOTEL Site 838 in near Boulder, Colorado shows a significant difference in snowpack from the winter of 2011 to 2012. The winter of 2011 experienced a large snowpack and subsequent spring melt. However, 2012 was a very low snow year, with some early intermittent melting and small spring melt.
+        The SWE measurements of snowpack at the <a
+          href="https://wcc.sc.egov.usda.gov/nwcc/site?sitenum=1031"
+          target="_blank"
+        >Never Summer SNOTEL Site 1031</a> near Rocky Mountain National Park in Colorado show a significant difference in snowpack from the winter of 2011 to 2012, and discharge measurements downstream at the <a
+          href="https://waterdata.usgs.gov/monitoring-location/06614800/#parameterCode=00065&period=P7D"
+          targe="_blank"
+        >USGS streamgage 06614800</a> on the Michigan River near Cameron Pass show the impact. The winter of 2011 experienced a large snowpack and subsequent spring melt. However, 2012 was a very low snow year, with some early intermittent melting and small spring melt.
       </p>
     </template>
     <template v-slot:figures>
@@ -31,7 +37,8 @@
         >USGS streamgage 06614800</a> on the Michigan River near Cameron Pass, CO.
       </p>
     </template>
-          <Sidebar>
+    <template v-slot:belowExplanation>
+      <Sidebar>
         <template v-slot:sidebarTitle>
           What is a "water year"?
         </template>
@@ -40,19 +47,22 @@
           <p>Hydrologists use the concept of a water year because hydrologic activity in the fall and winter sets the stage for the streamflow in the following spring and summer.</p>
         </template>
       </Sidebar>
+    </template>
   </VizSection>
 </template>
 
 <script>
 import VizSection from '@/components/VizSection';
 import LineChart from '@/components/LineChart';
+import Sidebar from '@/components/Sidebar';
 import * as d3 from 'd3';
 
 export default {
     name: "SWE",
     components:{
         VizSection,
-        LineChart  
+        LineChart,
+        Sidebar
     },
     data() {
       return {

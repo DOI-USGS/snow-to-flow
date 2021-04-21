@@ -307,6 +307,10 @@ a:active {
   padding-top: 3px;
 }
 
+sup {
+  opacity: .4;
+}
+
 
 // v-img
 .content-v-img {

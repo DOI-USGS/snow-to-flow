@@ -61,7 +61,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-$deepBlue: #00478F; //#005AA3;
+$deepBlue: #00478F; //#00478F;
 $familyMain: 'Public sans', sans-serif;
 .sidebar{
     display: flex;
@@ -98,10 +98,12 @@ $familyMain: 'Public sans', sans-serif;
     font-family: $familyMain;
     font-size: 1em;
     padding: 10px;
+    border-radius: 5px;
     cursor: pointer;
     &:hover{
         background: #fff;
-        color:#000;
+        color:$deepBlue;
+        transition: background-color .1s;
     }
 }
 .messageArea{

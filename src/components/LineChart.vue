@@ -547,9 +547,11 @@ input[name="checkboxgroup1"] {
         }
          input[name="checkboxgroup1"]+label {
             /* style passive state as you like */
-            border: 0px solid transparent;
+            background-color: rgb(221, 221, 221);
+            border: 2px solid transparent;
             color: black;
             font-weight: 400;
+            transition: background-color .1s, border .1s;
         }
 
     input[name="checkboxgroup1"]:checked+label {
@@ -563,9 +565,11 @@ input[name="checkboxgroup1"] {
         }
          input[name="checkboxgroup2"]+label {
             /* style passive state as you like */
+            background-color: rgb(221, 221, 221);
             border: 2px solid transparent;
             color: black;
             font-weight: 400;
+            transition: background-color .1s, border .1s;
         }
 
     input[name="checkboxgroup2"]:checked+label {

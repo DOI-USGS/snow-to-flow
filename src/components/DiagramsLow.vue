@@ -34,7 +34,7 @@
             Some snow evaporates directly back into the atmosphere in a process called <a
               href="https://www.usgs.gov/centers/co-water/science/snowpack-sublimation-measurements-and-modeling-colorado-river-basin?qt-science_center_objects=0#qt-science_center_objects"
               target="_blank"
-            >sublimation</a>. Cold sunny weather contributes to the amount of snow vaporized directly back into the atmosphere<sup>11</sup> and higher wind speeds can accelerate sublimination.
+            >sublimation</a>. Cold sunny weather contributes to the amount of snow vaporized directly back into the atmosphere<sup>11</sup> and higher wind speeds can accelerate sublimation.
           </p>
         </template>
       </Sidebar>
@@ -51,7 +51,7 @@
           Permeability
         </template>
         <template v-slot:sidebarMessage>
-          <p>Water moves quickly across impermeable surfaces like bedrock or asphalt, into drainages, through streams, and filling reservoirs downstream. Permeable surfaces like soil, gravel, and sand allow more water to infiltrate into the ground and reach streams more slowly, which also increases soil saturation.</p>
+          <p>Water moves quickly across impermeable surfaces like bedrock or asphalt, into drainages, through streams, and filling reservoirs downstream. Permeable surfaces like soil, gravel, and sand allow more water to infiltrate into the ground and reach streams more slowly, which increases soil saturation.</p>
         </template>
       </Sidebar>
       <Sidebar>

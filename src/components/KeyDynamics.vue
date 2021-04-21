@@ -20,7 +20,7 @@
           Snow Water Equivalent (SWE)
         </template>
         <template v-slot:sidebarMessage>
-          <p><span class="emph">Snow water equivalent</span> is a measure of how much water is contained in snowpack. This measurement accounts for the variation in water content of snow, which can vary between light, fluffy snow and heavy, wet snow, all of which melts down to the same thing – liquid water. SWE is measured as a depth, units are inches (in).</p>
+           <p><span class="emph">Snow water equivalent</span> is a measure of the liquid water contained in snowpack.  It is more useful than snow depth for estimate the volume of meltwater flow.  This is because 3 feet of fresh, dry, fluffy snow may represent only 4-5 inches of SWE, but 3 feet of compacted, wet, spring snow may contain 12 inches or more of SWE.  Using SWE helps scientists measure snowpack in a standardized way. Units are inches (in).</p>
         </template>
       </Sidebar>
       <Sidebar>
@@ -28,8 +28,10 @@
           Melt Timing (SM50)
         </template>
         <template v-slot:sidebarMessage>
-          <p><span class="emph">Melt timing</span>is a measure of how when snowmelt occurs, and is marked by the date at which the maximum SWE accumulated during the winter is half gone<sup>7</sup>.
-          Melt timing is measured as days since October 1st (beginning of the water year) at which one-half of the annual maximum SWE has melted.
+          <p>
+            <span class="emph">Melt timing</span> is a measure of how when snowmelt occurs, and is marked by the date at which the maximum SWE accumulated during the winter is half gone<sup>7</sup>.
+            Melt timing is measured as days since October 1st (beginning of the water year) at which one-half of the annual maximum SWE has melted.
+          </p>
         </template>
       </Sidebar>
       <Sidebar>
@@ -37,7 +39,7 @@
           Streamflow
         </template>
         <template v-slot:sidebarMessage>
-          <p><span class="emph">Streamflow</span> is the volume of water moving down a stream or river. Streamflow can be captured downstream via water intakes or reservoirs and directly contributes to water availability. Units are in millimeters per day (mmd) cubic feet per second (cfs).</p>
+          <p><span class="emph">Streamflow</span> is the volume of water moving down a stream or river. Streamflow can be captured downstream via water intakes or reservoirs and directly contributes to water availability. Units are in millimeters per day (mmd) or cubic feet per second (cfs).</p>
         </template>
       </Sidebar>
     </template>
