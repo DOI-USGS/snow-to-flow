@@ -4,15 +4,16 @@ export default {
     references: [
       {
         reference:
-          "1. Li, D., Wrzesien, M. L., Durand, M., Adam, J. & Lettenmaier, D. P. How much runoff originates as snow in the western United States, and how will that change in the future? Geophys. Res. Lett. 44, 6163–6172 (2017)",
+          "1. Viviroli, D., Dürr, H. H., Messerli, B., Meybeck, M. & Weingartner, R. Mountains of the world, water towers for humanity: Typology, mapping, and global significance. Water Resour. Res. 43, (2007).",
       },
       {
         reference:
-          "2. Viviroli, D., Dürr, H. H., Messerli, B., Meybeck, M. & Weingartner, R. Mountains of the world, water towers for humanity: Typology, mapping, and global significance. Water Resour. Res. 43, (2007).",
+          "2. Sexstone, G. A., Driscoll, J. M., Hay, L. E., Hammond, J. C. & Barnhart, T. B. Runoff sensitivity to snow depletion curve representation within a continental scale hydrologic model. Hydrol. Process. 34, 2365–2380 (2020).",
       },
       {
         reference:
-          "3. Sexstone, G. A., Driscoll, J. M., Hay, L. E., Hammond, J. C. & Barnhart, T. B. Runoff sensitivity to snow depletion curve representation within a continental scale hydrologic model. Hydrol. Process. 34, 2365–2380 (2020).",
+
+        "3. Li, D., Wrzesien, M. L., Durand, M., Adam, J. & Lettenmaier, D. P. How much runoff originates as snow in the western United States, and how will that change in the future? Geophys. Res. Lett. 44, 6163–6172 (2017)",
       },
       {
         reference:
@@ -40,31 +41,18 @@ export default {
       },
       {
         reference:
-          "10. Barnhart, T. B., Tague, C. L. & Molotch, N. P. The Counteracting Effects of Snowmelt Rate and Timing on Runoff. Water Resour. Res. 56, e2019WR026634 (2020).",
+          "10.	Hammond, J. C. & Kampf, S. K. Subannual Streamflow Responses to Rainfall and Snowmelt Inputs in Snow-Dominated Watersheds of the Western United States. Water Resour. Res. 56, e2019WR026132 (2020).",
       },
       {
         reference:
-          "11. Sexstone, G. A. et al. Snow Sublimation in Mountain Environments and Its Sensitivity to Forest Disturbance and Climate Warming. Water Resour. Res. 54, 1191–1211 (2018).",
-      },
-      {
+          "11. McCabe, G. J. & Clark, M. P. Trends and Variability in Snowmelt Runoff in the Western United States. J. Hydrometeorol. 6, 476–482 (2005).",
+      },{
         reference:
           "12. Sexstone, G. A. et al. Spatial Variability in Seasonal Snowpack Trends across the Rio Grande Headwaters (1984–2017). J. Hydrometeorol. 21, 2713–2733 (2020).",
       },
       {
         reference:
-          "13.	Hammond, J. C. & Kampf, S. K. Subannual Streamflow Responses to Rainfall and Snowmelt Inputs in Snow-Dominated Watersheds of the Western United States. Water Resour. Res. 56, e2019WR026132 (2020).",
-      },
-      {
-        reference:
-          "14. McCabe, G. J. & Clark, M. P. Trends and Variability in Snowmelt Runoff in the Western United States. J. Hydrometeorol. 6, 476–482 (2005).",
-      },
-      {
-        reference:
-          "15. Dettinger, M. D. & Cayan, D. R. Large-Scale Atmospheric Forcing of Recent Trends toward Early Snowmelt Runoff in California. J. Clim. 8, 606–623 (1995).",
-      },
-      {
-        reference:
-          "16. López-Moreno, J. I. et al. Snowpack variability across various spatio-temporal resolutions. Hydrol. Process. 29, 1213–1224 (2015).",
+          "13. Dettinger, M. D. & Cayan, D. R. Large-Scale Atmospheric Forcing of Recent Trends toward Early Snowmelt Runoff in California. J. Clim. 8, 606–623 (1995).",
       }
     ],
   },

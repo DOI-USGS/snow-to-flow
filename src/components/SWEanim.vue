@@ -12,7 +12,7 @@
     <template v-slot:aboveExplanation>
       <p />
       <p>
-        Seasonal snowpack varies widely from place to place, and from year to year<sup>16</sup>, and this variability can have a strong influence on the timing and magnitude of snowmelt, delivery to a watershed, and subsequent streamflow response. At the sites shown below in the Upper Colorado River Basin, there was a two-fold difference in the magnitude of SWE between 2011 and 2012, illustrating how changes in snowmelt can shape the timing and magnitude of streamflow, and subsequently, water availability. Use the buttons below to explore how differences in snow between two years affect streamflow dynamics measured by USGS streamgages.
+        Seasonal snowpack varies widely from place to place, and from year to year<sup>13</sup>, and this variability can have a strong influence on the timing and magnitude of snowmelt, delivery to a watershed, and subsequent streamflow response. At the sites shown below in the Upper Colorado River Basin, there was a two-fold difference in the magnitude of SWE between 2011 and 2012, illustrating how changes in snowmelt can shape the timing and magnitude of streamflow, and subsequently, water availability. Use the buttons below to explore how differences in snow between two years affect streamflow dynamics measured by USGS streamgages.
       </p>
     </template>
     <!-- FIGURES -->
