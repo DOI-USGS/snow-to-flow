@@ -7,7 +7,7 @@
     <!-- EXPLANATION -->
     <template v-slot:aboveExplanation>
       <p>
-        As temperatures are warming and snow is starting to melt, the western U.S. is entering an important phase in the water cycle. Looking at this year's snow (WY2021)- and how it turns into flow - can tell us a lot about water availability in the coming summer and fall. 
+        As springtime temperatures warm and snow begins to melt, the Western U.S. enters an important phase of the water cycle. Looking at this year's snow (WY 2021) - and how it turns into streamflow - can indicate the potential for water availability in the coming summer and fall.
       </p>
       <p
         v-if="mobileView"
@@ -1471,12 +1471,12 @@
         The map shows April 1st snow as a percentile of this date in the historic record (1981-2010). Snow is quantified as the daily snow-water equivalent (SWE) at  <a
           href="https://www.wcc.nrcs.usda.gov/snow/"
           target="_blank"
-        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the western U.S.</a>. 
+        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the Western U.S.</a>. 
       </p>
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
-      <Sidebar>
+<!--       <Sidebar>
         <template v-slot:sidebarTitle>
           What are the small charts?
         </template>
@@ -1484,13 +1484,13 @@
           <p>The left chart shows SWE in the current water year (2021) to date.</p>
           <p>The panels on the right show peak SWE and the melt date (SM50) for all years with data at a given site.</p>
         </template>
-      </Sidebar>
+      </Sidebar> -->
       <Sidebar>
         <template v-slot:sidebarTitle>
           What is a percentile?
         </template>
         <template v-slot:sidebarMessage>
-          <p>Percentiles tell us how snow today (in 2021) compares to snow in past years that we have data for. This number can be interpreted as the percent of years that had lower SWE than in 2021. For example, if SWE at a particular SNOTEL site is in the 90th percentile, that means this year's SWE is higher than 90% of years on record for this date.</p>
+          <p>Percentiles indicate how snow today (in 2021) compares to snow in past years where data are available. The SWE percentile can be interpreted as the percent of years when the site had lower SWE than in 2021. For example, if SWE at a particular SNOTEL site is in the 90th percentile, that means the current year's SWE is greater than 90% of the years on record for this date.</p>
         </template>
       </Sidebar>
       <Sidebar>
@@ -1498,17 +1498,17 @@
           When is peak SWE in 2021?
         </template>
         <template v-slot:sidebarMessage>
-          <p>Peak SWE has not happened yet for many places in the western U.S. This data is complete up through <span class="emph">April 1st, 2021</span>. We've generated a reproducible data pipline to pull data and reprocess it again this summer after the melt season is over.</p>
+          <p>Peak SWE has not happened yet for many places in the western U.S. This map shows <span class="emph">April 1st, 2021</span> which has traditionally been used as an indicator of peak SWE for the season.</p>
         </template>
       </Sidebar>
       <p>
         The USGS is undertaking new efforts to advance snow science through both measuring and modeling snowpack and linking these results to streamflow. As a part of the <a
           href="https://www.usgs.gov/mission-areas/water-resources/science/usgs-next-generation-water-observing-system-ngwos?qt-science_center_objects=0#qt-science_center_objects"
           target="_blank"
-        >USGS Next Generation Water Observing System (NGWOS)</a> new spatial and temporal snow and streamflow observations in unmonitored environments are being planned.  Those observations will provide valuable data which will inform modeling of water-cycle components in the Upper Colorado River Basin. New snow monitoring will include continuous snowpack and soil moisture stations, remotely sensed mapping of snow conditions, and manual snow surveys.
+        >USGS Next Generation Water Observing System (NGWOS)</a>,new spatial and temporal snow and streamflow observations are being planned for unmonitored areas. These observations will provide valuable data to inform predictive modeling of water-cycle components in the Upper Colorado River Basin. New snow monitoring will include continuous snowpack and soil moisture stations, remotely sensed mapping of snow conditions, and manual snow surveys. In addition, USGS is involved in the development and production of the Landsat snow covered area product, available through <a href="https://www.usgs.gov/core-science-systems/nli/landsat/landsat-fractional-snow-covered-area" target="_blank"> Earth Explorer.</a>
       </p>
       <p>
-        The USGS has also been contributing to snow science research through modeling snowpack and snowmelt dynamics from local to National extents. These models use measured data of snow, landscape and vegetation as well as meteorologic variables to understand how snowpack evolves from accumulation through melt, as well as how these changes influence streamflow. 
+        The USGS also contributes to snow science research through modeling snowpack and snowmelt dynamics at local to National scales. These models use data for snow, landscape, vegetation, and meteorologic variables to understand how the annual snowpack evolves from accumulation through melt, and how these changes influence streamflow.
       </p>
     </template>
   </VizSection>
