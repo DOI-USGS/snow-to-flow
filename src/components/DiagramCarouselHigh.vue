@@ -14,8 +14,11 @@
         <div class="slider-image-container">
           <picture>
             <source
+              srcset="@/assets/diagrams/Diagram_high-winter.webp"
+              type="image/jpg"
+            >
+            <source
               srcset="@/assets/diagrams/Diagram_high-winter.jpg"
-              media="(max-width: 992px)"
               type="image/jpg"
             >
             <img 
@@ -40,8 +43,11 @@
         <div class="slider-image-container">
           <picture>
             <source
+              srcset="@/assets/diagrams/Diagram_high-spring.webp"
+              type="image/jpg"
+            >
+            <source
               srcset="@/assets/diagrams/Diagram_high-spring.jpg"
-              media="(max-width: 992px)"
               type="image/jpg"
             >
             <img 
@@ -65,8 +71,11 @@
         <div class="slider-image-container">
           <picture>
             <source
+              srcset="@/assets/diagrams/Diagram_high-summer.webp"
+              type="image/jpg"
+            >
+            <source
               srcset="@/assets/diagrams/Diagram_high-summer.jpg"
-              media="(max-width: 992px)"
               type="image/png"
             >
             <img 
