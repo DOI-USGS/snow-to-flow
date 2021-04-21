@@ -22,7 +22,7 @@
                 thumbnails: true,
                 sourceButton: true,
                 group: 'diagram-low', 
-                title: 'A Low Snow Winter: If winter temperatures remain above freezing during precipitation events, or if there is not much precipitation at all, SWE accumulation can be quite low compared to other years in the same place. Dry soils from previous years set the stage for the coming melt season year, making it harder for snow to turn into flow.'
+                title: 'A Low Snow Winter: If winter temperatures remain above freezing during precipitation events, or if there is not much precipitation at all, SWE accumulation in a given location can be quite low compared to other years. '
               }"
               class="sliderImage"
               src="@/assets/diagrams/Diagram_low-winter.jpg"
@@ -48,7 +48,7 @@
                 thumbnails: true,
                 sourceButton: true,
                 group: 'diagram-low', 
-                title: 'A Low Snow Spring: Warming winters can mean that there’s not much snow accumulation.  If those years also face an early, warm spring, the snowmelt season releases liquid meltwater slowly and gradually.  Melting this way means that the slow trickle of melt can be absorbed by the soil, which slows down meltwater on its journey over and through the soil towards streams.'
+                title: 'A Low Snow Spring: Warming winters can mean that there is not much snow accumulation. If those years also face an early, warm spring, the snowmelt season releases meltwater slowly and gradually, and there may not be a spring streamflow peak. Melting in this way means that the slow trickle of melt can be absorbed by the soil, which slows down meltwater on its journey over and through the soil towards streams.'
               }"
               class="sliderImage"
               src="@/assets/diagrams/Diagram_low-spring.jpg"
@@ -73,7 +73,7 @@
                 thumbnails: true,
                 sourceButton: true,
                 group: 'diagram-low', 
-                title: 'A Low Snow Summer: By the time the snowpack is gone for the year, the melt season could have proceeded so slowly and gradually that downstream reservoirs could only capture a fraction of their usual water budget.'
+                title: 'A Low Snow Summer: Snowpack melts earlier and streamflow is diminished compared to high-snow conditions. Summer streamflow will be low, and downstream reservoirs may only receive a fraction of their usual water budget.'
               }"
               class="sliderImage"
               src="@/assets/diagrams/Diagram_low-summer.jpg"

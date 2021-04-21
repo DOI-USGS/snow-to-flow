@@ -22,7 +22,7 @@
                 thumbnails: true,
                 sourceButton: true,
                 group: 'diagram-normal', 
-                title: 'A Typical Winter: Soil saturation sets the stage for the coming snow season - whether it was wet or dry the year before determines how saturated it is.  Around October, snow begins to fall and SWE begins to accumulate. Especially at high elevations, snowpack can be several feet thick and store many inches worth of water.'
+                title: 'A Typical Winter: Soil saturation sets the stage for the coming snow season - whether the prior year was wet or dry determines soil saturation for the current year. Around October, snow begins to fall and SWE begins to accumulate. Especially at high elevations, the snowpack can be several feet thick and store several inches of water (SWE).'
               }"
               class="sliderImage"
               src="@/assets/diagrams/Diagram_typical-winter.jpg"
@@ -48,7 +48,7 @@
                 thumbnails: true,
                 sourceButton: true,
                 group: 'diagram-normal', 
-                title: 'A Typical Spring:  At some point, snowpack SWE reaches its peak and then tips downward as the snow begins to melt.  The date of peak SWE determines the melt timing, and the melt duration measures how long it takes for all the snow to melt from that peak.'
+                title: 'A Typical Spring: At some point, snowpack SWE reaches its peak and then begins to decline as the snow begins to melt. The date of peak SWE marks the beginning of the melt timing, and the melt duration is the time required for one-half of the peak SWE to melt (SM50). '
               }"
               class="sliderImage"
               src="@/assets/diagrams/Diagram_typical-spring.jpg"
@@ -73,7 +73,7 @@
                 thumbnails: true,
                 sourceButton: true,
                 group: 'diagram-normal', 
-                title: 'A Typical Summer: During the melt season, soils soak up some of the meltwater, but not all of it. The rest moves quickly over and through the soil, filling streams with a surge of water that can be captured in reservoirs downstream.  For many places in the Western U.S., this meltwater makes up the majority of their water budget for the year.'
+                title: 'A Typical Summer: During the melt season, infiltration of meltwater increases soil saturation and runoff to streams. Streamflow often peaks in the early summer in response to spring snowmelt, filling streams with a surge of water that can be captured by downstream diversions or in reservoirs. For many places in the Western U.S., spring snowmelt composes the majority of the annual water budget.'
               }"
               class="sliderImage"
               src="@/assets/diagrams/Diagram_typical-summer.jpg"
