@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar collapsed">
+  <div class="sidebar collapsed opacity">
     <div class="sidebarContent">
       <div class="titleAndExit">
         <button
@@ -31,16 +31,16 @@
 export default {
     name: "SidebarTwo",
     mounted(){
-        this.$nextTick(function(){
-            this.setDimensions();
-        });
+        window.addEventListener("load", () => this.setDimensions());
     },
     methods:{
         setDimensions(){
             const sidebar = this.$el;
-            const button = this.$el.querySelector(".reveal").getBoundingClientRect();
-            sidebar.style.height = `${button.height}px`;
-            sidebar.style.width = `${button.width}px`;
+            const button = this.$el.querySelector(".reveal")
+            const buttonDimensions = button.getBoundingClientRect();
+            sidebar.style.height = `${buttonDimensions.height}px`;
+            sidebar.style.width = `${buttonDimensions.width}px`;
+            sidebar.classList.remove("opacity");
         },
         toggle(){
             const exit = this.$el.querySelector(".exit");
@@ -71,6 +71,8 @@ $familyMain: 'Public sans', sans-serif;
     will-change: width;
     background: $deepBlue;
     border-radius: 5px;
+    transition: opacity 0.3s;
+
 }
 .titleAndExit{
     position: relative;
@@ -81,6 +83,9 @@ $familyMain: 'Public sans', sans-serif;
 .reveal{
     padding: 5px 10px;
     outline: none;
+}
+.opacity{
+  opacity: 0;
 }
 .exit{
     position: absolute;
