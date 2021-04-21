@@ -6,7 +6,7 @@ export default {
         id: "ref-methods",
         subTitle: "SWE and streamflow ridgelines",
         reference:
-          "o	The ridgeline charts show data from a selection of USGS streamgage locations in the Upper Colorado River Basin that are part of NGWOS monitoring and modeling. Daily gridded SWE values at 4-km resolution were obtained for the 2011 and 2012 water years at each location from the <a href='https://nsidc.org/data/NSIDC-0719/versions/1' target='_blank'>National Snow & Ice Data Center</a>. Streamflow was obtained from the <a href='https://waterdata.usgs.gov/nwis?' target='_blank'>USGS National Water Information System</a>.",
+          "The ridgeline charts show data from a selection of USGS streamgage locations in the Upper Colorado River Basin that are part of NGWOS monitoring and modeling. Daily gridded SWE values at 4-km resolution were obtained for the 2011 and 2012 water years at each location from the <a href='https://nsidc.org/data/NSIDC-0719/versions/1' target='_blank'>National Snow & Ice Data Center</a>. Streamflow was obtained from the <a href='https://waterdata.usgs.gov/nwis?' target='_blank'>USGS National Water Information System</a>.",
       },
       {
         id: "ref-april-1-map",
