@@ -8,7 +8,7 @@
     <!-- FIGURES -->
     <template v-slot:aboveExplanation>
       <p>
-        The snowpack at the Upper Colorado Basin shows a significant difference in snowpack from the winter of 2011 - a big year for snow.  However, 2012 was a very low snow year, with some early intermittent melting.
+        The snowpack at the University Camp SNOTEL Site 838 in near Boulder, Colorado shows a significant difference in snowpack from the winter of 2011 to 2012. The winter of 2011 experienced a large snowpack and subsequent spring melt. However, 2012 was a very low snow year, with some early intermittent melting and small spring melt.
       </p>
     </template>
     <template v-slot:figures>
@@ -22,7 +22,7 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        Water years 2011 (high snow) and 2012 (low snow) comparing snow (as SWE) and flow (as discharge, mm per day).  SWE measurements are from the <a
+        Water years 2011 (high snow) and 2012 (low snow) comparing snow (as SWE) and flow (as discharge, mm per day). SWE measurements are from the <a
           href="https://wcc.sc.egov.usda.gov/nwcc/site?sitenum=1031"
           target="_blank"
         >Never Summer SNOTEL Site 1031</a> and discharge measurements are from <a
