@@ -31,6 +31,15 @@
         >USGS streamgage 06614800</a> on the Michigan River near Cameron Pass, CO.
       </p>
     </template>
+          <Sidebar>
+        <template v-slot:sidebarTitle>
+          What is a "water year"?
+        </template>
+        <template v-slot:sidebarMessage>
+          <p>A water year is the 12-month period from October 1st to September 30th of the following year. Water Year 2021 (WY2021) began on October 1st, 2020 and will end on September 30th, 2021.</p>
+          <p>Hydrologists use the concept of a water year because hydrologic activity in the fall and winter sets the stage for the streamflow in the following spring and summer.</p>
+        </template>
+      </Sidebar>
   </VizSection>
 </template>
 
