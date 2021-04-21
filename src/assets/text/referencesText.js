@@ -17,7 +17,7 @@ export default {
       },
       {
         reference:
-          "4. Barnhart, T. B. et al. Snowmelt rate dictates streamflow. Geophys. Res. Lett. 43, 8006–8016 (2016).",
+          "4. Barnhart, T. B., Molotoch, N. P., Livneh, B., Harpold, A. A.,  Knowles, J. F., & Schneider, D. Snowmelt rate dictates streamflow. Geophys. Res. Lett. 43, 8006–8016 (2016).",
       },
       {
         reference:
@@ -37,7 +37,7 @@ export default {
       },
       {
         reference:
-          "9. Harpold, A. et al. Changes in snowpack accumulation and ablation in the intermountain west. Water Resour. Res. 48, (2012).",
+          "9. Harpold, A., Brooks, P., Rajagopal, S., Heidbuchel, I., Jardine, A., & Stielstra, C. Changes in snowpack accumulation and ablation in the intermountain west. Water Resour. Res. 48, (2012).",
       },
       {
         reference:
@@ -48,7 +48,7 @@ export default {
           "11. McCabe, G. J. & Clark, M. P. Trends and Variability in Snowmelt Runoff in the Western United States. J. Hydrometeorol. 6, 476–482 (2005).",
       },{
         reference:
-          "12. Sexstone, G. A. et al. Spatial Variability in Seasonal Snowpack Trends across the Rio Grande Headwaters (1984–2017). J. Hydrometeorol. 21, 2713–2733 (2020).",
+          "12. Sexstone, G. A., Penn, C. A., Liston, G. E., Gleason, K. E., Moeser, C. D., & Clow, D. C. Spatial Variability in Seasonal Snowpack Trends across the Rio Grande Headwaters (1984–2017). J. Hydrometeorol. 21, 2713–2733 (2020).",
       },
       {
         reference:
@@ -56,7 +56,7 @@ export default {
       },
       {
         reference:
-          "14. López-Moreno, J. I. et al. Snowpack variability across various spatio-temporal resolutions. Hydrol. Process. 29, 1213–1224 (2015).",
+          "14. López-Moreno, J. I., Revuelto, J., Fassnacht, S. R., Azorín-Molina, C., Vicente-Serrano, S. M., Morán‐Tejeda, & Sexstone, G. A. Snowpack variability across various spatio-temporal resolutions. Hydrol. Process. 29, 1213–1224 (2015).",
       }
     ],
   },
