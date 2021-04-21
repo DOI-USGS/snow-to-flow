@@ -89,7 +89,7 @@
               }"
               class="sliderImage"
               src="@/assets/methods/station4.jpg"
-              alt="USGS NGWOS snow test bed site (Ranch Creek Meadow) in Winter Park, Colorado shown recording snow water equivalent, snow depth, soil moisture, and other meteorological variables. Photographer: Graham Sexstone"
+              alt="USGS Next Generation Water Observing System (NGWOS) snow test bed site (Ranch Creek Meadow) in Winter Park, Colorado shown recording snow water equivalent, snow depth, soil moisture, and other meteorological variables. Photographer: Graham Sexstone"
               loading="lazy"
             >
           </picture>

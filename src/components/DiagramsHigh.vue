@@ -7,7 +7,7 @@
     </template>
     <template v-slot:aboveExplanation>
       <p>
-        High snow conditions are often accompanied by later snowmelt timing and a faster rate of melting over a shorter time period. This is because as peak snowpack remains frozen later into the year, the more likely it is that the snow will melt all at once in a rapid surge.
+        High snow conditions are often accompanied by later snowmelt timing because of the high SWE. When high SWE is accompanied by a faster rate of melting over a shorter time period, large streamflow can also occur. This is because as peak snowpack remains frozen later into the year, the more likely it is that the snow will melt all at once when temperatures warm.
       </p>
     </template>
     <!-- FIGURES -->
@@ -17,7 +17,7 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        Click each diagram to enlarge it and learn more.
+        Click to enlarge.
       </p>
     </template>
     <!-- EXPLANATION -->

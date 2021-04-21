@@ -15,13 +15,7 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        Click each diagram to enlarge it and learn more.
-      </p>
-    </template>
-    <!-- EXPLANATION -->
-    <template v-slot:belowExplanation>
-      <p>
-        But there's lots of variability from year to year, even in a single place. Changes in these dynamics deeply impacts water availability.
+        Click to enlarge.
       </p>
     </template>
   </VizSection>

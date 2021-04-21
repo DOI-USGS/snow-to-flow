@@ -35,7 +35,7 @@
             <label
               class="butt"
               for="cb-disch1"
-            >Flow</label>
+            >Streamflow</label>
           </div>
         </div>
       </div>

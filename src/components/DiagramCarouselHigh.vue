@@ -24,7 +24,7 @@
                 thumbnails: true,
                 sourceButton: true,
                 group: 'diagram-high', 
-                title: 'A High Snow Winter: If soils are not dried out by previous years of drought and lots of snow begins to accumulate, the stage is set for a year with lots of meltwater availability.'
+                title: 'A High Snow Winter: If soils are well saturated from the previous year, and winter snow accumulation is high, the stage is set for a year with ample meltwater availability.'
               }"
               class="sliderImage"
               src="@/assets/diagrams/Diagram_high-winter.jpg"
@@ -50,7 +50,7 @@
                 thumbnails: true,
                 sourceButton: true,
                 group: 'diagram-high', 
-                title: 'A High Snow Spring: In a high snow year, SWE continues to accumulate late into the spring as temperatures stay cold.  Usually, high SWE goes hand-in-hand with a late melt date, since both are a result of temperatures staying cold late into the spring. The later the peak snowpack day occurs, the more likely it is that the snow will melt all at once in a rapid surge.'
+                title: 'A High Snow Spring: In a high snow year, SWE continues to accumulate late into the spring in response to continued snowfall and cold temperatures. Usually, high SWE goes hand-in-hand with a late onset of melt because both can result from cold spring temperatures. The later peak snowpack occurs, the more likely it is that the snow will melt all at once in a rapid surge.'
               }"
               class="sliderImage"
               src="@/assets/diagrams/Diagram_high-spring.jpg"
@@ -75,7 +75,7 @@
                 thumbnails: true,
                 sourceButton: true,
                 group: 'diagram-high', 
-                title: 'A High Snow Summer: A late, large melt combined with good soil saturation means that the resulting surge of stream flow can be enormous. Even dry soils might not be able to absorb all the meltwater, and there can be flooding. But much of the water can be captured in reservoirs to provide lots of water for the rest of the year.'
+                title: 'A High Snow Summer: A lot of snow combined with well-saturated soils and late melt timing can result in a large surge of streamflow as temperatures warm. High runoff in the spring can cause flooding and streamflow may be sustained throughout the summer.'
               }"
               class="sliderImage"
               src="@/assets/diagrams/Diagram_high-summer.jpg"
