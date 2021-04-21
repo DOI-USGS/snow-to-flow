@@ -105,6 +105,13 @@ $familyMain: 'Public sans', sans-serif;
 .message{
     background: #fff;
     padding: 10px;
+    *{
+      padding-top: 0;
+      margin-bottom: 10px;
+      &:last-child{
+        margin-bottom: 0;
+      }
+    }
 }
 .collapsed{
     .message{
