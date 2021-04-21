@@ -12,7 +12,7 @@
     <template v-slot:aboveExplanation>
       <p />
       <p>
-        Seasonal snowpack varies widely from place to place, and from year to year<sup>16</sup>. In the Upper Colorado river basin, between 2011 and 2012 there was a two-fold difference in the magnitude of SWE at the selected sites, shaping the timing and magnitude of streamflow, and subsequently, water availability. Use the buttons below to explore how differences in snow between two years impact streamflow dynamics measured by USGS streamgages.
+        Seasonal snowpack varies widely from place to place, and from year to year<sup>16</sup>, and this variability can have a strong influence on the timing and magnitude of snowmelt, delivery to a watershed, and subsequent streamflow response. At the sites shown below in the Upper Colorado River Basin, there was a two-fold difference in the magnitude of SWE between 2011 and 2012, illustrating how changes in snowmelt can shape the timing and magnitude of streamflow, and subsequently, water availability. Use the buttons below to explore how differences in snow between two years affect streamflow dynamics measured by USGS streamgages.
       </p>
     </template>
     <!-- FIGURES -->
@@ -56,7 +56,7 @@
                 <label
                   class="butt"
                   for="cb2"
-                >Flow</label>
+                >Streamflow</label>
               </div>
             </div>
           </div>
@@ -179,12 +179,12 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        Use the buttons reorganize the chart and compare SWE and streamflow across a selection of USGS streamgages.
+        Use the buttons to reorganize the chart and compare SWE and streamflow across a selection of USGS streamgages.
       </p>
     </template>
     <template v-slot:belowExplanation>
       <p>
-        Elevation is intertwined with numerous factors like snow persistence, wind redistribution, and slope that drive complex snow-to-flow dynamics from site to site. At higher elevations, fallen snow can be blown over ridges, scouring windward rises or trees, leading to snow accumulating on the leeward side of the ridge. This results in spatial differences in snowpack depth that contribute to variation in snowmelt timing and rates, in addition to other climatic factors.
+        Elevation is intertwined with numerous factors like snow persistence, wind redistribution, and slope that drive complex snow-to-flow dynamics from site to site. At higher elevations, fallen snow can be blown over ridges, scouring windward rises or trees, leading to snow accumulating on the leeward side of the ridge. This results in spatial variation in snowpack depth and snowmelt timing.
       </p>
       <!-- <Sidebar>
         <template v-slot:sidebarTitle>
