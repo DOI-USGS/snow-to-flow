@@ -17,10 +17,23 @@
         <picture class="lazy">
           <!--Media size suggestions https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images-->
           <source
+            type="image/webp"
+            media="(max-width: 799px)"
+            :data-srcset="require(`@/assets/titleImages/1x/${image}-1x.webp`)"
+          >
+          <source
+            type="image/webp"
+            media="(min-width: 800px)"
+            :data-srcset="require(`@/assets/titleImages/2x/${image}-2x.webp`)"
+          >
+          <!--BACKUP IF BROWSER DOESN'T ACCEPT WEBP (TESTED AND WORKING ON SAFARI)-->
+          <source
+            type="image/jpg"
             media="(max-width: 799px)"
             :data-srcset="require(`@/assets/titleImages/1x/${image}-1x.jpg`)"
           >
           <source
+            type="image/jpg"
             media="(min-width: 800px)"
             :data-srcset="require(`@/assets/titleImages/2x/${image}-2x.jpg`)"
           >

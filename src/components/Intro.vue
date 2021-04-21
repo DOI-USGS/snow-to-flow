@@ -38,7 +38,6 @@ export default {
     name: "Intro",
     components:{
         VizSection,
-        Sidebar
     },
      mounted() {
           this.$nextTick(() => {
