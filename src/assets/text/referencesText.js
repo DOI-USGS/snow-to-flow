@@ -51,7 +51,7 @@ export default {
       {
         reference:
           "6. Barnett, T. P., Adam, J. C. & Lettenmaier, D. P. Potential impacts of a warming climate on water availability in snow-dominated regions. Nature 438, 303–309 (2005).",
-          num:"",
+          num:"6",
           authors:"Barnett, T. P., Adam, J. C. & Lettenmaier, D. P. ",
           title: "Potential impacts of a warming climate on water availability in snow-dominated regions.",
           link:"https://www.nature.com/articles/nature04141",
