@@ -857,6 +857,11 @@ $familySerif:  'Noto Serif', serif;
   font-style: italic;
   fill: rgb(165, 163, 163);
 }
+.inputsContainer{
+  .inputs{
+    font-size:.85em;
+  }
+}
 #mmd-container-both {
   width: 90vw;
   max-width: 900px;
@@ -939,6 +944,7 @@ input[name="checkboxgroup1"] {
         .inputs{
           position: absolute;
           left: 10px;
+          font-size: 18px;
           .butt{
             margin-right: 10px;
           }
