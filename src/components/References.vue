@@ -98,11 +98,11 @@ button:not([disabled]):focus{
     color: white;
   }
 }
-// .target p{
-//   padding: 0;
-//   font-size: 1em;
-//   line-height: 1.5em; 
-// }
+.target p{
+  padding: 0;
+  font-size: 1em;
+  line-height: 1.5em; 
+}
 
 
 p { 
