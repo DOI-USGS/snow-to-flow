@@ -19,10 +19,10 @@ se <- function(x) sqrt(var(na.omit(x))/length(na.omit(x)))
 
 calc_yr_stats <-  function(data){
   
-  ## april 1st SWE = todays swe for now
+  ## april 1st SWE 
   apr1 <- data %>% 
     filter(date == sprintf('%s-04-01', year)) %>%
-    mutate(apr1_swe = swe)%>%
+    mutate(apr1_swe = swe, apr1_day = water_day)%>%
     dplyr::select(site_id, water_year, apr1_swe)
   
   # find peak swe and sm50_swe for each year
@@ -31,7 +31,7 @@ calc_yr_stats <-  function(data){
     summarize(peak_swe = max(swe, na.rm=TRUE)) %>%
     mutate(sm50_swe = peak_swe/2)
     
-    # find date of peak swe each year
+  # find date of peak swe each year
   peak_dates <- data %>%
     left_join(peaks) %>%
     group_by(site_id, water_year)%>%
@@ -41,7 +41,7 @@ calc_yr_stats <-  function(data){
     dplyr::select(-date, -water_day, -swe, -year) %>%
     ungroup()%>%
     mutate(peak_met = case_when(
-      as.character(peak_date) == '2021-04-05' ~ 'TBD', 
+      as.character(peak_date) == Sys.Date() ~ 'TBD', 
       TRUE ~ as.character(peak_date)))
 
   # find date of sm50_swe for each year
@@ -55,7 +55,7 @@ calc_yr_stats <-  function(data){
            sm50_date = date) %>%
     dplyr::select(-date, -water_day, -swe)%>%
     mutate(sm50_met = case_when(
-      as.character(sm50_date) == '2021-04-05' ~ 'TBD', 
+      as.character(sm50_date) == Sys.Date() ~ 'TBD', 
       TRUE ~ as.character(sm50_date)))
   
   m50_current <- m50_dates %>% filter(water_year == 2021)
@@ -90,7 +90,7 @@ hist_data <- lapply(hist_files, read_csv) %>% bind_rows()
 wy_data <- lapply(wy_files, read_csv) %>% bind_rows()
 all_data <- rbind(hist_data, wy_data)%>%filter(water_year >= 1981)
 
-## calculate annual metrics - swe  and water_day variables correspond to the last date pulled
+## calculate annual metrics - peak swe, sm50, apr 1st swe, and water_day variables correspond to the last date pulled
 all_stat <- calc_yr_stats(all_data)
 write_csv(all_stat, '2_process/out/SNOTEL_stats_POR.csv')
 
@@ -98,24 +98,30 @@ write_csv(all_stat, '2_process/out/SNOTEL_stats_POR.csv')
 
 ## given a date, April 1st or most recent
 ## pull SWE, compare to 1981-2010 to find percentile
-## if there is no POR,leave site in data with NA for ptile
-today <- '2021-04-05'
+## if there is no POR leave site in data with NA 
+
+today <- '2021-04-01' ## find percentile for this date
 wy_today <- wy_data %>% filter(date == today) # 834 sites for today
 
+## all days in the historic record for this date
 hist_today <- hist_data %>% 
   filter(date == as.Date(sprintf("%s-%s-%s", year(date), month(as.Date(today)), day(as.Date(today)))))
 
+## filter to 1981-2011 period of record, only include sites that have data for current year
 hist_por <- hist_today %>% 
   filter(water_year > 1980 & water_year <= 2010 & site_id %in% wy_today$site_id & !is.na(swe))
 num(hist_por$site_id) # 722
 
-## how many years in the POR? (out of 30)
+## how many years in the POR for each site? (out of 30 possible)
 por_yrs <- hist_por %>%
   group_by(site_id)%>%
   summarize(wy_n = num(water_year)) 
-por_20 <- por_yrs %>%filter(wy_n >= 20)
 
-## get percentile for each site on today's date
+##  limit to sites with a minimum of 20 years in the POR
+por_20 <- por_yrs %>%filter(wy_n >= 20)
+num(por_20$site_id) # 542
+
+## get percentile for each site on given date
 percentile_df <- NULL
 for (i in intersect(unique(wy_today$site_id), unique(por_20$site_id))){
   dv <- hist_por %>% filter(site_id == i)
@@ -128,35 +134,12 @@ for (i in intersect(unique(wy_today$site_id), unique(por_20$site_id))){
   percentile_df <- rbind(percentile_df, pout)
 }
 
-#ptile for every day of this year
-all_por <- all_data %>% 
-  filter(water_year > 1980 & water_year <= 2010 & site_id %in% wy_today$site_id & !is.na(swe))
 
-
-ptile_df <- NULL
-for (i in intersect(unique(wy_today$site_id), unique(por_20$site_id))){
-  dv <- all_por %>% filter(site_id == i)
-  do <- wy_data %>% filter(site_id == i) %>% arrange(desc(water_day))
-
-  for (j in unique(do$water_day)){
-    de <- dv %>%filter(water_day == j)
-    dr <- do %>%filter(water_day == j)
-    p_q <- quantile(de$swe, probs = c(.1,.25, 0.5, .75, .9))
- 
-    ptile_df <- rbind(ptile_df, as.data.frame(p_q) %>%
-                        rownames_to_column('p') %>% 
-                        mutate(water_day = j, site_id = i) %>%
-                        dcast(site_id+water_day~p, value.var='p_q')) 
-  }
-
-}
-
-str(ptile_df)
+# join percentiles to site-level data -------------------------------------
 
 ## percentiles were calculated based on daily swe values for a given date compared to the period of record (1981-2010)
 # sites were included if the had (1) at least 20 years of non-NA data in the POR  for given date, (2) were active during 2021 wy, (3)
-# this was a total of 533 sites
-## could also get ptile for peak swe and sm50...but not that informative without dates being hit yet
+# this was a total of 542 sites
 
 # metadata for all SNOTEL sites
 meta <- RNRCS::grabNRCS.meta('SNTL')
@@ -164,7 +147,7 @@ meta <- RNRCS::grabNRCS.meta('SNTL')
 ## all_stat is the peak sm50 etc for each site and each year
 ## for 2021 -  each site with single row that has coordinates, this years peak and sm50 and if it's met
 # with the d paths and ptile
-# add to svg map coords so everything is in one place?
+# add to svg map coords so everything is in one place
 
 ## combine with annual stats for
 ## includes all sites, including without POR
@@ -195,3 +178,32 @@ ak_stat <- read.csv('6_visualize/out/ak_sites.csv') %>%# svg coordinates
 write_csv(ak_stat, '2_process/out/SNOTEL_ak.csv')
 
 ## add trend d paths for peak, sm50, 2021 SWE using 6_visualize/src/trend_coords.R
+
+
+# find percentile bands for current year ----------------------------------
+
+# ptile for every day of this year
+all_por <- all_data %>% 
+  filter(water_year > 1980 & water_year <= 2010 & site_id %in% wy_today$site_id & !is.na(swe))
+
+
+ptile_df <- NULL
+for (i in intersect(unique(wy_today$site_id), unique(por_20$site_id))){
+  dv <- all_por %>% filter(site_id == i)
+  do <- wy_data %>% filter(site_id == i) %>% arrange(desc(water_day))
+
+  for (j in unique(do$water_day)){
+    de <- dv %>%filter(water_day == j)
+    dr <- do %>%filter(water_day == j)
+    p_q <- quantile(de$swe, probs = c(.1,.25, 0.5, .75, .9))
+ 
+    ptile_df <- rbind(ptile_df, as.data.frame(p_q) %>%
+                        rownames_to_column('p') %>% 
+                        mutate(water_day = j, site_id = i) %>%
+                        dcast(site_id+water_day~p, value.var='p_q')) 
+  }
+
+}
+
+str(ptile_df)
+
