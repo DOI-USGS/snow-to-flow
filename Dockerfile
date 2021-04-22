@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM artifactory.wma.chs.usgs.gov/docker-official-mirror/debian:stretch
 
 LABEL maintainer="makerspace-team@usgs.gov"
 

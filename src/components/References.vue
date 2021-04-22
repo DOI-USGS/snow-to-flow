@@ -7,7 +7,7 @@
           v-for="reference in text.references"
           :key="reference.subTitle"
         >
-          <p><span v-html="reference.reference" /></p>
+          <p><span v-html="reference.num" />. <span v-html="reference.authors" /> <a v-bind:href="reference.link" target="_blank"><span v-html="reference.title"/></a><span v-html="reference.ref" /></p>
         </div>
       </div>
     </div>
