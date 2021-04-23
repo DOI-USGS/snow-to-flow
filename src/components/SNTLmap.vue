@@ -1438,7 +1438,7 @@
           <svg
             id="peak-svg"
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="-50 -20 260 135" 
+            viewBox="-50 -20 260 150" 
             preserveAspectRatio="xMinYMin slice"
           />
         </div>
@@ -1448,7 +1448,7 @@
           <svg
             id="wy21-svg"
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="-50 -20 260 300" 
+            viewBox="-50 -20 260 330" 
             preserveAspectRatio="xMinYMin slice"
           />
         </div>
@@ -1630,7 +1630,7 @@ export default {
         self.setColor();
 
         var yCorr = this.d3.scaleLinear()
-          .range([100, 10])
+          .range([110, 10])
           .domain([0, 130]);
 
         var xCorr = this.d3.scaleLinear()
@@ -1645,7 +1645,7 @@ export default {
             //.tickValues(["1981", "1991", "2001", "2011", "2021"])
             //.tickFormat(this.d3.format("d"))
             )
-          .attr("transform", "translate(" + (0) + "," + 100 + ")");
+          .attr("transform", "translate(" + (0) + "," + 110 + ")");
 
         this.d3.select("svg#peak-svg")
           .append("g")
@@ -1679,7 +1679,7 @@ export default {
 
       // melt mini
        var ymelt = this.d3.scaleLinear()
-          .range([100, 10])
+          .range([110, 10])
           .domain([0, 350]);
 
         var yr_list = ["1981", "1991", "2001", "2011", "2021"];
@@ -1690,16 +1690,16 @@ export default {
             .ticks(5)
             .tickValues(["1982", "1991", "2001", "2011", "2021"]).tickSize(0)
             .tickFormat(function(d,i) { return yr_list[i] }))
-          .attr("transform", "translate(" + (0) + "," + 100 + ")");
+          .attr("transform", "translate(" + (0) + "," + 110 + ")");
 
           this.d3.select("svg#peak-svg")
           .append("g")
-          .classed("melt-legend", true)
+          .classed("peak-legend", true)
           .call(this.d3.axisBottom(xCorr)
             .ticks(5)
             .tickValues(["1982", "1991", "2001", "2011", "2021"]).tickSize(0)
             .tickFormat(function(d,i) { return yr_list[i] }))
-          .attr("transform", "translate(" + (0) + "," + 100 + ")")
+          .attr("transform", "translate(" + (0) + "," + 110 + ")")
           .attr("z-index",  1);
 
         this.d3.select("svg#melt-svg")
@@ -1730,7 +1730,7 @@ export default {
             .attr("y", 120)
             .attr("x", 15)
             .attr("transform", "rotate(-90) translate(-110, -150)")
-            .text("days since Oct 1");
+            .text("date");
  */
             this.d3.select("svg#melt-svg").append("text")
           .classed("ele", true)
@@ -1744,7 +1744,7 @@ export default {
 
         // wy mini
        self.ywy = this.d3.scaleLinear()
-          .range([215, 10])
+          .range([270, 10])
           .domain([1, 130]);
 
         self.xwy = this.d3.scaleLinear()
@@ -1758,7 +1758,7 @@ export default {
             .tickValues([1, 93, 183, 273])
               .tickFormat(function(d,i) { return self.tickDates[i] })
               .tickSizeOuter(0).tickSize(0))
-          .attr("transform", "translate(" + (0) + "," + 215 + ")");
+          .attr("transform", "translate(" + (0) + "," + 270 + ")");
 
 
         this.d3.select("svg#wy21-svg")
@@ -1775,7 +1775,7 @@ export default {
           .attr("font-size", "1em")
           .attr("text-anchor", "center")
           .attr("font-weight", "bold")
-          .attr("y", 255)
+          .attr("y", 305)
           .attr("x", 50)
           .text("2021 Water year");
 
@@ -1811,7 +1811,6 @@ export default {
         .attr("x", 30)
         .text("Hover over a site");
 
-
       },
 
       addSites(x_max, y_max, sites, data) {
@@ -1830,7 +1829,6 @@ export default {
           .range([y_max,  0])
           .domain([y_max, 0]);
 
-          
         // sites with no percentile data are drawn as empty circles
         sites.selectAll("SNTL")
         .data(data_not, function(d) { return d.site_id; }) // the key for each  site for updating data
@@ -1862,7 +1860,7 @@ export default {
           .attr("r", this.site_radius)
           .attr("z-index", 10)
 
-        // add hover effect to all sites
+        // add hover effect to percentile sites sites
         this.d3.selectAll(".SNTL")
           .on("mouseover", function(data) {
             self.hover(data, self.site_radius*2, "orchid");
@@ -1882,19 +1880,6 @@ export default {
             .attr("x", 30)
             .text("Hover over a site");
               }) 
-           /* .on("click", function(data){
-            self.hoverOut(data, self.site_radius);
-            //hover/click prompt
-          self.d3.select("svg#wy21-svg").append("text")
-            .classed("hover_info", true)
-            .attr("fill", "#000")
-            .attr("font-size", "1.2em")
-            .attr("text-anchor", "start")
-            .attr("font-style", "italic")
-            .attr("y", 50)
-            .attr("x", 30)
-            .text("Hover over a site");
-              })  */
           
         },
         hover(data, to, color){
@@ -1913,7 +1898,7 @@ export default {
 
           peaky.append("path")
             .attr("id", data.sntl_id)
-            .attr("d", data.d_peak_sqrt)
+            .attr("d", data.d_peak)
             .attr("fill", "transparent")
             .attr("stroke", "black")
             .attr("stroke-width", "2px")
@@ -1939,9 +1924,10 @@ export default {
             .attr("fill", "transparent")
             .attr("stroke", "black")
             .attr("stroke-width", 2)
+            .attr("transform", "translate(" + (0) + "," + 10 + ")")
 
             // add peak swe and sm50 date to wy chart
-  /*           wy.append("circle")
+            wy.append("circle")
             .attr("cx", data.peak_x)
             .attr("cy", data.peak_y )
             .attr("r",4)
@@ -1949,11 +1935,10 @@ export default {
             .classed("peak", true)
             .attr("fill", "orchid")
             .attr("opacity", 1)
+            .attr("transform", "translate(" + (0) + "," + 10 + ")")
 
             wy.selectAll(".peak.TBD")
-            .attr("fill", "white")
-            .attr("stroke", "orchid")
-            .attr("stroke-width", 1.5)
+            .remove()
 
           wy.append("circle")
             .attr("cx", data.sm50_x)
@@ -1962,7 +1947,8 @@ export default {
             .classed(data.sm50_met, true)
             .classed("melt", true)
             .attr("fill", "gold")
-            .attr("opacity", 1) */
+            .attr("opacity", 1)
+            .attr("transform", "translate(" + (0) + "," + 10 + ")")
 
             wy.selectAll(".melt.TBD")
             .remove()
