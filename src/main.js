@@ -7,7 +7,6 @@ import App from "./App.vue";
 import uswds from "uswds";
 import browserDetect from "vue-browser-detect-plugin";
 import Vuetify from "vuetify";
-import ScrubbableVideo from "@diracleo/vue-scrubbable-video";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import "vuetify/dist/vuetify.min.css";
@@ -42,7 +41,6 @@ Vue.config.productionTip = false;
 Vue.use(uswds);
 Vue.use(browserDetect);
 Vue.use(Vuetify);
-Vue.use(ScrubbableVideo);
 Vue.use(VueCarousel);
 Vue.use(VueImg, vueImgConfig)
 
