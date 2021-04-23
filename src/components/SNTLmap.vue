@@ -1438,7 +1438,7 @@
           <svg
             id="peak-svg"
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="-50 0 260 105" 
+            viewBox="-50 -20 260 135" 
             preserveAspectRatio="xMinYMin slice"
           />
         </div>
@@ -1448,7 +1448,7 @@
           <svg
             id="wy21-svg"
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="-50 0 260 260" 
+            viewBox="-50 -20 260 300" 
             preserveAspectRatio="xMinYMin slice"
           />
         </div>
@@ -1458,7 +1458,7 @@
           <svg
             id="melt-svg"
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="-50 0 260 150" 
+            viewBox="-50 -20 260 170" 
             preserveAspectRatio="xMinYMin slice"
           />
         </div>
@@ -1471,7 +1471,7 @@
         The map shows April 1st snow as a percentile of this date in the historic record (1981-2010). Snow is quantified as the daily snow-water equivalent (SWE) at  <a
           href="https://www.wcc.nrcs.usda.gov/snow/"
           target="_blank"
-        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the Western U.S. SNOTEL sites with less than 20 years in the historic record are shown in grey.</a>. 
+        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the Western U.S. SNOTEL sites with less than 20 years in the historic record are faded out in grey.</a>. 
       </p>
     </template>
     <!-- EXPLANATION -->
@@ -1534,6 +1534,9 @@ export default {
               d3: null,
               mobileView: isMobile,
               tickDates: ["Oct '20","Jan '21", "Apr '21", "Jul '21"],
+              meltDates: ["Oct 1","Jan 1", "Apr 1", "Jul 1", "Oct 1"],
+              miniSWE: ["0"," ", " ", " ", "130"],
+
 
               sntl_variable: "ptile_swe", // map site colors
 
@@ -1638,7 +1641,7 @@ export default {
           .append("g")
           .classed("corr-legend", true)
           .call(this.d3.axisBottom(xCorr)
-            .ticks(0)
+            .ticks(0).tickSize(0)
             //.tickValues(["1981", "1991", "2001", "2011", "2021"])
             //.tickFormat(this.d3.format("d"))
             )
@@ -1649,28 +1652,29 @@ export default {
           .classed("corr-legend", true)
           .call(this.d3.axisLeft(yCorr)
             .ticks(3)
-            .tickValues(["0",  "130"]))
+            .tickValues(["10","40","70","100",  "130"]).tickSize(2))
           .attr("transform", "translate(" + (0) + "," + 0 + ")");
 
-      // position axis labels
-     /*    this.d3.select("svg#peak-svg").append("text")
-          .attr("fill", "#000")
-          .attr("font-size", "1.25em")
-          .attr("text-anchor", "start")
-          .attr("font-weight", "bold")
-          .attr("y", 140)
-          .attr("x", 50)
-          .text("Water year"); */
 
         this.d3.select("svg#peak-svg").append("text")
+          .classed("ele", true)
+            .attr("fill", "black")
+            .attr("font-size", ".9em")
+            .attr("text-anchor", "start")
+            .attr("font-style", "italic")
+            .attr("y", 120)
+            .attr("x", 35)
+            .attr("transform", "rotate(-90) translate(-110, -150)")
+            .text("inches");
+
+              this.d3.select("svg#peak-svg").append("text")
           .classed("ele", true)
             .attr("fill", "black")
             .attr("font-size", "1em")
             .attr("font-weight", "bold")
             .attr("text-anchor", "start")
-            .attr("y", 120)
-            .attr("x", 15)
-            .attr("transform", "rotate(-90) translate(-110, -150)")
+            .attr("y", 0)
+            .attr("x", -25)
             .text("Peak SWE");
 
       // melt mini
@@ -1678,19 +1682,33 @@ export default {
           .range([100, 10])
           .domain([0, 350]);
 
+        var yr_list = ["1981", "1991", "2001", "2011", "2021"];
         this.d3.select("svg#melt-svg")
           .append("g")
           .classed("melt-legend", true)
           .call(this.d3.axisBottom(xCorr)
             .ticks(5)
-            .tickValues(["1981", "1991", "2001", "2011", "2021"]).tickSize(0)
-            .tickFormat(this.d3.format("d")))
+            .tickValues(["1982", "1991", "2001", "2011", "2021"]).tickSize(0)
+            .tickFormat(function(d,i) { return yr_list[i] }))
           .attr("transform", "translate(" + (0) + "," + 100 + ")");
+
+          this.d3.select("svg#peak-svg")
+          .append("g")
+          .classed("melt-legend", true)
+          .call(this.d3.axisBottom(xCorr)
+            .ticks(5)
+            .tickValues(["1982", "1991", "2001", "2011", "2021"]).tickSize(0)
+            .tickFormat(function(d,i) { return yr_list[i] }))
+          .attr("transform", "translate(" + (0) + "," + 100 + ")")
+          .attr("z-index",  1);
 
         this.d3.select("svg#melt-svg")
           .append("g")
           .classed("melt-legend", true)
-          .call(this.d3.axisLeft(ymelt).ticks(5))
+          .call(this.d3.axisLeft(ymelt)
+          .tickValues([10, 93, 183, 273])
+              .tickFormat(function(d,i) { return self.meltDates[i] })
+              .tickSizeOuter(2).tickSize(2))
           .attr("transform", "translate(" + (0) + "," + 0 + ")");
 
       // position axis labels
@@ -1703,25 +1721,35 @@ export default {
           .attr("x", 75)
           .text("Year");
 
-        this.d3.select("svg#melt-svg").append("text")
+  /*       this.d3.select("svg#melt-svg").append("text")
+          .classed("ele", true)
+            .attr("fill", "black")
+            .attr("font-size", ".9em")
+            .attr("text-anchor", "start")
+            .attr("font-style", "italic")
+            .attr("y", 120)
+            .attr("x", 15)
+            .attr("transform", "rotate(-90) translate(-110, -150)")
+            .text("days since Oct 1");
+ */
+            this.d3.select("svg#melt-svg").append("text")
           .classed("ele", true)
             .attr("fill", "black")
             .attr("font-size", "1em")
             .attr("font-weight", "bold")
             .attr("text-anchor", "start")
-            .attr("y", 120)
-            .attr("x", 15)
-            .attr("transform", "rotate(-90) translate(-110, -150)")
-            .text("Melt date");
+            .attr("y", 0)
+            .attr("x", -25)
+            .text("Melt date (SM50)");
 
         // wy mini
        self.ywy = this.d3.scaleLinear()
           .range([215, 10])
-          .domain([1, 100]);
+          .domain([1, 130]);
 
         self.xwy = this.d3.scaleLinear()
           .range([0,  200])
-          .domain([1, 187]);
+          .domain([1, 204]); // this is the date that the generated paths are las tupdated to
 
         this.d3.select("svg#wy21-svg")
           .append("g")
@@ -1736,7 +1764,9 @@ export default {
         this.d3.select("svg#wy21-svg")
           .append("g")
           .classed("melt-legend", true)
-          .call(this.d3.axisLeft(self.ywy))
+          .call(this.d3.axisLeft(self.ywy)
+            .tickValues([10, 40, 70, 100, 130])
+              .tickSizeOuter(0).tickSize(0))
           .attr("transform", "translate(" + (0) + "," + 0 + ")");
 
       // position axis labels
@@ -1752,12 +1782,22 @@ export default {
         this.d3.select("svg#wy21-svg").append("text")
           .classed("ele", true)
             .attr("fill", "black")
+            .attr("font-size", ".9em")
+            .attr("text-anchor", "start")
+            .attr("font-style", "italic")
+            .attr("y", 130)
+            .attr("x", -15)
+            .attr("transform", "rotate(-90) translate(-110, -150)")
+            .text("inches");
+
+         this.d3.select("svg#wy21-svg").append("text")
+          .classed("ele", true)
+            .attr("fill", "black")
             .attr("font-size", "1em")
             .attr("font-weight", "bold")
             .attr("text-anchor", "start")
-            .attr("y", 120)
-            .attr("x", -10)
-            .attr("transform", "rotate(-90) translate(-110, -150)")
+            .attr("y", 0)
+            .attr("x", -25)
             .text("SWE");
 
       //hover/click prompt
