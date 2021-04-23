@@ -1471,7 +1471,7 @@
         The map shows April 1st snow as a percentile of this date in the historic record (1981-2010). Snow is quantified as the daily snow-water equivalent (SWE) at  <a
           href="https://www.wcc.nrcs.usda.gov/snow/"
           target="_blank"
-        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the Western U.S.</a>. 
+        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the Western U.S. SNOTEL sites with less than 20 years in the historic record are shown in grey.</a>. 
       </p>
     </template>
     <!-- EXPLANATION -->
@@ -1590,8 +1590,8 @@ export default {
         const self = this;
         // read in data 
         let promises = [
-        self.d3.csv(self.publicPath + "data/SNOTEL_conus_d.csv", this.d3.autoType),
-        self.d3.csv(self.publicPath + "data/SNOTEL_ak_d.csv", this.d3.autoType)]; 
+        self.d3.csv(self.publicPath + "data/SNOTEL_conus_d_test.csv", this.d3.autoType),
+        self.d3.csv(self.publicPath + "data/SNOTEL_ak_d_test.csv", this.d3.autoType)]; 
         Promise.all(promises).then(self.callback); 
       },
       callback(data) {
@@ -1790,6 +1790,23 @@ export default {
           .range([y_max,  0])
           .domain([y_max, 0]);
 
+          
+        // sites with no percentile data are drawn as empty circles
+        sites.selectAll("SNTL")
+        .data(data_not, function(d) { return d.site_id; }) // the key for each  site for updating data
+        .enter()
+        .append("circle")
+          .attr("cx", function (d) { return self.xScale(d.x); })
+          .attr("cy", function (d) { return self.yScale(d.y); } )
+          .classed("SNTL_nodata",  true)
+          .attr("id", function(d) { return d.sntl_id })
+          .attr("opacity", .6)
+          .attr("stroke", "rgb(101, 101, 101)")
+          .attr("fill", "rgb(171, 171, 171)")
+          .attr("stroke-width", .3)
+          .attr("r", this.site_radius*.9)
+          .attr("z-index", -1)
+
         // draw sites with percentile data
         sites.selectAll("SNTL")
         .data(data_filt, function(d) { return d.site_id; }) // the key for each  site for updating data
@@ -1803,21 +1820,7 @@ export default {
           .attr("stroke", "black")
           .attr("stroke-width", .35)
           .attr("r", this.site_radius)
-
-        // sites with no percentile data are drawn as empty circles
-        sites.selectAll("SNTL")
-        .data(data_not, function(d) { return d.site_id; }) // the key for each  site for updating data
-        .enter()
-        .append("circle")
-          .attr("cx", function (d) { return self.xScale(d.x); })
-          .attr("cy", function (d) { return self.yScale(d.y); } )
-          .classed("SNTL_nodata",  true)
-          .attr("id", function(d) { return d.sntl_id })
-          .attr("opacity", .7)
-          .attr("stroke", "black")
-          .attr("fill", "transparent")
-          .attr("stroke-width", .35)
-          .attr("r", this.site_radius)
+          .attr("z-index", 10)
 
         // add hover effect to all sites
         this.d3.selectAll(".SNTL")
@@ -1827,7 +1830,8 @@ export default {
           })
           .on("mouseout", function(data){
             self.hoverOut(data, self.site_radius);
-            //hover/click prompt
+
+          //hover/click prompt
           self.d3.select("svg#wy21-svg").append("text")
             .classed("hover_info", true)
             .attr("fill", "#000")
