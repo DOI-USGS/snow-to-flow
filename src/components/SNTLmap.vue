@@ -1786,7 +1786,7 @@ export default {
             .attr("text-anchor", "start")
             .attr("font-style", "italic")
             .attr("y", 130)
-            .attr("x", -15)
+            .attr("x", -35)
             .attr("transform", "rotate(-90) translate(-110, -150)")
             .text("inches");
 
@@ -1946,7 +1946,9 @@ export default {
             .attr("r",4)
             .classed(data.sm50_met, true)
             .classed("melt", true)
-            .attr("fill", "gold")
+            .attr("fill", "white")
+            .attr("stroke", "orchid")
+            .attr("stroke-width", 1.5)
             .attr("opacity", 1)
             .attr("transform", "translate(" + (0) + "," + 10 + ")")
 
