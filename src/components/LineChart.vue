@@ -502,7 +502,7 @@ sup {
     }
 
     .annotation {
-        font-size: .9em;
+        font-size: .8em;
         // @media screen and (max-width: 600px) {
         //   text {
         //     font-size: 1.2em;
