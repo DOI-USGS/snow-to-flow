@@ -1471,7 +1471,7 @@
         The map shows April 1st snow as a percentile of this date in the historic record (1981-2010). Snow is quantified as the daily snow-water equivalent (SWE) at  <a
           href="https://www.wcc.nrcs.usda.gov/snow/"
           target="_blank"
-        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the Western U.S. SNOTEL sites with less than 20 years in the historic record are faded out in grey.</a>. 
+        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites </a> across the Western U.S. SNOTEL sites with less than 20 years in the historic record are faded out in grey.
       </p>
     </template>
     <!-- EXPLANATION -->
@@ -1760,7 +1760,6 @@ export default {
               .tickSizeOuter(0).tickSize(0))
           .attr("transform", "translate(" + (0) + "," + 270 + ")");
 
-
         this.d3.select("svg#wy21-svg")
           .append("g")
           .classed("melt-legend", true)
@@ -1955,6 +1954,33 @@ export default {
             wy.selectAll(".melt.TBD")
             .remove()
 
+            // add sm50 and peak to mini timeseries
+
+              peaky.append("circle")
+              .attr("cx", data.mini_peak_x)
+              .attr("cy", data.mini_peak_y )
+              .attr("r",4)
+              .classed(data.peak_met, true)
+              .classed("peak", true)
+              .attr("fill", "orchid")
+              .attr("opacity", 1)
+              .attr("transform", "translate(" + (0) + "," + 0 + ")") // need to check this out
+
+              melty.append("circle")
+              .attr("cx", data.mini_sm50_x)
+              .attr("cy", data.mini_sm50_y )
+              .attr("r",4)
+              .classed(data.sm50_met, true)
+              .classed("melt", true)
+              .attr("fill", "white")
+            .attr("stroke", "orchid")
+            .attr("stroke-width", 1.5)
+              .attr("opacity", 1)
+              .attr("transform", "translate(" + (0) + "," + 0 + ")") // need to check this out
+                          
+          melty.selectAll(".melt.TBD")
+            .remove()
+console.log(data)
       this.d3.select("svg#wy21-svg").append("text")
         .classed("site_name", true)
         .attr("fill", "#000")
