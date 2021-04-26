@@ -52,9 +52,8 @@ build_path_from_coords <- function(coords) {
                       c(tail(coords$y, -1)), collapse = " ")) 
   return(d)
 }
-
-convert_trend_to_svg <- function(obj, svg_width, svg_height, ymax, ymin, xmin, xmax) {
-  coords <- obj
+coords = site_obj
+convert_trend_to_svg <- function(coords, svg_width, svg_height, ymax, ymin, xmin, xmax) {
   x_dec <- coords[,'x']
   y_dec <- coords[,'y']
   
@@ -69,14 +68,15 @@ convert_trend_to_svg <- function(obj, svg_width, svg_height, ymax, ymin, xmin, x
   y_pixels <- y_dec - ymin 
   
   data.frame(
-    x = round(approx(x_extent_pixels, c(0, svg_width), x_pixels)$y, 5),
-    y = round(approx(y_extent_pixels, c(svg_height, 0), y_pixels)$y, 5)
+    x = round(approx(x_extent_pixels, c(0, svg_width), x_pixels$x)$y, 5),
+    y = round(approx(y_extent_pixels, c(svg_height, 0), y_pixels$y)$y, 5)
   )
   
 }
+
 ## some small error with function above not working for points...
-convert_pt_to_svg <- function(obj, svg_width, svg_height, ymax, ymin, xmin, xmax) {
-  coords <- obj
+convert_pt_to_svg <- function(coords, svg_width, svg_height, ymax, ymin, xmin, xmax) {
+
   x_dec <- coords[,'x']
   y_dec <- coords[,'y']
   
@@ -131,8 +131,7 @@ all_expanded <- expand.grid(unique(all_stat$water_year), unique(all_stat$site_id
 
 ## create dataframe with svg d paths
 df_out <- NULL
-i <- unique(all_expanded$site_id)[64]
-i
+i <- unique(all_expanded$site_id)[1]
 for  (i in unique(all_expanded$site_id)){
   all_site <- all_expanded %>% filter(site_id == i) %>% arrange(water_year)
   all_site$x <- all_site$water_year
@@ -141,7 +140,7 @@ for  (i in unique(all_expanded$site_id)){
   all_site$y <- all_site$peak_swe
   site_obj <- all_site %>% dplyr::select(x,y)
   
-  peak <- convert_trend_to_svg(obj = site_obj, 
+  peak <- convert_pt_to_svg(coords = site_obj, 
                                svg_width = time_w, svg_height = time_h, 
                                ymax=range(na.omit(all_expanded$peak_swe))[2], 
                                ymin = range(na.omit(all_expanded$peak_swe))[1], 
@@ -150,7 +149,7 @@ for  (i in unique(all_expanded$site_id)){
   
   all_site$y <- all_site$peak_swe_log
   site_obj <- all_site %>% dplyr::select(x,y)
-  peak_log <- convert_trend_to_svg(obj = site_obj, 
+  peak_log <- convert_pt_to_svg(coords = site_obj, 
                                    svg_width = time_w, svg_height = time_h, 
                                ymax=range(na.omit(all_expanded$peak_swe_log))[2], 
                                ymin = range(na.omit(all_expanded$peak_swe_log))[1], 
@@ -159,7 +158,7 @@ for  (i in unique(all_expanded$site_id)){
   
   all_site$y <- all_site$peak_swe_sqrt
   site_obj <- all_site %>% dplyr::select(x,y)
-  peak_sqrt <- convert_trend_to_svg(obj = site_obj, 
+  peak_sqrt <- convert_pt_to_svg(coords = site_obj, 
                                     svg_width = time_w, svg_height = time_h, 
                                ymax=range(na.omit(all_expanded$peak_swe_sqrt))[2], 
                                ymin = range(na.omit(all_expanded$peak_swe_sqrt))[1], 
@@ -169,7 +168,7 @@ for  (i in unique(all_expanded$site_id)){
   # swe date
   all_site$y <- all_site$sm50_day
   site_obj <- all_site %>% dplyr::select(x,y)
-  sm50 <- convert_trend_to_svg(obj = site_obj, 
+  sm50 <- convert_pt_to_svg(coords = site_obj, 
                                svg_width = time_w, svg_height = time_h, 
                                ymax=350, ymin = 0, 
                                xmin = 1981, xmax= 2021) %>%
@@ -178,11 +177,38 @@ for  (i in unique(all_expanded$site_id)){
   # swe date
   all_site$y <- all_site$apr1_swe
   site_obj <- all_site %>% dplyr::select(x,y)
-  apr1 <- convert_trend_to_svg(obj = site_obj, 
+  apr1 <- convert_pt_to_svg(coords = site_obj, 
                                svg_width = time_w, svg_height = time_h, 
                                ymax=120, ymin=0, 
                                xmin = 1981, xmax= 2021) %>%
     split_df_by_NAs()
+  
+
+  
+  ## convert day and value at peak SWE, sm50 to mini charts
+  sitey <- all_stat  %>% 
+    filter(site_id == i & water_year == 2021) %>%
+    dplyr::select(water_year, site_id, peak_swe, peak_day, sm50_swe, sm50_day)%>%
+    melt(id.vars=c('site_id','water_year'))%>%
+    separate(variable, into=c('metric','var'), sep='_') %>%
+    dcast(site_id + water_year + metric ~ var)
+  sitey$x <- sitey$water_year
+  sitey$y <- sitey$swe
+  site_obj <- sitey %>% dplyr::select(x,y)
+  swe_pts <- convert_pt_to_svg(coords = site_obj[1,], 
+                               svg_width = time_w, svg_height = time_h, 
+                               ymax=130, ymin = 0, xmin = 1981, xmax = 2021)
+  melt_pts <- convert_pt_to_svg(coords = site_obj[2,], 
+                               svg_width = time_w, svg_height = time_h, 
+                               ymax=130, ymin = 0, xmin = 1981, xmax = 2021)
+  
+  all_pts <- rbind(swe_pts, melt_pts)%>%
+    mutate(metric = sitey$metric, site_id = i) %>%
+    melt(id.vars=c("site_id","metric")) %>%
+    dcast(site_id ~ metric + variable)  %>%
+    mutate(sntl_id = sprintf("sntl_%s", i))
+  
+  colnames(all_pts)<- c("site_id", sprintf("mini_%s", colnames(all_pts)[2:5]), "sntl_id")
   
   df_out <- rbind(df_out, 
                   data.frame(sntl_id = sprintf("sntl_%s", i),
@@ -190,7 +216,8 @@ for  (i in unique(all_expanded$site_id)){
                              d_sm50 = sm50, 
                              d_apr1 = ifelse(is.null(apr1), NA, apr1), 
                              d_peak_log = peak_log, 
-                             d_peak_sqrt  = peak_sqrt))
+                             d_peak_sqrt  = peak_sqrt) %>%
+    left_join(all_pts))
   
 }
 
@@ -201,15 +228,14 @@ str(df_out)
 ## sizing of the mini plot that pops up
 wy_files <- list.files('1_fetch/out/SNOTEL', pattern="wy2021", full.names=TRUE)
 wy_data <- lapply(wy_files, read_csv) %>% bind_rows()
-str(wy_data)
-wy_data%>%filter()
 
 year_w <- 200
-year_h <- 200
-max_day <-as.numeric(Sys.Date()-as.Date('2020-10-01'))
+year_h <- 260
+max_day <-as.numeric(Sys.Date()-as.Date('2020-10-01'))-1
 
 # create dataframe with svg d paths
 df_swe <- NULL
+i <- unique(wy_data$site_id)[1]
 for  (i in unique(wy_data$site_id)){
   
   # swe through time
@@ -217,35 +243,37 @@ for  (i in unique(wy_data$site_id)){
   all_site$x <- all_site$water_day
   all_site$y <- all_site$swe
   site_obj <- all_site %>% dplyr::select(x,y)
-  swe <- convert_trend_to_svg(obj = site_obj, 
+  swe <- convert_trend_to_svg(coords = site_obj, 
                               svg_width = year_w, svg_height = year_h, 
-                              ymax=100, ymin = 0, xmin = 1, xmax = max_day) %>%
-    build_path_from_coords()
+                              ymax=range(na.omit(all_expanded$peak_swe))[2], 
+                              ymin = 0, 
+                              xmin = 1, 
+                              xmax = max_day) %>%
+    split_df_by_NAs()
   
   
   all_site$x <- all_site$water_day
   all_site$y <- log(all_site$swe+1)
   site_obj <- all_site %>% dplyr::select(x,y)
-  swe_sqrt <- convert_trend_to_svg(obj = site_obj, 
+  swe_sqrt <- convert_trend_to_svg(coords = site_obj, 
                               svg_width = year_w, svg_height = year_h, 
                               ymax=12, ymin = 0, xmin = 1, xmax = max_day) %>%
-    build_path_from_coords()
+    split_df_by_NAs()
   
 
-  ## convert day  and value at peak SWE AND sm50 to coords
+  ## convert day  and value at peak SWE, sm50, and apr1 to coords
   sitey <- all_stat  %>% 
     filter(site_id == i & water_year == 2021) %>%
-    dplyr::select(water_year, site_id, peak_swe, peak_day, sm50_swe, sm50_day, apr1_swe)%>%
-    mutate(apr1_day = 182) %>%
+    dplyr::select(water_year, site_id, peak_swe, peak_day, sm50_swe, sm50_day, apr1_swe, apr1_day)%>%
     melt(id.vars=c('site_id','water_year'))%>%
     separate(variable, into=c('metric','var'), sep='_') %>%
     dcast(site_id + water_year + metric ~ var)
   sitey$x <- sitey$day
   sitey$y <- sitey$swe
   site_obj <- sitey %>% dplyr::select(x,y)
-  swe_pts <- convert_pt_to_svg(obj = site_obj, 
+  swe_pts <- convert_pt_to_svg(coords = site_obj, 
                               svg_width = year_w, svg_height = year_h, 
-                              ymax=100, ymin = 0, xmin = 1, xmax = max_day) %>%
+                              ymax=130, ymin = 0, xmin = 1, xmax = max_day) %>%
     mutate(metric = sitey$metric, site_id = i) %>%
     melt(id.vars=c("site_id","metric")) %>%
     dcast(site_id ~ metric + variable)
@@ -281,14 +309,20 @@ read.csv('2_process/out/SNOTEL_ak.csv') %>%
   write_csv("6_visualize/out/SNOTEL_ak_d.csv")
 
 file.copy("6_visualize/out/SNOTEL_conus_d.csv",
-          "C:/Users/cnell/Documents/Projects/snow-to-flow/public/data/SNOTEL_conus_d.csv",
+          "C:/Users/cnell/Documents/Projects/snow-to-flow/public/data/SNOTEL_conus_d_test.csv",
           overwrite = TRUE)
 file.copy("6_visualize/out/SNOTEL_ak_d.csv",
-          "C:/Users/cnell/Documents/Projects/snow-to-flow/public/data/SNOTEL_ak_d.csv",
+          "C:/Users/cnell/Documents/Projects/snow-to-flow/public/data/SNOTEL_ak_d_test.csv",
           overwrite = TRUE)
 
 
 # explorations ------------------------------------------------------------
+
+y94 <-all_expanded%>%filter(water_year == 1994 & is.na(peak_swe))%>%pull(site_id)
+all_expanded%>%filter(site_id %in% y94, water_year == 1992, !is.na(peak_swe))%>%pull(site_id)
+
+meta$SNTL %>% filter(site_id == 'SNTL:1062')
+
 
 str(all_stat)
 length(unique(all_stat$site_id))
