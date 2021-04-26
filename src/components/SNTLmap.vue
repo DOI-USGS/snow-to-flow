@@ -13,13 +13,21 @@
         v-if="mobileView"
         class="explain figureCaption"
       >
-        Select a site to see this year's SWE and the magnitude (peak SWE) and timing (SM50) of snow since 1981. 
+        Select a site to see this year's SWE and the magnitude (peak SWE <svg class="leggy" viewBox="0 0 10 10" width="10" height="10">
+  <circle cx="5" cy="5" r="4" style="fill: orchid; stroke: orchid;stroke-width: 1px;"/>
+</svg>) and timing (SM50 <svg viewBox="0 0 10 10" width="10" height="10">
+  <circle cx="5" cy="5" r="4" style="fill: white; stroke: orchid; stroke-width: 1.3px;"/>
+</svg>) of snow since 1981. 
       </p>
       <p
         v-if="!mobileView"
         class="explain figureCaption"
       >
-        Mouseover a site to see this year's SWE and the magnitude (peak SWE) and timing (SM50) of snow since 1981.
+        Mouseover a site to see this year's SWE and the magnitude (peak SWE <svg class="leggy" viewBox="0 0 10 10" width="10" height="10">
+  <circle cx="5" cy="5" r="4" style="fill: orchid; stroke: orchid;stroke-width: 1px;"/>
+</svg> ) and timing (SM50 <svg viewBox="0 0 10 10" width="10" height="10">
+  <circle cx="5" cy="5" r="4" style="fill: white; stroke: orchid; stroke-width: 1.3px;"/>
+</svg> ) of snow since 1981. Symbols not shown if peak SWE or SM50 have not been met as of 4/26/2021.
       </p>
     </template>
     <!-- FIGURES -->
@@ -1438,7 +1446,7 @@
           <svg
             id="peak-svg"
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="-50 0 260 105" 
+            viewBox="-50 -20 260 150" 
             preserveAspectRatio="xMinYMin slice"
           />
         </div>
@@ -1448,7 +1456,7 @@
           <svg
             id="wy21-svg"
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="-50 0 260 260" 
+            viewBox="-50 -20 260 330" 
             preserveAspectRatio="xMinYMin slice"
           />
         </div>
@@ -1458,7 +1466,7 @@
           <svg
             id="melt-svg"
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="-50 0 260 150" 
+            viewBox="-50 -20 260 170" 
             preserveAspectRatio="xMinYMin slice"
           />
         </div>
@@ -1471,7 +1479,7 @@
         The map shows April 1st snow as a percentile of this date in the historic record (1981-2010). Snow is quantified as the daily snow-water equivalent (SWE) at  <a
           href="https://www.wcc.nrcs.usda.gov/snow/"
           target="_blank"
-        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the Western U.S.</a>. 
+        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites </a> across the Western U.S. SNOTEL sites with less than 20 years in the historic record are faded out in grey.
       </p>
     </template>
     <!-- EXPLANATION -->
@@ -1534,6 +1542,9 @@ export default {
               d3: null,
               mobileView: isMobile,
               tickDates: ["Oct '20","Jan '21", "Apr '21", "Jul '21"],
+              meltDates: ["Oct 1","Jan 1", "Apr 1", "Jul 1", "Oct 1"],
+              miniSWE: ["0"," ", " ", " ", "130"],
+
 
               sntl_variable: "ptile_swe", // map site colors
 
@@ -1590,8 +1601,8 @@ export default {
         const self = this;
         // read in data 
         let promises = [
-        self.d3.csv(self.publicPath + "data/SNOTEL_conus_d.csv", this.d3.autoType),
-        self.d3.csv(self.publicPath + "data/SNOTEL_ak_d.csv", this.d3.autoType)]; 
+        self.d3.csv(self.publicPath + "data/SNOTEL_conus_d_test.csv", this.d3.autoType),
+        self.d3.csv(self.publicPath + "data/SNOTEL_ak_d_test.csv", this.d3.autoType)]; 
         Promise.all(promises).then(self.callback); 
       },
       callback(data) {
@@ -1627,7 +1638,7 @@ export default {
         self.setColor();
 
         var yCorr = this.d3.scaleLinear()
-          .range([100, 10])
+          .range([110, 10])
           .domain([0, 130]);
 
         var xCorr = this.d3.scaleLinear()
@@ -1638,59 +1649,74 @@ export default {
           .append("g")
           .classed("corr-legend", true)
           .call(this.d3.axisBottom(xCorr)
-            .ticks(0)
+            .ticks(0).tickSize(0)
             //.tickValues(["1981", "1991", "2001", "2011", "2021"])
             //.tickFormat(this.d3.format("d"))
             )
-          .attr("transform", "translate(" + (0) + "," + 100 + ")");
+          .attr("transform", "translate(" + (0) + "," + 110 + ")");
 
         this.d3.select("svg#peak-svg")
           .append("g")
           .classed("corr-legend", true)
           .call(this.d3.axisLeft(yCorr)
             .ticks(3)
-            .tickValues(["0",  "130"]))
+            .tickValues(["10","40","70","100",  "130"]).tickSize(2))
           .attr("transform", "translate(" + (0) + "," + 0 + ")");
 
-      // position axis labels
-     /*    this.d3.select("svg#peak-svg").append("text")
-          .attr("fill", "#000")
-          .attr("font-size", "1.25em")
-          .attr("text-anchor", "start")
-          .attr("font-weight", "bold")
-          .attr("y", 140)
-          .attr("x", 50)
-          .text("Water year"); */
 
         this.d3.select("svg#peak-svg").append("text")
+          .classed("ele", true)
+            .attr("fill", "black")
+            .attr("font-size", ".9em")
+            .attr("text-anchor", "start")
+            .attr("font-style", "italic")
+            .attr("y", 120)
+            .attr("x", 35)
+            .attr("transform", "rotate(-90) translate(-110, -150)")
+            .text("inches");
+
+              this.d3.select("svg#peak-svg").append("text")
           .classed("ele", true)
             .attr("fill", "black")
             .attr("font-size", "1em")
             .attr("font-weight", "bold")
             .attr("text-anchor", "start")
-            .attr("y", 120)
-            .attr("x", 15)
-            .attr("transform", "rotate(-90) translate(-110, -150)")
+            .attr("y", 0)
+            .attr("x", -25)
             .text("Peak SWE");
 
       // melt mini
        var ymelt = this.d3.scaleLinear()
-          .range([100, 10])
+          .range([110, 10])
           .domain([0, 350]);
 
+        var yr_list = ["1981", "1991", "2001", "2011", "2021"];
         this.d3.select("svg#melt-svg")
           .append("g")
           .classed("melt-legend", true)
           .call(this.d3.axisBottom(xCorr)
             .ticks(5)
-            .tickValues(["1981", "1991", "2001", "2011", "2021"]).tickSize(0)
-            .tickFormat(this.d3.format("d")))
-          .attr("transform", "translate(" + (0) + "," + 100 + ")");
+            .tickValues(["1982", "1991", "2001", "2011", "2021"]).tickSize(0)
+            .tickFormat(function(d,i) { return yr_list[i] }))
+          .attr("transform", "translate(" + (0) + "," + 110 + ")");
+
+          this.d3.select("svg#peak-svg")
+          .append("g")
+          .classed("peak-legend", true)
+          .call(this.d3.axisBottom(xCorr)
+            .ticks(5)
+            .tickValues(["1982", "1991", "2001", "2011", "2021"]).tickSize(0)
+            .tickFormat(function(d,i) { return yr_list[i] }))
+          .attr("transform", "translate(" + (0) + "," + 110 + ")")
+          .attr("z-index",  1);
 
         this.d3.select("svg#melt-svg")
           .append("g")
           .classed("melt-legend", true)
-          .call(this.d3.axisLeft(ymelt).ticks(5))
+          .call(this.d3.axisLeft(ymelt)
+          .tickValues([10, 93, 183, 273])
+              .tickFormat(function(d,i) { return self.meltDates[i] })
+              .tickSizeOuter(2).tickSize(2))
           .attr("transform", "translate(" + (0) + "," + 0 + ")");
 
       // position axis labels
@@ -1703,25 +1729,35 @@ export default {
           .attr("x", 75)
           .text("Year");
 
-        this.d3.select("svg#melt-svg").append("text")
+  /*       this.d3.select("svg#melt-svg").append("text")
+          .classed("ele", true)
+            .attr("fill", "black")
+            .attr("font-size", ".9em")
+            .attr("text-anchor", "start")
+            .attr("font-style", "italic")
+            .attr("y", 120)
+            .attr("x", 15)
+            .attr("transform", "rotate(-90) translate(-110, -150)")
+            .text("date");
+ */
+            this.d3.select("svg#melt-svg").append("text")
           .classed("ele", true)
             .attr("fill", "black")
             .attr("font-size", "1em")
             .attr("font-weight", "bold")
             .attr("text-anchor", "start")
-            .attr("y", 120)
-            .attr("x", 15)
-            .attr("transform", "rotate(-90) translate(-110, -150)")
-            .text("Melt date");
+            .attr("y", 0)
+            .attr("x", -25)
+            .text("Melt date (SM50)");
 
         // wy mini
        self.ywy = this.d3.scaleLinear()
-          .range([215, 10])
-          .domain([1, 100]);
+          .range([270, 10])
+          .domain([1, 130]);
 
         self.xwy = this.d3.scaleLinear()
           .range([0,  200])
-          .domain([1, 187]);
+          .domain([1, 204]); // this is the date that the generated paths are las tupdated to
 
         this.d3.select("svg#wy21-svg")
           .append("g")
@@ -1730,13 +1766,14 @@ export default {
             .tickValues([1, 93, 183, 273])
               .tickFormat(function(d,i) { return self.tickDates[i] })
               .tickSizeOuter(0).tickSize(0))
-          .attr("transform", "translate(" + (0) + "," + 215 + ")");
-
+          .attr("transform", "translate(" + (0) + "," + 270 + ")");
 
         this.d3.select("svg#wy21-svg")
           .append("g")
           .classed("melt-legend", true)
-          .call(this.d3.axisLeft(self.ywy))
+          .call(this.d3.axisLeft(self.ywy)
+            .tickValues([10, 40, 70, 100, 130])
+              .tickSizeOuter(0).tickSize(0))
           .attr("transform", "translate(" + (0) + "," + 0 + ")");
 
       // position axis labels
@@ -1745,19 +1782,29 @@ export default {
           .attr("font-size", "1em")
           .attr("text-anchor", "center")
           .attr("font-weight", "bold")
-          .attr("y", 255)
+          .attr("y", 305)
           .attr("x", 50)
           .text("2021 Water year");
 
         this.d3.select("svg#wy21-svg").append("text")
           .classed("ele", true)
             .attr("fill", "black")
+            .attr("font-size", ".9em")
+            .attr("text-anchor", "start")
+            .attr("font-style", "italic")
+            .attr("y", 130)
+            .attr("x", -35)
+            .attr("transform", "rotate(-90) translate(-110, -150)")
+            .text("inches");
+
+         this.d3.select("svg#wy21-svg").append("text")
+          .classed("ele", true)
+            .attr("fill", "black")
             .attr("font-size", "1em")
             .attr("font-weight", "bold")
             .attr("text-anchor", "start")
-            .attr("y", 120)
-            .attr("x", -10)
-            .attr("transform", "rotate(-90) translate(-110, -150)")
+            .attr("y", 0)
+            .attr("x", -25)
             .text("SWE");
 
       //hover/click prompt
@@ -1770,7 +1817,6 @@ export default {
         .attr("y", 50)
         .attr("x", 30)
         .text("Hover over a site");
-
 
       },
 
@@ -1790,6 +1836,22 @@ export default {
           .range([y_max,  0])
           .domain([y_max, 0]);
 
+        // sites with no percentile data are drawn as empty circles
+        sites.selectAll("SNTL")
+        .data(data_not, function(d) { return d.site_id; }) // the key for each  site for updating data
+        .enter()
+        .append("circle")
+          .attr("cx", function (d) { return self.xScale(d.x); })
+          .attr("cy", function (d) { return self.yScale(d.y); } )
+          .classed("SNTL_nodata",  true)
+          .attr("id", function(d) { return d.sntl_id })
+          .attr("opacity", .6)
+          .attr("stroke", "rgb(101, 101, 101)")
+          .attr("fill", "rgb(171, 171, 171)")
+          .attr("stroke-width", .3)
+          .attr("r", this.site_radius*.9)
+          .attr("z-index", -1)
+
         // draw sites with percentile data
         sites.selectAll("SNTL")
         .data(data_filt, function(d) { return d.site_id; }) // the key for each  site for updating data
@@ -1803,23 +1865,9 @@ export default {
           .attr("stroke", "black")
           .attr("stroke-width", .35)
           .attr("r", this.site_radius)
+          .attr("z-index", 10)
 
-        // sites with no percentile data are drawn as empty circles
-        sites.selectAll("SNTL")
-        .data(data_not, function(d) { return d.site_id; }) // the key for each  site for updating data
-        .enter()
-        .append("circle")
-          .attr("cx", function (d) { return self.xScale(d.x); })
-          .attr("cy", function (d) { return self.yScale(d.y); } )
-          .classed("SNTL_nodata",  true)
-          .attr("id", function(d) { return d.sntl_id })
-          .attr("opacity", .7)
-          .attr("stroke", "black")
-          .attr("fill", "transparent")
-          .attr("stroke-width", .35)
-          .attr("r", this.site_radius)
-
-        // add hover effect to all sites
+        // add hover effect to percentile sites sites
         this.d3.selectAll(".SNTL")
           .on("mouseover", function(data) {
             self.hover(data, self.site_radius*2, "orchid");
@@ -1827,7 +1875,8 @@ export default {
           })
           .on("mouseout", function(data){
             self.hoverOut(data, self.site_radius);
-            //hover/click prompt
+
+          //hover/click prompt
           self.d3.select("svg#wy21-svg").append("text")
             .classed("hover_info", true)
             .attr("fill", "#000")
@@ -1838,19 +1887,6 @@ export default {
             .attr("x", 30)
             .text("Hover over a site");
               }) 
-           /* .on("click", function(data){
-            self.hoverOut(data, self.site_radius);
-            //hover/click prompt
-          self.d3.select("svg#wy21-svg").append("text")
-            .classed("hover_info", true)
-            .attr("fill", "#000")
-            .attr("font-size", "1.2em")
-            .attr("text-anchor", "start")
-            .attr("font-style", "italic")
-            .attr("y", 50)
-            .attr("x", 30)
-            .text("Hover over a site");
-              })  */
           
         },
         hover(data, to, color){
@@ -1869,7 +1905,7 @@ export default {
 
           peaky.append("path")
             .attr("id", data.sntl_id)
-            .attr("d", data.d_peak_sqrt)
+            .attr("d", data.d_peak)
             .attr("fill", "transparent")
             .attr("stroke", "black")
             .attr("stroke-width", "2px")
@@ -1895,9 +1931,10 @@ export default {
             .attr("fill", "transparent")
             .attr("stroke", "black")
             .attr("stroke-width", 2)
+            .attr("transform", "translate(" + (0) + "," + 10 + ")")
 
             // add peak swe and sm50 date to wy chart
-  /*           wy.append("circle")
+            wy.append("circle")
             .attr("cx", data.peak_x)
             .attr("cy", data.peak_y )
             .attr("r",4)
@@ -1905,11 +1942,10 @@ export default {
             .classed("peak", true)
             .attr("fill", "orchid")
             .attr("opacity", 1)
+            .attr("transform", "translate(" + (0) + "," + 10 + ")")
 
             wy.selectAll(".peak.TBD")
-            .attr("fill", "white")
-            .attr("stroke", "orchid")
-            .attr("stroke-width", 1.5)
+            .remove()
 
           wy.append("circle")
             .attr("cx", data.sm50_x)
@@ -1917,10 +1953,43 @@ export default {
             .attr("r",4)
             .classed(data.sm50_met, true)
             .classed("melt", true)
-            .attr("fill", "gold")
-            .attr("opacity", 1) */
+            .attr("fill", "white")
+            .attr("stroke", "orchid")
+            .attr("stroke-width", 1.5)
+            .attr("opacity", 1)
+            .attr("transform", "translate(" + (0) + "," + 10 + ")")
 
             wy.selectAll(".melt.TBD")
+            .remove()
+
+            // add sm50 and peak to mini timeseries
+
+              peaky.append("circle")
+              .attr("cx", data.mini_peak_x)
+              .attr("cy", data.mini_peak_y )
+              .attr("r",4)
+              .classed(data.peak_met, true)
+              .classed("peak", true)
+              .attr("fill", "orchid")
+              .attr("opacity", 1)
+              .attr("transform", "translate(" + (0) + "," + 0 + ")") // need to check this out
+
+              melty.append("circle")
+              .attr("cx", data.mini_sm50_x)
+              .attr("cy", data.mini_sm50_y )
+              .attr("r",4)
+              .classed(data.sm50_met, true)
+              .classed("melt", true)
+              .attr("fill", "white")
+            .attr("stroke", "orchid")
+            .attr("stroke-width", 1.5)
+              .attr("opacity", 1)
+              .attr("transform", "translate(" + (0) + "," + 0 + ")") // need to check this out
+
+              peaky.selectAll(".peak.TBD")
+            .remove()
+                          
+          melty.selectAll(".melt.TBD")
             .remove()
 
       this.d3.select("svg#wy21-svg").append("text")
@@ -2041,6 +2110,29 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.leggy {
+  display: inline-block;
+}
+.figureCaption {
+  display: block;
+}
+.dot_peak {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: orchid;
+    border: 0.35px solid orchid;
+        display: inline-block;  
+}
+.dot_melt {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: white;
+    border: 1.5px solid orchid;
+    display: inline-block;
+}
+
 .map-grid{
   display: grid;
   grid-template-columns: repeat(6, 1fr);
