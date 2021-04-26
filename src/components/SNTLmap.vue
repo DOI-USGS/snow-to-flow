@@ -13,13 +13,21 @@
         v-if="mobileView"
         class="explain figureCaption"
       >
-        Select a site to see this year's SWE and the magnitude (peak SWE) and timing (SM50) of snow since 1981. 
+        Select a site to see this year's SWE and the magnitude (peak SWE <svg class="leggy" viewBox="0 0 10 10" width="10" height="10">
+  <circle cx="5" cy="5" r="5" style="fill: orchid; stroke: orchid;stroke-width: 1px;"/>
+</svg>) and timing (SM50 <svg viewBox="0 0 10 10" width="10" height="10">
+  <circle cx="5" cy="5" r="5" style="fill: white; stroke: orchid; stroke-width: 1.3px;"/>
+</svg>) of snow since 1981. 
       </p>
       <p
         v-if="!mobileView"
         class="explain figureCaption"
       >
-        Mouseover a site to see this year's SWE and the magnitude (peak SWE) and timing (SM50) of snow since 1981.
+        Mouseover a site to see this year's SWE and the magnitude (peak SWE <svg class="leggy" viewBox="0 0 10 10" width="10" height="10">
+  <circle cx="5" cy="5" r="5" style="fill: orchid; stroke: orchid;stroke-width: 1px;"/>
+</svg> ) and timing (SM50 <svg viewBox="0 0 10 10" width="10" height="10">
+  <circle cx="5" cy="5" r="5" style="fill: white; stroke: orchid; stroke-width: 1.3px;"/>
+</svg> ) of snow since 1981.
       </p>
     </template>
     <!-- FIGURES -->
@@ -1980,7 +1988,7 @@ export default {
                           
           melty.selectAll(".melt.TBD")
             .remove()
-console.log(data)
+
       this.d3.select("svg#wy21-svg").append("text")
         .classed("site_name", true)
         .attr("fill", "#000")
@@ -2099,6 +2107,29 @@ console.log(data)
 }
 </script>
 <style lang="scss" scoped>
+.leggy {
+  display: inline-block;
+}
+.figureCaption {
+  display: block;
+}
+.dot_peak {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: orchid;
+    border: 0.35px solid orchid;
+        display: inline-block;  
+}
+.dot_melt {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: white;
+    border: 1.5px solid orchid;
+    display: inline-block;
+}
+
 .map-grid{
   display: grid;
   grid-template-columns: repeat(6, 1fr);
