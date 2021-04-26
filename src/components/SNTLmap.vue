@@ -1985,6 +1985,9 @@ export default {
             .attr("stroke-width", 1.5)
               .attr("opacity", 1)
               .attr("transform", "translate(" + (0) + "," + 0 + ")") // need to check this out
+
+              peaky.selectAll(".peak.TBD")
+            .remove()
                           
           melty.selectAll(".melt.TBD")
             .remove()

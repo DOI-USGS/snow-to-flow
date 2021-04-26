@@ -531,7 +531,7 @@ export default {
 
           this.d3.selectAll(".ridge.swe")
           .transition()
-          .delay(100)
+          .delay(50)
           .duration(300)
           .attr("opacity", 0)
         } else if (this.sweActive == false){
@@ -539,7 +539,7 @@ export default {
 
           this.d3.selectAll(".ridge.swe")
           .transition()
-          .delay(100)
+          .delay(50)
           .duration(300)
           .attr("opacity", 0.5)
         }
@@ -551,7 +551,7 @@ export default {
 
           this.d3.selectAll(".ridge.mmd")
           .transition()
-          .delay(100)
+          .delay(50)
           .duration(300)
           .attr("opacity", 0)
         } else if (this.flowActive == false){
@@ -559,7 +559,7 @@ export default {
 
           this.d3.selectAll(".ridge.mmd")
           .transition()
-          .delay(100)
+          .delay(50)
           .duration(300)
           .attr("opacity", 0.5)
         }
@@ -618,20 +618,20 @@ export default {
         //self.transPosition(self.lowlabel, 600, 800, 0, 0, 1, 1)
         //self.transPosition(self.highlabel, 700, 700, 0, 0, 1, 1)
 
-        this.lowlabel.transition().delay(100).duration(300).attr("opacity",0)
-        this.highlabel.transition().delay(100).duration(300).attr("opacity",0)
-        this.lowel.transition().delay(100).duration(300).attr("opacity",0)
-        this.highel.transition().delay(100).duration(300).attr("opacity",0)
-        this.slow.transition().delay(100).duration(300).attr("opacity",1)
-        this.fast.transition().delay(100).duration(300).attr("opacity",1)
+        this.lowlabel.transition().delay(50).duration(300).attr("opacity",0)
+        this.highlabel.transition().delay(50).duration(300).attr("opacity",0)
+        this.lowel.transition().delay(50).duration(300).attr("opacity",0)
+        this.highel.transition().delay(50).duration(300).attr("opacity",0)
+        this.slow.transition().delay(50).duration(300).attr("opacity",1)
+        this.fast.transition().delay(50).duration(300).attr("opacity",1)
 
         // transform axes
-        self.transAxis(this.x11, 350, 300, self.xAxis, 0, this.height/2-10, 1, 1)
-        self.transAxis(this.x12, 250, 500, self.xAxis, 0, this.height, 1, 1)
-        self.transAxis(this.y11_swe, 350, 300, self.yAxis_swe, 0, -this.height/2-10, 1, 1)
-        self.transAxis(this.y12_swe, 250, 500, self.yAxis_swe, 0, 0, 1, 1)
-        self.transAxis(this.y11_mmd, 350, 300, self.yAxis_mmd, this.width-75, -this.height/2-10, 1, 1)
-        self.transAxis(this.y12_mmd, 250, 500, self.yAxis_mmd, this.width-75, 0, 1, 1)
+        self.transAxis(this.x11, 50, 300, self.xAxis, 0, this.height/2-10, 1, 1)
+        self.transAxis(this.x12, 50, 500, self.xAxis, 0, this.height, 1, 1)
+        self.transAxis(this.y11_swe, 50, 300, self.yAxis_swe, 0, -this.height/2-10, 1, 1)
+        self.transAxis(this.y12_swe, 50, 500, self.yAxis_swe, 0, 0, 1, 1)
+        self.transAxis(this.y11_mmd, 50, 300, self.yAxis_mmd, this.width-75, -this.height/2-10, 1, 1)
+        self.transAxis(this.y12_mmd, 50, 500, self.yAxis_mmd, this.width-75, 0, 1, 1)
 
         // stretch ridges to full x and y extent
         self.transPosition(this.d3.selectAll("g.ridge_2011.curve"), 270, 500,  0, 0, 1, 1)
@@ -665,12 +665,12 @@ export default {
         this.y2011.selectAll("path.ridge")
           .transition()
           .delay(function(d,i) { return i*15 })
-          .duration(1100)
+          .duration(1000)
           .attr("transform", "translate(0," + (this.height/2+10) + ")" )
 
         this.ridge11
         .transition()
-        .delay(200)
+        .delay(50)
         .duration(400)
         .attr("transform", function(d, i) { 
           return "translate(0," + (0+i*0)  + ") scale(1, 1)"
@@ -678,7 +678,7 @@ export default {
 
         this.ridge12
         .transition()
-        .delay(200)
+        .delay(50)
         .duration(400)
         .attr("transform", function(d, i) { 
           return "translate(0," + (0) + ") scale(1, 1)"
@@ -707,17 +707,17 @@ export default {
         self.transFade(this.d3.selectAll("g.yaxis g"), 300, 500, 1)
 
          // transform axes
-        self.transAxis(this.y11_mmd, 450, 500, y_mmd_low, this.width-75,0, 1, 1)
-        self.transAxis(this.y12_mmd, 450, 500, y_mmd_low, this.width-75, 0,1, 1)
-        self.transAxis(this.y11_swe, 450, 500, y_swe_low, 0, 0, 1, 1)
-        self.transAxis(this.y12_swe, 450, 500, y_swe_low, 0, 0, 1, 1) 
+        self.transAxis(this.y11_mmd, 150, 500, y_mmd_low, this.width-75,0, 1, 1)
+        self.transAxis(this.y12_mmd, 150, 500, y_mmd_low, this.width-75, 0,1, 1)
+        self.transAxis(this.y11_swe, 150, 500, y_swe_low, 0, 0, 1, 1)
+        self.transAxis(this.y12_swe, 150, 500, y_swe_low, 0, 0, 1, 1) 
 
-        this.lowlabel.transition().delay(100).duration(300).attr("opacity",1)
-        this.highlabel.transition().delay(100).duration(300).attr("opacity",1)
-        this.lowel.transition().delay(100).duration(300).attr("opacity",0)
-        this.highel.transition().delay(100).duration(300).attr("opacity",0)
-        this.slow.transition().delay(100).duration(300).attr("opacity",0)
-        this.fast.transition().delay(100).duration(300).attr("opacity",0)
+        this.lowlabel.transition().delay(50).duration(300).attr("opacity",1)
+        this.highlabel.transition().delay(50).duration(300).attr("opacity",1)
+        this.lowel.transition().delay(50).duration(300).attr("opacity",0)
+        this.highel.transition().delay(50).duration(300).attr("opacity",0)
+        this.slow.transition().delay(50).duration(300).attr("opacity",0)
+        this.fast.transition().delay(50).duration(300).attr("opacity",0)
 
       },
       toElevation(){
@@ -726,7 +726,7 @@ export default {
         // spread ridges
         this.ridge11
         .transition()
-        .delay(300)
+        .delay(50)
         .duration(500)
         .attr("transform", function(d, i) { 
           return "translate(0," + (40+i*-10)  + ") scale(1, .9)"
@@ -734,7 +734,7 @@ export default {
 
         this.ridge12
         .transition()
-        .delay(300)
+        .delay(50)
         .duration(500)
         .attr("transform", function(d, i) { 
           return "translate(0," + (40+i*-10) + ") scale(1, .9)"
@@ -754,18 +754,18 @@ export default {
         // move labels
         //self.transPosition(self.highlabel, 350, 600, 20, -100, 1, 1)
         //self.transPosition(self.lowlabel, 450, 500, 320, -300, 1, 1)
-        this.lowlabel.transition().delay(100).duration(300).attr("opacity",0)
-        this.highlabel.transition().delay(100).duration(300).attr("opacity",0)
-        this.lowel.transition().delay(100).duration(300).attr("opacity",1)
-        this.highel.transition().delay(100).duration(300).attr("opacity",1)
-        this.slow.transition().delay(100).duration(300).attr("opacity",0)
-        this.fast.transition().delay(100).duration(300).attr("opacity",0)
+        this.lowlabel.transition().delay(50).duration(300).attr("opacity",0)
+        this.highlabel.transition().delay(50).duration(300).attr("opacity",0)
+        this.lowel.transition().delay(50).duration(300).attr("opacity",1)
+        this.highel.transition().delay(50).duration(300).attr("opacity",1)
+        this.slow.transition().delay(50).duration(300).attr("opacity",0)
+        this.fast.transition().delay(50).duration(300).attr("opacity",0)
 
        // transform axes
-        self.transAxis(this.y11_swe, 350, 500, self.yAxis_swe, 0, -100, 1, 1)
-        self.transAxis(this.y12_swe, 350, 500, self.yAxis_swe, 0, 0, 1, 1) 
-        self.transAxis(this.y11_mmd, 350, 500, self.yAxis_mmd, this.width-75, -100, 1, 1)
-        self.transAxis(this.y12_mmd, 350, 500, self.yAxis_mmd, this.width-75, 0, 1, 1) 
+        self.transAxis(this.y11_swe, 150, 500, self.yAxis_swe, 0, -100, 1, 1)
+        self.transAxis(this.y12_swe, 150, 500, self.yAxis_swe, 0, 0, 1, 1) 
+        self.transAxis(this.y11_mmd, 150, 500, self.yAxis_mmd, this.width-75, -100, 1, 1)
+        self.transAxis(this.y12_mmd, 150, 500, self.yAxis_mmd, this.width-75, 0, 1, 1) 
 
         self.transFade(this.d3.selectAll("g.yaxis g"), 300, 400, 0)
       },
@@ -799,8 +799,8 @@ export default {
               .tickSizeOuter(0).tickSize(0))
 
    // transform axes
-        self.transAxis(this.x11, 350, 400, xAxisL, 0, this.height, 1, 1)
-        self.transAxis(this.x12, 250, 500, xAxisR, 0, this.height, 1, 1)
+        self.transAxis(this.x11, 150, 400, xAxisL, 0, this.height, 1, 1)
+        self.transAxis(this.x12, 150, 500, xAxisR, 0, this.height, 1, 1)
          /*    self.transAxis(this.y11_swe, 350, 500, self.yAxis_swe, 0, this.height/2, 1, 1)
         self.transAxis(this.y12_swe, 350, 400, self.yAxis_swe, 0, 0, 1, 1)
         self.transAxis(this.y11_mmd, 350, 500, self.yAxis_mmd, this.width-75, this.height/2, 1, 1)
