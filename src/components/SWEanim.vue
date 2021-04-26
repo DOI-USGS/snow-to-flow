@@ -851,7 +851,9 @@ sup {
 }
 .butt {
   padding: 5px 10px;
+  margin: 5px 5px;
   cursor: pointer;
+  display: inline-block;
 }
 .yr-label {
   font-size: 16px;
@@ -930,6 +932,7 @@ input[name="checkboxgroup1"] {
         transition: background-color .1s, border .1s;
     }
     
+
 @media screen and (min-width: 650px){
   .compare{
     width: 100%;
