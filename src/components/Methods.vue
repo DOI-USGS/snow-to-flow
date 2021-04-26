@@ -30,12 +30,9 @@
 
 <script>
     import referencesText from "@/assets/text/methodsText";
-    import USWDS from "uswds/src/js/components";
-    const { accordion } = USWDS;
+    
     export default {
         name: 'Methods',
-        components: {
-        },
         data() {
             return {
                 text: referencesText.referencesContent,

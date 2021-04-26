@@ -22,7 +22,7 @@
             <label
               class="butt"
               for="cb-swe1"
-            >SWE</label>
+            >SWE (inches)</label>
             <input
               id="cb-disch1"
               class="butt"
@@ -35,7 +35,7 @@
             <label
               class="butt"
               for="cb-disch1"
-            >Streamflow</label>
+            >Streamflow (<sup>mm</sup>&frasl;<sub>day</sub>)</label>
           </div>
         </div>
       </div>
@@ -432,7 +432,10 @@ $strokeOpacity: .5;
 $fillOpacity: .3;
 $grey: grey;
 $blue: dodgerblue;
-
+sup {
+  color: white;
+  opacity: 1;
+}
     svg {
         width: 100%;
         height: 100%;
@@ -531,7 +534,7 @@ $blue: dodgerblue;
   }
 }
 .butt {
-  padding: 5px 10px;
+  padding: 5px 5px;
   cursor: pointer;
 }
 

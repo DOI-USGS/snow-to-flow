@@ -6,9 +6,7 @@ library(raster);library(ncdf4);library(sf)
 library(RNRCS);library(dataRetrieval)
 library(RColorBrewer);library(scico);library(colorspace);library(viridis)
 
-
 num <- function(x)length(unique(na.omit(x)))
-
 
 # fetch 2021 WY data --------------------------------------------------------------
 

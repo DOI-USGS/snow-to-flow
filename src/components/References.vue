@@ -7,7 +7,12 @@
           v-for="reference in text.references"
           :key="reference.subTitle"
         >
-          <p><span v-html="reference.num" />. <span v-html="reference.authors" /> <a v-bind:href="reference.link" target="_blank"> <span v-html="reference.title"/></a> <span v-html="reference.ref" /></p>
+          <p>
+            <span v-html="reference.num" />. <span v-html="reference.authors" /> <a
+              :href="reference.link"
+              target="_blank"
+            ><span v-html="reference.title" /></a><span v-html="reference.ref" />
+          </p>
         </div>
       </div>
     </div>
@@ -16,24 +21,13 @@
 
 <script>
     import referencesText from "@/assets/text/referencesText";
-    import USWDS from "uswds/src/js/components";
-    const { accordion } = USWDS;
     export default {
         name: 'References',
-        components: {
-        },
         data() {
             return {
                 text: referencesText.referencesContent,
                 titleImage:require('@/assets/titleImages/image2.png'), // insert link to parallax image used for this section
             }
-        },
-        mounted(){
-          // This is a fix for the weird USWDS glitch that causes the Methods section accordion menus to be open on page load
-            const targetAccordionDivs = document.querySelectorAll('.target');
-            targetAccordionDivs.forEach((div) => {
-                div.setAttribute('hidden', '""');
-            });
         }
     }
 </script>
