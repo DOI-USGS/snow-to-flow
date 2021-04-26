@@ -23,7 +23,7 @@ calc_yr_stats <-  function(data){
   apr1 <- data %>% 
     filter(date == sprintf('%s-04-01', year)) %>%
     mutate(apr1_swe = swe, apr1_day = water_day)%>%
-    dplyr::select(site_id, water_year, apr1_swe)
+    dplyr::select(site_id, water_year, apr1_swe, apr1_day)
   
   # find peak swe and sm50_swe for each year
   peaks <- data %>%
