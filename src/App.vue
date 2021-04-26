@@ -92,7 +92,7 @@ body {
       -moz-osx-font-smoothing: grayscale;
       width: 100%;
       @media screen and (max-width: 600px) {
-        font-size: 14px;
+        font-size: 16px;
       }
   }
 h1{

@@ -449,6 +449,9 @@ $blue: dodgerblue;
         font-size: 12px;
         font-weight: 300;
         fill: grey;
+        @media screen and (max-width: 600px) {
+          font-size: 14px;
+        }
     }
 
     .year-label {
@@ -496,7 +499,13 @@ $blue: dodgerblue;
     }
 
     .annotation {
-        font-size: .8em;
+        font-size: .9em;
+        // @media screen and (max-width: 600px) {
+        //   text {
+        //     font-size: 1.2em;
+        //   }
+
+        // }
     }
 
       .hash-line {
