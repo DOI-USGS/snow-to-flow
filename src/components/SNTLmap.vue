@@ -13,21 +13,59 @@
         v-if="mobileView"
         class="explain figureCaption"
       >
-        Select a site to see this year's SWE and the magnitude (peak SWE <svg class="leggy" viewBox="0 0 10 10" width="10" height="10">
-  <circle cx="5" cy="5" r="4" style="fill: orchid; stroke: orchid;stroke-width: 1px;"/>
-</svg>) and timing (SM50 <svg viewBox="0 0 10 10" width="10" height="10">
-  <circle cx="5" cy="5" r="4" style="fill: white; stroke: orchid; stroke-width: 1.3px;"/>
-</svg>) of snow since 1981. 
+        Select a site to see this year's SWE and the magnitude (peak SWE <svg
+          class="leggy"
+          viewBox="0 0 10 10"
+          width="10"
+          height="10"
+        >
+          <circle
+            cx="5"
+            cy="5"
+            r="4"
+            style="fill: orchid; stroke: orchid;stroke-width: 1px;"
+          />
+        </svg>) and timing (SM50 <svg
+          viewBox="0 0 10 10"
+          width="10"
+          height="10"
+        >
+          <circle
+            cx="5"
+            cy="5"
+            r="4"
+            style="fill: white; stroke: orchid; stroke-width: 1.3px;"
+          />
+        </svg>) of snow since 1981. 
       </p>
       <p
         v-if="!mobileView"
         class="explain figureCaption"
       >
-        Mouseover a site to see this year's SWE and the magnitude (peak SWE <svg class="leggy" viewBox="0 0 10 10" width="10" height="10">
-  <circle cx="5" cy="5" r="4" style="fill: orchid; stroke: orchid;stroke-width: 1px;"/>
-</svg> ) and timing (SM50 <svg viewBox="0 0 10 10" width="10" height="10">
-  <circle cx="5" cy="5" r="4" style="fill: white; stroke: orchid; stroke-width: 1.3px;"/>
-</svg> ) of snow since 1981. Symbols not shown if peak SWE or SM50 have not been met as of 4/26/2021.
+        Mouseover a site to see this year's SWE and the magnitude (peak SWE <svg
+          class="leggy"
+          viewBox="0 0 10 10"
+          width="10"
+          height="10"
+        >
+          <circle
+            cx="5"
+            cy="5"
+            r="4"
+            style="fill: orchid; stroke: orchid;stroke-width: 1px;"
+          />
+        </svg> ) and timing (SM50 <svg
+          viewBox="0 0 10 10"
+          width="10"
+          height="10"
+        >
+          <circle
+            cx="5"
+            cy="5"
+            r="4"
+            style="fill: white; stroke: orchid; stroke-width: 1.3px;"
+          />
+        </svg> ) of snow since 1981. Symbols not shown if peak SWE or SM50 have not been met as of 4/26/2021.
       </p>
     </template>
     <!-- FIGURES -->
