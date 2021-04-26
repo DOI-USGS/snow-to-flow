@@ -43,7 +43,7 @@
                 <label
                   class="butt"
                   for="cb1"
-                >SWE</label>
+                >SWE (in)</label>
                 <input
                   id="cb2"
                   class="butt"
@@ -56,7 +56,7 @@
                 <label
                   class="butt"
                   for="cb2"
-                >Streamflow</label>
+                >Streamflow (<sup>mm</sup>&frasl;<sub>day</sub>)</label>
               </div>
             </div>
           </div>
@@ -824,7 +824,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 $familySerif:  'Noto Serif', serif;
-
+sup {
+  color: white;
+  opacity: 1;
+}
 .maxWidth {
   width: 90vw;
   margin-left: 5vw;
