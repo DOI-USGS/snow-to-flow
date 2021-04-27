@@ -452,6 +452,9 @@ sup {
         font-size: 12px;
         font-weight: 300;
         fill: grey;
+        @media screen and (max-width: 600px) {
+          font-size: 14px;
+        }
     }
 
     .year-label {
@@ -500,6 +503,12 @@ sup {
 
     .annotation {
         font-size: .8em;
+        // @media screen and (max-width: 600px) {
+        //   text {
+        //     font-size: 1.2em;
+        //   }
+
+        // }
     }
 
       .hash-line {
@@ -525,7 +534,7 @@ sup {
   }
 }
 .butt {
-  padding: 5px 10px;
+  padding: 5px 5px;
   cursor: pointer;
 }
 
