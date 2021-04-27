@@ -12,8 +12,8 @@
           href="https://wcc.sc.egov.usda.gov/nwcc/site?sitenum=1031"
           target="_blank"
         >Never Summer SNOTEL Site 1031</a> near Rocky Mountain National Park in Colorado show a significant difference in snowpack from the winter of 2011 to 2012, and discharge measurements downstream at the <a
-          href="https://waterdata.usgs.gov/monitoring-location/06614800/#parameterCode=00065&period=P7D"
-          targe="_blank"
+          href="https://waterdata.usgs.gov/monitoring-location/06614800/#parameterCode=00065"
+          target="_blank"
         >USGS streamgage 06614800</a> on the Michigan River near Cameron Pass show the impact. The winter of 2011 experienced a large snowpack and subsequent spring melt. However, 2012 was a very low snow year, with some early intermittent melting and small spring melt.
       </p>
     </template>
@@ -32,7 +32,7 @@
           href="https://wcc.sc.egov.usda.gov/nwcc/site?sitenum=1031"
           target="_blank"
         >Never Summer SNOTEL Site 1031</a> and discharge measurements are from <a
-          href="https://waterdata.usgs.gov/monitoring-location/06614800/#parameterCode=00065&period=P7D"
+          href="https://waterdata.usgs.gov/monitoring-location/06614800/#parameterCode=00065"
           target="_blank"
         >USGS streamgage 06614800</a> on the Michigan River near Cameron Pass, CO.
       </p>
