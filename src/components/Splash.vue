@@ -104,7 +104,7 @@
         > 
         <!-- Smallest Screen -->
         <source
-          media="(min-width: 350px) and (max-width: 499px)"
+          media="(max-width: 499px)"
           srcset="@/assets/titleImages/splash/people-sm.png"
         >
         <!-- Medium Screen -->
@@ -125,13 +125,13 @@
         <img 
           src="@/assets/titleImages/splash/people-l.png"
           href="@/assets/titleImages/splash/people-l.png"
-          alt="Clouds rising over the snowy mountain"
+          alt="Clouds floating over the snowy mountain"
         >
       </picture>
     </div>
     <div
       id="clouds"
-      class="element cover"
+      class="element"
       data-depth="0.80"
     >
       <picture>
@@ -142,7 +142,7 @@
         > 
         <!-- Smallest Screen -->
         <source
-          media="(min-width: 350px) and (max-width: 499px)"
+          media="(max-width: 499px)"
           srcset="@/assets/titleImages/splash/cloud-sm.png"
         >
         <!-- Medium Screen -->
@@ -163,13 +163,13 @@
         <img 
           src="@/assets/titleImages/splash/cloud-l.png"
           href="@/assets/titleImages/splash/cloud-l.png"
-          alt="Clouds rising over the snowy mountain"
+          alt="Clouds liftng over the snowy mountain"
         >
       </picture>
     </div>
     <div
       id="more-clouds"
-      class="element cover"
+      class="element"
       data-depth="0.90"
     >
       <picture>
@@ -182,7 +182,7 @@
         > 
         <!-- Smallest Screen -->
         <source
-          media="(min-width: 350px) and (max-width: 499px)"
+          media="(max-width: 499px)"
           srcset="@/assets/titleImages/splash/more-clouds-sm.png"
         >
         <!-- Medium Screen -->
