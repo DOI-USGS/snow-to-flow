@@ -100,7 +100,7 @@ write_csv(all_stat, '2_process/out/SNOTEL_stats_POR.csv')
 ## pull SWE, compare to 1981-2010 to find percentile
 ## if there is no POR leave site in data with NA 
 
-today <- '2021-04-01' ## find percentile for this date
+today <- '2021-04-26' ## find percentile for this date
 wy_today <- wy_data %>% filter(date == today) # 834 sites for today
 
 ## all days in the historic record for this date
