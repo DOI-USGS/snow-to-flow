@@ -1557,7 +1557,7 @@
         > Earth Explorer.</a>
       </p>
       <p>
-        The USGS also contributes to snow science research through modeling snowpack and snowmelt dynamics at loal to National scales. These models use data for snow, landscape, vegetation, and meteorologic variables to understand how the annual snowpack evolves from accumulation through melt, and how these changes influence streamflow and ultimately, water availability.
+        The USGS also contributes to snow science research through modeling snowpack and snowmelt dynamics at local to National scales. These models use data for snow, landscape, vegetation, and meteorologic variables to understand how the annual snowpack evolves from accumulation through melt, and how these changes influence streamflow and ultimately, water availability.
       </p>
     </template>
   </VizSection>
