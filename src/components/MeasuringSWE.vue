@@ -5,7 +5,7 @@
     :take-away="false"
   >
     <template v-slot:aboveExplanation>
-      <p>Using high-quality manual and station observations of snowpack and streamflow, USGS scientists are conducting research on trends in snowfall, snow cover, snow versus rain<sup>10</sup>snow water equivalent, snowmelt runoff<sup>11</sup>, snowmelt timing<sup>12</sup> and snow chemistry in the U.S. USGS scientists are also evaluating the influence of changing climate on hydrological processes and runoff in snowmelt dominated basins<sup>13</sup>.</p>
+      <p>Using high-quality manual and station observations of snowpack and streamflow, USGS scientists are conducting research on trends in snowfall, snow cover, snow versus rain<sup>10</sup>, snow water equivalent, snowmelt runoff<sup>11</sup>, snowmelt timing<sup>12</sup> and snow chemistry in the U.S. USGS scientists are also evaluating the influence of changing climate on hydrological processes and runoff in snowmelt dominated basins<sup>13</sup>.</p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>

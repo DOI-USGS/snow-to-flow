@@ -824,10 +824,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 $familySerif:  'Noto Serif', serif;
-sup {
-  color: white;
-  opacity: 1;
-}
 .maxWidth {
   width: 90vw;
   margin-left: 5vw;

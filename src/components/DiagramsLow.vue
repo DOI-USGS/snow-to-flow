@@ -67,7 +67,7 @@
           Wind
         </template>
         <template v-slot:sidebarMessage>
-          <p>Wind patterns can also affect snow accumulation and melt. Snow fall can be intercepted by trees and then sublimated, reducing the on the total snow accumulation on the ground. Fallen snow can also be blown over ridges, scouring windward rises or trees and accumulating on the leeward side of the ridge. This spatial variation in snowpack depth can result in different snowmelt timing and rates, in addition to other climatic factors<sup>12</sup>.</p>
+          <p>Wind patterns can also affect snow accumulation and melt. Snow fall can be intercepted by trees and then sublimated, reducing the total snow accumulation on the ground. Fallen snow can also be blown over ridges, scouring windward rises or trees and accumulating on the leeward side of the ridge. This spatial variation in snowpack depth can result in different snowmelt timing and rates, in addition to other climatic factors<sup>12</sup>.</p>
         </template>
       </Sidebar>
       <Sidebar>

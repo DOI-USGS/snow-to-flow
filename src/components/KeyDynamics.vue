@@ -11,7 +11,7 @@
           Soil Saturation
         </template>
         <template v-slot:sidebarMessage>
-          <p><span class="emph">Soil saturation</span> saturation is a measure of soil water content and is an indicator of soil moisture. Soil moisture can depend on whether it was wet or dry the year before, and the level of soil moisture at the onset of snowmelt can affect infiltration and runoff for the next snow and melt season.</p>
+          <p><span class="emph">Soil saturation</span> is a measure of soil water content and is an indicator of soil moisture. Soil moisture can depend on whether it was wet or dry the year before, and the level of soil moisture at the onset of snowmelt can affect infiltration and runoff for the next snow and melt season.</p>
           <!-- <p>Units are <span class="emph">UNITS</span></p> -->
         </template>
       </Sidebar>
@@ -20,7 +20,7 @@
           Snow Water Equivalent (SWE)
         </template>
         <template v-slot:sidebarMessage>
-          <p><span class="emph">Snow water equivalent</span> is a measure of the liquid water contained in snowpack.  It is more useful than snow depth for estimate the volume of meltwater flow.  This is because 3 feet of fresh, dry, fluffy snow may represent only 4-5 inches of SWE, but 3 feet of compacted, wet, spring snow may contain 12 inches or more of SWE.  Using SWE helps scientists measure snowpack in a standardized way. Units are inches (in).</p>
+          <p><span class="emph">Snow water equivalent</span> is a measure of the liquid water contained in snowpack.  It is more useful than snow depth for estimating the volume of meltwater flow.  This is because 3 feet of fresh, dry, fluffy snow may represent only 4-5 inches of SWE, but 3 feet of compacted, wet, spring snow may contain 12 inches or more of SWE.  Using SWE helps scientists measure snowpack in a standardized way. Units are inches (in).</p>
         </template>
       </Sidebar>
       <Sidebar>
@@ -29,7 +29,7 @@
         </template>
         <template v-slot:sidebarMessage>
           <p>
-            <span class="emph">Melt timing</span> is a measure of how when snowmelt occurs, and is marked by the date at which the maximum SWE accumulated during the winter is half gone<sup>7</sup>.
+            <span class="emph">Melt timing</span> is a measure of how and when snowmelt occurs, and is marked by the date at which the maximum SWE accumulated during the winter is half gone<sup>7</sup>.
             Melt timing is measured as days since October 1st (beginning of the water year) at which one-half of the annual maximum SWE has melted.
           </p>
         </template>
@@ -39,7 +39,7 @@
           Streamflow
         </template>
         <template v-slot:sidebarMessage>
-          <p><span class="emph">Streamflow</span> is the volume of water moving down a stream or river. Streamflow can be captured downstream via water intakes or reservoirs and directly contributes to water availability. Units are in millimeters per day (mmd) or cubic feet per second (cfs).</p>
+          <p><span class="emph">Streamflow</span> is the volume of water moving down a stream or river. Streamflow can be captured downstream via water intakes or reservoirs and directly contributes to water availability. Units are in millimeters per day (mm/day) or cubic feet per second (cfs).</p>
         </template>
       </Sidebar>
     </template>
