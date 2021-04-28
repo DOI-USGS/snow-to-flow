@@ -237,7 +237,7 @@ export default {
                         })
                         .fromTo("#more-clouds", {yPercent: 50}, {yPercent: -40}, 0)
                         .fromTo("#clouds", {yPercent: 30}, {yPercent: -10}, 0)
-                        .fromTo("#people", {yPercent: 17}, {yPercent: -11}, 0)
+                        //.fromTo("#people", {yPercent: 17}, {yPercent: -11}, 0)
                         .fromTo("#water", {yPercent: 25}, {yPercent: -10}, 0)
                         .fromTo("#mountains", {yPercent: 30}, {yPercent: 0}, 0)
                     },
