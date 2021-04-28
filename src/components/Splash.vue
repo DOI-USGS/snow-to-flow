@@ -96,7 +96,7 @@
     >
       <picture>
         <!-- Not sure what the browser wants to do with this first one, but it's the largest original -->
-        <!--         <source srcset="@/assets/titleImages/splash/people.png"> -->
+                <source srcset="@/assets/titleImages/splash/people.png">
         <!-- Most compressed -->
         <source
           type="image/webp"
