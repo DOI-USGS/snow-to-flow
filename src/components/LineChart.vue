@@ -535,7 +535,9 @@ sup {
 }
 .butt {
   padding: 5px 5px;
+  margin: 5px 5px;
   cursor: pointer;
+  display: inline-block;
 }
 
 input[name="radiogroup1"] {
