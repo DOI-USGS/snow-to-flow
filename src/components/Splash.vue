@@ -89,46 +89,7 @@
         >
       </picture>
     </div>
-    <div
-      id="people"
-      class="element"
-      data-depth="0.20"
-    >
-      <picture>
-        <!-- Not sure what the browser wants to do with this first one, but it's the largest original -->
-                <source srcset="@/assets/titleImages/splash/people.png">
-        <!-- Most compressed -->
-        <source
-          type="image/webp"
-          srcset="@/assets/titleImages/splash/people.webp"
-        > 
-        <!-- Smallest Screen -->
-        <source
-          media="(max-width: 499px)"
-          srcset="@/assets/titleImages/splash/people-sm.png"
-        >
-        <!-- Medium Screen -->
-        <source
-          media="(min-width: 500px) and (max-width: 799px)"
-          srcset="@/assets/titleImages/splash/people-m.png"
-        >
-        <!-- Large screen -->
-        <source
-          media="(min-width: 800px) and (max-width: 1199px)"
-          srcset="@/assets/titleImages/splash/people-l.png"
-        >
-        <!-- X Large Screen -->
-        <source
-          media="(min-width: 1200px)"
-          srcset="@/assets/titleImages/splash/people-xl.png"
-        >
-        <img 
-          src="@/assets/titleImages/splash/people-l.png"
-          href="@/assets/titleImages/splash/people-l.png"
-          alt="Clouds floating over the snowy mountain"
-        >
-      </picture>
-    </div>
+
     <div
       id="clouds"
       class="element"
@@ -253,7 +214,7 @@ export default {
                         })
                         .fromTo("#more-clouds", {yPercent: 50}, {yPercent: -40}, 0)
                         .fromTo("#clouds", {yPercent: 30}, {yPercent: -10}, 0)
-                        .fromTo("#people", {yPercent: 17}, {yPercent: -11}, 0)
+                        //.fromTo("#people", {yPercent: 17}, {yPercent: -11}, 0)
                         .fromTo("#water", {yPercent: 15}, {yPercent: -10}, 0)
                         .fromTo("#mountains", {yPercent: 25}, {yPercent:-10}, 0)
                     },
@@ -269,7 +230,7 @@ export default {
                         })
                         .fromTo("#more-clouds", {yPercent: 2}, {yPercent: -40}, 0)
                         .fromTo("#clouds", {yPercent: 20}, {yPercent: -10}, 0)
-                        .fromTo("#people", {yPercent: 17}, {yPercent: -11}, 0)
+                        //.fromTo("#people", {yPercent: 17}, {yPercent: -11}, 0)
                         .fromTo("#water", {yPercent: 15}, {yPercent: -10}, 0)
                         .fromTo("#mountains", {yPercent: 0}, {yPercent: 0}, 0)
                     }
