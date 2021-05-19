@@ -1,6 +1,6 @@
 # From Snow to Flow Visualization
 
-![A screencapture of the Snow to Flow header, which shows an abstract collage of snowy mountains and a frozen lake under a series of snow and discharge line charts.](https://labs-beta.waterdata.usgs.gov/visualizations/snow-to-flow/SnowToFlowCover.jpg)
+![A screencapture of the Snow to Flow header, which shows an abstract collage of snowy mountains and a frozen lake under a series of snow and discharge line charts.](https://github.com/USGS-VIZLAB/snow-to-flow/blob/main/public/SnowToFlowCover.jpg)
 
 See the page live: https://labs.waterdata.usgs.gov/visualizations/snow-to-flow/index.html#/
 
