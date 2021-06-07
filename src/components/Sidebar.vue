@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar collapsed">
+  <div class="sidebar collapsed opacity">
     <div class="sidebarContent">
       <div class="titleAndExit">
         <button
@@ -31,16 +31,16 @@
 export default {
     name: "SidebarTwo",
     mounted(){
-        this.$nextTick(function(){
-            this.setDimensions();
-        });
+        window.addEventListener("load", () => this.setDimensions());
     },
     methods:{
         setDimensions(){
             const sidebar = this.$el;
-            const button = this.$el.querySelector(".reveal").getBoundingClientRect();
-            sidebar.style.height = `${button.height}px`;
-            sidebar.style.width = `${button.width}px`;
+            const button = this.$el.querySelector(".reveal")
+            const buttonDimensions = button.getBoundingClientRect();
+            sidebar.style.height = `${buttonDimensions.height}px`;
+            sidebar.style.width = `${buttonDimensions.width}px`;
+            sidebar.classList.remove("opacity");
         },
         toggle(){
             const exit = this.$el.querySelector(".exit");
@@ -61,37 +61,49 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+$deepBlue: #00478F; //#00478F;
+$familyMain: 'Public sans', sans-serif;
 .sidebar{
     display: flex;
-    flex-direction: column;
-    margin-top: 15px;
+    flex-direction: row;
+    margin: 15px 20px;
     transition: width 2s, height 2s, transform 2s;
     will-change: width;
-    background: rgb(100,100,100);
+    background: $deepBlue;
+    border-radius: 5px;
+    transition: opacity 0.3s;
+
 }
 .titleAndExit{
     position: relative;
     color:#fff;
     font-weight: bold;
+    
 }
 .reveal{
     padding: 5px 10px;
     outline: none;
 }
+.opacity{
+  opacity: 0;
+}
 .exit{
     position: absolute;
-    right: 0;
+    right: 5px;
     top: 0;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5em;
+    font-family: $familyMain;
+    font-size: 1em;
     padding: 10px;
+    border-radius: 5px;
     cursor: pointer;
     &:hover{
         background: #fff;
-        color:#000;
+        color:$deepBlue;
+        transition: background-color .1s;
     }
 }
 .messageArea{
@@ -100,9 +112,12 @@ export default {
 .message{
     background: #fff;
     padding: 10px;
-    p{
-        margin: 0;
-        padding: 0;
+    *{
+      padding-top: 0;
+      margin-bottom: 10px;
+      &:last-child{
+        margin-bottom: 0;
+      }
     }
 }
 .collapsed{

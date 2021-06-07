@@ -6,9 +6,7 @@ library(raster);library(ncdf4);library(sf)
 library(RNRCS);library(dataRetrieval)
 library(RColorBrewer);library(scico);library(colorspace);library(viridis)
 
-
 num <- function(x)length(unique(na.omit(x)))
-
 
 # fetch 2021 WY data --------------------------------------------------------------
 
@@ -22,8 +20,7 @@ sntl_meta <- meta$SNTL %>%
 ## include all of these on the map
 
 ## sites with historic record (data starting in 1981)
-sntl_hist <- sntl_meta %>% filter(word(start, 1, 1, sep="-") <= 1981)
-str(sntl_hist) # 469 sites that are currently active and have on or before 1981
+sntl_hist <- sntl_meta %>% filter(word(start, 1, 1, sep="-") <= 1981)# 469 sites that are currently active and have on or before 1981
 
 # pull 2021 water year SWE up to current date
 get_SWE_2021 <- function(site, date_today) {

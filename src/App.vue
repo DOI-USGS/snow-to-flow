@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <WindowSize v-if="checkTypeOfEnv === '-test build-'" />
+    <!-- <WindowSize v-if="checkTypeOfEnv === '-test build-'" /> -->
     <HeaderUSGS />
     <InternetExplorerPage v-if="isInternetExplorer" />
     <WorkInProgressWarning v-if="checkTypeOfEnv !== '' & !isInternetExplorer" /> <!-- an empty string in this case means the 'prod' version of the application   -->
@@ -14,12 +14,13 @@
 </template>
 
 <script>
-    import WindowSize from "./components/WindowSize";
+    // import WindowSize from "./components/WindowSize";
     import HeaderUSGS from './components/HeaderUSGS';
+    import { isMobile } from 'mobile-device-detect';
     export default {
         name: 'App',
         components: {
-            WindowSize,
+            // WindowSize,
             HeaderUSGS,
             InternetExplorerPage: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "internet-explorer-page"*/ "./components/InternetExplorerPage"),
             WorkInProgressWarning: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "work-in-progress-warning"*/ "./components/WorkInProgressWarning"),
@@ -32,6 +33,7 @@
                 isInternetExplorer: false,
                 title: process.env.VUE_APP_TITLE,
                 publicPath: process.env.BASE_URL, // this is need for the data files in the public folder
+                mobileView: isMobile
             }
         },
         computed: {
@@ -63,12 +65,12 @@
 
  // IMPORT
 $nearBlack: #1a1b1c; //#1a1b1c;
-$frostyGreen: #76A28E; // good contrast against black (original was #5e8a76)
-$deepGreen: #2A4C40; // good contrast against white
+$frostyGreen: #90d3b5; // good contrast against black (original was #5e8a76)
+$deepGreen: #235845; // good contrast against white
 $frostyPurple: #C9ADE6;
 $deepPurple: #301546; // good contrast against black
-$skyBlue: #7AC3FF;
-$deepBlue:#005AA3;
+$skyBlue: rgb(12, 117, 221); //lets use just one blue
+$deepBlue: rgb(12, 117, 221); //lets use just one blue
 $lightGrey: #c2c4c5;
 $darkGrey: #212122;
 $familyMain: 'Public sans', sans-serif;
@@ -85,10 +87,13 @@ body {
       line-height: 1.2;
       font-size: 16px;
       font-family:$familySerif;
-      font-weight: 300;
+      font-weight: 400;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       width: 100%;
+      @media screen and (max-width: 600px) {
+        font-size: 16px;
+      }
   }
 h1{
   font-size: 3em;
@@ -107,7 +112,7 @@ h2{
   font-weight: 600;
   text-align: left;
   font-family:$familyMain;
-  font-size: 1.5em;
+  font-size: 1.3em;
   margin-top: 5px;
   line-height: 1.2;
   @media screen and (max-width: 600px) {
@@ -268,16 +273,47 @@ p {
 }
 
 .emph {
-  font-weight:800;
-  fill: white;
-  font-family: $familyMain;
-  background: linear-gradient(180deg,rgba(255,255,255,0) 70%, rgba(136, 45, 221, 0) 30%);
-  line-height: 1.3em;
-  margin: 0 2px;
-  padding: 0 2px;
+  font-weight: bold;
 }
 
 .italic {
   font-style: italic;
+}
+
+.pseudo-caption {
+  font-size: .9em;
+  margin: 0 10px;
+}
+
+// Link Styling
+a:link { 
+  text-decoration: underline;
+  font-weight: bold;
+  color: dodgerBlue;
+  padding: 5px 0;
+} 
+a:visited { 
+  color: dodgerBlue; 
+} 
+a:hover {
+  text-decoration:none;
+  text-shadow: 0 0 2px lightGrey;  
+  cursor: pointer;
+} 
+a:focus { 
+    text-shadow: 0 0 2px lightGrey;
+}
+a:active {
+  padding-top: 3px;
+}
+
+sup {
+  opacity: .4;
+}
+
+
+// v-img
+.content-v-img {
+  max-height: 80vh;
 }
 </style>

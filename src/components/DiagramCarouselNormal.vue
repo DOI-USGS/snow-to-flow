@@ -12,14 +12,23 @@
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/diagrams/Diagrams_normal-winter.jpg"
-              media="(max-width: 992px)"
+              srcset="@/assets/diagrams/Diagram_typical-winter.webp"
+              type="image/jpg"
+            >
+            <source
+              srcset="@/assets/diagrams/Diagram_typical-winter.jpg"
               type="image/jpg"
             >
             <img 
               id="diagram-normal-winter"
-              v-img:diagram-normal
-              src="@/assets/diagrams/Diagrams_normal-winter.jpg"
+              v-img="{
+                thumbnails: true,
+                sourceButton: true,
+                group: 'diagram-normal', 
+                title: 'A Typical Winter: Soil saturation sets the stage for the coming snow season - whether the prior year was wet or dry determines soil saturation for the current year. Around October, snow begins to fall and SWE begins to accumulate. Especially at high elevations, the snowpack can be several feet thick and store several inches of water (SWE).'
+              }"
+              class="sliderImage"
+              src="@/assets/diagrams/Diagram_typical-winter.jpg"
               alt="Diagram of a mountain watershed covered in snow in winter"
               loading="lazy"
             >
@@ -32,14 +41,23 @@
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/diagrams/Diagrams_normal-early-spring.jpg"
-              media="(max-width: 992px)"
+              srcset="@/assets/diagrams/Diagram_typical-spring.webp"
+              type="image/jpg"
+            >
+            <source
+              srcset="@/assets/diagrams/Diagram_typical-spring.jpg"
               type="image/jpg"
             >
             <img 
-              id="diagram-normal-early-spring"
-              v-img:diagram-normal
-              src="@/assets/diagrams/Diagrams_normal-early-spring.jpg"
+              id="diagram-normal-spring"
+              v-img="{
+                thumbnails: true,
+                sourceButton: true,
+                group: 'diagram-normal', 
+                title: 'A Typical Spring: At some point, snowpack SWE reaches its peak and then begins to decline as the snow begins to melt. The date of peak SWE marks the beginning of the melt timing, and the melt duration is the time required for one-half of the peak SWE to melt (SM50). '
+              }"
+              class="sliderImage"
+              src="@/assets/diagrams/Diagram_typical-spring.jpg"
               alt="Diagram of a mountain watershed covered in snow in early spring"
               loading="lazy"
             >
@@ -51,14 +69,23 @@
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/diagrams/Diagrams_normal-late-spring.jpg"
-              media="(max-width: 992px)"
+              srcset="@/assets/diagrams/Diagram_typical-summer.webp"
+              type="image/jpg"
+            >
+            <source
+              srcset="@/assets/diagrams/Diagram_typical-summer.jpg"
               type="image/png"
             >
             <img 
-              id="diagram-normal-late-spring"
-              v-img:diagram-normal
-              src="@/assets/diagrams/Diagrams_normal-late-spring.jpg"
+              id="diagram-normal-summer"
+              v-img="{
+                thumbnails: true,
+                sourceButton: true,
+                group: 'diagram-normal', 
+                title: 'A Typical Summer: During the melt season, infiltration of meltwater increases soil saturation and runoff to streams. Streamflow often peaks in the early summer in response to spring snowmelt, filling streams with a surge of water that can be captured by downstream diversions or in reservoirs. For many places in the Western U.S., spring snowmelt composes the majority of the annual water budget.'
+              }"
+              class="sliderImage"
+              src="@/assets/diagrams/Diagram_typical-summer.jpg"
               alt="Diagram of a mountain watershed covered in snow in late spring"
               loading="lazy"
             >

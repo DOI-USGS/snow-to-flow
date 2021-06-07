@@ -1,91 +1,71 @@
 <template>
   <!---VizSection-->
-  <VizSection id="firstSection">
+  <VizSection
+    id="firstSection"
+    :take-away="true"
+  >
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2 >Changing snow in the west can have enormous impacts on water availability.</h2>
-   <!--    <div class="checks">
-        <input type="checkbox"
-               value="in_swe" 
-               v-model="checkedData" 
-               @change=""/>
-        <label for="in_swe">swe</label>     
-        </div>
-      <div class="checks">
-        <input type="checkbox"
-               value="mmd"
-               v-model="checkedData" 
-               @change=""/>
-        <label for="in_mmd">mmd</label>
-        <h3>checked: {{ checkedData }} </h3>
-        </div> -->
-
+      <h2>Changes in snowmelt have downstream consequences</h2>
     </template>
     <!-- EXPLANATION -->
-    <template v-slot:explanation>
-      <p>The differences between a high a low snow year illustrate the downstream effects of changing snow on water resources. For example, in 2011 snowmelt occurred ## days later than 2012.
-        This was because of differences in the amount of snowpack between years - in 2011 peak SWE was  2x higher.  there were considerable difference in the magnitude of SWE and subsequently discharge at the shown locations in the Upper Colorado river basin.
-          With 2 times higher snowpack shown int he line chart. 
-          Because of less snowpack, melt rates were faster and SM50 occurred between ## to ## days earlier at these sites.
-          Elevation
+    <template v-slot:aboveExplanation>
+      <p />
+      <p>
+        Seasonal snowpack varies widely from place to place, and from year to year<sup>14</sup>, and this variability can have a strong influence on the timing and magnitude of snowmelt, delivery to a watershed, and subsequent streamflow response. At the sites shown below in the Upper Colorado River Basin, there was a two-fold difference in the magnitude of SWE between 2011 and 2012, illustrating how changes in snowmelt can shape the timing and magnitude of streamflow, and subsequently, water availability. Use the buttons below to explore how differences in snow between two years affect streamflow dynamics measured by USGS streamgages.
       </p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
-            <div
+      <div
         id="figs"
-        class="single one maxWidth"
+        class="single one"
       >
-      <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -50 600 500">
-      
-          <text
-            x="50"
-            y="25"
-          >Snow-water equivalent (SWE) 2011-2012</text>
-          <path transform="scale(1.19) translate(0, -25)" d="M429,141l-.32.44L430,172.61l0,.84,1.05,32,.19,5.9,1.19,26.54.19,5.9.84,26.14L435,308.31l.19,6.32.27,19.4.88,28.25L432,363.66l-9.13.27-12.18.34-15.53.4-8.13.17-7.12-1.09-4.72.5-4.71.94-13.18.23-14.53.24-14.19.18-8.13.09-5.73.06-16.9.13-23.67.1h-26l-8.8,0-12.49-.06-7.1,0-16.9-.17-27.38-.36-7.44-.1-18.24-.34-21.61-1.32-9.82.61-1-.89-5.4-.14-21.62-.61-21-.69-7.1-.26-5.73-.63-11.84,0-13.52-.54-7.1-.3,1.32-46.82,1.09-17.26.59-21.1L27.91,249l2.79-62.82L30.83,176l.84-11.38,1.91-41.74,1.47-32L36.52,66l-.34.4,63.33.42,34.18,1,25.22,1,29.35.94,7,.11-.32-.42,51.42.86,19.15-.4,49.18.15,27.15-.38,11.17-.19,39.93-.9,2.23-.07,31-.52.63,18.56L426.62,90l.35.82.3,18.56.23,6.76Z" style="fill: none;stroke: #000;stroke-linejoin: round;stroke-width: 2.246646621121159px"/>
-          <g id="sites">
-            <circle cx="192.89" cy="136.47" r="2" class="gage" />
-            <circle cx="190.45" cy="196.01" r="2" class="gage" />
-            <circle cx="199.03" cy="178.19" r="2" class="gage" />
-            <circle cx="192.21" cy="134.2" r="2" class="gage" />
-            <circle cx="171.22" cy="204.38" r="2" class="gage" />
-            <circle cx="171.46" cy="203.69" r="2" class="gage" />
-            <circle cx="197.05" cy="170" r="2" class="gage" />
-            <circle cx="196.09" cy="167.19" r="2" class="gage" />
-            <circle cx="195.75" cy="166.15" r="2" class="gage" />
-            <circle cx="193.87" cy="167.72" r="2" class="gage" />
-            <circle cx="192.07" cy="166.65" r="2" class="gage" />
-            <circle cx="196.55" cy="164.62" r="2" class="gage" />
-            <circle cx="197.39" cy="162.78" r="2" class="gage" />
-            <circle cx="190.88" cy="174.35" r="2" class="gage" />
-            <circle cx="190.01" cy="173.38" r="2" class="gage" />
-            <circle cx="186.14" cy="172.4" r="2" class="gage" />
-            <circle cx="186.13" cy="172.22" r="2" class="gage" />
-            <circle cx="185.95" cy="172.45" r="2" class="gage" />
-            <circle cx="185.72" cy="189.97" r="2" class="gage" />
-            <circle cx="188.16" cy="182.86" r="2" class="gage" />
-            <circle cx="185.48" cy="180.49" r="2" class="gage" />
-            <circle cx="168.17" cy="193.1" r="2" class="gage" />
-            <circle cx="169.64" cy="192.34" r="2" class="gage" />
-            <circle cx="170.61" cy="183.98" r="2" class="gage" />
-            <circle cx="176" cy="181.08" r="2" class="gage" />
-            <circle cx="176.5" cy="182.61" r="2" class="gage" />
-            <circle cx="174.22" cy="179.91" r="2" class="gage" />
-            <circle cx="171.87" cy="179.99" r="2" class="gage" />
-            <circle cx="166.26" cy="180.73" r="2" class="gage" />
-            <circle cx="162.83" cy="179.76" r="2" class="gage" />
-            <circle cx="161.73" cy="206.89" r="2" class="gage" />
-            <circle cx="162.02" cy="208.98" r="2" class="gage" />
-            <circle cx="154.9" cy="202.36" r="2" class="gage" />
-            <circle cx="123.71" cy="214.03" r="2" class="gage" />
-            <circle cx="123.82" cy="217.18" r="2" class="gage" />
-            <circle cx="126.1" cy="218.99" r="2" class="gage" />
-            <circle cx="109.36" cy="216.86" r="2" class="gage" />
-            <circle cx="89.18" cy="163.61" r="2" class="gage" />
-            <circle cx="118.12" cy="272.88" r="2" class="gage" />
-          </g>
-        
-        </svg> -->
+        <div class="compare">
+          <div
+            class="btn-group"
+            data-toggle="buttons"
+          >
+            <h4 class="butt-head">
+              Show: 
+            </h4> 
+            <div class="inputsContainer">
+              <div class="inputs">
+                <input
+                  id="cb1"
+                  class="butt"
+                  type="checkbox"
+                  name="checkboxgroup2"
+                  checked="true"
+                  value="swe"
+                  @change="showSWE"
+                >
+                <label
+                  class="butt"
+                  for="cb1"
+                >SWE (in)</label>
+                <input
+                  id="cb2"
+                  class="butt"
+                  type="checkbox"
+                  name="checkboxgroup1"
+                  checked="true"
+                  value="flow"
+                  @change="showFlow"
+                >
+                <label
+                  class="butt"
+                  for="cb2"
+                >Streamflow (<sup>mm</sup>&frasl;<sub>day</sub>)</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        id="figs"
+        class="single one"
+      >
         <div id="mmd-container-both">
           <svg
             id="mmd-line-both"
@@ -94,41 +74,144 @@
             viewBox="-50 -50 600 500"
             aria-labelledby="page-title page-desc"
             width="100%"
+            height="auto"
           >
 
             <text
-              x="100"
-              y="0"
-            >2011</text>
+              id="melt11"
+              class="yr-label"
+              x="200"
+              y="20"
+            >later and <tspan
+              x="200"
+              y="40px"
+            >faster melt</tspan></text>
             <text
-              x="400"
-              y="0"
-            >2012</text>
+              id="melt12"
+              class="yr-label"
+              x="300"
+              y="290"
+            >earlier and <tspan
+              x="300"
+              y="310px"
+            >longer melt</tspan></text>
+
+            <text
+              id="peak11"
+              class="yr-label"
+              x="80"
+              y="230"
+            >high snow</text>
+            <text
+              id="peak12"
+              class="yr-label"
+              x="350"
+              y="320"
+            >low snow</text>
+            
+            <text
+              id="el11"
+              class="yr-label"
+              x="20"
+              y="20"
+            >high elevation</text>
+            <text
+              id="el12"
+              class="yr-label"
+              x="-20"
+              y="390"
+            >low</text>
           </svg>
         </div>
-        
+        <div class="compare">
+          <div
+            class="btn-group"
+            data-toggle="buttons"
+          >
+            <h4 class="butt-head">
+              Compare: 
+            </h4> 
+            <div class="inputsContainer">
+              <div class="inputs">
+                <input
+                  id="rb1"
+                  class="butt"
+                  type="radio"
+                  name="radiogroup1"
+                  checked="true"
+                  value="time"
+                  @change="changePos"
+                >
+                <label
+                  class="butt"
+                  for="rb1"
+                >timing</label>
+                <input
+                  id="rb2"
+                  class="butt"
+                  type="radio"
+                  name="radiogroup1"
+                  value="peak"
+                  @change="changePos"
+                >
+                <label
+                  class="butt"
+                  for="rb2"
+                >magnitude</label>
+                <input
+                  id="rb3"
+                  class="butt"
+                  type="radio"
+                  name="radiogroup1"
+                  value="el"
+                  @change="changePos"
+                >
+                <label
+                  class="butt"
+                  for="rb3"
+                >by elevation</label>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-     
-      
     </template>
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        Snow-water equivalent (left) and stream discharge (right) through the 2011 water year in Colorado. Dots on map correspond to hydrographs on the right. 
+        Use the buttons to reorganize the chart and compare SWE and streamflow across a selection of USGS streamgages.
       </p>
+    </template>
+    <template v-slot:belowExplanation>
+      <p>
+        Elevation is intertwined with numerous factors like snow persistence, wind redistribution, and slope that drive complex snow-to-flow dynamics from site to site. At higher elevations, fallen snow can be blown over ridges, scouring windward rises or trees, leading to snow accumulating on the leeward side of the ridge. This results in spatial variation in snowpack depth and snowmelt timing.
+      </p>
+      <!-- <Sidebar>
+        <template v-slot:sidebarTitle>
+          What is a "water year"?
+        </template>
+        <template v-slot:sidebarMessage>
+          <p>Instead starting the year at Janauary 1, USGS hydrologists mark the start of the <span class="emph">water year</span> on October 1, three months early.  The USGS has been using water years since 1911 to mark the start of hydrologic activity, and use it here because it captures a full snow cycle.</p>
+        </template>
+      </Sidebar> -->
     </template>
   </VizSection>
 </template>
 <script>
 import VizSection from '@/components/VizSection';
 import * as d3Base from "d3";
+// import Sidebar from '@/components/Sidebar';
 export default {
     name: "SWEanim",
     components:{
-        VizSection
+        VizSection,
+        // Sidebar
     },
     data() {
             return {
+              isActive: false,
+              flowActive: true,
+              sweActive: true,
               title: process.env.VUE_APP_TITLE,
               publicPath: process.env.BASE_URL,
               d3: null,
@@ -139,18 +222,32 @@ export default {
               height: 400,
               margin: 25,
 
-              
               line_swe: null,
               area_swe: null,
-              line: null,
-              area: null,
+              line_mmd: null,
+              area_mmd: null,
               group: null,
               ridge_o: 0.3,
               site_elev: [],
               site_sp: [],
-        
+              tickDates: ["Oct", "Jan", "Apr", "July"],
+              highlabel: null,
+              lowlabel: null,
+              xAxis: null,
+              yAxis_mmd: null,
+              yAxis_swe: null,
+              x11: null,
+              x12: null,
+              y11_swe: null,
+              y12_swe: null,
+              y11_mmd: null,
+              y12_mmd: null,
+              ridge11:null,
+              ridge12: null,
 
-              checkedData: ["mmd"],
+              color_mmd: "dodgerblue",
+              color_swe: "grey",
+
             }
         },
     mounted() {
@@ -168,7 +265,6 @@ export default {
         self.d3.csv(self.publicPath + "data/mmd_df_2011.csv",  this.d3.autotype),
         self.d3.csv(self.publicPath + "data/mmd_df_2012.csv",  this.d3.autotype),
         self.d3.csv(self.publicPath + "data/swe_df_2011.csv",  this.d3.autotype),
-        self.d3.csv(self.publicPath + "data/swe_df_2012.csv",  this.d3.autotype),
         self.d3.csv(self.publicPath + "data/swe_df_2012.csv",  this.d3.autotype)];
 
         Promise.all(promises).then(self.callback); 
@@ -214,7 +310,7 @@ export default {
               data.mmd12.push({key: key, mmd: mmd, day:day, swe:swe})
           };
 
-          data.days = data_2011.map(function(d) { return  d['site_water_day']}) // array of j days for good luck
+        data.days = data_2011.map(function(d) { return  d['site_water_day']}) // array of j days for good luck
 
         // set up g that holds ridgelines
         this.svgboth = this.d3.select('svg#mmd-line-both');
@@ -225,74 +321,73 @@ export default {
         var mid = x_long/2;
         var mar = mid*0.05
 
-        // set chart - separate for each year, using 2011 for max values to set the scaless
-        self.initRidges(this.svgboth, 'ridge_2011', data.mmd11, data.days, 0, x_long, this.margin, this.height/2-mar);
-        self.initRidges(this.svgboth, 'ridge_2012', data.mmd12, data.days, 0, x_long, this.height/2+mar,  this.height);
-
-
-
-        // draw both years  adjacent to one another
-        //self.drawHydro(this.svgstack, data.mmd11, days, gage_sp, 0, mid-mid*0.1, data.mmd11);
-        //self.drawHydro(this.svgstack, data.mmd11, days, gage_sp, mid+mid*0.1, x_long, data.mmd11);
-
-        // apply separate transition to each plot that
-        // 1 - collapses or spreads the y axis
-        // 2- transitions to width and height of x and z axes
-        // 3 - moves the whole chart to a new location
+        // set chart - separate for each year, using 2011 for max values to set the scales
+        //  first draw is MMD
+        self.initRidges(this.svgboth, 'ridge_2011', data.mmd11, data.days, 0, x_long, 0, this.height/2-10);
+        self.initRidges(this.svgboth, 'ridge_2012', data.mmd12, data.days, 0, x_long, this.height/2+10,  this.height);
 
       },
       initRidges(svg, ridge_class, data_nest, days, x_start, x_end,  y_start, y_end){
         const self = this;
-        let overlap = 3;
 
         // x axis - time
         var x = this.d3.scaleLinear()
           .domain([1,365])
           .range([x_start, x_end]);
 
-        // y axis = group for each site
-        // this is ordered by snow persistence....in the csv
-        var y = this.d3.scaleLinear()
-          .domain([25, 0]).nice()
+        // y mmd
+        var y_mmd = this.d3.scaleLinear()
+          .domain([30, 0]).nice()
           .range([y_start, y_end])
 
-        /* var y = this.d3.scalePoint()
-          .domain(gages.map(d => d.site_no))
-          .range([y_start, y_end]) */
+          // y swe
+        var y_swe = this.d3.scaleLinear()
+          .domain([1100, 0]).nice()
+          .range([y_start, y_end])
 
         // define & style x &  y axes
-        var xAxis = g => g
-          .attr("transform", `translate(0,${this.height+5})`)
+        this.xAxis = g => g
+          .attr("transform", `translate(0,${y_end})`)
           .call(this.d3.axisBottom(x)
-              .ticks(this.width / 60)
-              .tickSizeOuter(0))
+              .tickValues([1, 93, 183, 273])
+              .tickFormat(function(d,i) { return self.tickDates[i] })
+              .tickSizeOuter(0).tickSize(0))
 
-        var yAxis = g => g
-          .attr("transform", `translate(${0},-2)`)
-          .call(this.d3.axisLeft(y).tickSize(0).tickPadding(4))
+      // mmd axes
+        this.yAxis_mmd = g => g
+          .attr("transform", `translate(${this.width-75},0)`)
+          .call(this.d3.axisRight(y_mmd).tickSize(0).tickPadding(4).tickValues([0, 10, 20, 30]))
+
+          // mmd axes
+        this.yAxis_swe = g => g
+          .attr("transform", `translate(${0},0)`)
+          .call(this.d3.axisLeft(y_swe).tickSize(0).tickPadding(4).tickValues([0, 250, 500, 750, 1000]))
+
         // append axes
-        svg.append("g").classed("xaxis", true).classed(ridge_class, true).call(xAxis);
-        svg.append("g").classed("yaxis", true).classed(ridge_class, true).call(yAxis);
+        svg.append("g").classed("xaxis", true).classed(ridge_class, true).call(this.xAxis).attr("font-style", "italic");
+        svg.append("g").classed("yaxis", true).classed(ridge_class, true).call(this.yAxis_mmd).attr("font-style", "italic").attr("color", this.color_mmd).classed("mmd", true);
+        svg.append("g").classed("yaxis", true).classed(ridge_class, true).call(this.yAxis_swe).attr("font-style", "italic").attr("color", this.color_swe).classed("swe", true);
 
         // define area chart parameters
-        this.area = this.d3.area()
+        this.area_mmd = this.d3.area()
           .curve(this.d3.curveBasis)
           .defined(d => !isNaN(d))
           .x((d, i) => x(days[i]))
           .y0(0)
-          .y1(d => y(d))
+          .y1(d => y_mmd(d))
+
+        this.area_swe = this.d3.area()
+          .curve(this.d3.curveBasis)
+          .defined(d => !isNaN(d))
+          .x((d, i) => x(days[i]))
+          .y0(0)
+          .y1(d => y_swe(d))
           
-        this.line = this.area.lineY1()
+        this.line_mmd = this.area_mmd.lineY1()
           .defined(d => !isNaN(d));
-        
-        var colorStack = this.d3.scaleOrdinal()
-        .domain(["site_6614800", "site_9063900","site_9034900","site_9035500","site_6746095",
-            "site_9064000","site_9065500","site_9066200","site_9022000","site_9032100","site_9065100","site_7083000","site_9035700","site_9046490","site_9035900", 
-            "site_9024000","site_9358550","site_9025000","site_9066000","site_9074000","site_9026500","site_9032000","site_9051050","site_9025300","site_9067200",
-            "site_9066300","site_9047700","site_9067000","site_9132995","site_9134000","site_9306242"])
-        .range(["blue", "blue", "blue", "blue", "blue", "dodgerblue", "dodgerblue", "dodgerblue", "dodgerblue", "dodgerblue", 
-                "green","green","green","green","green","lightgreen","lightgreen","lightgreen","lightgreen","lightgreen",
-                "gold","gold","gold","gold","gold","yellow","yellow","yellow","yellow","yellow"])
+
+        this.line_swe = this.area_swe.lineY1()
+          .defined(d => !isNaN(d));
 
       // append g for each ridgeline/site_no
         this.group = svg.append("g")
@@ -302,40 +397,379 @@ export default {
           .join("g")
           .attr("transform", d => `translate(0,0)`)
 
-/* 
+        // draw MMD curves
         this.group.append("path")
-          .attr("fill", "dodgerblue")
-          .attr("d", d => this.area(d.mmd))
-          .attr("opacity", 1); //#5C3406", "#C28D3D", "#ECD8A6", "#F0F0E6", "#AADDD6","#2A8C83", "#004439"]
- */
-        this.group.append("path")
-          .attr("fill", "none")
-          .attr("stroke", "dodgerblue")
-          .attr("d", d => this.line(d.mmd))
+          .attr("stroke", this.color_mmd)
+          .attr("fill", this.color_mmd)
+          .attr("stroke-opacity", .5)
+          .attr("fill-opacity",.1)
+          .attr("d", d => this.line_mmd(d.mmd))
           .attr("stroke-width", "1px")
-          .attr("stroke", function(d) { return colorStack(d.key)})
           .attr("class", function(d) { return d.key })
-          .classed("ridge", true);
+          .classed("ridge", true)
+          .classed("mmd", true)
+          .attr('pointer-events', 'visibleStroke')
+          .on("mouseover", function(data_nest) {
+            self.hover(data_nest);
+          })
+          .on("mouseout", function(data_nest){
+            self.hoverOut(data_nest);
+          });
 
-          
-        this.y2011 = this.svgboth.selectAll("g.ridge_2011")
+         // draw SWE curves
+        this.group.append("path")
+          .attr("stroke", this.color_swe)
+          .attr("fill", this.color_swe)
+          .attr("stroke-opacity", .5)
+          .attr("fill-opacity", .1)
+          .attr("d", d => this.line_swe(d.swe))
+          .attr("stroke-width", "1px")
+          .attr("class", function(d) { return d.key })
+          .classed("ridge", true)
+          .classed("swe", true)
+          .attr('pointer-events', 'visibleStroke')
+          .on("mouseover", function(data_nest) {
+            self.hover(data_nest);
+          })
+          .on("mouseout", function(data_nest){
+            self.hoverOut(data_nest);
+          })
+
+
+        this.y2011 = this.svgboth.selectAll("g.ridge_2011") // ridge group
         this.y2012 = this.svgboth.selectAll("g.ridge_2012")
+        this.ridge11 = this.d3.selectAll("g.ridge_2011.curve g") // ridge themselves for staggered animation
+        this.ridge12 = this.d3.selectAll("g.ridge_2012.curve g") 
 
-          self.stackRidges();
-          self.shiftRidges(svg, days);
-          self.spreadRidges();
+        this.highlabel = this.svgboth.select("text#peak11") // high and low snow labels
+        this.lowlabel = this.svgboth.select("text#peak12")
+        this.highel = this.svgboth.select("text#el11") // high and low snow labels
+        this.lowel = this.svgboth.select("text#el12")
+        this.fast = this.svgboth.select("text#melt11") // high and low snow labels
+        this.slow = this.svgboth.select("text#melt12")    
+
+        this.y11_swe = this.d3.select(".yaxis.ridge_2011.swe") // axes
+        this.y12_swe = this.d3.select(".yaxis.ridge_2012.swe")
+        this.y11_mmd = this.d3.select(".yaxis.ridge_2011.mmd") // axes
+        this.y12_mmd = this.d3.select(".yaxis.ridge_2012.mmd")
+        this.x11 = this.d3.select(".xaxis.ridge_2011")
+        this.x12 = this.d3.select(".xaxis.ridge_2012")
+
+        this.lowlabel.transition().duration(0).attr("opacity",0)
+        this.highlabel.transition().duration(0).attr("opacity",0)
+        this.lowel.transition().duration(0).attr("opacity",0)
+        this.highel.transition().duration(0).attr("opacity",0)
+        this.slow.transition().duration(0).attr("opacity",1)
+        this.fast.transition().duration(0).attr("opacity",1)
 
       },
-      stackRidges(){
+      hover(data){
+         const self = this;
 
+          self.d3.selectAll('g.curve path.mmd')
+          .transition()
+            .attr("z-index", -1)
+
+            self.d3.selectAll('g.curve path.swe')
+          .transition()
+            .attr("z-index", -1)
+
+
+          self.d3.selectAll('g.curve path.mmd.' + data.key)
+            .transition()
+            .duration(5)
+            .attr('stroke-width', "2px")
+            .attr('stroke', "darkblue")
+            .attr('stroke-opacity', .8)
+            .attr("z-index", 100);
+
+            self.d3.selectAll('g.curve path.swe.' + data.key)
+            .transition()
+            .duration(5)
+            .attr('stroke-width', "2px")
+            .attr('stroke', "black")
+            .attr('stroke-opacity', .8)
+            .attr("z-index", 100);
+
+      },
+      hoverOut(data){
+         const self = this;
+
+          self.d3.selectAll('g.curve path.mmd.' + data.key)
+            .transition()
+            .duration(5)
+            .attr("stroke-width", "1px")
+            .attr("stroke", this.color_mmd)
+            .attr('stroke-opacity', .5)
+            .attr("z-index", -1);
+
+        self.d3.selectAll('g.curve path.swe.' + data.key)
+            .transition()
+            .duration(5)
+            .attr("stroke-width", "1px")
+            .attr("stroke", this.color_swe)
+            .attr('stroke-opacity', .5)
+            .attr("z-index", -1);
+
+             self.d3.selectAll('g.curve path.mmd')
+              .transition()
+              .attr("stroke-width", "1px")
+              .attr("stroke", this.color_mmd)
+              .attr('stroke-opacity', .5)
+              .attr("z-index", -1)
+
+            self.d3.selectAll('g.curve path.swe')
+              .transition()
+              .attr("stroke-width", "1px")
+              .attr("stroke", this.color_swe)
+              .attr('stroke-opacity', .5)
+
+      },
+      showSWE(){
+        if (this.sweActive == true){
+          this.sweActive = false;
+
+          this.d3.selectAll(".ridge.swe")
+          .transition()
+          .delay(50)
+          .duration(300)
+          .attr("opacity", 0)
+        } else if (this.sweActive == false){
+          this.sweActive = true;
+
+          this.d3.selectAll(".ridge.swe")
+          .transition()
+          .delay(50)
+          .duration(300)
+          .attr("opacity", 0.5)
+        }
+
+      },
+      showFlow(){
+          if (this.flowActive == true){
+          this.flowActive = false;
+
+          this.d3.selectAll(".ridge.mmd")
+          .transition()
+          .delay(50)
+          .duration(300)
+          .attr("opacity", 0)
+        } else if (this.flowActive == false){
+          this.flowActive = true;
+
+          this.d3.selectAll(".ridge.mmd")
+          .transition()
+          .delay(50)
+          .duration(300)
+          .attr("opacity", 0.5)
+        }
+      },
+      changePos(){
+        const self = this;
+          if(event.target.value == "peak"){
+            self.toMagnitude()
+          }
+          if(event.target.value == "time"){
+            self.toTiming();
+          }
+           if(event.target.value == "el"){
+            self.toMagnitude()
+            self.toElevation();
+          }
+      },
+      transPosition(el, delay, duration, x, y, xscale, yscale){
+        el
+        .transition()
+          .delay(delay)
+          .duration(duration)
+          .attr("transform", "translate(" + (x) + ", " + (y) + ") scale(" + xscale + "," + yscale + ")")
+
+      },
+      transFade(el, delay, duration, alpha){
+       el
+        .transition()
+        .duration(duration)
+        .delay(delay)
+        .attr("opacity", alpha)
+      },
+      transAxis(el, delay, duration, axis, x, y, xscale, yscale){
+        el
+        .transition()
+        .duration(duration)
+        .delay(delay)
+        .call(axis)
+        .attr("transform", "translate(" + (x) + ", " + (y) + ") scale(" + xscale + "," + yscale + ")" )
+
+      },
+      toTiming(){
+        const self = this;
+        
+        // fade in y axis if coming from elevation
+        self.transFade(this.d3.selectAll("g.yaxis g"), 300, 500, 1)
+
+        // make sure ridges are stacked flat
         this.y2011.selectAll("path.ridge")
           .transition()
-          .delay(function(d,i) { return i*20 })
-          .duration(500)
-          .attr("transform", "translate(0," + (this.height/2+(this.height/2)*0.05) + ")" )
+          .delay(function(d,i) { return i*15 })
+          .duration(1100)
+          .attr("transform", "translate(0," + (0) + ")" )
+
+        // move labels
+        //self.transPosition(self.lowlabel, 600, 800, 0, 0, 1, 1)
+        //self.transPosition(self.highlabel, 700, 700, 0, 0, 1, 1)
+
+        this.lowlabel.transition().delay(50).duration(300).attr("opacity",0)
+        this.highlabel.transition().delay(50).duration(300).attr("opacity",0)
+        this.lowel.transition().delay(50).duration(300).attr("opacity",0)
+        this.highel.transition().delay(50).duration(300).attr("opacity",0)
+        this.slow.transition().delay(50).duration(300).attr("opacity",1)
+        this.fast.transition().delay(50).duration(300).attr("opacity",1)
+
+        // transform axes
+        self.transAxis(this.x11, 50, 300, self.xAxis, 0, this.height/2-10, 1, 1)
+        self.transAxis(this.x12, 50, 500, self.xAxis, 0, this.height, 1, 1)
+        self.transAxis(this.y11_swe, 50, 300, self.yAxis_swe, 0, -this.height/2-10, 1, 1)
+        self.transAxis(this.y12_swe, 50, 500, self.yAxis_swe, 0, 0, 1, 1)
+        self.transAxis(this.y11_mmd, 50, 300, self.yAxis_mmd, this.width-75, -this.height/2-10, 1, 1)
+        self.transAxis(this.y12_mmd, 50, 500, self.yAxis_mmd, this.width-75, 0, 1, 1)
+
+        // stretch ridges to full x and y extent
+        self.transPosition(this.d3.selectAll("g.ridge_2011.curve"), 270, 500,  0, 0, 1, 1)
+        self.transPosition(this.d3.selectAll("g.ridge_2012.curve"), 250, 500,  0, 0, 1, 1)
+
+        // un-spread ridge
+        this.ridge11
+        .transition()
+        .delay(function(d,i) { return i*15 })
+        .duration(400)
+        .attr("transform", function(d, i) { 
+          return "translate(0," + (0+i*0)  + ")"
+        })
+
+        this.ridge12
+        .transition()
+        .delay(function(d,i) { return i*15 })
+        .duration(400)
+        .attr("transform", function(d, i) { 
+          return "translate(0," + (0) + ")"
+        })
+
 
       },
-      shiftRidges(svg, days){
+      toMagnitude(){
+        const self = this;
+        
+        self.shiftRidges();
+
+        // flatten stacks
+        this.y2011.selectAll("path.ridge")
+          .transition()
+          .delay(function(d,i) { return i*15 })
+          .duration(1000)
+          .attr("transform", "translate(0," + (this.height/2+10) + ")" )
+
+        this.ridge11
+        .transition()
+        .delay(50)
+        .duration(400)
+        .attr("transform", function(d, i) { 
+          return "translate(0," + (0+i*0)  + ") scale(1, 1)"
+        })
+
+        this.ridge12
+        .transition()
+        .delay(50)
+        .duration(400)
+        .attr("transform", function(d, i) { 
+          return "translate(0," + (0) + ") scale(1, 1)"
+        })
+
+        // y mmd
+        var y_mmd = this.d3.scaleLinear()
+          .domain([30, 0]).nice()
+          .range([this.height/2+10, this.height])
+
+          // y swe
+        var y_swe = this.d3.scaleLinear()
+          .domain([1100, 0]).nice()
+          .range([this.height/2+10, this.height])
+
+      // mmd axes
+        var y_mmd_low = g => g
+          .attr("transform", `translate(${this.width-75},0)`)
+          .call(this.d3.axisRight(y_mmd).tickSize(0).tickPadding(4).tickValues([0, 10, 20, 30]))
+
+          // mmd axes
+        var y_swe_low = g => g
+          .attr("transform", `translate(${0},0)`)
+          .call(this.d3.axisLeft(y_swe).tickSize(0).tickPadding(4).tickValues([0, 250, 500, 750, 1000]))
+        
+        self.transFade(this.d3.selectAll("g.yaxis g"), 300, 500, 1)
+
+         // transform axes
+        self.transAxis(this.y11_mmd, 150, 500, y_mmd_low, this.width-75,0, 1, 1)
+        self.transAxis(this.y12_mmd, 150, 500, y_mmd_low, this.width-75, 0,1, 1)
+        self.transAxis(this.y11_swe, 150, 500, y_swe_low, 0, 0, 1, 1)
+        self.transAxis(this.y12_swe, 150, 500, y_swe_low, 0, 0, 1, 1) 
+
+        this.lowlabel.transition().delay(50).duration(300).attr("opacity",1)
+        this.highlabel.transition().delay(50).duration(300).attr("opacity",1)
+        this.lowel.transition().delay(50).duration(300).attr("opacity",0)
+        this.highel.transition().delay(50).duration(300).attr("opacity",0)
+        this.slow.transition().delay(50).duration(300).attr("opacity",0)
+        this.fast.transition().delay(50).duration(300).attr("opacity",0)
+
+      },
+      toElevation(){
+        const self = this;
+
+        // spread ridges
+        this.ridge11
+        .transition()
+        .delay(50)
+        .duration(500)
+        .attr("transform", function(d, i) { 
+          return "translate(0," + (40+i*-10)  + ") scale(1, .9)"
+        })
+
+        this.ridge12
+        .transition()
+        .delay(50)
+        .duration(500)
+        .attr("transform", function(d, i) { 
+          return "translate(0," + (40+i*-10) + ") scale(1, .9)"
+        })
+
+        //var color = this.d3.interpolateRainbow;
+
+        // make bigger axes
+         var y = this.d3.scaleLinear()
+          .domain([25, 0]).nice()
+          .range([0, this.height])
+
+        var yAxisTall = g => g
+          .attr("transform", `translate(${0},0)`)
+          .call(this.d3.axisLeft(y).tickSize(0).tickPadding(4))
+
+        // move labels
+        //self.transPosition(self.highlabel, 350, 600, 20, -100, 1, 1)
+        //self.transPosition(self.lowlabel, 450, 500, 320, -300, 1, 1)
+        this.lowlabel.transition().delay(50).duration(300).attr("opacity",0)
+        this.highlabel.transition().delay(50).duration(300).attr("opacity",0)
+        this.lowel.transition().delay(50).duration(300).attr("opacity",1)
+        this.highel.transition().delay(50).duration(300).attr("opacity",1)
+        this.slow.transition().delay(50).duration(300).attr("opacity",0)
+        this.fast.transition().delay(50).duration(300).attr("opacity",0)
+
+       // transform axes
+        self.transAxis(this.y11_swe, 150, 500, self.yAxis_swe, 0, -100, 1, 1)
+        self.transAxis(this.y12_swe, 150, 500, self.yAxis_swe, 0, 0, 1, 1) 
+        self.transAxis(this.y11_mmd, 150, 500, self.yAxis_mmd, this.width-75, -100, 1, 1)
+        self.transAxis(this.y12_mmd, 150, 500, self.yAxis_mmd, this.width-75, 0, 1, 1) 
+
+        self.transFade(this.d3.selectAll("g.yaxis g"), 300, 400, 0)
+      },
+      shiftRidges(){
         const self = this;
         var x_long = this.width-(this.margin*3);
         var mid = x_long/2;
@@ -349,153 +783,197 @@ export default {
           .domain([1,365])
           .range([mid+5, x_long]);
 
-        var y = this.d3.scaleLinear()
-          .domain([25, 0]).nice()
-          .range([this.margin, this.height])
-
+        
         var xAxisL = g => g
-          .attr("transform", `translate(0,${this.height+5})`)
+          .attr("transform", `translate(0,${this.height})`)
           .call(this.d3.axisBottom(xhalfL)
-              .ticks(this.width / 60)
-              .tickSizeOuter(0))
+              .tickValues([1, 93, 183, 273])
+              .tickFormat(function(d,i) { return self.tickDates[i] })
+              .tickSizeOuter(0).tickSize(0))
 
          var xAxisR = g => g
-          .attr("transform", `translate(0,${this.height+5})`)
+          .attr("transform", `translate(0,${this.height})`)
           .call(this.d3.axisBottom(xhalfR)
-              .ticks(this.width / 60)
-              .tickSizeOuter(0))
+              .tickValues([1, 93, 183, 273])
+              .tickFormat(function(d,i) { return self.tickDates[i] })
+              .tickSizeOuter(0).tickSize(0))
 
-        var yAxisTall = g => g
-          .attr("transform", `translate(${0},-2)`)
-          .call(this.d3.axisLeft(y).tickSize(0).tickPadding(4))
-
-        // transform axes
-        this.d3.select(".xaxis.ridge_2011")
-        .transition()
-        .duration(1000)
-        .delay(2000)
-        .call(xAxisL);
-
-        this.d3.select(".xaxis.ridge_2012")
-        .transition()
-        .duration(1000)
-        .delay(2000)
-        .call(xAxisR);
-
-        this.d3.select(".yaxis.ridge_2012")
-        .transition()
-        .duration(1000)
-        .delay(2000)
-        .call(yAxisTall);
-
-        this.d3.select(".yaxis.ridge_2011")
-        .transition()
-        .duration(1000)
-        .delay(2000)
-        .call(yAxisTall);
+   // transform axes
+        self.transAxis(this.x11, 150, 400, xAxisL, 0, this.height, 1, 1)
+        self.transAxis(this.x12, 150, 500, xAxisR, 0, this.height, 1, 1)
+         /*    self.transAxis(this.y11_swe, 350, 500, self.yAxis_swe, 0, this.height/2, 1, 1)
+        self.transAxis(this.y12_swe, 350, 400, self.yAxis_swe, 0, 0, 1, 1)
+        self.transAxis(this.y11_mmd, 350, 500, self.yAxis_mmd, this.width-75, this.height/2, 1, 1)
+        self.transAxis(this.y12_mmd, 350, 400, self.yAxis_mmd, this.width-75, 0, 1, 1) */
 
         this.d3.selectAll("g.ridge_2011.curve")
         .transition()
-        .delay(2000)
-        .duration(1000)
+        .delay(170)
+        .duration(500)
         .attr("transform", "translate(0, 0) scale(.49, 1)")
 
          this.d3.selectAll("g.ridge_2012.curve")
         .transition()
-        .delay(2000)
-        .duration(1000)
+        .delay(150)
+        .duration(500)
         .attr("transform", "translate(270, 0) scale(.49, 1)")
 
-      },
-      spreadRidges(){
-     // spread ridge
-        this.d3.selectAll("g.ridge_2011.curve g")
-        .transition()
-        .delay(3000)
-        .duration(1000)
-        .attr("transform", function(d, i) { 
-          return "translate(0," + (30+i*-10)  + ") scale(1, .9)"
-        })
-
-          this.d3.selectAll("g.ridge_2012.curve g")
-        .transition()
-        .delay(3000)
-        .duration(1000)
-        .attr("transform", function(d, i) { 
-          return "translate(0," + (30+i*-10) + ") scale(1, .9)"
-        })
-
-        this.d3.selectAll("g.yaxis g")
-        .transition()
-        .duration(1000)
-        .delay(3000)
-        .attr("opacity", 0)
-        
-
-        
-
-
-      },
-      drawHydro(svg, data_nest, days, gage_sp, x_start, x_end, data_max){
-       const self = this;
-
-        // append g for each ridgeline/site_no
-        this.group = svg.append("g").attr("class", function(d) { return d.key })
-          .selectAll("g")
-          .data(data_nest)
-          .join("g")
-            .attr("transform", d => `translate(0,${y(d.key) + 1})`);
-/* 
-        this.group.append("path")
-          .attr("fill", function(d) { return colorStack(d.key)}) //function(d) { return colorStack(d.key)}
-          .attr("d", d => self.area(d.mmd))
-          .attr("opacity", this.ridge_o); //#5C3406", "#C28D3D", "#ECD8A6", "#F0F0E6", "#AADDD6","#2A8C83", "#004439"] */
-
-        // this adds swe to the same chart
-
-        this.group.append("path")
-          .attr("fill", "none")
-          .attr("stroke",function(d) { return colorStack(d.key)})
-          .attr("d", d => self.line(d.mmd))
-          .attr("stroke-width", "1.5px");
-
-        // add swe
-         var z_swe = this.d3.scaleLinear()
-          .domain([0, this.d3.max(data_max, d => this.d3.max(d.swe)/2)]).nice()
-          .range([0, -overlap * y.step()])
-          
-        this.area_swe = this.d3.area()
-          .curve(this.d3.curveBasis)
-          .defined(d => !isNaN(d))
-          .x((d, i) => x(days[i]))
-          .y0(0)
-          .y1(d => z_swe(d))
-
-
-/*          this.group.append("path")
-          .attr("fill", "grey")
-          .attr("d", d => this.area_swe(d.swe))
-          .attr("opacity", this.ridge_o); //#5C3406", "#C28D3D", "#ECD8A6", "#F0F0E6", "#AADDD6","#2A8C83", "#004439"] 
- */
-          this.group.append("path")
-          .attr("fill", "none")
-          .attr("stroke", "grey")
-          .attr("d", d => this.line_swe(d.swe))
-          .attr("stroke-width", "1px"); 
- 
+      }
     }
-    },
 }
 </script>
 <style lang="scss" scoped>
-
-.gage {
-  color:black;
-  opacity: .6;
-
-}
+$familySerif:  'Noto Serif', serif;
 .maxWidth {
-  max-width: 70vw;
+  width: 90vw;
+  margin-left: 5vw;
+  max-width: 700px;
+  margin: auto;
 }
 
+.compare {
+  border: 0px solid black;
+  display: inline-block;
+  width: 80vw;
+  max-width: 600px;
+  font-size: 18px;
+  text-align: center;
+  padding: 15px 0px;
+  margin: auto;
+  position: relative;
+  h4{
+    margin-bottom: 15px;
+  }
+}
+.butt {
+  padding: 5px 10px;
+  margin: 5px 5px;
+  cursor: pointer;
+  display: inline-block;
+}
+.yr-label {
+  font-size: 16px;
+  font-weight: 400;
+  text-anchor: middle;
+  font-style: italic;
+  fill: rgb(165, 163, 163);
+}
+.inputsContainer{
+  .inputs{
+    font-size:.85em;
+  }
+}
+#mmd-container-both {
+  width: 90vw;
+  max-width: 900px;
+  margin: auto;
+}
+svg#mmd-line-both{
+  transform: translate(-5px, 0);
+}
+
+input[name="radiogroup1"] {
+            display: none;
+        }
+         input[name="radiogroup1"]+label {
+            /* style passive state as you like */
+            background-color: rgb(221,221,221);
+            border: 2px solid transparent;
+            color: black;
+            font-weight: 400;
+            transition: background-color .1s, border .1s;
+        }
+
+    input[name="radiogroup1"]:checked+label {
+        /* style checked state as you like */
+        border: 7px solid dodgerblue;
+        background-color: dodgerblue;
+        color: white;
+    }
+input[name="checkboxgroup1"] {
+            display: none;
+        }
+         input[name="checkboxgroup1"]+label {
+            /* style passive state as you like */
+            background-color: rgb(221,221,221);
+            border: 2px solid transparent;
+            color: black;
+            font-weight: 400;
+            transition: background-color .1s, border .1s;
+        }
+
+    input[name="checkboxgroup1"]:checked+label {
+        /* style checked state as you like */
+        border: 7px solid dodgerblue;
+        background-color: dodgerblue;
+        color: white;
+    }
+    input[name="checkboxgroup2"] {
+            display: none;
+        }
+         input[name="checkboxgroup2"]+label {
+            /* style passive state as you like */
+            background-color: rgb(221,221,221);
+            border: 2px solid transparent;
+            color: black;
+            font-weight: 400;
+            transition: background-color .1s, border .1s;
+        }
+
+    input[name="checkboxgroup2"]:checked+label {
+        /* style checked state as you like */
+        border: 7px solid grey;
+        background-color: grey;
+        color: white;
+        transition: background-color .1s, border .1s;
+    }
+    
+
+@media screen and (min-width: 650px){
+  .compare{
+    width: 100%;
+    max-width: 600px;
+    padding: 5px 5px;
+    .btn-group{
+      display: flex;
+      align-items: center;
+      .inputsContainer{
+        flex: 2;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .inputs{
+          position: absolute;
+          left: 10px;
+          font-size: 18px;
+          .butt{
+            margin-right: 10px;
+          }
+          .butt:last-child{
+            margin-right: 0;
+          }
+        }
+      }
+      #mmd-container-both {
+        width: 90vw;
+        max-width: 1200px;
+        margin: auto;
+      }
+      h4{
+        flex: 1;
+        margin-bottom: 0;
+      }
+    }
+  } 
+}
+// adding a break for full screen laptop adjustments
+@media screen and (max-height: 750px){
+  #mmd-container-both {
+    width: 90vw;
+    max-width: 700px;
+    margin: auto;
+  }
+
+}
 </style>

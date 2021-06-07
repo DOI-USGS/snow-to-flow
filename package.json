@@ -1,6 +1,6 @@
 {
   "name": "snow-to-flow",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --mode test_tier",

@@ -7,26 +7,61 @@
   >
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>Almost 70% of water in the west comes from snowmelt.</h2>
+      <div id="byline">
+        <p>U.S. Geological Survey</p>
+        <p>Water Resources Mission Area</p>
+      </div>
+      <h2>
+        A majority of the water in the western U.S. comes from snowmelt.
+      </h2>
     </template>
     <template v-slot:aboveExplanation>
-      <p>So with warmer, shorter winters, what does that mean for water availability?</p>
-      <p>Taleggio cheese strings manchego. Cheese strings queso when the cheese comes out everybody's happy pecorino say cheese when the cheese comes out everybody's happy blue castello boursin. Brie blue castello cauliflower cheese paneer goat edam cut the cheese bavarian bergkase. Roquefort mozzarella squirty cheese airedale cauliflower cheese cream cheese goat goat. Lancashire cheese slices smelly cheese smelly cheese.</p>
+      <p>
+        Snow-capped mountains, where snow accumulates all winter and often well into spring, function as <span class="emph">frozen water towers</span> by storing water as snow into late spring and summer<sup>1</sup>. When spring weather arrives, and the snow melts, the high elevation areas produce a large pulse of streamflow that redistributes water downstream through the landscape. These seasonal dynamics are critical components of the surface water cycle in the Western U.S., for both humans and ecosystems<sup>2,3</sup>.
+      </p>
+      <p>
+        Changes in the <span class="emph">timing, magnitude</span> and <span class="emph">duration</span> of snowmelt may substantially alter downstream water availability<sup>2,4</sup>. 
+        Approximately 2 billion people are expected to experience diminished water supplies because of seasonal snowpack decline this century<sup>5,6</sup>. Over the last half century, particularly in some regions of the Western U.S., annual snowpack levels have <span class="emph">declined</span><sup>7–9</sup> and contributed to <span class="emph">reduced of streamflow</span>, a trend supported by both models and on-the-ground observations<sup>2,4</sup>.
+      </p>
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
-      <p>Parmesan cheeseburger emmental. Monterey jack dolcelatte stinking bishop paneer croque monsieur manchego airedale squirty cheese. The big cheese mozzarella red leicester port-salut the big cheese cheeseburger queso cheesy grin. Boursin babybel.</p>
+      <p />
     </template>
   </VizSection>
 </template>
 <script>
 import VizSection from '@/components/VizSection';
+
 export default {
     name: "Intro",
     components:{
         VizSection
-    }
+    },
+     mounted() {
+          this.$nextTick(() => {
+            this.gsapOpacity();
+          });
+        },
+     methods: {
+      gsapOpacity(){
+        this.$gsap.from("#intro", {
+          scrollTrigger:{
+            trigger: "#intro",
+            start: "-200px center",
+            end: "top center",
+            scrub: true,
+            toggleOptions: "restart pause reverse pause"
+          },
+          opacity: 0
+        });
+      }
+     }
 }
 </script>
 <style lang="scss" scoped>
+  #byline {
+    font-weight: 400;
+    margin-bottom: 64px;
+  }
 </style>

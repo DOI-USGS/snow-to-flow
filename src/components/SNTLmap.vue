@@ -2,18 +2,71 @@
   <!---VizSection-->
   <VizSection
     id="SNTLMap"
+    :take-away="false"
   >
-    <!-- TAKEAWAY TITLE -->
-    <template v-slot:takeAway>
-      <h2>Snowmelt season has already begun.</h2>
-    </template>    
     <!-- EXPLANATION -->
     <template v-slot:aboveExplanation>
-      <!--   <p class="byline" >
-        U.S. Geological Survey<br>Water Resources Mission Area</p><br><br> -->
-      <p>Historically, <span class="emph">April 1st</span> is the date which hydrologists generally use to mark "peak snowpack" in places where snow accumulates all winter.</p>
-      <p>Compared to the historical record for this date, 2021 is shaping to be considerably dry in many regions of the western U.S. While interannual variation in peak SWE is normal and fluctuates with natural climatological patterns, an exceptionally dry or wet season can have dramatic impacts to the water supply in locations where snowmelt is a major source of water.</p>
-      <p>Highlight here how snowpack is super important for water supply in these areas.  In places like these, snowmelt makes up a major part of the water budget for that year!</p>
+      <p>
+        As springtime temperatures warm and snow begins to melt, the Western U.S. enters an important phase of the water cycle. Looking at this year's snow (WY 2021) - and how it turns into streamflow - can indicate the potential for water availability in the coming summer and fall.
+      </p>
+      <p
+        v-if="mobileView"
+        class="explain figureCaption"
+      >
+        Select a site to see this year's SWE and the magnitude (peak SWE <svg
+          class="leggy"
+          viewBox="0 0 10 10"
+          width="10"
+          height="10"
+        >
+          <circle
+            cx="5"
+            cy="5"
+            r="4"
+            style="fill: orchid; stroke: orchid;stroke-width: 1px;"
+          />
+        </svg>) and timing (SM50 <svg
+          viewBox="0 0 10 10"
+          width="10"
+          height="10"
+        >
+          <circle
+            cx="5"
+            cy="5"
+            r="4"
+            style="fill: white; stroke: orchid; stroke-width: 1.3px;"
+          />
+        </svg>) of snow since 1981. 
+      </p>
+      <p
+        v-if="!mobileView"
+        class="explain figureCaption"
+      >
+        Mouseover a site to see this year's SWE and the magnitude (peak SWE <svg
+          class="leggy"
+          viewBox="0 0 10 10"
+          width="10"
+          height="10"
+        >
+          <circle
+            cx="5"
+            cy="5"
+            r="4"
+            style="fill: orchid; stroke: orchid;stroke-width: 1px;"
+          />
+        </svg> ) and timing (SM50 <svg
+          viewBox="0 0 10 10"
+          width="10"
+          height="10"
+        >
+          <circle
+            cx="5"
+            cy="5"
+            r="4"
+            style="fill: white; stroke: orchid; stroke-width: 1.3px;"
+          />
+        </svg> ) of snow since 1981. Symbols not shown if peak SWE or SM50 have not been met as of 4/26/2021.
+      </p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
@@ -85,7 +138,7 @@
             <svg
               id="usa-sntl"
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="-250 0 900 570"
+              viewBox="-100 0 900 570"
               preserveAspectRatio="xMinYMin slice"
             >
               <image
@@ -1426,47 +1479,110 @@
           </div>
         </div>
 
-        <!-- ELEV-CORR -->
-        <div id="elev">
+        <!-- PEAK SWE MINI -->
+        <div id="peak-container">
           <svg
-            id="elev-corr"
+            id="peak-svg"
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="-100 -50 400 300" 
+            viewBox="-50 -20 260 150" 
+            preserveAspectRatio="xMinYMin slice"
+          />
+        </div>
+        
+        <!-- WY21 MINI -->
+        <div id="wy21-container">
+          <svg
+            id="wy21-svg"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="-50 -20 260 330" 
+            preserveAspectRatio="xMinYMin slice"
+          />
+        </div>
+        
+        <!-- MELT DATE MINI -->
+        <div id="melt-container">
+          <svg
+            id="melt-svg"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="-50 -20 260 170" 
             preserveAspectRatio="xMinYMin slice"
           />
         </div>
       </div>
     </template>
+    
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p id="explain-bottom">
-        The map above shows snow TODAY (use April 1st for release) as the percentile of this date in the historic record (1981-2010). Snow is quantified as the daily snow-water equivalent (SWE) from <a
+        The map shows April 1st snow as a percentile of this date in the historic record (1981-2010). Snow is quantified as the daily snow-water equivalent (SWE) at  <a
           href="https://www.wcc.nrcs.usda.gov/snow/"
           target="_blank"
-        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites across the western U.S.</a>. The trend line that appears on hover shows peak SWE for each site since 1981 (and currently does not include 2021). 
+        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites </a> across the Western U.S. SNOTEL sites with less than 20 years in the historic record are faded out in grey.
       </p>
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
-      <p>Find what snowpack has looked like this year in SNOTEL monitoring locations across the country.</p>
-      <p>Cheeseburger cut the cheese taleggio. Emmental croque monsieur mascarpone red leicester blue castello airedale everyone loves st. agur blue cheese. Cottage cheese cheese strings ricotta babybel cheeseburger queso manchego fromage. Paneer pepper jack cheese slices halloumi cream cheese jarlsberg chalk and cheese everyone loves. Smelly cheese stinking bishop cheesy grin pepper jack.</p>
+      <!--       <Sidebar>
+        <template v-slot:sidebarTitle>
+          What are the small charts?
+        </template>
+        <template v-slot:sidebarMessage>
+          <p>The left chart shows SWE in the current water year (2021) to date.</p>
+          <p>The panels on the right show peak SWE and the melt date (SM50) for all years with data at a given site.</p>
+        </template>
+      </Sidebar> -->
+      <Sidebar>
+        <template v-slot:sidebarTitle>
+          What is a percentile?
+        </template>
+        <template v-slot:sidebarMessage>
+          <p>Percentiles indicate how snow today (in 2021) compares to snow in past years where data are available. The SWE percentile can be interpreted as the percent of years when the site had lower SWE than in 2021. For example, if SWE at a particular SNOTEL site is in the 90th percentile, that means the current year's SWE is greater than 90% of the years on record for this date.</p>
+        </template>
+      </Sidebar>
+      <Sidebar>
+        <template v-slot:sidebarTitle>
+          When is peak SWE in 2021?
+        </template>
+        <template v-slot:sidebarMessage>
+          <p>Peak SWE has not happened yet for many places in the western U.S. This map shows <span class="emph">April 1st, 2021</span> which has traditionally been used as an indicator of peak SWE for the season.</p>
+        </template>
+      </Sidebar>
+      <p>
+        The USGS is undertaking new efforts to advance snow science through both measuring and modeling snowpack and linking these results to streamflow. As a part of the <a
+          href="https://www.usgs.gov/mission-areas/water-resources/science/usgs-next-generation-water-observing-system-ngwos?qt-science_center_objects=0#qt-science_center_objects"
+          target="_blank"
+        >USGS Next Generation Water Observing System (NGWOS)</a>, new spatial and temporal snow and streamflow observations are being planned for unmonitored areas. These observations will provide valuable data to inform predictive modeling of water-cycle components in the Upper Colorado River Basin. New snow monitoring will include continuous snowpack and soil moisture stations, remotely sensed mapping of snow conditions, and manual snow surveys. In addition, USGS is involved in the development and production of the Landsat snow covered area product, available through <a
+          href="https://www.usgs.gov/core-science-systems/nli/landsat/landsat-fractional-snow-covered-area"
+          target="_blank"
+        > Earth Explorer.</a>
+      </p>
+      <p>
+        The USGS also contributes to snow science research through modeling snowpack and snowmelt dynamics at local to National scales. These models use data for snow, landscape, vegetation, and meteorologic variables to understand how the annual snowpack evolves from accumulation through melt, and how these changes influence streamflow and ultimately, water availability.
+      </p>
     </template>
   </VizSection>
 </template>
 <script>
 import VizSection from '@/components/VizSection';
 import * as d3Base from "d3";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin"; // to trigger scroll events
-import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
+import { isMobile } from 'mobile-device-detect';
+import Sidebar from '@/components/Sidebar';
+
 export default {
     name: "SNTLmap",
     components:{
-        VizSection
+        VizSection,
+        Sidebar
     },
     data() {
             return {
               publicPath: process.env.BASE_URL,
               d3: null,
+              mobileView: isMobile,
+              tickDates: ["Oct '20","Jan '21", "Apr '21", "Jul '21"],
+              meltDates: ["Oct 1","Jan 1", "Apr 1", "Jul 1", "Oct 1"],
+              miniSWE: ["0"," ", " ", " ", "130"],
+
 
               sntl_variable: "ptile_swe", // map site colors
 
@@ -1491,6 +1607,7 @@ export default {
               yScale: null,
               site_radius: 2.5,
               colorValueInches: null,
+              xwy: null,
             }
         },
     mounted() {
@@ -1501,51 +1618,41 @@ export default {
           this.sntl_map = this.d3.select("svg#usa-sntl");
           this.ak_map = this.d3.select("svg#ak-sntl");
           this.legend_map = this.d3.select("svg#legend-sntl");
-          this.corr = this.d3.select("svg#elev-corr");
+          this.peak = this.d3.select("svg#peak-svg");
+          this.melt = this.d3.select("svg#melt-svg");
+          this.wy21 = this.d3.select("svg#wy21-svg");
 
           // read in data and bind with svg sites
           this.loadData();
+          this.site_vars.setColor = this.sntl_variable; // set chart color to selected color
 
-          this.$nextTick(() => {
-            this.gsapOpacity();
-          });
         },
     methods: {
-      gsapOpacity(){
-        this.$gsap.from("#SNTLMap", {
-          scrollTrigger:{
-            trigger: "#SNTLMap",
-            start: "-200px center",
-            end: "top center",
-            scrub: true,
-            toggleOptions: "restart pause reverse pause"
-          },
-          opacity: 0
-        });
-      },
+      isMobile() {
+                if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                    return true
+                } else {
+                    return false
+                }
+            },
       loadData() {
         const self = this;
         // read in data 
-        let promises = [self.d3.csv(self.publicPath + "data/conus_coord.csv", this.d3.autoType), // conus 
-        self.d3.csv(self.publicPath + "data/ak_coord.csv", this.d3.autoType),
-        self.d3.csv(self.publicPath + "data/diff_20210304.csv", this.d3.autoType),
-        self.d3.csv(self.publicPath + "data/SNOTEL_conus_d.csv", this.d3.autoType),
-        self.d3.csv(self.publicPath + "data/SNOTEL_ak_d.csv", this.d3.autoType)]; 
+        let promises = [
+        self.d3.csv(self.publicPath + "data/SNOTEL_conus_d_test.csv", this.d3.autoType),
+        self.d3.csv(self.publicPath + "data/SNOTEL_ak_d_test.csv", this.d3.autoType)]; 
         Promise.all(promises).then(self.callback); 
       },
       callback(data) {
         const self  = this;
         // org data
-        //this.sntl_data = data[0]; // has key and x and y positioning with sparkline paths
-        //this.ak_data = data[1]; // has key and x and y positioning with sparkline paths
-        this.diff = data[2]; // combined trend metrics and site vars
-        this.sntl_data = data[3];
-        this.ak_data = data[4];
+        this.sntl_data = data[0];
+        this.ak_data = data[1];
 
         // site groupings for svgs 
         this.sntl_sites = this.sntl_map.append("g").classed("sites", true)
         this.ak_sites = this.ak_map.append("g").classed("sites", true)
-        this.corr_plot = this.corr.append("g").classed("sites", true)
+        this.peak_mini = this.peak.append("g").classed("sites", true)
 
         this.site_vars.setColor = this.sntl_variable; // set chart color to selected color
         
@@ -1556,113 +1663,207 @@ export default {
         self.setColor(this.sntl_data, this.sntl_sites); // set initial site color
         self.setColor(this.ak_data, this.ak_sites); // set initial site color
 
-        this.makeTrend(); // makes a scatterplot of elevation and SWE percentile
+        this.makeTrend(); // makes mini plots
 
         // nudge ak sites for repositioning 
         this.ak_sites.attr("transform", "translate(0,100)")
       },
       makeTrend(){
-        // scatterplot
+        // set up mini plots
         const self = this;
 
         // axis scales
         self.setColor();
 
         var yCorr = this.d3.scaleLinear()
-          .range([100, 10])
-          .domain([0, 100]);
+          .range([110, 10])
+          .domain([0, 130]);
 
         var xCorr = this.d3.scaleLinear()
           .range([0,  200])
           .domain([1981, 2021]);
 
-        /*  this.corr_plot
-         .selectAll("dots")
-          .data(data)
-          .enter()
-          .append("circle")
-            .attr("cx", function (d) { return xCorr(d.el); })
-            .attr("cy", function (d) { return yCorr(d.ptile); } )
-            .classed("dots",  true)
-            .attr("opacity", .7)
-            .attr("stroke", "black")
-            .attr("stroke-width", .5)
-            .attr("r", this.site_radius)
-            .attr("fill",  function(d) { return self.threshold(d[self.site_vars.setColor]) }) */
-
-
-        var g = this.d3.select("svg#elev-corr")
+        this.d3.select("svg#peak-svg")
           .append("g")
           .classed("corr-legend", true)
           .call(this.d3.axisBottom(xCorr)
-            .ticks(5)
-            .tickValues(["1981", "1991", "2001", "2011", "2021"])
-            .tickFormat(this.d3.format("d")))
-          .attr("transform", "translate(" + (0) + "," + 100 + ")");
+            .ticks(0).tickSize(0)
+            //.tickValues(["1981", "1991", "2001", "2011", "2021"])
+            //.tickFormat(this.d3.format("d"))
+            )
+          .attr("transform", "translate(" + (0) + "," + 110 + ")");
 
-        this.d3.select("svg#elev-corr")
+        this.d3.select("svg#peak-svg")
           .append("g")
           .classed("corr-legend", true)
           .call(this.d3.axisLeft(yCorr)
+            .ticks(3)
+            .tickValues(["10","40","70","100",  "130"]).tickSize(2))
+          .attr("transform", "translate(" + (0) + "," + 0 + ")");
+
+
+        this.d3.select("svg#peak-svg").append("text")
+          .classed("ele", true)
+            .attr("fill", "black")
+            .attr("font-size", ".9em")
+            .attr("text-anchor", "start")
+            .attr("font-style", "italic")
+            .attr("y", 120)
+            .attr("x", 35)
+            .attr("transform", "rotate(-90) translate(-110, -150)")
+            .text("inches");
+
+              this.d3.select("svg#peak-svg").append("text")
+          .classed("ele", true)
+            .attr("fill", "black")
+            .attr("font-size", "1em")
+            .attr("font-weight", "bold")
+            .attr("text-anchor", "start")
+            .attr("y", 0)
+            .attr("x", -25)
+            .text("Peak SWE");
+
+      // melt mini
+       var ymelt = this.d3.scaleLinear()
+          .range([110, 10])
+          .domain([0, 350]);
+
+        var yr_list = ["1981", "1991", "2001", "2011", "2021"];
+        this.d3.select("svg#melt-svg")
+          .append("g")
+          .classed("melt-legend", true)
+          .call(this.d3.axisBottom(xCorr)
             .ticks(5)
-            .tickValues(["0", "25", "50", "75", "100"])
-            .tickFormat(this.d3.format("d")))
+            .tickValues(["1982", "1991", "2001", "2011", "2021"]).tickSize(0)
+            .tickFormat(function(d,i) { return yr_list[i] }))
+          .attr("transform", "translate(" + (0) + "," + 110 + ")");
+
+          this.d3.select("svg#peak-svg")
+          .append("g")
+          .classed("peak-legend", true)
+          .call(this.d3.axisBottom(xCorr)
+            .ticks(5)
+            .tickValues(["1982", "1991", "2001", "2011", "2021"]).tickSize(0)
+            .tickFormat(function(d,i) { return yr_list[i] }))
+          .attr("transform", "translate(" + (0) + "," + 110 + ")")
+          .attr("z-index",  1);
+
+        this.d3.select("svg#melt-svg")
+          .append("g")
+          .classed("melt-legend", true)
+          .call(this.d3.axisLeft(ymelt)
+          .tickValues([10, 93, 183, 273])
+              .tickFormat(function(d,i) { return self.meltDates[i] })
+              .tickSizeOuter(2).tickSize(2))
           .attr("transform", "translate(" + (0) + "," + 0 + ")");
 
       // position axis labels
-        this.d3.select("svg#elev-corr").append("text")
-          .attr("fill", "#000")
-          .attr("font-size", "1.25em")
+        this.d3.select("svg#melt-svg").append("text")
+          .attr("fill", "black")
+          .attr("font-size", "1em")
           .attr("text-anchor", "start")
           .attr("font-weight", "bold")
           .attr("y", 140)
-          .attr("x", 50)
-          .text("Water year");
+          .attr("x", 75)
+          .text("Year");
 
-        this.d3.select("svg#elev-corr").append("text")
+  /*       this.d3.select("svg#melt-svg").append("text")
           .classed("ele", true)
-            .attr("fill", "#000")
-            .attr("font-size", "1.25em")
+            .attr("fill", "black")
+            .attr("font-size", ".9em")
+            .attr("text-anchor", "start")
+            .attr("font-style", "italic")
+            .attr("y", 120)
+            .attr("x", 15)
+            .attr("transform", "rotate(-90) translate(-110, -150)")
+            .text("date");
+ */
+            this.d3.select("svg#melt-svg").append("text")
+          .classed("ele", true)
+            .attr("fill", "black")
+            .attr("font-size", "1em")
             .attr("font-weight", "bold")
             .attr("text-anchor", "start")
-            .attr("y", 120)
-            .attr("x", 30)
+            .attr("y", 0)
+            .attr("x", -25)
+            .text("Melt date (SM50)");
+
+        // wy mini
+       self.ywy = this.d3.scaleLinear()
+          .range([270, 10])
+          .domain([1, 130]);
+
+        self.xwy = this.d3.scaleLinear()
+          .range([0,  200])
+          .domain([1, 204]); // this is the date that the generated paths are las tupdated to
+
+        this.d3.select("svg#wy21-svg")
+          .append("g")
+          .classed("melt-legend", true)
+          .call(this.d3.axisBottom(self.xwy)
+            .tickValues([1, 93, 183, 273])
+              .tickFormat(function(d,i) { return self.tickDates[i] })
+              .tickSizeOuter(0).tickSize(0))
+          .attr("transform", "translate(" + (0) + "," + 270 + ")");
+
+        this.d3.select("svg#wy21-svg")
+          .append("g")
+          .classed("melt-legend", true)
+          .call(this.d3.axisLeft(self.ywy)
+            .tickValues([10, 40, 70, 100, 130])
+              .tickSizeOuter(0).tickSize(0))
+          .attr("transform", "translate(" + (0) + "," + 0 + ")");
+
+      // position axis labels
+        this.d3.select("svg#wy21-svg").append("text")
+          .attr("fill", "black")
+          .attr("font-size", "1em")
+          .attr("text-anchor", "center")
+          .attr("font-weight", "bold")
+          .attr("y", 305)
+          .attr("x", 50)
+          .text("2021 Water year");
+
+        this.d3.select("svg#wy21-svg").append("text")
+          .classed("ele", true)
+            .attr("fill", "black")
+            .attr("font-size", ".9em")
+            .attr("text-anchor", "start")
+            .attr("font-style", "italic")
+            .attr("y", 130)
+            .attr("x", -35)
             .attr("transform", "rotate(-90) translate(-110, -150)")
+            .text("inches");
+
+         this.d3.select("svg#wy21-svg").append("text")
+          .classed("ele", true)
+            .attr("fill", "black")
+            .attr("font-size", "1em")
+            .attr("font-weight", "bold")
+            .attr("text-anchor", "start")
+            .attr("y", 0)
+            .attr("x", -25)
             .text("SWE");
 
-       /*  // position axis labels
-        this.d3.select("svg#elev-corr").append("text")
-          .attr("fill", "#000")
-          .attr("font-size", "1.5em")
-          .attr("text-anchor", "start")
-          .attr("font-weight", "bold")
-          .attr("y", 285)
-          .attr("x", 95)
-          .text("Elevation");
+      //hover/click prompt
+      this.d3.select("svg#wy21-svg").append("text")
+        .classed("hover_info", true)
+        .attr("fill", "#000")
+        .attr("font-size", "1.2em")
+        .attr("text-anchor", "start")
+        .attr("font-style", "italic")
+        .attr("y", 50)
+        .attr("x", 30)
+        .text("Hover over a site");
 
-        this.d3.select("svg#elev-corr").append("text")
-          .classed("ele", true)
-            .attr("fill", "#000")
-            .attr("font-size", "1.5em")
-            .attr("font-weight", "bold")
-            .attr("text-anchor", "start")
-            .attr("y", 140)
-            .attr("x", 25)
-            .attr("transform", "rotate(-90) translate(-200, -110)")
-            .text("SWE"); */
       },
-      bouncer(arr) {
-          var array = arr.filter(function(val){
-            return val;
-          });
-          return array;
-        },
+
       addSites(x_max, y_max, sites, data) {
         // adds sites to AK and CONUS maps, triggers color function
         const self = this;
 
         let data_filt = data.filter(site => site.ptile_swe > -1); // data with swe percentiles
-        let data_not = data.filter(site => isNaN(site.ptile_swe)); // data with swe percentiles
+        let data_not = data.filter(site => isNaN(site.ptile_swe)); // data without swe percentiles
 
         // axis scales
         this.xScale = this.d3.scaleLinear()
@@ -1673,21 +1874,7 @@ export default {
           .range([y_max,  0])
           .domain([y_max, 0]);
 
-        // draw sites
-        sites.selectAll("SNTL")
-        .data(data_filt, function(d) { return d.site_id; }) // the key for each  site for updating data
-        .enter()
-        .append("circle")
-          .attr("cx", function (d) { return self.xScale(d.x); })
-          .attr("cy", function (d) { return self.yScale(d.y); } )
-          .classed("SNTL",  true)
-          .attr("id", function(d) { return d.sntl_id })
-          .attr("opacity", .7)
-          .attr("stroke", "black")
-          .attr("stroke-width", .5)
-          .attr("r", this.site_radius)
-
-        // sites with no ptile data
+        // sites with no percentile data are drawn as empty circles
         sites.selectAll("SNTL")
         .data(data_not, function(d) { return d.site_id; }) // the key for each  site for updating data
         .enter()
@@ -1696,58 +1883,189 @@ export default {
           .attr("cy", function (d) { return self.yScale(d.y); } )
           .classed("SNTL_nodata",  true)
           .attr("id", function(d) { return d.sntl_id })
-          .attr("opacity", .7)
+          .attr("opacity", .6)
+          .attr("stroke", "rgb(101, 101, 101)")
+          .attr("fill", "rgb(171, 171, 171)")
+          .attr("stroke-width", .3)
+          .attr("r", this.site_radius*.9)
+          .attr("z-index", -1)
+
+        // draw sites with percentile data
+        sites.selectAll("SNTL")
+        .data(data_filt, function(d) { return d.site_id; }) // the key for each  site for updating data
+        .enter()
+        .append("circle")
+          .attr("cx", function (d) { return self.xScale(d.x); })
+          .attr("cy", function (d) { return self.yScale(d.y); } )
+          .classed("SNTL",  true)
+          .attr("id", function(d) { return d.sntl_id })
+          .attr("opacity", .85)
           .attr("stroke", "black")
-          .attr("fill", "transparent")
-          .attr("stroke-width", .5)
+          .attr("stroke-width", .35)
           .attr("r", this.site_radius)
+          .attr("z-index", 10)
 
-        // add hover effect
-    /*   this.d3.selectAll(".SNTL")
-        .on("mouseover", function(data) {
-          self.hover(data, self.site_radius*2, "orchid");
-        })
-        .on("mouseout", function(data){
-          self.hoverOut(data, self.site_radius);
-        })  */
-        
-      },
-      hover(data, to, color){
-        const self = this;
+        // add hover effect to percentile sites sites
+        this.d3.selectAll(".SNTL")
+          .on("mouseover", function(data) {
+            self.hover(data, self.site_radius*2, "orchid");
+            self.d3.select("text.hover_info").remove()
+          })
+          .on("mouseout", function(data){
+            self.hoverOut(data, self.site_radius);
 
-        self.d3.select('circle#sntl_' + data.sntl_id)
-          .transition()
-          .duration(50)
-          .attr("r", to)
-          .attr('fill', color);
+          //hover/click prompt
+          self.d3.select("svg#wy21-svg").append("text")
+            .classed("hover_info", true)
+            .attr("fill", "#000")
+            .attr("font-size", "1.2em")
+            .attr("text-anchor", "start")
+            .attr("font-style", "italic")
+            .attr("y", 50)
+            .attr("x", 30)
+            .text("Hover over a site");
+              }) 
+          
+        },
+        hover(data, to, color){
+          const self = this;
 
-          //console.log(data.d_peak) // use this to draw the line
+          self.d3.select('circle#' + data.sntl_id)
+            .transition()
+            .duration(50)
+            .attr("r", to)
+            .attr('fill', color);
 
-        // draw trendline for site
-        var trendy = this.corr.append("g").classed("trend", true)
-          trendy.append("path").attr("id", 'sntl_' + data.sntl_id)
+        // draw peak SWE trendline for site
+        var peaky = this.peak.append("g")
+        .classed("trend", true)
+        .classed("peak", true)
+
+          peaky.append("path")
+            .attr("id", data.sntl_id)
             .attr("d", data.d_peak)
             .attr("fill", "transparent")
             .attr("stroke", "black")
-            .attr("stroke-width", 1)
+            .attr("stroke-width", "2px")
 
+        // draw 2021 SWE  curve for site
+        var melty = this.melt.append("g")
+          .classed("trend", true)
+          .classed("melt", true)
+
+          melty.append("path").attr("id", data.sntl_id)
+            .attr("d", data.d_sm50)
+            .attr("fill", "transparent")
+            .attr("stroke", "black")
+            .attr("stroke-width", "2px")
+
+            // draw 2021 SWE  curve for site
+        var wy = this.wy21.append("g")
+          .classed("trend", true)
+          .classed("melt", true)
+
+          wy.append("path").attr("id", data.sntl_id)
+            .attr("d", data.d_swe)
+            .attr("fill", "transparent")
+            .attr("stroke", "black")
+            .attr("stroke-width", 2)
+            .attr("transform", "translate(" + (0) + "," + 10 + ")")
+
+            // add peak swe and sm50 date to wy chart
+            wy.append("circle")
+            .attr("cx", data.peak_x)
+            .attr("cy", data.peak_y )
+            .attr("r",4)
+            .classed(data.peak_met, true)
+            .classed("peak", true)
+            .attr("fill", "orchid")
+            .attr("opacity", 1)
+            .attr("transform", "translate(" + (0) + "," + 10 + ")")
+
+            wy.selectAll(".peak.TBD")
+            .remove()
+
+          wy.append("circle")
+            .attr("cx", data.sm50_x)
+            .attr("cy", data.sm50_y )
+            .attr("r",4)
+            .classed(data.sm50_met, true)
+            .classed("melt", true)
+            .attr("fill", "white")
+            .attr("stroke", "orchid")
+            .attr("stroke-width", 1.5)
+            .attr("opacity", 1)
+            .attr("transform", "translate(" + (0) + "," + 10 + ")")
+
+            wy.selectAll(".melt.TBD")
+            .remove()
+
+            // add sm50 and peak to mini timeseries
+
+              peaky.append("circle")
+              .attr("cx", data.mini_peak_x)
+              .attr("cy", data.mini_peak_y )
+              .attr("r",4)
+              .classed(data.peak_met, true)
+              .classed("peak", true)
+              .attr("fill", "orchid")
+              .attr("opacity", 1)
+              .attr("transform", "translate(" + (0) + "," + 0 + ")") // need to check this out
+
+              melty.append("circle")
+              .attr("cx", data.mini_sm50_x)
+              .attr("cy", data.mini_sm50_y )
+              .attr("r",4)
+              .classed(data.sm50_met, true)
+              .classed("melt", true)
+              .attr("fill", "white")
+            .attr("stroke", "orchid")
+            .attr("stroke-width", 1.5)
+              .attr("opacity", 1)
+              .attr("transform", "translate(" + (0) + "," + 0 + ")") // need to check this out
+
+              peaky.selectAll(".peak.TBD")
+            .remove()
+                          
+          melty.selectAll(".melt.TBD")
+            .remove()
+
+      this.d3.select("svg#wy21-svg").append("text")
+        .classed("site_name", true)
+        .attr("fill", "#000")
+        .attr("font-size", "1em")
+        .attr("font-weight", "bold")
+        .attr("text-anchor", "start")
+        .attr("y", 20)
+        .attr("x", 10)
+        .text(data.site_name);
+
+        this.d3.select("svg#wy21-svg").append("text")
+        .classed("site_name", true)
+        .attr("fill", "#000")
+        .attr("font-size", "1em")
+        .attr("font-weight", "bold")
+        .attr("text-anchor", "start")
+        .attr("y", 40)
+        .attr("x", 10)
+        .text(data.elev_ft + " ft");
       },
       hoverOut(data, to){
         const self = this;
 
-        self.d3.select('circle#sntl_' + data.site_id)
+      // shrink site
+        self.d3.select('circle#' + data.sntl_id)
           .transition()
           .duration(50)
-          .attr("r", to);
+          .attr("r", to)
+          .attr("fill", function(d) { return self.threshold(d[self.site_vars.setColor]) } );
 
-        this.d3.select(".trend").remove() // take off prior line
-          //self.setColor();
+        this.d3.selectAll(".trend").remove() // take off prior lines
+        this.d3.selectAll(".site_name").remove() 
+
       },
       setColor() {
         const self = this;
-        //console.log(this.sntl_variable);
-
-        this.site_vars.setColor = this.sntl_variable; // set chart color to selected color
 
         // make threshold color scale for percentile data
         this.threshold = this.d3.scaleThreshold()
@@ -1756,18 +2074,19 @@ export default {
 
           var x = this.d3.scaleLinear()
             .domain([0, 1])
-            .range([0, 240]);
+            .range([0, 250]);
 
             var xAxis = this.d3.axisBottom(x)
-              .tickSize(13)
-              .tickValues(self.threshold.domain());
+              .tickSize(10)
+              .tickValues(self.threshold.domain())
+              .tickFormat(function(d) { return d*100 + '%' });
 
           var g = this.d3.select("svg#legend-percentile").append("g")
           .classed("thresh-legend", true).call(xAxis)
-          .attr("transform", "translate(" + (0) + "," + 45 + ")");
+          .attr("transform", "translate(" + (20) + "," + 45 + ")");
 
-          g.select(".domain")
-              .remove();
+
+          g.select(".domain").remove();
 
               g.selectAll("rect")
               .data(self.threshold.range().map(function(color) {
@@ -1777,26 +2096,42 @@ export default {
                 return d;
               }))
               .enter().insert("rect", ".tick")
-                .attr("height", 8)
+                .attr("height", 6)
                 .attr("x", function(d) { return x(d[0]); })
                 .attr("width", function(d) { return x(d[1]) - x(d[0]); })
                 .attr("fill", function(d) { return self.threshold(d[0]); });
 
                 g.append("text")
                   .attr("fill", "#000")
-                  .attr("font-size", "1.15em")
+                  .attr("font-size", "1.25em")
                   .attr("text-anchor", "start")
                   .attr("y", -10)
-                  .text("Percentile, historic mean (1981-2010)");
+                  .text("April 1st SWE percentile");
 
                   g.append("text")
                   .attr("fill", "#000")
-                  .attr("font-size", "1.5em")
+                  .attr("font-size", "1.25em")
+                  .attr("text-anchor", "start")
+                  .attr("y", 15)
+                  .text(" ");
+
+                  g.append("text")
+                  .attr("fill", "#000")
+                  .attr("font-size", "2em")
                   .attr("font-weight", "bold")
                   .attr("text-anchor", "start")
                   .attr("x", 0)
                   .attr("y", -30)
-                  .text("Snow-water equivalent: March 3rd, 2021");
+                  .text("Snow this year");
+
+                  g.append("text")
+                  .attr("fill", "#000")
+                  .attr("font-size", "2em")
+                  .attr("font-weight", "bold")
+                  .attr("text-anchor", "start")
+                  .attr("x", -100)
+                  .attr("y", -25)
+                  .text("");
 
        // set color for both maps using the same color scale
        this.sntl_sites.selectAll("circle.SNTL")
@@ -1805,7 +2140,7 @@ export default {
           this.ak_sites.selectAll("circle.SNTL")
           .attr("fill", function(d) { return self.threshold(d[self.site_vars.setColor]) })
 
-          this.corr.selectAll("circle.dots")
+          this.peak.selectAll("circle.dots")
           .attr("fill", function(d) { return self.threshold(d[self.site_vars.setColor]) })
 
     }
@@ -1813,14 +2148,38 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.leggy {
+  display: inline-block;
+}
+.figureCaption {
+  display: block;
+}
+.dot_peak {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: orchid;
+    border: 0.35px solid orchid;
+        display: inline-block;  
+}
+.dot_melt {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: white;
+    border: 1.5px solid orchid;
+    display: inline-block;
+}
+
 .map-grid{
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-areas: 
-    ". legend legend legend legend ."
+    "legend legend legend legend legend ."
     "ak ak ak ak ak ak"
     "us us us us us us"
-    "line line line line line line"
+    "peak peak peak wy21 wy21 wy21"
+    "melt melt melt wy21 wy21 wy21"
   ;
   overflow: hidden;
 }
@@ -1831,14 +2190,13 @@ line, polyline, polygon, path, rect, circle {
       stroke-linejoin: round;
       stroke-miterlimit: 10.00;
     }
+.explain {
+  font-style: italic;
+}
 .state {
   stroke: white;
   stroke-width: 2px;
   opacity: .5;
-}
-.ele {
-  transform-origin: center center;
-  transform: rotate(-90deg);
 }
 .usa {
   color: darkgrey;
@@ -1851,7 +2209,9 @@ line, polyline, polygon, path, rect, circle {
 
 #legendContainer{
   grid-area: legend;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
+  margin-left: 30px;
+  z-index: 1;
 }
 
 #grid-left{
@@ -1860,30 +2220,54 @@ line, polyline, polygon, path, rect, circle {
   margin-right: 2.5vw; 
 }
 #ak{
-  width: 90vw;// careful editing this, it's sizing the maps to be on the same scale
+  width: 110vw;// careful editing this, it's sizing the maps to be on the same scale
 }
 #grid-right{
   grid-area: us;
-  width: 190vw;
+  width: 90vw;
+  margin-left: 70px;
 }
 #usa{
-  width: 120vw;// careful editing this, it's sizing the maps to be on the same scale
+  width: 160vw;// careful editing this, it's sizing the maps to be on the same scale
 }
-#elev{
-  grid-area: line;
+#peak-container{
+  grid-area: peak;
+}
+#melt-container{
+  grid-area: melt;
+}
+#wy21-container{
+  grid-area: wy21;
 }
 
 @media screen and (min-width: 1024px){
+  #melt-svg {
+  transform: translate(0, 0px);
+}
+#peak-svg {
+  transform: translate(0, -5px);
+}
   .map-grid{
+    
     grid-template-areas: 
-      ". . legend legend . ."
-      "ak ak us us us us"
-      "line line us us us us"
+    ". legend legend us us us"
+    ". wy21 peak us us us"
+      ". wy21 peak us us us"
+      ". wy21 melt us us us"
+      ". wy21 melt us us us"
+      ". ak ak us us us"
+      ". ak ak us us us"
+      ". ak ak us us us"
+      ". ak ak us us us"
+      ". . . us us us"
     ;
   }
   #grid-left{
     width: 30vw; // careful editing this, it's sizing the maps to the same scale
-    margin-left: 2.5vw;
+    //margin-left: 10vw;
+  }
+  #legendContainer {
+    margin-top: 0px;
   }
   #ak {
    width: 55vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
@@ -1891,10 +2275,58 @@ line, polyline, polygon, path, rect, circle {
   #grid-right {
     width: 70vw;// careful editing this, it's sizing the maps to the same scale
     margin-right: 2.5vw;
+    margin-left: 0px;
   }
   #usa{
-    width: 85vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
+    width: 80vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
   }
+ 
+}
+
+@media screen and (min-height: 900px){
+  #melt-svg {
+  transform: translate(0, 5px);
+}
+#peak-svg {
+  transform: translate(0, 0px);
+}
+  .map-grid{
+    
+    grid-template-areas: 
+    ". legend legend us us us"
+    ". wy21 peak us us us"
+      ". wy21 peak us us us"
+      ". wy21 melt us us us"
+      ". wy21 melt us us us"
+      "ak ak .  us us us"
+      "ak ak . us us us"
+      "ak ak . us us us"
+      "ak ak .us us us"
+      ". . . us us us";
+  }
+  #grid-left{
+    width: 30vw; // careful editing this, it's sizing the maps to the same scale
+    //margin-left: 10vw;
+  }
+  #legendContainer {
+    margin-top: 0px;
+    margin-left: 20px;
+  }
+  #ak {
+   width: 60vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
+   margin-left: 30px;
+   padding-top: 50px;
+  }
+  #grid-right {
+    width: 70vw;// careful editing this, it's sizing the maps to the same scale
+    margin-right: 2.5vw;
+    margin-left: 0px;
+  }
+  #usa{
+    width: 100vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
+    margin-left: -25px;
+  }
+ 
 }
 
 

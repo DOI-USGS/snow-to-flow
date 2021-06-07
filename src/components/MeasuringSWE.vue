@@ -1,12 +1,11 @@
 <template>
   <!---VizSection-->
-  <VizSection id="measuring-swe">
-    <!-- TAKEAWAY TITLE -->
-    <template v-slot:takeAway>
-      <h2>The USGS has been studying the connection between snowpack and stream flow for decades.</h2>
-    </template>
+  <VizSection
+    id="measuring-swe"
+    :take-away="false"
+  >
     <template v-slot:aboveExplanation>
-      <p>Cheese and wine roquefort when the cheese comes out everybody's happy. Cow red leicester the big cheese paneer cut the cheese red leicester boursin halloumi. Cheese and wine cheddar mozzarella boursin mozzarella cheese and wine taleggio cheese slices. Stilton fromage say cheese mozzarella cheeseburger dolcelatte pepper jack manchego. Who moved my cheese feta.</p>
+      <p>Using high-quality manual and station observations of snowpack and streamflow, USGS scientists are conducting research on trends in snowfall, snow cover, snow versus rain<sup>10</sup>, snow water equivalent, snowmelt runoff<sup>11</sup>, snowmelt timing<sup>12</sup> and snow chemistry in the U.S. USGS scientists are also evaluating the influence of changing climate on hydrological processes and runoff in snowmelt dominated basins<sup>13</sup>.</p>
     </template>
     <!-- FIGURES -->
     <template v-slot:figures>
@@ -20,12 +19,26 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        There are lots of ways to measure SWE! Drones, shovels, and SNOTEL sites oh my!
+        Click on the images to learn more about how USGS snow hydrologists measure SWE in the field. 
       </p>
     </template>
     <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
-      <p>St. agur blue cheese emmental goat. Port-salut babybel cheese strings airedale everyone loves boursin cheesy feet queso. Boursin goat caerphilly st. agur blue cheese squirty cheese rubber cheese cow halloumi. Danish fontina cheese and biscuits say cheese swiss croque monsieur.</p>
+      <p>
+        The <a
+          href="https://www.nrcs.usda.gov/wps/portal/nrcs/site/national/home/"
+          target="_blank"
+        >Natural Resources Conservation Service (NRCS)</a> operates a snow monitoring program that includes over 800 automated <a
+          href="https://www.wcc.nrcs.usda.gov/snow/"
+          target="_blank"
+        >Snow Telemetry (SNOTEL)</a> data collection sites that monitor SWE, snow depth, precipitation, temperature, and other related meteorological variables.
+      </p>
+      <p>
+        Streamflow measurements from the <a
+          href="https://labs.waterdata.usgs.gov/visualizations/gages-through-the-ages/index.html#/"
+          target="_blank"
+        >USGS streamgaging network</a> are used to further our understanding of snowmelt processes. Some of the oldest USGS streamgages in the Western U.S. (100-125 year records) derive their streamflow from seasonal snowmelt, contributing to a long record of data to analyze seasonal and historical runoff patterns.
+      </p>
     </template>
   </VizSection>
 </template>

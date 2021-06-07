@@ -11,7 +11,7 @@ pipeline {
         gitParameter(name: 'BRANCH_TAG',
                      type: 'PT_BRANCH_TAG',
                      selectedValue: 'DEFAULT',
-                     defaultValue: 'origin/master')
+                     defaultValue: 'origin/main')
     }
 
     stages {

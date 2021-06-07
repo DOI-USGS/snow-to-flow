@@ -37,8 +37,8 @@
         name: 'PreFooterVisualizationsLinks',
         data() {
             return {
-                LinkOne: process.env.VUE_APP_FOOTER_LINK_1,
-                LinkTwo: process.env.VUE_APP_FOOTER_LINK_2
+                LinkOne: process.env.VUE_APP_FOOTER_1,
+                LinkTwo: process.env.VUE_APP_FOOTER_2
             };
         }
     }

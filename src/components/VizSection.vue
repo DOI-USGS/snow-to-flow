@@ -1,9 +1,12 @@
 <template>
   <section class="vizSection">
     <div class="vizSectionContent">
-      <div class="takeAway">
+      <div
+        v-if="takeAway"
+        class="takeAway"
+      >
         <slot name="takeAway">
-       <!--    Take Away Title -->
+          <!--    Take Away Title -->
         </slot>
       </div>
       <div class="aboveExplanation explanation">
@@ -35,6 +38,10 @@
 export default {
     name: "VizSection",
     props:{
+        takeAway:{
+          type: Boolean,
+          default: true
+        },
         figCaption:{
           type: Boolean,
           default: true
@@ -56,7 +63,9 @@ $border: 10px solid #000;
 }
 /*#####TAKE AWAY#####*/
 .takeAway{
-    font-size: 1.4em;
+    h2{
+      font-size: 1.4em;
+    }
     margin: 0 auto $spacing auto;
     max-width: 700px;
     font-weight: 800;
@@ -79,16 +88,20 @@ $border: 10px solid #000;
 .figureCaption{
   display: flex;
   justify-content: center;
-  font-size: 1em;
+  font-size: .85em;
   line-height: 1.5em; 
   font-style: italic;
 }
 /*#####EXPLANATION#####*/
 .explanation{
-  font-size: 1.125em;
+  font-size: 1em;
   line-height: 1.75em;
   p{
     padding: 0 0 10px 0;
+  }
+  ul{
+    margin-left: $spacing*2;
+    margin-bottom: $spacing;
   }
 }
 /*#####SHARED CSS#####*/
@@ -115,9 +128,6 @@ $border: 10px solid #000;
 }
 .single{
     text-align: center;
-    figure{
-        min-height: 300px;
-    }
 }
 .group{
     /* prevent too large mobile graphs from creating a x scroll */
@@ -132,7 +142,9 @@ $border: 10px solid #000;
 }
 @media screen and (min-width: 1024px){
   .takeAway{
-    font-size: 1.7em
+    h2{
+      font-size: 1.7em
+    }
   }
   /*#####CUSTOMIZATION CLASSES#####*/
     .group{

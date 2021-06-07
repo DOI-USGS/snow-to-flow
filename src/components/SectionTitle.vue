@@ -17,10 +17,23 @@
         <picture class="lazy">
           <!--Media size suggestions https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images-->
           <source
+            type="image/webp"
+            media="(max-width: 799px)"
+            :data-srcset="require(`@/assets/titleImages/1x/${image}-1x.webp`)"
+          >
+          <source
+            type="image/webp"
+            media="(min-width: 800px)"
+            :data-srcset="require(`@/assets/titleImages/2x/${image}-2x.webp`)"
+          >
+          <!--BACKUP IF BROWSER DOESN'T ACCEPT WEBP (TESTED AND WORKING ON SAFARI)-->
+          <source
+            type="image/jpg"
             media="(max-width: 799px)"
             :data-srcset="require(`@/assets/titleImages/1x/${image}-1x.jpg`)"
           >
           <source
+            type="image/jpg"
             media="(min-width: 800px)"
             :data-srcset="require(`@/assets/titleImages/2x/${image}-2x.jpg`)"
           >
@@ -55,7 +68,7 @@ export default {
         },
         overlayOpacity:{
             type: Number,
-            default: .1
+            default: .7
         }
     },
     computed:{
@@ -73,6 +86,11 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+
+$familyMain: 'Public sans', sans-serif;
+$familySerif:  'Noto Serif', serif;
+$darkGrey: #212122;
+
 .chapter{
     position: relative;
     height: var(--height);
@@ -98,7 +116,7 @@ picture{
     position: absolute;
     width: 100%;
     height: 100%;
-    background: #fff;
+    background: black;
     opacity: var(--overlay-opacity);
     top:0;
     left: 0;
@@ -116,21 +134,17 @@ picture{
       height: 100%;
     }
     
-    // background-image: var(--bg-image);
-    // background-position: center;
-    // background-size: cover;
-    // background-repeat: no-repeat;
+ 
 }
 .chapterTitle{
     position: relative;
     z-index: 2;
-    font-size:clamp(1.5em, 7vw, 5em);
-    font-style: italic;
+    font-family: $familyMain;
+    font-size:clamp(3em, 20vw, 2em); // changed to not be bigger than the h1 at the top of the splash
     font-weight: 800;
-    color: #fff;
+    color: white;
     padding: 0 20px;
     text-align: center;
     max-width: 960px;
-    text-shadow: 1px 1px 40px rgba(0,0,0,1);
 }
 </style>

@@ -1,6 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-63TYRT5PQD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+
+      gtag('config', 'G-63TYRT5PQD');
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-78530187-18"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+
+      gtag('config', 'UA-78530187-18');
+    </script>
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+          'gtm.start':
+            new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-PB7NXPG');</script>
+    <!-- End Google Tag Manager -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -11,19 +39,19 @@
           <%= VUE_APP_TITLE %>
       </title>
       <meta name="title" content="From Snow to Flow">
-      <meta name="description" content="what does changing snowmelt mean for water in the western U.S.?">
+      <meta name="description" content="What does changing snowmelt mean for water in the western U.S.?">
       <!-- Open Graph / Facebook -->
       <meta property="og:type" content="website">
       <meta property="og:url" content="https://labs.waterdata.usgs.gov/visualizations/snow-to-flow/index.html#/">
       <meta property="og:title" content="From Snow to Flow">
-      <meta property="og:description" content="what does changing snowmelt mean for water in the western U.S.?"">
-      <meta property=" og:image" content="FILL THIS OUT">
+      <meta property="og:description" content="What does changing snowmelt mean for water in the Western U.S.?">
+      <meta property="og:image" content="https://labs-beta.waterdata.usgs.gov/visualizations/snow-to-flow/SnowToFlowMetacard.jpg">
       <!-- Twitter -->
       <meta property="twitter:card" content="summary_large_image">
       <meta property="twitter:url" content="https://labs.waterdata.usgs.gov/visualizations/snow-to-flow/index.html#/">
       <meta property="twitter:title" content="From Snow to Flow">
-      <meta property="twitter:description" content="what does changing snowmelt mean for water in the western U.S.?"">
-      <meta property=" twitter:image" content="FILL THIS OUT">
+      <meta property="twitter:description" content="What does changing snowmelt mean for water in the Western U.S.?">
+      <meta property="twitter:image" content="https://labs-beta.waterdata.usgs.gov/visualizations/snow-to-flow/social-tag-cards-1-1.jpg">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
 <script type='application/ld+json'>
       { "@context": "http://www.schema.org",
@@ -43,15 +71,48 @@
             "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
           },
           { "@type": "Person",
+            "name": "Martin Wernimont",
+            "email": "mwernimont@contractor.usgs.gov",
+            "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
+          },
+          ,
+          { "@type": "Person",
+            "name": "Hayley Corson-Dosch",
+            "email": "hcorson-dosch@usgs.gov",
+            "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
+          },
+          ,
+          { "@type": "Person",
+            "name": "Lindsay Platt",
+            "email": "lplatt@usgs.gov",
+            "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
+          },
+          { "@type": "Person",
+            "name": "Theodore Barnhart",
+            "email": "tbarnhart@usgs.gov",
+            "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
+          },
+          { "@type": "Person",
             "name": "John Hammond",
             "email": "jhammond@usgs.gov",
+            "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
+          },
+          { "@type": "Person",
+            "name": "Annie Putman",
+            "email": "aputman@usgs.gov",
+            "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
+          },
+          { "@type": "Person",
+            "name": "Graham Sexstone",
+            "email": "sexstone@usgs.gov",
             "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
           },
           { "@type": "Person",
             "name": "Jessica Driscoll",
             "email": "jdriscoll@usgs.gov",
             "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
-          }]
+          }
+         ]
       },
       "audience": { "@context": "http://schema.org", "@type": "Audience", "audienceType": "General public"},
       "publisher": { "@context": "http://schema.org", "@type": "Organization", "legalName": "U.S. Geological Survey" },
@@ -66,5 +127,9 @@
     <!-- built files will be auto injected -->
     <!--the next line is the required USGS Google Analytics Script -->
     <script async src="https://www2.usgs.gov/scripts/analytics/usgs-analytics.js" type="application/javascript"></script>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PB7NXPG" height="0" width="0"
+        style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
   </body>
 </html>

@@ -1,24 +1,32 @@
 <template>
-  <div class="maxWidth">
+  <div class="maxWidth carouselContainer">
     <carousel
       class="image-slider"
       :autoplay="true"
       :autoplay-hover-pause="true"
-      :per-page="3"
+      :per-page="4"
     >
       <slide class="slide">
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/methods/drone_1200w.jpg"
-              media="(max-width: 992px)"
-              type="image/png"
+              srcset="@/assets/methods/person1.webp"
+              type="image/webp"
+            >
+            <source
+              srcset="@/assets/methods/person1.jpg"
+              type="image/jpg"
             >
             <img 
               id="field1"
-              v-img:group
-              src="@/assets/methods/drone_1200w.jpg"
-              alt="Collecting snow depth data in the field"
+              v-img="{
+                thumbnails: true,
+                group: 'group', 
+                title: 'USGS Research Hydrologist Graham Sexstone completes snowpit measurement at Buffalo Pass, CO. Photographer: Colin Penn.'
+              }"
+              class="sliderImage"
+              src="@/assets/methods/person1.jpg"
+              alt="USGS Research Hydrologist Graham Sexstone completes snowpit measurement at Buffalo Pass, CO. Photographer: Colin Penn."
               loading="lazy"
             >
           </picture>
@@ -28,15 +36,22 @@
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/methods/ground_truth.png"
-              media="(max-width: 992px)"
-              type="image/png"
+              srcset="@/assets/methods/drone1.webp"
+              type="image/webp"
+            >
+            <source
+              srcset="@/assets/methods/drone1.jpg"
+              type="image/jpg"
             >
             <img 
               id="field2"
-              v-img:group
-              src="@/assets/methods/ground_truth.png"
-              alt="Collecting snow depth data in the field"
+              v-img="{
+                group: 'group',
+                thumbnails: true
+              }"
+              class="sliderImage"
+              src="@/assets/methods/drone1.jpg"
+              alt="USGS scientists flying UAS near Winter Park, CO under a DOI readiness waiver. Lidar and photogrammetry were used to map snow depth. Photographer: Mark Bauer "
               loading="lazy"
             >
           </picture>
@@ -46,15 +61,22 @@
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/methods/snow_pit.png"
-              media="(max-width: 992px)"
-              type="image/png"
+              srcset="@/assets/methods/person2.webp"
+              type="image/webp"
+            >
+            <source
+              srcset="@/assets/methods/person2.jpg"
+              type="image/jpg"
             >
             <img 
               id="field3"
-              v-img:group
-              src="@/assets/methods/snow_pit.png"
-              alt="Collecting snow depth data in the field"
+              v-img="{
+                group: 'group',
+                thumbnails: true
+              }"
+              class="sliderImage"
+              src="@/assets/methods/person2.jpg"
+              alt="USGS Research Hydrologist Graham Sexstone measures the snow depth at Molas Pass, CO. Photographer: Joe Mills"
               loading="lazy"
             >
           </picture>
@@ -64,15 +86,122 @@
         <div class="slider-image-container">
           <picture>
             <source
-              srcset="@/assets/images/snow-img1.png"
-              media="(max-width: 992px)"
-              type="image/png"
+              srcset="@/assets/methods/station4.webp"
+              type="image/webp"
+            >
+            <source
+              srcset="@/assets/methods/station4.jpg"
+              type="image/jpg"
             >
             <img 
               id="field4"
-              v-img:group
-              src="@/assets/images/snow-img1.png"
-              alt="Collecting snow depth data in the field"
+              v-img="{
+                group: 'group',
+                thumbnails: true
+              }"
+              class="sliderImage"
+              src="@/assets/methods/station4.jpg"
+              alt="USGS Next Generation Water Observing System (NGWOS) snow test bed site (Ranch Creek Meadow) in Winter Park, Colorado shown recording snow water equivalent, snow depth, soil moisture, and other meteorological variables. Photographer: Graham Sexstone"
+              loading="lazy"
+            >
+          </picture>
+        </div>
+      </slide>
+      <slide class="slide">
+        <div class="slider-image-container">
+          <picture>
+            <source
+              srcset="@/assets/methods/station2.webp"
+              type="image/webp"
+            >
+            <source
+              srcset="@/assets/methods/station2.jpg"
+              type="image/jpg"
+            >
+            <img 
+              id="field6"
+              v-img="{
+                group: 'group',
+                thumbnails: true
+              }"
+              class="sliderImage"
+              src="@/assets/methods/station2.jpg"
+              alt="NRCS SNOTEL site (Lake Irene, CO) shown recording snow water equivalent, snow depth, and other meteorological variables. Photographer: Graham Sexstone"
+              loading="lazy"
+            >
+          </picture>
+        </div>
+      </slide>
+      <slide class="slide">
+        <div class="slider-image-container">
+          <picture>
+            <source
+              srcset="@/assets/methods/person4.webp"
+              type="image/webp"
+            >
+            <source
+              srcset="@/assets/methods/person4.jpg"
+              type="image/jpg"
+            >
+            <img 
+              id="field7"
+              v-img="{
+                group: 'group',
+                thumbnails: true
+              }"
+              class="sliderImage"
+              src="@/assets/methods/person4.jpg"
+              alt="USGS scientists Graham Sexstone and Colin Penn collecting a snow sample to analyze for snow chemistry in Rocky Mountain National Park, CO. Photographer: Garrett Akie."
+              loading="lazy"
+            >
+          </picture>
+        </div>
+      </slide>
+      <slide class="slide">
+        <div class="slider-image-container">
+          <picture>
+            <source
+              srcset="@/assets/methods/station3.webp"
+              type="image/webp"
+            >
+            <source
+              srcset="@/assets/methods/station3.jpg"
+              type="image/jpg"
+            >
+            <img 
+              id="field8"
+              v-img="{
+                group: 'group',
+                thumbnails: true
+              }"
+              class="sliderImage"
+              src="@/assets/methods/station3.jpg"
+              alt="USGS snow monitoring site (Loch Vale – Andrews Meadow) in Rocky Mountain National Park, Colorado shown recording snow sublimation and other meteorological variables. Photographer: Graham Sexstone"
+              loading="lazy"
+            >
+          </picture>
+        </div>
+      </slide>
+      <slide class="slide">
+        <div class="slider-image-container">
+          <picture>
+            <source
+              srcset="@/assets/methods/person3.webp"
+              type="image/webp"
+            >
+            <source
+              srcset="@/assets/methods/person3.jpg"
+              type="image/jpg"
+            >
+            <img 
+              id="field9"
+              v-img="{
+                group: 'group',
+                thumbnails: true
+              }"
+              class="sliderImage"
+              src="@/assets/methods/person3.jpg"
+              alt="USGS Hydrologist Colin Penn measures the snow density and snow temperature of the snowpack at Noisy Basin, MT. Photographer: Evan Gohring"
               loading="lazy"
             >
           </picture>

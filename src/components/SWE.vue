@@ -3,28 +3,19 @@
   <VizSection id="swe-line-chart">
     <!-- TAKEAWAY TITLE -->
     <template v-slot:takeAway>
-      <h2>Each year, scientists find relationships between a snowpack curve and discharge at a streamgage downstream.</h2>
+      <h2>Peak SWE and snowmelt timing</h2>
     </template>
     <!-- FIGURES -->
     <template v-slot:aboveExplanation>
-      <p>Hydrologists measure snowpack as the <span class="emph">snow water equivalent</span>.  That measurement normalizes between light, fluffy snow and heavy, wet snow - ultimately because it will all melt into water anyway.  The USGS wants to know - how much water is contained in this snowpack?</p>
-      <p>Cheese strings cheese and biscuits bavarian bergkase. Halloumi queso when the cheese comes out everybody's happy ricotta babybel cream cheese port-salut boursin. Fromage cow when the cheese comes out everybody's happy hard cheese blue castello stilton mozzarella dolcelatte. Melted cheese croque monsieur smelly cheese swiss blue castello gouda halloumi paneer. Airedale everyone loves.</p>
-      <Sidebar>
-        <template v-slot:sidebarTitle>
-          What is SWE?
-        </template>
-        <template v-slot:sidebarMessage>
-          <p>Pork tenderloin turducken, tri-tip ribeye shoulder pancetta. T-bone kevin porchetta, shoulder sirloin boudin spare ribs filet mignon bresaola chicken corned beef frankfurter biltong. Jerky brisket pig, meatball beef flank bresaola landjaeger. Tenderloin beef pork loin andouille flank t-bone tri-tip chislic porchetta. Pork loin frankfurter spare ribs chuck short ribs.</p>
-        </template>
-      </Sidebar>
-      <Sidebar>
-        <template v-slot:sidebarTitle>
-          What is Discharge?
-        </template>
-        <template v-slot:sidebarMessage>
-          <p>Pork tenderloin turducken, tri-tip ribeye shoulder pancetta. T-bone kevin porchetta, shoulder sirloin boudin spare ribs filet mignon bresaola chicken corned beef frankfurter biltong. Jerky brisket pig, meatball beef flank bresaola landjaeger. Tenderloin beef pork loin andouille flank t-bone tri-tip chislic porchetta. Pork loin frankfurter spare ribs chuck short ribs.</p>
-        </template>
-      </Sidebar>
+      <p>
+        The SWE measurements of snowpack at the <a
+          href="https://wcc.sc.egov.usda.gov/nwcc/site?sitenum=1031"
+          target="_blank"
+        >Never Summer SNOTEL Site 1031</a> near Rocky Mountain National Park in Colorado show a significant difference in snowpack from the winter of 2011 to 2012, and discharge measurements downstream at the <a
+          href="https://waterdata.usgs.gov/monitoring-location/06614800/#parameterCode=00065"
+          target="_blank"
+        >USGS streamgage 06614800</a> on the Michigan River near Cameron Pass show the impact. The winter of 2011 experienced a large snowpack and subsequent spring melt. However, 2012 was a very low snow year, with some early intermittent melting and small spring melt.
+      </p>
     </template>
     <template v-slot:figures>
       <div class="group single maxWidth">
@@ -37,18 +28,25 @@
     <!-- FIGURE CAPTION -->
     <template v-slot:figureCaption>
       <p>
-        The snowpack at the <a
-          href="https://wcc.sc.egov.usda.gov/nwcc/site?sitenum=838"
+        Water years 2011 (high snow) and 2012 (low snow) comparing snow (as SWE) and flow (as discharge, mm per day). SWE measurements are from the <a
+          href="https://wcc.sc.egov.usda.gov/nwcc/site?sitenum=1031"
           target="_blank"
-        >University Camp SNOTEL Site 838</a> in Boulder Colorado shows a significant difference in snowpack from the winter of 2011 - a big year for snow.  2012 however was a very low snow year, with some early intermittent melting.
-        While peak SWE gives us a snapshot of interannual variation in snow, intra-annual variation in the timing and magnitude is much more complex.
+        >Never Summer SNOTEL Site 1031</a> and discharge measurements are from <a
+          href="https://waterdata.usgs.gov/monitoring-location/06614800/#parameterCode=00065"
+          target="_blank"
+        >USGS streamgage 06614800</a> on the Michigan River near Cameron Pass, CO.
       </p>
     </template>
-    <!-- EXPLANATION -->
     <template v-slot:belowExplanation>
-      <p>April 1st is here, but there are other ways to assess these snowpack accumulation curves. We can ask - when was peak snowpack? Earlier or later than the traditional April 1st?</p>
-      <p>Or - how big was the peak? Did all the snow accumulate and stay there? Or did it intermittently melt during some early warmer days?</p>
-      <p>Dolcelatte pepper jack goat. Melted cheese parmesan danish fontina swiss monterey jack babybel stinking bishop caerphilly. Mascarpone halloumi danish fontina everyone loves feta cut the cheese cheese triangles chalk and cheese. Ricotta cheddar cheese strings cottage cheese cheeseburger halloumi mascarpone say cheese. Macaroni cheese cheese strings smelly cheese cut the cheese.</p>
+      <Sidebar>
+        <template v-slot:sidebarTitle>
+          What is a "water year"?
+        </template>
+        <template v-slot:sidebarMessage>
+          <p>A water year is the 12-month period from October 1st to September 30th of the following year. Water Year 2021 (WY2021) began on October 1st, 2020 and will end on September 30th, 2021.</p>
+          <p>Hydrologists use the concept of a water year because hydrologic activity in the fall and winter sets the stage for the streamflow in the following spring and summer.</p>
+        </template>
+      </Sidebar>
     </template>
   </VizSection>
 </template>
@@ -69,7 +67,6 @@ export default {
     data() {
       return {
          publicPath: process.env.BASE_URL,
-        //  message: "hey"
       }      
     },
     mounted() {
@@ -83,7 +80,9 @@ export default {
 
 <style lang="scss" scoped>
   #swe-chart-container {
-    width: 100%;
+    width: 90vw;
+    max-width: 1100px;
     height: auto;
+    margin: auto;
   }
 </style>

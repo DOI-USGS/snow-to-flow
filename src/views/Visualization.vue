@@ -4,7 +4,7 @@
     <Intro
       v-if="checkIfSplashIsRendered"
     />
-<!--     <Chapter
+    <Chapter
       v-if="checkIfSplashIsRendered"
       id="chapter2"
       image="chapter5"
@@ -14,7 +14,8 @@
       <template v-slot:chapterTitle>
         From Winter Snow to Spring Flow
       </template>
-    </Chapter> -->
+    </Chapter>
+    <KeyDynamics />
     <DiagramsNormal 
       v-if="checkIfSplashIsRendered"
       id="diagrams-normal"
@@ -31,17 +32,17 @@
     <Chapter
       v-if="checkIfSplashIsRendered"
       id="chapter1"
-      image="chapter6"
+      image="chapter4"
       alt="An image of snowpack with wind-swept ripples on top, faded into the background to serve as a backdrop for the section title."
       :height="50"
     >
       <template v-slot:chapterTitle>
-        It Starts with Snowpack
+        Measuring Snowpack
       </template>
     </Chapter>
     <MeasuringSWE v-if="checkIfSplashIsRendered" /> 
     <SWE v-if="checkIfSplashIsRendered" />
-    <Chapter
+    <!-- <Chapter
       v-if="checkIfSplashIsRendered"
       id="chapter2-3"
       image="chapter9"
@@ -49,9 +50,9 @@
       :height="50"
     >
       <template v-slot:chapterTitle>
-        Changes in snow have downstream consequences
+        Changes in snowmelt have downstream consequences
       </template>    
-    </Chapter>
+    </Chapter> -->
     <SWEanim v-if="checkIfSplashIsRendered" />
     <Chapter
       v-if="checkIfSplashIsRendered"
@@ -61,7 +62,7 @@
       :height="50"
     >
       <template v-slot:chapterTitle>
-        What Spring Flow Means for Water Supply
+        Snowmelt season has already begun
       </template>
     </Chapter>
     <SNTLMap v-if="checkIfSplashIsRendered" />
@@ -78,6 +79,7 @@
     </Chapter>
     
     <References v-if="checkIfSplashIsRendered" />
+    <Methods v-if="checkIfSplashIsRendered" />
   </div>
 </template>
 
@@ -87,19 +89,19 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
 export default {
     name: 'Visualization',
     components: {
-      Splash: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "section"*/ "./../components/Splash"),
-      Intro: () => import( /*webpackChunkName: "Intro"*/ "./../components/Intro"),
+      Splash: () => import( /* webpackPreload: true */ /*webpackChunkName: "section"*/ "./../components/Splash"),
+      Intro: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "Intro"*/ "./../components/Intro"),
       SNTLMap: () => import( /*webpackChunkName: "SNTLMap"*/ "./../components/SNTLmap"),
       SWE: () => import( /*webpackChunkName: "SWE"*/ "./../components/SWE"),
-      SWEanim: () => import( /*webpackChunkName: "SWE"*/ "./../components/SWEanim"),
-      MeasuringSWE: () => import( /*webpackChunkName: "SWE"*/ "./../components/MeasuringSWE"),
-      // SWEtoDischarge: () => import( /*webpackChunkName: "SWE"*/ "./../components/SWEtoDischarge"),
-      DiagramsNormal: () => import( /*webpackChunkName: "diagramsnormal"*/ "./../components/DiagramsNormal"),
-      DiagramsHigh: () => import( /*webpackChunkName: "diagramshigh"*/ "./../components/DiagramsHigh"),
-      DiagramsLow: () => import( /*webpackChunkName: "diagramslow"*/ "./../components/DiagramsLow"),
-      //Impact: () => import( /*webpackChunkName: "impact"*/ "./../components/Impact"),
+      SWEanim: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SWE"*/ "./../components/SWEanim"),
+      MeasuringSWE: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "SWE"*/ "./../components/MeasuringSWE"),
+      KeyDynamics: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "keydynamics"*/ "./../components/KeyDynamics"),
+      DiagramsNormal: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagrams"*/ "./../components/DiagramsNormal"),
+      DiagramsHigh: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagrams"*/ "./../components/DiagramsHigh"),
+      DiagramsLow: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "diagrams"*/ "./../components/DiagramsLow"),
       References: () => import( /*webpackChunkName: "References"*/ "./../components/References"),
-      Chapter: () => import( /*webpackChunkName: "ChapterTitles"*/ "./../components/SectionTitle"),
+      Methods: () => import( /*webpackChunkName: "References"*/ "./../components/Methods"),
+      Chapter: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "ChapterTitles"*/ "./../components/SectionTitle"),
     },
     computed: {
       checkIfSplashIsRendered() {
@@ -107,12 +109,17 @@ export default {
       }
     },
     mounted(){
+      const self = this;
       //Waits until the first DOM paint is complete
       //Allows us to only run the functionality when we know the DOM elements are loaded
       this.$gsap.registerPlugin(ScrollToPlugin, ScrollTrigger); // register gsap plugins for scrollTrigger
-      this.$nextTick(() => {
+      this.$nextTick(function() {
         this.parallaxScroll();
-      })
+      });
+      //Wait for page to load then run this function
+      window.addEventListener("load", function(){
+        self.findCarouselContainers();
+      });
     },
     updated(){
       this.lazyLoadImages();
@@ -159,11 +166,58 @@ export default {
         imgTargets.forEach(img => {
           imgObserver.observe(img)
         });
+      },
+      findCarouselContainers(){
+        let self = this;
+        const carouselContainers = document.querySelectorAll(".carouselContainer");
+        carouselContainers.forEach(function(container){
+          container.addEventListener("click", self.addFooterCaption);
+        });
+      },
+      //Carousel full size image captions
+      addFooterCaption(e){
+        const self = this;
+        const imgContainer = document.querySelector(".fullscreen-v-img");
+        const title = document.querySelector(".title-v-img");
+        const img = document.querySelector(".content-v-img img");
+
+        //Mutation observer
+        //If img src changes, update caption
+        const observer = new MutationObserver((changes) => {
+          changes.forEach(change => {
+            if(change.attributeName.includes('src')){
+              self.switchCaptionText(title);
+            }
+          })
+        })
+        //Telling observer what to observe
+        observer.observe(img, {attributes: true});
+      
+        if(e.target.classList.contains("sliderImage")){
+          const captionHTML = `
+            <div id="captionArea">
+              <div class="caption">
+                ${title.textContent}
+              </div>
+            </div>`;
+          imgContainer.insertAdjacentHTML("afterbegin", captionHTML);
+        }
+
+        // Override some default styling on the lightbox
+        img.style.maxHeight = "70vh"; // set height
+        img.style.top = "-15vh"; // move up
+      },
+      switchCaptionText(text){
+        const caption = document.querySelector(".caption");
+        caption.textContent = text.textContent;
       }
     }
 } 
 </script>
 
 <style lang="scss">
-
+//Hides v-img title element
+.title-v-img{
+  display: none;
+}
 </style>
