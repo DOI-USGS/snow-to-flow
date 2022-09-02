@@ -49,3 +49,16 @@ To fix that, do the following:
 The data processing steps behind the charts and maps on the Snow-to-flow page are documented in the `data_processing_pipeline` subdirectory of this repo. Briefly, daily snow water equivalent values were pulled from all USDA NRCS snow telemetry sites since 1981 in `1_fetch/src/fetch_SNOTEL.R`. This data was used to calculate peak SWE and SM50 at all sites with a minimum of 20 years of data in the historic record (1981-2011) in `2_process/src/prep_SNOTEL.R`. In addition, April 1st SWE was accessed through time for each site and used to find the percentile in WY2021. These metrics were used to draw mouseover SWE curves and trendlines, that were pre-defined in R `6_visualize/src/trend_coords.R`. The trendline charts are displayed with an svg map of the Western U.S., that was also first pre-processed in R `6_visualize/src/make_map.R` and brought to life using D3.js and Vue.js. The final data files used to draw these charts are labelled `SNOTEL_...csv` here:https://github.com/USGS-VIZLAB/snow-to-flow/tree/main/public/data
 
 The SWE and streamflow ridgelines are drawn using daily gridded SWE values at 4-km resolution were obtained for the 2011 and 2012 water years at each location from the National Snow & Ice Data Center. Streamflow was obtained from the USGS National Water Information System. The data generating these charts is available here: https://github.com/USGS-VIZLAB/snow-to-flow/tree/main/public/data (`mmd_df_2011.csv`, `mmd_df_2012.csv`, `swe_df_2011.csv`, `swe_df_2012.csv`).
+
+## Disclaimer
+
+This software is in the public domain because it contains materials that originally came from the U.S. Geological Survey, an agency of the United States Department of Interior. For more information, see the official USGS copyright policy at [http://www.usgs.gov/visual-id/credit_usgs.html#copyright](http://www.usgs.gov/visual-id/credit_usgs.html#copyright)
+
+This information is preliminary or provisional and is subject to revision. It is being provided to meet the need for timely best science. The information has not received final approval by the U.S. Geological Survey (USGS) and is provided on the condition that neither the USGS nor the U.S. Government shall be held liable for any damages resulting from the authorized or unauthorized use of the information. Although this software program has been used by the USGS, no warranty, expressed or implied, is made by the USGS or the U.S. Government as to the accuracy and functioning of the program and related program material nor shall the fact of distribution constitute any such warranty, and no responsibility is assumed by the USGS in connection therewith.
+
+This software is provided "AS IS."
+
+
+[
+  ![CC0](http://i.creativecommons.org/p/zero/1.0/88x31.png)
+](http://creativecommons.org/publicdomain/zero/1.0/)
