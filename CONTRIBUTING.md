@@ -22,4 +22,4 @@ development.
 
 
 For additional information, please see the [USGS software development best
-practices guide][https://github.com/usgs/best-practices] and the [USGS Code of Scientific Conduct][https://www.usgs.gov/about/organization/science-support/science-quality-and-integrity/fundamental-science-practices]. 
+practices guide](https://github.com/usgs/best-practices) and the [USGS Code of Scientific Conduct](https://www.usgs.gov/about/organization/science-support/science-quality-and-integrity/fundamental-science-practices). 
