@@ -19,3 +19,7 @@ you'll be addressing.
 Create a GitHub pull request early in the process so that the project maintainers
 will be aware of your effort and able to coordinate your changes with current
 development.
+
+
+For additional information, please see the [USGS software development best
+practices guide][https://github.com/usgs/best-practices] and the [USGS Code of Scientific Conduct][https://www.usgs.gov/about/organization/science-support/science-quality-and-integrity/fundamental-science-practices]. 
