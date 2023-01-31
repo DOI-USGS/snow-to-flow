@@ -19,7 +19,7 @@
     "disclaimerURL": "https://github.com/USGS-VIZLAB/snow-to-flow/blob/main/README.md",
     "repositoryURL": "https://github.com/USGS-VIZLAB/snow-to-flow.git",
     "vcs": "git",
-    "laborHours": 40,
+    "laborHours": 300,
     "tags": [
       "data visualization",
       "snow",
