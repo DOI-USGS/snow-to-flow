@@ -1,46 +1,44 @@
 [
   {
-    "name": "REPOSITORY_NAME",
+    "name": "snow-to-flow",
     "organization": "U.S. Geological Survey",
-    "description": "REPOSITORY_DESCRIPTION",
-    "version": "RELEASE_VERSION",
-    "status": "RELEASE_STATUS",
-
+    "description": "What does changing snowmelt mean for flow in the western US?",
+    "version": "v1.0.3",
+    "status": "Provisional",
     "permissions": {
       "usageType": "openSource",
       "licenses": [
         {
           "name": "Public Domain, CC0-1.0",
-          "URL": "https://github.com/usgs/REPOSITORY_NAME/blob/master/LICENSE.md"
+          "URL": "https://github.com/USGS-VIZLAB/snow-to-flow/blob/main/LICENSE.md"
         }
       ]
     },
-
-    "homepageURL": "https://usgs.github.io/REPOSITORY_NAME/",
-    "downloadURL": "https://github.com/usgs/REPOSITORY_NAME/archive/master.zip",
-    "disclaimerURL": "https://github.com/usgs/REPOSITORY_NAME/blob/master/LICENSE.md",
-    "repositoryURL": "https://github.com/usgs/REPOSITORY_NAME.git",
+    "homepageURL": "https://github.com/USGS-VIZLAB/snow-to-flow",
+    "downloadURL": "https://github.com/USGS-VIZLAB/snow-to-flow/archive/refs/tags/v1.0.3.zip",
+    "disclaimerURL": "https://github.com/USGS-VIZLAB/snow-to-flow/blob/main/README.md",
+    "repositoryURL": "https://github.com/USGS-VIZLAB/snow-to-flow.git",
     "vcs": "git",
-
-    "laborHours": 0,
-
+    "laborHours": 40,
     "tags": [
-      "TAG_1",
-      "TAG_2"
+      "data visualization",
+      "snow",
+      "USGS",
+      "water"
     ],
-
     "languages": [
-      "LANG_1",
-      "LANG_2"
+      "R",
+      "Vue",
+      "JavaScript"
     ],
-
     "contact": {
-      "name": "REPOSITORY_ADMINISTRATOR_NAME",
-      "email": "REPOSITORY_ADMINISTRATOR_EMAIL"
+      "name": "Cee Nell",
+      "email": "cnell@usgs.gov"
     },
-
     "date": {
-      "metadataLastUpdated": "YYYY-MM-DD"
+      "metadataLastUpdated": "2023-01-31"
     }
   }
+  }
 ]
+
