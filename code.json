@@ -1,0 +1,46 @@
+[
+  {
+    "name": "REPOSITORY_NAME",
+    "organization": "U.S. Geological Survey",
+    "description": "REPOSITORY_DESCRIPTION",
+    "version": "RELEASE_VERSION",
+    "status": "RELEASE_STATUS",
+
+    "permissions": {
+      "usageType": "openSource",
+      "licenses": [
+        {
+          "name": "Public Domain, CC0-1.0",
+          "URL": "https://github.com/usgs/REPOSITORY_NAME/blob/master/LICENSE.md"
+        }
+      ]
+    },
+
+    "homepageURL": "https://usgs.github.io/REPOSITORY_NAME/",
+    "downloadURL": "https://github.com/usgs/REPOSITORY_NAME/archive/master.zip",
+    "disclaimerURL": "https://github.com/usgs/REPOSITORY_NAME/blob/master/LICENSE.md",
+    "repositoryURL": "https://github.com/usgs/REPOSITORY_NAME.git",
+    "vcs": "git",
+
+    "laborHours": 0,
+
+    "tags": [
+      "TAG_1",
+      "TAG_2"
+    ],
+
+    "languages": [
+      "LANG_1",
+      "LANG_2"
+    ],
+
+    "contact": {
+      "name": "REPOSITORY_ADMINISTRATOR_NAME",
+      "email": "REPOSITORY_ADMINISTRATOR_EMAIL"
+    },
+
+    "date": {
+      "metadataLastUpdated": "YYYY-MM-DD"
+    }
+  }
+]
