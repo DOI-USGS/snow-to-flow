@@ -4,7 +4,7 @@
     "organization": "U.S. Geological Survey",
     "description": "What does changing snowmelt mean for flow in the western US?",
     "version": "v1.0.3",
-    "status": "Release",
+    "status": "Production",
     "permissions": {
       "usageType": "openSource",
       "licenses": [
