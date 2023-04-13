@@ -6,28 +6,34 @@ See the page live: https://labs.waterdata.usgs.gov/visualizations/snow-to-flow/i
 
 A majority of the water in the Western United States comes from snowmelt. Winter snow accumulation, as well as spring snowmelt, affect streamflow and water availability for the rest of the year. Changes in the timing, magnitude, and duration of snowmelt may substantially alter downstream water availability. In fact, approximately 2 billion people are expected to experience diminished water supplies because of seasonal snowpack decline this century.
 
-This data visualization explores the fundamentals of USGS snow hydrology research. The graphics describe important dynamics that determine how snow turns into flow, and the charts show the connection between snowpack (measured as snow water equivalent) and streamflow (measured as discharge). A reproducible datapipline has pulled data for the 2021 water year to display the snow conditions as of April 1st, 2021.
+This data visualization explores the fundamentals of USGS snow hydrology research. The graphics describe important dynamics that determine how snow turns into flow, and the charts show the connection between snowpack (measured as snow water equivalent) and streamflow (measured as discharge). An R-based data pipeline using the `targets` package is used to fetch and process data that are displayed in the website. These files are contained in the `data_processing_pipeline` subdirectory.
 
 All charts, data, and diagrams are free and open to the public. Take screencaptures of what you need, or browse through some extra images at: https://github.com/USGS-VIZLAB/snow-to-flow/tree/main/public/public_images
 
 ## The Code
 
-The project is Open Source and uses the Vue JavaScript framework in conjunction with animated Scalable Vector Graphics (SVG) and raster graphics. The build process uses the Jenkins task runner and Docker containerisation.
+The project is Open Source and uses the Vue JavaScript framework in conjunction with animated Scalable Vector Graphics (SVG) and raster graphics. The build process uses the Jenkins task runner.
 
 ## Project Setup
 
-- Clone the project to your local system
-- `cd` to the cloned directory
+First, clone the project to your local system and `cd` to the cloned directory.
+
+To run the data processing pipeline:
+- Within the `data_processing_pipeline` subdirectory, open the `data_processing_pipeline.Rproj` in R
+- Install the `targets` package for R `install.packages('targets')` and load it `library(targets)`
+- In the console run `tar_make()` to start the pipeline
+- To update the data to a new date, modify `p1_today` on the `1_fetch/src/1_fetch.R` script
+
+To build the website locally:
 - Download the Node Package Manager(NPM) dependencies by running `npm install` in your terminal window
 - Start the project by running `npm run serve` -- the address of the project will show on completion usually `localhost:8080`
 - Start your browser, enter the address found above
-- And that's it, easy peasie
+
 
 ### Notes on Setup
 
 - You will need 'node.js' installed on your system
 - If you run into trouble starting the project, it is usually fixed by running `npm rebuild node-sass`
-- The Windows operating system does not like our environment variables and messes up the local build.
 
 To fix that, do the following:
 

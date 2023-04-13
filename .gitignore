@@ -21,8 +21,12 @@ yarn-error.log*
 *.sw?
 .Rproj.user
 
-# data  processing files
-/data_processing_pipeline/1_fetch/out
-*.Rproj
+# data processing files
+/data_processing_pipeline/1_fetch/out/*.csv
+
 *.RData
+*.RDataTmp
 *.Rhistory
+
+# pipeline files
+data_processing_pipeline/_targets/
