@@ -12,16 +12,22 @@ All charts, data, and diagrams are free and open to the public. Take screencaptu
 
 ## The Code
 
-The project is Open Source and uses the Vue JavaScript framework in conjunction with animated Scalable Vector Graphics (SVG) and raster graphics. The build process uses the Jenkins task runner and Docker containerisation.
+The project is Open Source and uses the Vue JavaScript framework in conjunction with animated Scalable Vector Graphics (SVG) and raster graphics. The build process uses the Jenkins task runner.
 
 ## Project Setup
 
-- Clone the project to your local system
-- `cd` to the cloned directory
+First, clone the project to your local system and `cd` to the cloned directory
+To run the data processing pipeline:
+- Within the `data_processing_pipeline` subdirectory, open the `data_processing_pipeline.Rproj` in R
+- Install the `targets` package for R `install.packages('targets')` and load it `library(targets)`
+- In the console run `tar_make()` to start the pipeline
+- To update the data to a new date, modify `p1_today` on the `1_fetch/src/1_fetch.R` script
+
+To build the website locally:
 - Download the Node Package Manager(NPM) dependencies by running `npm install` in your terminal window
 - Start the project by running `npm run serve` -- the address of the project will show on completion usually `localhost:8080`
 - Start your browser, enter the address found above
-- And that's it, easy peasie
+
 
 ### Notes on Setup
 
