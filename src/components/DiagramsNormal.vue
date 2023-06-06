@@ -2,18 +2,18 @@
   <!---VizSection-->
   <VizSection id="diagrams-normal">
     <!-- TAKEAWAY TITLE -->
-    <template v-slot:takeAway>
+    <template #takeAway>
       <h2>A typical year</h2>
     </template>
-    <template v-slot:aboveExplanation>
+    <template #aboveExplanation>
       <p>Studying these snowmelt dynamics is critical to understanding how water moves through the watershed, contributes to streamflow, and ultimately becomes available for use.</p>
     </template>
     <!-- FIGURES -->
-    <template v-slot:figures>
+    <template #figures>
       <DiagramCarouselNormal />
     </template>
     <!-- FIGURE CAPTION -->
-    <template v-slot:figureCaption>
+    <template #figureCaption>
       <p>
         Click to enlarge.
       </p>
