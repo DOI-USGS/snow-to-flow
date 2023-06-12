@@ -4,11 +4,11 @@
     id="measuring-swe"
     :take-away="false"
   >
-    <template v-slot:aboveExplanation>
+    <template #aboveExplanation>
       <p>Using high-quality manual and station observations of snowpack and streamflow, USGS scientists are conducting research on trends in snowfall, snow cover, snow versus rain<sup>10</sup>, snow water equivalent, snowmelt runoff<sup>11</sup>, snowmelt timing<sup>12</sup> and snow chemistry in the U.S. USGS scientists are also evaluating the influence of changing climate on hydrological processes and runoff in snowmelt dominated basins<sup>13</sup>.</p>
     </template>
     <!-- FIGURES -->
-    <template v-slot:figures>
+    <template #figures>
       <div class="group single maxWidth">
         <figure id="swe-chart-container">
           <!-- <img src="@/assets/diagrams/SWE-sketch.png"> -->
@@ -17,13 +17,13 @@
       </div>
     </template>
     <!-- FIGURE CAPTION -->
-    <template v-slot:figureCaption>
+    <template #figureCaption>
       <p>
         Click on the images to learn more about how USGS snow hydrologists measure SWE in the field. 
       </p>
     </template>
     <!-- EXPLANATION -->
-    <template v-slot:belowExplanation>
+    <template #belowExplanation>
       <p>
         The <a
           href="https://www.nrcs.usda.gov/wps/portal/nrcs/site/national/home/"

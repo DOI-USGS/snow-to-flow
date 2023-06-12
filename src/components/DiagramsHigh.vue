@@ -2,26 +2,26 @@
   <!---VizSection-->
   <VizSection id="diagrams-high">
     <!-- TAKEAWAY TITLE -->
-    <template v-slot:takeAway>
+    <template #takeAway>
       <h2>High snow + late melt = lots of flow</h2>
     </template>
-    <template v-slot:aboveExplanation>
+    <template #aboveExplanation>
       <p>
         High snow conditions are often accompanied by later snowmelt timing because of the high SWE. When high SWE is accompanied by a faster rate of melting over a shorter time period, large streamflow can also occur. This is because as peak snowpack remains frozen later into the year, the more likely it is that the snow will melt all at once when temperatures warm.
       </p>
     </template>
     <!-- FIGURES -->
-    <template v-slot:figures>
+    <template #figures>
       <DiagramCarouselHigh />
     </template>
     <!-- FIGURE CAPTION -->
-    <template v-slot:figureCaption>
+    <template #figureCaption>
       <p>
         Click to enlarge.
       </p>
     </template>
     <!-- EXPLANATION -->
-    <template v-slot:belowExplanation>
+    <template #belowExplanation>
       <p />
     </template>
   </VizSection>

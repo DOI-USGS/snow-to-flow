@@ -6,7 +6,7 @@
     :fig-caption="false"
   >
     <!-- TAKEAWAY TITLE -->
-    <template v-slot:takeAway>
+    <template #takeAway>
       <div id="byline">
         <p>U.S. Geological Survey</p>
         <p>Water Resources Mission Area</p>
@@ -15,7 +15,7 @@
         A majority of the water in the western U.S. comes from snowmelt.
       </h2>
     </template>
-    <template v-slot:aboveExplanation>
+    <template #aboveExplanation>
       <p>
         Snow-capped mountains, where snow accumulates all winter and often well into spring, function as <span class="emph">frozen water towers</span> by storing water as snow into late spring and summer<sup>1</sup>. When spring weather arrives, and the snow melts, the high elevation areas produce a large pulse of streamflow that redistributes water downstream through the landscape. These seasonal dynamics are critical components of the surface water cycle in the Western U.S., for both humans and ecosystems<sup>2,3</sup>.
       </p>
@@ -25,7 +25,7 @@
       </p>
     </template>
     <!-- EXPLANATION -->
-    <template v-slot:belowExplanation>
+    <template #belowExplanation>
       <p />
     </template>
   </VizSection>

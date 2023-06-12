@@ -11,7 +11,7 @@
       alt="An image of a greenish-blue river winding through a snowy forest, faded into the background to serve as a backdrop for the section title."
       :height="50"
     >
-      <template v-slot:chapterTitle>
+      <template #chapterTitle>
         From Winter Snow to Spring Flow
       </template>
     </Chapter>
@@ -36,7 +36,7 @@
       alt="An image of snowpack with wind-swept ripples on top, faded into the background to serve as a backdrop for the section title."
       :height="50"
     >
-      <template v-slot:chapterTitle>
+      <template #chapterTitle>
         Measuring Snowpack
       </template>
     </Chapter>
@@ -61,7 +61,7 @@
       alt="An image of two bighorn sheep looking at each other standing in snow with a bright green lake of meltwater behind them.  The image is faded into the background to serve as a backdrop for the section title."
       :height="50"
     >
-      <template v-slot:chapterTitle>
+      <template #chapterTitle>
         Snowmelt season has already begun
       </template>
     </Chapter>
@@ -73,7 +73,7 @@
       alt="An image of a mossy mountaintop with fog rising over the peaks and small patches of snow melting into the green ground.  The image is faded into the background to serve as a backdrop for the section title."
       :height="50"
     >
-      <template v-slot:chapterTitle>
+      <template #chapterTitle>
         Learn More 
       </template>
     </Chapter>

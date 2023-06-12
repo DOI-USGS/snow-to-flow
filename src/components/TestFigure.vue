@@ -2,11 +2,11 @@
   <!---VizSection-->
   <VizSection id="firstSection">
     <!-- TAKEAWAY TITLE -->
-    <template v-slot:takeAway>
+    <template #takeAway>
       <h1>Take Away Title</h1>
     </template>
     <!-- FIGURES -->
-    <template v-slot:figures>
+    <template #figures>
       <div class="single maxWidth">
         <figure>Large Figure 1</figure>
       </div>
@@ -27,13 +27,13 @@
       </div>
     </template>
     <!-- FIGURE CAPTION -->
-    <template v-slot:figureCaption>
+    <template #figureCaption>
       <p>
         Figure 1. Mean weight of two species of ground squirrels prior to and following hibernation
       </p>
     </template>
     <!-- EXPLANATION -->
-    <template v-slot:explanation>
+    <template #explanation>
       <p>Stuff to explain.</p>
     </template>
   </VizSection>
