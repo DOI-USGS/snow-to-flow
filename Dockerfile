@@ -1,6 +1,6 @@
-FROM artifactory.wma.chs.usgs.gov/docker-official-mirror/debian:stretch
+FROM artifactory.wma.chs.usgs.gov/docker-official-mirror/debian:stable
 
-LABEL maintainer="makerspace-team@usgs.gov"
+LABEL maintainer="gw-w_vizlab@usgs.gov"
 
 # Run updates and install curl
 RUN apt-get update && \
@@ -10,7 +10,7 @@ RUN apt-get update && \
       apt-get clean
 
 # Enable the NodeSource repository and install the latest nodejs
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
+RUN curl -sL https://deb.nodesource.com/setup_current.x | bash - && \
       apt-get install nodejs -y
 
 # Create temp directory for building viz app
