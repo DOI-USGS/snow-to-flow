@@ -5,18 +5,18 @@
     :take-away="true"
   >
     <!-- TAKEAWAY TITLE -->
-    <template v-slot:takeAway>
+    <template #takeAway>
       <h2>Changes in snowmelt have downstream consequences</h2>
     </template>
     <!-- EXPLANATION -->
-    <template v-slot:aboveExplanation>
+    <template #aboveExplanation>
       <p />
       <p>
         Seasonal snowpack varies widely from place to place, and from year to year<sup>14</sup>, and this variability can have a strong influence on the timing and magnitude of snowmelt, delivery to a watershed, and subsequent streamflow response. At the sites shown below in the Upper Colorado River Basin, there was a two-fold difference in the magnitude of SWE between 2011 and 2012, illustrating how changes in snowmelt can shape the timing and magnitude of streamflow, and subsequently, water availability. Use the buttons below to explore how differences in snow between two years affect streamflow dynamics measured by USGS streamgages.
       </p>
     </template>
     <!-- FIGURES -->
-    <template v-slot:figures>
+    <template #figures>
       <div
         id="figs"
         class="single one"
@@ -177,12 +177,12 @@
       </div>
     </template>
     <!-- FIGURE CAPTION -->
-    <template v-slot:figureCaption>
+    <template #figureCaption>
       <p>
         Use the buttons to reorganize the chart and compare SWE and streamflow across a selection of USGS streamgages.
       </p>
     </template>
-    <template v-slot:belowExplanation>
+    <template #belowExplanation>
       <p>
         Elevation is intertwined with numerous factors like snow persistence, wind redistribution, and slope that drive complex snow-to-flow dynamics from site to site. At higher elevations, fallen snow can be blown over ridges, scouring windward rises or trees, leading to snow accumulating on the leeward side of the ridge. This results in spatial variation in snowpack depth and snowmelt timing.
       </p>

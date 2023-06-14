@@ -5,7 +5,7 @@
     :take-away="false"
   >
     <!-- EXPLANATION -->
-    <template v-slot:aboveExplanation>
+    <template #aboveExplanation>
       <p>
         As springtime temperatures warm and snow begins to melt, the Western U.S. enters an important phase of the water cycle. Looking at this year's snow (WY 2021) - and how it turns into streamflow - can indicate the potential for water availability in the coming summer and fall.
       </p>
@@ -69,7 +69,7 @@
       </p>
     </template>
     <!-- FIGURES -->
-    <template v-slot:figures>
+    <template #figures>
       <div class="map-grid">
         <!-- LEGEND -->
         <div id="legendContainer">
@@ -1512,7 +1512,7 @@
     </template>
     
     <!-- FIGURE CAPTION -->
-    <template v-slot:figureCaption>
+    <template #figureCaption>
       <p id="explain-bottom">
         The map shows April 1st snow as a percentile of this date in the historic record (1981-2010). Snow is quantified as the daily snow-water equivalent (SWE) at  <a
           href="https://www.wcc.nrcs.usda.gov/snow/"
@@ -1521,7 +1521,7 @@
       </p>
     </template>
     <!-- EXPLANATION -->
-    <template v-slot:belowExplanation>
+    <template #belowExplanation>
       <!--       <Sidebar>
         <template v-slot:sidebarTitle>
           What are the small charts?
@@ -1532,18 +1532,18 @@
         </template>
       </Sidebar> -->
       <Sidebar>
-        <template v-slot:sidebarTitle>
+        <template #sidebarTitle>
           What is a percentile?
         </template>
-        <template v-slot:sidebarMessage>
+        <template #sidebarMessage>
           <p>Percentiles indicate how snow today (in 2021) compares to snow in past years where data are available. The SWE percentile can be interpreted as the percent of years when the site had lower SWE than in 2021. For example, if SWE at a particular SNOTEL site is in the 90th percentile, that means the current year's SWE is greater than 90% of the years on record for this date.</p>
         </template>
       </Sidebar>
       <Sidebar>
-        <template v-slot:sidebarTitle>
+        <template #sidebarTitle>
           When is peak SWE in 2021?
         </template>
-        <template v-slot:sidebarMessage>
+        <template #sidebarMessage>
           <p>Peak SWE has not happened yet for many places in the western U.S. This map shows <span class="emph">April 1st, 2021</span> which has traditionally been used as an indicator of peak SWE for the season.</p>
         </template>
       </Sidebar>

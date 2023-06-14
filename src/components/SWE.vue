@@ -2,11 +2,11 @@
   <!---VizSection-->
   <VizSection id="swe-line-chart">
     <!-- TAKEAWAY TITLE -->
-    <template v-slot:takeAway>
+    <template #takeAway>
       <h2>Peak SWE and snowmelt timing</h2>
     </template>
     <!-- FIGURES -->
-    <template v-slot:aboveExplanation>
+    <template #aboveExplanation>
       <p>
         The SWE measurements of snowpack at the <a
           href="https://wcc.sc.egov.usda.gov/nwcc/site?sitenum=1031"
@@ -17,7 +17,7 @@
         >USGS streamgage 06614800</a> on the Michigan River near Cameron Pass show the impact. The winter of 2011 experienced a large snowpack and subsequent spring melt. However, 2012 was a very low snow year, with some early intermittent melting and small spring melt.
       </p>
     </template>
-    <template v-slot:figures>
+    <template #figures>
       <div class="group single maxWidth">
         <figure id="swe-chart-container">
           <!-- <img src="@/assets/diagrams/SWE-sketch.png"> -->
@@ -26,7 +26,7 @@
       </div>
     </template>
     <!-- FIGURE CAPTION -->
-    <template v-slot:figureCaption>
+    <template #figureCaption>
       <p>
         Water years 2011 (high snow) and 2012 (low snow) comparing snow (as SWE) and flow (as discharge, mm per day). SWE measurements are from the <a
           href="https://wcc.sc.egov.usda.gov/nwcc/site?sitenum=1031"
@@ -37,12 +37,12 @@
         >USGS streamgage 06614800</a> on the Michigan River near Cameron Pass, CO.
       </p>
     </template>
-    <template v-slot:belowExplanation>
+    <template #belowExplanation>
       <Sidebar>
-        <template v-slot:sidebarTitle>
+        <template #sidebarTitle>
           What is a "water year"?
         </template>
-        <template v-slot:sidebarMessage>
+        <template #sidebarMessage>
           <p>A water year is the 12-month period from October 1st to September 30th of the following year. Water Year 2021 (WY2021) began on October 1st, 2020 and will end on September 30th, 2021.</p>
           <p>Hydrologists use the concept of a water year because hydrologic activity in the fall and winter sets the stage for the streamflow in the following spring and summer.</p>
         </template>
