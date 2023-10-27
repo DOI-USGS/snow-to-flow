@@ -293,7 +293,7 @@ export default {
         // nest data to iterate over in plot
         // sort of inverse of series - array of objects where objs = site containing key  for site_no, mmd and day vars
          data.mmd11 = [];
-          for (i = 1; i < n; i++) {
+          for (let i = 1; i < n; i++) {
               var key = this.site_elev[i];
               var mmd = data_2011.map(function(d){  return d[key]; });
               var swe = swe_2011.map(function(d){  return d[key]; });
@@ -302,7 +302,7 @@ export default {
           };
 
           data.mmd12 = [];
-          for (i = 1; i < n; i++) {
+          for (let i = 1; i < n; i++) {
               var key = this.site_elev[i];
               var mmd = data_2012.map(function(d){  return d[key]; });
               var swe = swe_2012.map(function(d){  return d[key]; });
