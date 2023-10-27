@@ -222,7 +222,7 @@
       </g>
       <g
         id="swe-annotations"
-        class="brush"
+        class="swe-cb"
       >
         <g class="annotation swe swe-cb swe-annotation-2011">
           <text
