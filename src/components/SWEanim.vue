@@ -74,7 +74,7 @@
             viewBox="-50 -50 600 500"
             aria-labelledby="page-title page-desc"
             width="100%"
-            height="auto"
+            height="100%"
           >
 
             <text
