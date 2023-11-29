@@ -310,7 +310,8 @@ export default {
               data.mmd12.push({key: key, mmd: mmd, day:day, swe:swe})
           };
 
-        data.days = data_2011.map(function(d) { return  d['site_water_day']}) // array of j days for good luck
+        // array of j days for good luck
+        data.days = data_2011.length > data_2012.length ? data_2011.map(function(d) { return  d['site_water_day']}) : data_2012.map(function(d) { return  d['site_water_day']})
 
         // set up g that holds ridgelines
         this.svgboth = this.d3.select('svg#mmd-line-both');
@@ -321,7 +322,8 @@ export default {
         var mid = x_long/2;
         var mar = mid*0.05
 
-        // set chart - separate for each year, using 2011 for max values to set the scales
+        // set chart - separate for each year, using 2011 for max values to set the scales, except
+        // x scale of days, which is set based on whichever year has more days (2012)
         //  first draw is MMD
         self.initRidges(this.svgboth, 'ridge_2011', data.mmd11, data.days, 0, x_long, 0, this.height/2-10);
         self.initRidges(this.svgboth, 'ridge_2012', data.mmd12, data.days, 0, x_long, this.height/2+10,  this.height);
