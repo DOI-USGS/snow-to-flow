@@ -461,25 +461,19 @@ export default {
          const self = this;
 
           self.d3.selectAll('g.curve path.mmd')
-          .transition()
             .attr("z-index", -1)
 
-            self.d3.selectAll('g.curve path.swe')
-          .transition()
+          self.d3.selectAll('g.curve path.swe')
             .attr("z-index", -1)
 
 
           self.d3.selectAll('g.curve path.mmd.' + data.key)
-            .transition()
-            .duration(5)
             .attr('stroke-width', "2px")
             .attr('stroke', "darkblue")
             .attr('stroke-opacity', .8)
             .attr("z-index", 100);
 
-            self.d3.selectAll('g.curve path.swe.' + data.key)
-            .transition()
-            .duration(5)
+          self.d3.selectAll('g.curve path.swe.' + data.key)
             .attr('stroke-width', "2px")
             .attr('stroke', "black")
             .attr('stroke-opacity', .8)
@@ -490,33 +484,27 @@ export default {
          const self = this;
 
           self.d3.selectAll('g.curve path.mmd.' + data.key)
-            .transition()
-            .duration(5)
             .attr("stroke-width", "1px")
             .attr("stroke", this.color_mmd)
             .attr('stroke-opacity', .5)
             .attr("z-index", -1);
 
         self.d3.selectAll('g.curve path.swe.' + data.key)
-            .transition()
-            .duration(5)
             .attr("stroke-width", "1px")
             .attr("stroke", this.color_swe)
             .attr('stroke-opacity', .5)
             .attr("z-index", -1);
 
-             self.d3.selectAll('g.curve path.mmd')
-              .transition()
-              .attr("stroke-width", "1px")
-              .attr("stroke", this.color_mmd)
-              .attr('stroke-opacity', .5)
-              .attr("z-index", -1)
+        self.d3.selectAll('g.curve path.mmd')
+            .attr("stroke-width", "1px")
+            .attr("stroke", this.color_mmd)
+            .attr('stroke-opacity', .5)
+            .attr("z-index", -1)
 
-            self.d3.selectAll('g.curve path.swe')
-              .transition()
-              .attr("stroke-width", "1px")
-              .attr("stroke", this.color_swe)
-              .attr('stroke-opacity', .5)
+        self.d3.selectAll('g.curve path.swe')
+            .attr("stroke-width", "1px")
+            .attr("stroke", this.color_swe)
+            .attr('stroke-opacity', .5)
 
       },
       showSWE(){
