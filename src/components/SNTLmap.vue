@@ -2148,186 +2148,175 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.leggy {
-  display: inline-block;
-}
-.figureCaption {
-  display: block;
-}
-.dot_peak {
+  .leggy {
+    display: inline-block;
+  }
+  .figureCaption {
+    display: block;
+  }
+  .dot_peak {
     width: 10px;
     height: 10px;
     border-radius: 50%;
     background: orchid;
     border: 0.35px solid orchid;
-        display: inline-block;  
-}
-.dot_melt {
+    display: inline-block;  
+  }
+  .dot_melt {
     width: 10px;
     height: 10px;
     border-radius: 50%;
     background: white;
     border: 1.5px solid orchid;
     display: inline-block;
-}
+  }
 
-.map-grid{
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-areas: 
-    "legend legend legend legend legend ."
-    "ak ak ak ak ak ak"
-    "us us us us us us"
-    "peak peak peak wy21 wy21 wy21"
-    "melt melt melt wy21 wy21 wy21"
-  ;
-  overflow: hidden;
-}
-line, polyline, polygon, path, rect, circle {
-      fill: none;
-      stroke: grey;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      stroke-miterlimit: 10.00;
-    }
-.explain {
-  font-style: italic;
-}
-.state {
-  stroke: white;
-  stroke-width: 2px;
-  opacity: .5;
-}
-.usa {
-  color: darkgrey;
-  fill:none;
-  stroke-width: 1px;
-}
-.map-container {
-    width: 100vw;
-}
-
-#legendContainer{
-  grid-area: legend;
-  margin-bottom: 0px;
-  margin-left: 30px;
-  z-index: 1;
-}
-
-#grid-left{
-  grid-area: ak;
-  width: 190vw;
-  margin-right: 2.5vw; 
-}
-#ak{
-  width: 110vw;// careful editing this, it's sizing the maps to be on the same scale
-}
-#grid-right{
-  grid-area: us;
-  width: 90vw;
-  margin-left: 70px;
-}
-#usa{
-  width: 160vw;// careful editing this, it's sizing the maps to be on the same scale
-}
-#peak-container{
-  grid-area: peak;
-}
-#melt-container{
-  grid-area: melt;
-}
-#wy21-container{
-  grid-area: wy21;
-}
-
-@media screen and (min-width: 1024px){
-  #melt-svg {
-  transform: translate(0, 0px);
-}
-#peak-svg {
-  transform: translate(0, -5px);
-}
   .map-grid{
-    
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
     grid-template-areas: 
-    ". legend legend us us us"
-    ". wy21 peak us us us"
-      ". wy21 peak us us us"
-      ". wy21 melt us us us"
-      ". wy21 melt us us us"
-      ". ak ak us us us"
-      ". ak ak us us us"
-      ". ak ak us us us"
-      ". ak ak us us us"
-      ". . . us us us"
+      "legend legend legend legend legend ."
+      "ak ak ak ak ak ak"
+      "us us us us us us"
+      "peak peak peak wy21 wy21 wy21"
+      "melt melt melt wy21 wy21 wy21"
     ;
+    overflow: hidden;
+  }
+  line, polyline, polygon, path, rect, circle {
+    fill: none;
+    stroke: grey;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-miterlimit: 10.00;
+  }
+  .explain {
+    font-style: italic;
+  }
+  .state {
+    stroke: white;
+    stroke-width: 2px;
+    opacity: .5;
+  }
+  .usa {
+    color: darkgrey;
+    fill:none;
+    stroke-width: 1px;
+  }
+  .map-container {
+    width: 100vw;
+  }
+  #legendContainer{
+    grid-area: legend;
+    margin-bottom: 0px;
+    margin-left: 30px;
+    z-index: 1;
   }
   #grid-left{
-    width: 30vw; // careful editing this, it's sizing the maps to the same scale
-    //margin-left: 10vw;
+    grid-area: ak;
+    width: 190vw;
+    margin-right: 2.5vw; 
   }
-  #legendContainer {
-    margin-top: 0px;
+  #ak{
+    width: 110vw;// careful editing this, it's sizing the maps to be on the same scale
   }
-  #ak {
-   width: 55vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
-  }
-  #grid-right {
-    width: 70vw;// careful editing this, it's sizing the maps to the same scale
-    margin-right: 2.5vw;
-    margin-left: 0px;
+  #grid-right{
+    grid-area: us;
+    width: 90vw;
+    margin-left: 70px;
   }
   #usa{
-    width: 80vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
+    width: 160vw;// careful editing this, it's sizing the maps to be on the same scale
   }
- 
-}
+  #peak-container{
+    grid-area: peak;
+  }
+  #melt-container{
+    grid-area: melt;
+  }
+  #wy21-container{
+    grid-area: wy21;
+  }
 
-@media screen and (min-height: 900px){
-  #melt-svg {
-  transform: translate(0, 5px);
-}
-#peak-svg {
-  transform: translate(0, 0px);
-}
-  .map-grid{
-    
-    grid-template-areas: 
-    ". legend legend us us us"
-    ". wy21 peak us us us"
-      ". wy21 peak us us us"
-      ". wy21 melt us us us"
-      ". wy21 melt us us us"
-      "ak ak .  us us us"
-      "ak ak . us us us"
-      "ak ak . us us us"
-      "ak ak .us us us"
-      ". . . us us us";
+  @media screen and (min-width: 1024px){
+    #melt-svg {
+      transform: translate(0, 0px);
+    }
+    #peak-svg {
+      transform: translate(0, -5px);
+    }
+    .map-grid{
+      grid-template-areas: 
+        ". legend legend us us us"
+        ". wy21 peak us us us"
+        ". wy21 peak us us us"
+        ". wy21 melt us us us"
+        ". wy21 melt us us us"
+        ". ak ak us us us"
+        ". ak ak us us us"
+        ". ak ak us us us"
+        ". ak ak us us us"
+        ". . . us us us";
+    }
+    #grid-left{
+      width: 30vw; // careful editing this, it's sizing the maps to the same scale
+    }
+    #legendContainer {
+      margin-top: 0px;
+    }
+    #ak {
+      width: 55vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
+    }
+    #grid-right {
+      width: 70vw;// careful editing this, it's sizing the maps to the same scale
+      margin-right: 2.5vw;
+      margin-left: 0px;
+    }
+    #usa{
+      width: 80vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
+    }
   }
-  #grid-left{
-    width: 30vw; // careful editing this, it's sizing the maps to the same scale
-    //margin-left: 10vw;
-  }
-  #legendContainer {
-    margin-top: 0px;
-    margin-left: 20px;
-  }
-  #ak {
-   width: 60vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
-   margin-left: 30px;
-   padding-top: 50px;
-  }
-  #grid-right {
-    width: 70vw;// careful editing this, it's sizing the maps to the same scale
-    margin-right: 2.5vw;
-    margin-left: 0px;
-  }
-  #usa{
-    width: 100vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
-    margin-left: -25px;
-  }
- 
-}
 
-
+  @media screen and (min-height: 900px){
+    #melt-svg {
+      transform: translate(0, 5px);
+    }
+    #peak-svg {
+      transform: translate(0, 0px);
+    }
+    .map-grid{
+      grid-template-areas: 
+        ". legend legend us us us"
+        ". wy21 peak us us us"
+        ". wy21 peak us us us"
+        ". wy21 melt us us us"
+        ". wy21 melt us us us"
+        "ak ak . us us us"
+        "ak ak . us us us"
+        "ak ak . us us us"
+        "ak ak . us us us"
+        ". . . us us us";
+    }
+    #grid-left{
+      width: 30vw; // careful editing this, it's sizing the maps to the same scale
+    }
+    #legendContainer {
+      margin-top: 0px;
+      margin-left: 20px;
+    }
+    #ak {
+      width: 60vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
+      margin-left: 30px;
+      padding-top: 50px;
+    }
+    #grid-right {
+      width: 70vw;// careful editing this, it's sizing the maps to the same scale
+      margin-right: 2.5vw;
+      margin-left: 0px;
+    }
+    #usa{
+      width: 100vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
+      margin-left: -25px;
+    }
+  }
 </style>
