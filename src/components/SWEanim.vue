@@ -546,15 +546,15 @@ export default {
           .attr("opacity", 0.5)
         }
       },
-      changePos(){
+      changePos(e){
         const self = this;
-          if(event.target.value == "peak"){
+          if(e.target.value == "peak"){
             self.toMagnitude()
           }
-          if(event.target.value == "time"){
+          if(e.target.value == "time"){
             self.toTiming();
           }
-           if(event.target.value == "el"){
+           if(e.target.value == "el"){
             self.toMagnitude()
             self.toElevation();
           }
