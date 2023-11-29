@@ -285,33 +285,33 @@ export default {
         var n = sites.length;
 
         // sort gages by elevation
-        this.site_elev = gage_sp.slice().sort((a,b) => this.d3.ascending(a.elev, b.elev)).map(function(d) { return d.site_no })
+        this.site_elev = gage_sp.slice().sort((a,b) => this.d3.ascending(a.elev, b.elev)).map(d => d.site_no)
 
         //sort ages by snow persistence
-        this.site_sp = gage_sp.slice().sort((a,b) => this.d3.ascending(a.sp, b.sp)).map(function(d) { return d.site_no })
+        this.site_sp = gage_sp.slice().sort((a,b) => this.d3.ascending(a.sp, b.sp)).map(d => d.site_no)
 
         // nest data to iterate over in plot
         // sort of inverse of series - array of objects where objs = site containing key  for site_no, mmd and day vars
          data.mmd11 = [];
           for (let i = 1; i < n; i++) {
               var key = this.site_elev[i];
-              var mmd = data_2011.map(function(d){  return d[key]; });
-              var swe = swe_2011.map(function(d){  return d[key]; });
-              var day = data_2011.map(function(d){  return d['site_water_day']; });
+              var mmd = data_2011.map(d => d[key]);
+              var swe = swe_2011.map(d => d[key]);
+              var day = data_2011.map(d => d['site_water_day']);
               data.mmd11.push({key: key, mmd: mmd, day:day, swe:swe})
           };
 
           data.mmd12 = [];
           for (let i = 1; i < n; i++) {
               var key = this.site_elev[i];
-              var mmd = data_2012.map(function(d){  return d[key]; });
-              var swe = swe_2012.map(function(d){  return d[key]; });
-              var day = data_2012.map(function(d){  return d['site_water_day']; });
+              var mmd = data_2012.map(d => d[key]);
+              var swe = swe_2012.map(d => d[key]);
+              var day = data_2012.map(d => d['site_water_day']);
               data.mmd12.push({key: key, mmd: mmd, day:day, swe:swe})
           };
 
         // array of j days for good luck
-        data.days = data_2011.length > data_2012.length ? data_2011.map(function(d) { return  d['site_water_day']}) : data_2012.map(function(d) { return  d['site_water_day']})
+        data.days = data_2011.length > data_2012.length ? data_2011.map(d => d['site_water_day']) : data_2012.map(d => d['site_water_day'])
 
         // set up g that holds ridgelines
         this.svgboth = this.d3.select('svg#mmd-line-both');
@@ -407,16 +407,12 @@ export default {
           .attr("fill-opacity",.1)
           .attr("d", d => this.line_mmd(d.mmd))
           .attr("stroke-width", "1px")
-          .attr("class", function(d) { return d.key })
+          .attr("class", d => d.key)
           .classed("ridge", true)
           .classed("mmd", true)
           .attr('pointer-events', 'visibleStroke')
-          .on("mouseover", function(data_nest) {
-            self.hover(data_nest);
-          })
-          .on("mouseout", function(data_nest){
-            self.hoverOut(data_nest);
-          });
+          .on("mouseover", d => self.hover(d))
+          .on("mouseout", d => self.hoverOut(d));
 
          // draw SWE curves
         this.group.append("path")
@@ -426,16 +422,12 @@ export default {
           .attr("fill-opacity", .1)
           .attr("d", d => this.line_swe(d.swe))
           .attr("stroke-width", "1px")
-          .attr("class", function(d) { return d.key })
+          .attr("class", d => d.key)
           .classed("ridge", true)
           .classed("swe", true)
           .attr('pointer-events', 'visibleStroke')
-          .on("mouseover", function(data_nest) {
-            self.hover(data_nest);
-          })
-          .on("mouseout", function(data_nest){
-            self.hoverOut(data_nest);
-          })
+          .on("mouseover", d => self.hover(d))
+          .on("mouseout", d => self.hoverOut(d));
 
 
         this.y2011 = this.svgboth.selectAll("g.ridge_2011") // ridge group
