@@ -2173,7 +2173,7 @@ export default {
 
   .map-grid{
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(6, 16.6%);
     grid-template-areas: 
       "legend legend legend legend legend ."
       "ak ak ak ak ak ak"
