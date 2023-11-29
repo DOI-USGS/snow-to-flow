@@ -355,12 +355,12 @@ export default {
               .tickFormat(function(d,i) { return self.tickDates[i] })
               .tickSizeOuter(0).tickSize(0))
 
-      // mmd axes
+        // mmd axes
         this.yAxis_mmd = g => g
           .attr("transform", `translate(${this.width-75},0)`)
           .call(this.d3.axisRight(y_mmd).tickSize(0).tickPadding(4).tickValues([0, 10, 20, 30]))
 
-          // mmd axes
+        // mmd axes
         this.yAxis_swe = g => g
           .attr("transform", `translate(${0},0)`)
           .call(this.d3.axisLeft(y_swe).tickSize(0).tickPadding(4).tickValues([0, 250, 500, 750, 1000]))
@@ -391,12 +391,13 @@ export default {
         this.line_swe = this.area_swe.lineY1()
           .defined(d => !isNaN(d));
 
-      // append g for each ridgeline/site_no
+        // append g for each ridgeline/site_no
         this.group = svg.append("g")
           .classed(ridge_class, true).classed("curve", true)
           .selectAll("g")
           .data(data_nest)
           .join("g")
+          .attr("class", d => "ridge_group " + d.key)
           .attr("transform", d => `translate(0,0)`)
 
         // draw MMD curves
@@ -460,46 +461,43 @@ export default {
       hover(data){
          const self = this;
 
-          self.d3.selectAll('g.curve path.mmd')
-            .attr("z-index", -1)
+          self.d3.selectAll('g.ridge_group')
+            .lower()
 
-          self.d3.selectAll('g.curve path.swe')
-            .attr("z-index", -1)
-
+          self.d3.selectAll('g.ridge_group.' + data.key)
+            .raise()
 
           self.d3.selectAll('g.curve path.mmd.' + data.key)
             .attr('stroke-width', "2px")
             .attr('stroke', "darkblue")
             .attr('stroke-opacity', .8)
-            .attr("z-index", 100);
 
           self.d3.selectAll('g.curve path.swe.' + data.key)
             .attr('stroke-width', "2px")
             .attr('stroke', "black")
             .attr('stroke-opacity', .8)
-            .attr("z-index", 100);
 
       },
       hoverOut(data){
          const self = this;
 
-          self.d3.selectAll('g.curve path.mmd.' + data.key)
+         self.d3.selectAll('g.ridge_group')
+            .lower()
+
+         self.d3.selectAll('g.curve path.mmd.' + data.key)
             .attr("stroke-width", "1px")
             .attr("stroke", this.color_mmd)
             .attr('stroke-opacity', .5)
-            .attr("z-index", -1);
 
         self.d3.selectAll('g.curve path.swe.' + data.key)
             .attr("stroke-width", "1px")
             .attr("stroke", this.color_swe)
             .attr('stroke-opacity', .5)
-            .attr("z-index", -1);
 
         self.d3.selectAll('g.curve path.mmd')
             .attr("stroke-width", "1px")
             .attr("stroke", this.color_mmd)
             .attr('stroke-opacity', .5)
-            .attr("z-index", -1)
 
         self.d3.selectAll('g.curve path.swe')
             .attr("stroke-width", "1px")
