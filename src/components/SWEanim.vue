@@ -74,7 +74,7 @@
             viewBox="-50 -50 600 500"
             aria-labelledby="page-title page-desc"
             width="100%"
-            height="auto"
+            height="100%"
           >
 
             <text
@@ -285,32 +285,33 @@ export default {
         var n = sites.length;
 
         // sort gages by elevation
-        this.site_elev = gage_sp.slice().sort((a,b) => this.d3.ascending(a.elev, b.elev)).map(function(d) { return d.site_no })
+        this.site_elev = gage_sp.slice().sort((a,b) => this.d3.ascending(a.elev, b.elev)).map(d => d.site_no)
 
         //sort ages by snow persistence
-        this.site_sp = gage_sp.slice().sort((a,b) => this.d3.ascending(a.sp, b.sp)).map(function(d) { return d.site_no })
+        this.site_sp = gage_sp.slice().sort((a,b) => this.d3.ascending(a.sp, b.sp)).map(d => d.site_no)
 
         // nest data to iterate over in plot
         // sort of inverse of series - array of objects where objs = site containing key  for site_no, mmd and day vars
          data.mmd11 = [];
-          for (i = 1; i < n; i++) {
+          for (let i = 1; i < n; i++) {
               var key = this.site_elev[i];
-              var mmd = data_2011.map(function(d){  return d[key]; });
-              var swe = swe_2011.map(function(d){  return d[key]; });
-              var day = data_2011.map(function(d){  return d['site_water_day']; });
+              var mmd = data_2011.map(d => d[key]);
+              var swe = swe_2011.map(d => d[key]);
+              var day = data_2011.map(d => d['site_water_day']);
               data.mmd11.push({key: key, mmd: mmd, day:day, swe:swe})
           };
 
           data.mmd12 = [];
-          for (i = 1; i < n; i++) {
+          for (let i = 1; i < n; i++) {
               var key = this.site_elev[i];
-              var mmd = data_2012.map(function(d){  return d[key]; });
-              var swe = swe_2012.map(function(d){  return d[key]; });
-              var day = data_2012.map(function(d){  return d['site_water_day']; });
+              var mmd = data_2012.map(d => d[key]);
+              var swe = swe_2012.map(d => d[key]);
+              var day = data_2012.map(d => d['site_water_day']);
               data.mmd12.push({key: key, mmd: mmd, day:day, swe:swe})
           };
 
-        data.days = data_2011.map(function(d) { return  d['site_water_day']}) // array of j days for good luck
+        // array of j days for good luck
+        data.days = data_2011.length > data_2012.length ? data_2011.map(d => d['site_water_day']) : data_2012.map(d => d['site_water_day'])
 
         // set up g that holds ridgelines
         this.svgboth = this.d3.select('svg#mmd-line-both');
@@ -321,7 +322,8 @@ export default {
         var mid = x_long/2;
         var mar = mid*0.05
 
-        // set chart - separate for each year, using 2011 for max values to set the scales
+        // set chart - separate for each year, using 2011 for max values to set the scales, except
+        // x scale of days, which is set based on whichever year has more days (2012)
         //  first draw is MMD
         self.initRidges(this.svgboth, 'ridge_2011', data.mmd11, data.days, 0, x_long, 0, this.height/2-10);
         self.initRidges(this.svgboth, 'ridge_2012', data.mmd12, data.days, 0, x_long, this.height/2+10,  this.height);
@@ -353,12 +355,12 @@ export default {
               .tickFormat(function(d,i) { return self.tickDates[i] })
               .tickSizeOuter(0).tickSize(0))
 
-      // mmd axes
+        // mmd axes
         this.yAxis_mmd = g => g
           .attr("transform", `translate(${this.width-75},0)`)
           .call(this.d3.axisRight(y_mmd).tickSize(0).tickPadding(4).tickValues([0, 10, 20, 30]))
 
-          // mmd axes
+        // mmd axes
         this.yAxis_swe = g => g
           .attr("transform", `translate(${0},0)`)
           .call(this.d3.axisLeft(y_swe).tickSize(0).tickPadding(4).tickValues([0, 250, 500, 750, 1000]))
@@ -389,12 +391,13 @@ export default {
         this.line_swe = this.area_swe.lineY1()
           .defined(d => !isNaN(d));
 
-      // append g for each ridgeline/site_no
+        // append g for each ridgeline/site_no
         this.group = svg.append("g")
           .classed(ridge_class, true).classed("curve", true)
           .selectAll("g")
           .data(data_nest)
           .join("g")
+          .attr("class", d => "ridge_group " + d.key)
           .attr("transform", d => `translate(0,0)`)
 
         // draw MMD curves
@@ -405,16 +408,12 @@ export default {
           .attr("fill-opacity",.1)
           .attr("d", d => this.line_mmd(d.mmd))
           .attr("stroke-width", "1px")
-          .attr("class", function(d) { return d.key })
+          .attr("class", d => d.key)
           .classed("ridge", true)
           .classed("mmd", true)
           .attr('pointer-events', 'visibleStroke')
-          .on("mouseover", function(data_nest) {
-            self.hover(data_nest);
-          })
-          .on("mouseout", function(data_nest){
-            self.hoverOut(data_nest);
-          });
+          .on("mouseover", d => self.hover(d))
+          .on("mouseout", d => self.hoverOut(d));
 
          // draw SWE curves
         this.group.append("path")
@@ -424,16 +423,12 @@ export default {
           .attr("fill-opacity", .1)
           .attr("d", d => this.line_swe(d.swe))
           .attr("stroke-width", "1px")
-          .attr("class", function(d) { return d.key })
+          .attr("class", d => d.key)
           .classed("ridge", true)
           .classed("swe", true)
           .attr('pointer-events', 'visibleStroke')
-          .on("mouseover", function(data_nest) {
-            self.hover(data_nest);
-          })
-          .on("mouseout", function(data_nest){
-            self.hoverOut(data_nest);
-          })
+          .on("mouseover", d => self.hover(d))
+          .on("mouseout", d => self.hoverOut(d));
 
 
         this.y2011 = this.svgboth.selectAll("g.ridge_2011") // ridge group
@@ -466,63 +461,48 @@ export default {
       hover(data){
          const self = this;
 
-          self.d3.selectAll('g.curve path.mmd')
-          .transition()
-            .attr("z-index", -1)
+          self.d3.selectAll('g.ridge_group')
+            .lower()
 
-            self.d3.selectAll('g.curve path.swe')
-          .transition()
-            .attr("z-index", -1)
-
+          self.d3.selectAll('g.ridge_group.' + data.key)
+            .raise()
 
           self.d3.selectAll('g.curve path.mmd.' + data.key)
-            .transition()
-            .duration(5)
             .attr('stroke-width', "2px")
             .attr('stroke', "darkblue")
             .attr('stroke-opacity', .8)
-            .attr("z-index", 100);
 
-            self.d3.selectAll('g.curve path.swe.' + data.key)
-            .transition()
-            .duration(5)
+          self.d3.selectAll('g.curve path.swe.' + data.key)
             .attr('stroke-width', "2px")
             .attr('stroke', "black")
             .attr('stroke-opacity', .8)
-            .attr("z-index", 100);
 
       },
       hoverOut(data){
          const self = this;
 
-          self.d3.selectAll('g.curve path.mmd.' + data.key)
-            .transition()
-            .duration(5)
+         self.d3.selectAll('g.ridge_group')
+            .lower()
+
+         self.d3.selectAll('g.curve path.mmd.' + data.key)
             .attr("stroke-width", "1px")
             .attr("stroke", this.color_mmd)
             .attr('stroke-opacity', .5)
-            .attr("z-index", -1);
 
         self.d3.selectAll('g.curve path.swe.' + data.key)
-            .transition()
-            .duration(5)
             .attr("stroke-width", "1px")
             .attr("stroke", this.color_swe)
             .attr('stroke-opacity', .5)
-            .attr("z-index", -1);
 
-             self.d3.selectAll('g.curve path.mmd')
-              .transition()
-              .attr("stroke-width", "1px")
-              .attr("stroke", this.color_mmd)
-              .attr('stroke-opacity', .5)
-              .attr("z-index", -1)
+        self.d3.selectAll('g.curve path.mmd')
+            .attr("stroke-width", "1px")
+            .attr("stroke", this.color_mmd)
+            .attr('stroke-opacity', .5)
 
-            self.d3.selectAll('g.curve path.swe')
-              .transition()
-              .attr("stroke-width", "1px")
-              .attr("stroke", this.color_swe)
-              .attr('stroke-opacity', .5)
+        self.d3.selectAll('g.curve path.swe')
+            .attr("stroke-width", "1px")
+            .attr("stroke", this.color_swe)
+            .attr('stroke-opacity', .5)
 
       },
       showSWE(){
@@ -564,15 +544,15 @@ export default {
           .attr("opacity", 0.5)
         }
       },
-      changePos(){
+      changePos(e){
         const self = this;
-          if(event.target.value == "peak"){
+          if(e.target.value == "peak"){
             self.toMagnitude()
           }
-          if(event.target.value == "time"){
+          if(e.target.value == "time"){
             self.toTiming();
           }
-           if(event.target.value == "el"){
+           if(e.target.value == "el"){
             self.toMagnitude()
             self.toElevation();
           }
