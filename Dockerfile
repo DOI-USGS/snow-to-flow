@@ -9,9 +9,9 @@ RUN apt-get update && \
       apt-get purge -y --auto-remove && \
       apt-get clean
 
-# Enable the NodeSource repository and install the latest nodejs
-RUN curl -sL https://deb.nodesource.com/setup_current.x | bash - && \
-      apt-get install nodejs -y
+# Enable the NodeSource repository and install nodejs v20
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - &&\
+      apt-get install -y nodejs
 
 # Create temp directory for building viz app
 RUN mkdir -p /tmp/snow-to-flow
