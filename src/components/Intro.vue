@@ -62,6 +62,6 @@ export default {
 <style lang="scss" scoped>
   #byline {
     font-weight: 400;
-    margin-bottom: 64px;
+    margin: 64px 0 64px 0;
   }
 </style>
