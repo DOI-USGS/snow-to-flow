@@ -4,7 +4,7 @@
     <HeaderUSGS />
     <InternetExplorerPage v-if="isInternetExplorer" />
     <WorkInProgressWarning v-if="checkTypeOfEnv !== '' & !isInternetExplorer" /> <!-- an empty string in this case means the 'prod' version of the application   -->
-    <ShutdownBanner />
+    <!-- <ShutdownBanner /> -->
     <router-view
       v-if="!isInternetExplorer"
     />
@@ -18,13 +18,13 @@
     // import WindowSize from "./components/WindowSize";
     import HeaderUSGS from './components/HeaderUSGS';
     import { isMobile } from 'mobile-device-detect';
-    import ShutdownBanner from './components/ShutdownBanner.vue'; 
+    // import ShutdownBanner from './components/ShutdownBanner.vue'; 
     export default {
         name: 'App',
         components: {
             // WindowSize,
             HeaderUSGS,
-            ShutdownBanner,
+            // ShutdownBanner,
             InternetExplorerPage: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "internet-explorer-page"*/ "./components/InternetExplorerPage"),
             WorkInProgressWarning: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "work-in-progress-warning"*/ "./components/WorkInProgressWarning"),
             PreFooterVisualizationsLinks: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "pre-footer-links-visualizations"*/ "./components/PreFooterVisualizationsLinks"),
