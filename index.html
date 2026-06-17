@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- VIZLAB GTM CODE -->
+    <!-- Google Tag Manager -->
+    <!-- Place GTM script here -->
+    <!-- End Google Tag Manager -->
+    <!-- USGS VIZ ID GTM CODE -->
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TKQR8KP');</script>
+    <!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico">
+    <!-- USDWS-init js -->
+    <script type="module" src="/node_modules/@uswds/uswds/dist/js/uswds-init.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- On beta, add robots tag to stop indexing. An empty string for VITE_APP_TIER means the 'prod' version of the application -->
+    <% if(VITE_APP_TIER !== ''){ %>
+      <meta name="robots" content="noindex,nofollow">
+    <% } %>
+    <title>%VITE_APP_LONG_TITLE%</title>
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="%VITE_APP_LONG_TITLE%">
+    <meta name="description" content="%VITE_APP_DESCRIPTION%">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://labs.waterdata.usgs.gov/visualizations/%VITE_APP_TITLE%">
+    <meta property="og:title" content="%VITE_APP_LONG_TITLE%">
+    <meta property="og:description" content="%VITE_APP_DESCRIPTION%">
+    <meta property="og:image" content="https://labs.waterdata.usgs.gov/visualizations/images/%VITE_APP_TITLE%_metacard.webp">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://labs.waterdata.usgs.gov/visualizations/%VITE_APP_TITLE%">
+    <meta property="twitter:title" content="%VITE_APP_LONG_TITLE%">
+    <meta property="twitter:description" content="%VITE_APP_DESCRIPTION%">
+    <meta property="twitter:image" content="https://labs.waterdata.usgs.gov/visualizations/images/%VITE_APP_TITLE%_metacard.webp">
+    <script type='application/ld+json'>
+      { "@context": "http://www.schema.org",
+        "@type": "WebSite", "name": %VITE_APP_LONG_TITLE%,
+        "url": "https://labs.waterdata.usgs.gov/visualizations/%VITE_APP_TITLE%",
+        "about": "",
+        "datePublished": "November 30, 2023",
+        "contributor": [
+          { "@type": "Person",
+            "name": "Hayley Corson-Dosch",
+            "email": "hcorson-dosch@usgs.gov",
+            "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
+          },
+          { "@type": "Person",
+            "name": "Cee Nell",
+            "email": "cnell@usgs.gov",
+            "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
+          }
+          ]
+      },
+      "audience": { "@context": "http://schema.org", "@type": "Audience", "audienceType": "General public"},
+      "publisher": { "@context": "http://schema.org", "@type": "Organization", "legalName": "U.S. Geological Survey" },
+      "keywords": { "water, data viz, data visualization" }
+    </script>
+  </head>
+  <body>
+    <!-- VIZLAB GTM CODE -->
+    <!-- Google Tag Manager (noscript) -->
+    <!-- Place GTM noscript here -->
+    <!-- End Google Tag Manager (noscript) -->
+    <!-- USGS VIZ ID GTM CODE -->
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe sandbox src="https://www.googletagmanager.com/ns.html?id=GTM-TKQR8KP"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+    <!-- End Google Tag Manager (noscript) -->
+    <!-- USDWS js -->
+    <script type="module" src="/node_modules/@uswds/uswds/dist/js/uswds.js"></script>
+  </body>
+</html>

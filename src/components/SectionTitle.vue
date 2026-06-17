@@ -15,31 +15,31 @@
         :style="overlayVars"
       >
         <picture class="lazy">
-          <!--Media size suggestions https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images-->
+          <!-- Media size suggestions https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images -->
           <source
             type="image/webp"
             media="(max-width: 799px)"
-            :data-srcset="require(`@/assets/titleImages/1x/${image}-1x.webp`)"
+            :srcset="getImageUrl(image, '1', 'webp')"
+            :data-srcset="getImageUrl(image, '1', 'webp')"
           >
           <source
             type="image/webp"
             media="(min-width: 800px)"
-            :data-srcset="require(`@/assets/titleImages/2x/${image}-2x.webp`)"
+            :data-srcset="getImageUrl(image, '2', 'webp')"
           >
           <!--BACKUP IF BROWSER DOESN'T ACCEPT WEBP (TESTED AND WORKING ON SAFARI)-->
           <source
             type="image/jpg"
             media="(max-width: 799px)"
-            :data-srcset="require(`@/assets/titleImages/1x/${image}-1x.jpg`)"
+            :data-srcset="getImageUrl(image, '1', 'jpg')"
           >
           <source
             type="image/jpg"
             media="(min-width: 800px)"
-            :data-srcset="require(`@/assets/titleImages/2x/${image}-2x.jpg`)"
+            :data-srcset="getImageUrl(image, '2', 'jpg')"
           >
           <img 
-            :srcset="require(`@/assets/titleImages/lazy.jpg`)"
-            :data-srcset="require(`@/assets/titleImages/2x/${image}-2x.jpg`)"
+            :srcset="getImageUrl(image, '2', 'jpg')"
           >
         </picture>
         <div
@@ -50,69 +50,69 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-    name: "TestImage",
-    props:{
-        overlay: {
-            type: Boolean,
-            default: true
-        },
-        image: {
-            type: String,
-            default: `chapter1`
-        },
-        height:{
-            type: Number,
-            default: 100
-        },
-        overlayOpacity:{
-            type: Number,
-            default: .7
-        }
+
+<script setup>
+  import {computed} from 'vue'
+
+  const props = defineProps({
+    overlay: {
+        type: Boolean,
+        default: true
     },
-    computed:{
-        chaptersVars(){
-            return{
-                "--height": `${this.height}vh`,
-            }
-        },
-        overlayVars(){
-            return{
-                "--overlay-opacity": `${this.overlayOpacity}`
-            }
-        }
+    image: {
+        type: String,
+        default: `chapter1`
+    },
+    height:{
+        type: Number,
+        default: 100
+    },
+    overlayOpacity:{
+        type: Number,
+        default: .7
     }
-}
+  })
+  
+  const chaptersVars = computed(() => {
+    return { "--height": `${props.height}vh` }
+  })
+
+  const overlayVars = computed(() => {
+    return { "--overlay-opacity": `${props.overlayOpacity}` }
+  })
+
+  function getImageUrl(image, zoom_level, suffix) {
+    return new URL(`../assets/titleImages/${zoom_level}x/${image}-${zoom_level}x.${suffix}`, import.meta.url).href
+  }
 </script>
+
 <style lang="scss" scoped>
+  $familyMain: 'Public sans', sans-serif;
+  $familySerif:  'Noto Serif', serif;
+  $darkGrey: #212122;
 
-$familyMain: 'Public sans', sans-serif;
-$familySerif:  'Noto Serif', serif;
-$darkGrey: #212122;
-
-.chapter{
+  .chapter{
     position: relative;
     height: var(--height);
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-}
-/* force the source element to be full height*/
-picture, source{
+  }
+  /* force the source element to be full height*/
+  picture, source{
     position: absolute;
     top: 0;
     width: 100%;
     height: 100%;
-}
-picture{
-  transition: filter 0.5s;
-}
-.lazy{
-  filter: blur(50px);
-}
-.overlay{
+  }
+  picture{
+    transition: filter 0.5s;
+  }
+  // .lazy{
+  //   filter: blur(50px);
+  // }
+  .overlay{
     position: absolute;
     width: 100%;
     height: 100%;
@@ -120,8 +120,8 @@ picture{
     opacity: var(--overlay-opacity);
     top:0;
     left: 0;
-}
-.bg{
+  }
+  .bg{
     position: absolute;
     top: 0;
     left: 0;
@@ -133,10 +133,8 @@ picture{
       width: 100%;
       height: 100%;
     }
-    
- 
-}
-.chapterTitle{
+  }
+  .chapterTitle{
     position: relative;
     z-index: 2;
     font-family: $familyMain;
@@ -146,5 +144,5 @@ picture{
     padding: 0 20px;
     text-align: center;
     max-width: 960px;
-}
+  }
 </style>

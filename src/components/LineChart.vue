@@ -288,348 +288,283 @@
   </div>
 </template>
 
-<script>
-import * as d3 from 'd3';
-import { ScrollToPlugin } from "gsap/ScrollToPlugin"; // to trigger scroll events
-import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
+<script setup>
+  import { onMounted, nextTick, ref } from "vue";
+  import * as d3 from 'd3';
+  import { gsap } from "gsap"
+  import { ScrollToPlugin } from "gsap/ScrollToPlugin"; // to trigger scroll events
+  import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
 
+  // Set up dynamically updating variables as refs
+  const flowIsActive = ref();
+  flowIsActive.value = true;
+  const sweIsActive = ref();
+  sweIsActive.value = true;
 
-export default {
-    name: "LineChart",
-   
-    data() {
-        return {
-            flowIsActive: true,
-            sweIsActive: true,
-            publicPath: process.env.BASE_URL, // this is need for the data files in the public folder, this allows the application to find the files when on different deployment roots
-            d3: null,
-            svg: null, // not sure
-            width: null,
-            height: null,
-            margin: { top: 50, right: 50, bottom: 50, left: 50 },
-            timeFormat: "%B",
-            x: null,
-            y: null,
-            selectedYear: null, // this can be selected by a button
+  // Declare behavior on mounted
+  // functions called here
+  onMounted(() => {    
+    nextTick(() => {
+      animateAreas()
+    });
+  });
 
-            // animation elements
-            duration: 1000 // 1 second
+  // Functions
+  function animateAreas() {
+    gsap.registerPlugin(ScrollToPlugin, ScrollTrigger); // register gsap plugins for scrollTrigger 
 
-        };
-    },
-    mounted (){
-        this.d3 = Object.assign(d3);
-        
-        //insert resize here
-        this.width = window.innerWidth - this.margin.left - this.margin.right;
-        this.height = window.innerHeight*.5 - this.margin.top - this.margin.bottom;
-        
-        this.$nextTick(() => this.animateAreas());
-        // load data
-        // this.loadData();
-    },
-    methods: {
-        loadData() {
-            const self=this;
+    // Set origins and locations
+    gsap.set("#discharge-reveal-rect", {transformOrigin: "100% 0%", width: 0});
+    gsap.set("#swe-reveal-rect", {transformOrigin: "100% 0%", width: 0});
 
-            // let promises = [self.d3.csv(self.publicPath + "data/swe_and_discharge_data.csv", this.d3.autoType)]
-            // Promise.all(promises).then(self.callback);
-        },
-        animateAreas(){
-          const self=this;
-          this.$gsap.registerPlugin(ScrollToPlugin, ScrollTrigger); // register gsap plugins for scrollTrigger 
-
-          // Set origins and locations
-          this.$gsap.set("#discharge-reveal-rect", {transformOrigin: "100% 0%", width: 0});
-          this.$gsap.set("#swe-reveal-rect", {transformOrigin: "100% 0%", width: 0});
-          // this.$gsap.set("#discharge-title", {opacity: 0})
-
-          // declare timeline
-          let tl = this.$gsap.timeline({
-            scrollTrigger: {
-              trigger: "#compare-chart",
-              toggleActions: "restart none none reset"
-            }
-          });
-
-          // add animations to the timeline
-          // first reveal 2011 swe
-          tl.to("#swe-reveal-rect", {duration: 3, width: "39%", ease: "none"}); // reveal area
-          // then add 2011 swe annotations
-          tl.from(".swe-annotation-2011", { duration: .4, opacity: 0, scale: 0.95, ease: "back", stagger: 1})
-          //then do 2011 discharge area
-           tl.to("#discharge-reveal-rect", {duration: 2, width: "39%", ease: "none"}); // reveal area
-          // then reveal 2011 discharge annotations
-            tl.from(".discharge-annotation-2011", { duration: .4, opacity: 0, scale: 0.8, stagger: .5})
-          // then brush 2011
-          tl.from(".brush", {duration: 1, opacity: 1}); // fade the brushing
-
-          // then reveal 2012 swe
-          tl.to("#swe-reveal-rect", {duration: 3, delay: 1, width: "100%", ease: "none"}); // reveal area
-          // then add 2012 swe annotations
-           tl.from(".swe-annotation-2012", { duration: .4, opacity: 0, scale: 0.95, ease: "back", stagger: 1})
-          // then reveal 2012 discharge area
-          tl.to("#discharge-reveal-rect", {duration: 2, width: "100%", ease: "none"}); // reveal area
-          // then reveal 2012 discharge annotations
-          tl.from(".discharge-annotation-2012", { duration: .4, opacity: 0, scale: 0.8, stagger: .5})
-
-
-
-
-
-
-          // tl.from(".discharge-title", {duration: 1, delay: 1, opacity: 0});
-          // tl.to("#discharge-reveal-rect", {duration: 5, width: "100%"}); // reveal area
-        
-
-        },
-        showSWE1(){
-        if (this.sweIsActive == true){
-          this.sweIsActive = false;
-
-          this.d3.selectAll(".swe-cb")
-          .transition()
-          .delay(100)
-          .duration(300)
-          .attr("opacity", 0)
-        } else if (this.sweIsActive == false){
-          this.sweIsActive = true;
-
-          this.d3.selectAll(".swe-cb")
-          .transition()
-          .delay(100)
-          .duration(300)
-          .attr("opacity", 0.7)
-        }
-
-      },
-      showFlow1(){
-          if (this.flowIsActive == true){
-          this.flowIsActive = false;
-
-          this.d3.selectAll(".discharge-cb")
-          .transition()
-          .delay(100)
-          .duration(300)
-          .attr("opacity", 0)
-        } else if (this.flowIsActive == false){
-          this.flowIsActive = true;
-
-          this.d3.selectAll(".discharge-cb")
-          .transition()
-          .delay(100)
-          .duration(300)
-          .attr("opacity", 0.7)
-        }
+    // declare timeline
+    let tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#compare-chart",
+        toggleActions: "restart none none reset"
       }
+    });
+
+    // add animations to the timeline
+    // first reveal 2011 swe
+    tl.to("#swe-reveal-rect", {duration: 3, width: "39%", ease: "none"}); // reveal area
+    // then add 2011 swe annotations
+    tl.from(".swe-annotation-2011", { duration: .4, opacity: 0, scale: 0.95, ease: "back", stagger: 1})
+    //then do 2011 discharge area
+    tl.to("#discharge-reveal-rect", {duration: 2, width: "39%", ease: "none"}); // reveal area
+    // then reveal 2011 discharge annotations
+    tl.from(".discharge-annotation-2011", { duration: .4, opacity: 0, scale: 0.8, stagger: .5})
+    // then brush 2011
+    tl.from(".brush", {duration: 1, opacity: 1}); // fade the brushing
+
+    // then reveal 2012 swe
+    tl.to("#swe-reveal-rect", {duration: 3, delay: 1, width: "100%", ease: "none"}); // reveal area
+    // then add 2012 swe annotations
+    tl.from(".swe-annotation-2012", { duration: .4, opacity: 0, scale: 0.95, ease: "back", stagger: 1})
+    // then reveal 2012 discharge area
+    tl.to("#discharge-reveal-rect", {duration: 2, width: "100%", ease: "none"}); // reveal area
+    // then reveal 2012 discharge annotations
+    tl.from(".discharge-annotation-2012", { duration: .4, opacity: 0, scale: 0.8, stagger: .5})
+  }
+
+  function showSWE1() {
+    if (sweIsActive.value == true){
+      sweIsActive.value = false;
+
+      d3.selectAll(".swe-cb")
+        .transition()
+        .delay(100)
+        .duration(300)
+        .attr("opacity", 0)
+    } else if (sweIsActive.value == false){
+      sweIsActive.value = true;
+
+      d3.selectAll(".swe-cb")
+        .transition()
+        .delay(100)
+        .duration(300)
+        .attr("opacity", 0.7)
     }
-}
+  }
+  function showFlow1() {
+    if (flowIsActive.value == true){
+      flowIsActive.value = false;
+
+      d3.selectAll(".discharge-cb")
+        .transition()
+        .delay(100)
+        .duration(300)
+        .attr("opacity", 0)
+    } else if (flowIsActive.value == false){
+      flowIsActive.value = true;
+
+      d3.selectAll(".discharge-cb")
+        .transition()
+        .delay(100)
+        .duration(300)
+        .attr("opacity", 0.7)
+    }
+  }
 </script>
 
 <style lang="scss" scoped>
-
-$strokeOpacity: .5;
-$fillOpacity: .3;
-$grey: grey;
-$blue: dodgerblue;
-sup {
-  color: white;
-  opacity: 1;
-}
-    svg {
-        width: 100%;
-        height: 100%;
-    }
-
-   .axis-tick, .annotation-line {
-        fill: none;
-        stroke: #d9d9d9;
-        stroke-width: 0.75px;
-        stroke-linejoin: round;
-      }
-
-    .axis-label {
-        font-size: 12px;
-        font-weight: 300;
-        fill: grey;
-        @media screen and (max-width: 600px) {
-          font-size: 14px;
-        }
-    }
-
-    .year-label {
-      fill: black;
-      font-style: italic;
-      opacity: .3;
-      font-size: 1.4em;
-      z-index: 999;
-    }
-    // .axis-title {
-    //     font-family: SourceSansPro-Black, Source Sans Pro;
-    //     font-weight: 800;
-    //     fill: #fff;
-    //     font-size: 26px;
-    // }  
-
-    .area{
-        stroke-linejoin: round;
-        stroke-linecap: round;
-        stroke-width: 1px;
-        fill-opacity: $fillOpacity;
-    }
-
-    .swe{
-        fill: $grey;
-    }
+  $strokeOpacity: .5;
+  $fillOpacity: .3;
+  $grey: grey;
+  $blue: dodgerblue;
   
-    .discharge {
-        fill: $blue;  
-    }
-
-    .swe-area {
-      stroke: $grey;
-      stroke-opacity: $strokeOpacity;
-    }
-
-    .discharge-area {
-       stroke: $blue;
-      stroke-opacity: $strokeOpacity;
-    }
-
-      
-    .brush {
-        opacity: 0.5;
-    }
-
-    .annotation {
-        font-size: .8em;
-        // @media screen and (max-width: 600px) {
-        //   text {
-        //     font-size: 1.2em;
-        //   }
-
-        // }
-    }
-
-      .hash-line {
-        stroke-dasharray: 2px;
-        stroke-width: 1px;
-        stroke: lightgrey;
-        opacity: .3;
-      }
-
-// Copy button style from SWEanim
-.compare {
-  border: 0px solid black;
-  display: inline-block;
-  width: 80vw;
-  max-width: 600px;
-  font-size: 18px;
-  text-align: center;
-  padding: 15px 10px;
-  margin: auto;
-  position: relative;
-  h4{
-    margin-bottom: 15px;
+  sup {
+    color: white;
+    opacity: 1;
   }
-}
-.butt {
-  padding: 5px 5px;
-  margin: 5px 5px;
-  cursor: pointer;
-  display: inline-block;
-}
-
-input[name="radiogroup1"] {
-            display: none;
-        }
-         input[name="radiogroup1"]+label {
-            /* style passive state as you like */
-            border: 2px solid transparent;
-            color: black;
-            font-weight: 400;
-        }
-
-    input[name="radiogroup1"]:checked+label {
-        /* style checked state as you like */
-        border: 7px solid dodgerblue;
-        background-color: dodgerblue;
-        color: white;
-    }
-input[name="checkboxgroup1"] {
-            display: none;
-        }
-         input[name="checkboxgroup1"]+label {
-            /* style passive state as you like */
-            background-color: rgb(221, 221, 221);
-            border: 2px solid transparent;
-            color: black;
-            font-weight: 400;
-            transition: background-color .1s, border .1s;
-        }
-
-    input[name="checkboxgroup1"]:checked+label {
-        /* style checked state as you like */
-        border: 7px solid dodgerblue;
-        background-color: dodgerblue;
-        color: white;
-    }
-    input[name="checkboxgroup2"] {
-            display: none;
-        }
-         input[name="checkboxgroup2"]+label {
-            /* style passive state as you like */
-            background-color: rgb(221, 221, 221);
-            border: 2px solid transparent;
-            color: black;
-            font-weight: 400;
-            transition: background-color .1s, border .1s;
-        }
-
-    input[name="checkboxgroup2"]:checked+label {
-        /* style checked state as you like */
-        border: 7px solid grey;
-        background-color: grey;
-        color: white;
-    }
-    
-@media screen and (min-width: 650px){
-  .compare{
+  svg {
     width: 100%;
+    height: 100%;
+  }
+
+  .axis-tick, .annotation-line {
+    fill: none;
+    stroke: #d9d9d9;
+    stroke-width: 0.75px;
+    stroke-linejoin: round;
+  }
+
+  .axis-label {
+    font-size: 12px;
+    font-weight: 300;
+    fill: grey;
+    @media screen and (max-width: 600px) {
+      font-size: 14px;
+    }
+  }
+  .year-label {
+    fill: black;
+    font-style: italic;
+    opacity: .3;
+    font-size: 1.4em;
+    z-index: 999;
+  }
+  .area{
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    stroke-width: 1px;
+    fill-opacity: $fillOpacity;
+  }
+
+  .swe{
+    fill: $grey;
+  }
+  .discharge {
+    fill: $blue;  
+  }
+
+  .swe-area {
+    stroke: $grey;
+    stroke-opacity: $strokeOpacity;
+  }
+
+  .discharge-area {
+    stroke: $blue;
+    stroke-opacity: $strokeOpacity;
+  }
+  .brush {
+    opacity: 0.5;
+  }
+  .annotation {
+    font-size: .8em;
+  }
+  .hash-line {
+    stroke-dasharray: 2px;
+    stroke-width: 1px;
+    stroke: lightgrey;
+    opacity: .3;
+  }
+  // Copy button style from SWEanim
+  .compare {
+    border: 0px solid black;
+    display: inline-block;
+    width: 80vw;
     max-width: 600px;
+    font-size: 18px;
+    text-align: center;
+    padding: 15px 10px;
+    margin: auto;
+    position: relative;
+    h4{
+      margin-bottom: 15px;
+    }
+  }
+  .butt {
     padding: 5px 5px;
-    .btn-group{
-      display: flex;
-      align-items: center;
-      .inputsContainer{
-        flex: 2;
-        position: relative;
+    margin: 5px 5px;
+    cursor: pointer;
+    display: inline-block;
+  }
+  input[name="radiogroup1"] {
+    display: none;
+  }
+  input[name="radiogroup1"]+label {
+    /* style passive state as you like */
+    border: 2px solid transparent;
+    color: black;
+    font-weight: 400;
+  }
+  input[name="radiogroup1"]:checked+label {
+    /* style checked state as you like */
+    border: 7px solid dodgerblue;
+    background-color: dodgerblue;
+    color: white;
+  }
+  input[name="checkboxgroup1"] {
+    display: none;
+  }
+  input[name="checkboxgroup1"]+label {
+    /* style passive state as you like */
+    background-color: rgb(221, 221, 221);
+    border: 2px solid transparent;
+    color: black;
+    font-weight: 400;
+    transition: background-color .1s, border .1s;
+  }
+  input[name="checkboxgroup1"]:checked+label {
+    /* style checked state as you like */
+    border: 7px solid dodgerblue;
+    background-color: dodgerblue;
+    color: white;
+  }
+  input[name="checkboxgroup2"] {
+        display: none;
+      }
+  input[name="checkboxgroup2"]+label {
+    /* style passive state as you like */
+    background-color: rgb(221, 221, 221);
+    border: 2px solid transparent;
+    color: black;
+    font-weight: 400;
+    transition: background-color .1s, border .1s;
+  }
+  input[name="checkboxgroup2"]:checked+label {
+    /* style checked state as you like */
+    border: 7px solid grey;
+    background-color: grey;
+    color: white;
+  }
+  @media screen and (min-width: 650px){
+    .compare{
+      width: 100%;
+      max-width: 600px;
+      padding: 5px 5px;
+      .btn-group{
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        .inputs{
-          position: absolute;
-          left: 10px;
-          .butt{
-            margin-right: 10px;
-          }
-          .butt:last-child{
-            margin-right: 0;
+        .inputsContainer{
+          flex: 2;
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          .inputs{
+            position: absolute;
+            left: 10px;
+            .butt{
+              margin-right: 10px;
+            }
+            .butt:last-child{
+              margin-right: 0;
+            }
           }
         }
+        #mmd-container-both {
+          width: 90vw;
+          max-width: 1200px;
+          margin: auto;
+        }
+        h4{
+          flex: 1;
+          margin-bottom: 0;
+        }
       }
-      #mmd-container-both {
-        width: 90vw;
-        max-width: 1200px;
-        margin: auto;
-      }
-      h4{
-        flex: 1;
-        margin-bottom: 0;
-      }
-    }
-  } 
-}
- 
+    } 
+  }
 </style>
 

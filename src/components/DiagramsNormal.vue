@@ -20,20 +20,11 @@
     </template>
   </VizSection>
 </template>
-<script>
-import VizSection from '@/components/VizSection';
-// import Sidebar from '@/components/Sidebar';
-import DiagramCarouselNormal from '@/components/DiagramCarouselNormal';
-export default {
-    name: "DiagramsNormal",
-    components:{
-        VizSection,
-        // Sidebar,
-        DiagramCarouselNormal
-    }
-}
+
+<script setup>
+  import VizSection from '@/components/VizSection.vue';
+  import DiagramCarouselNormal from '@/components/DiagramCarouselNormal.vue';
 </script>
+
 <style lang="scss" scoped>
-
-
 </style>

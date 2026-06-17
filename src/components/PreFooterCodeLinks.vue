@@ -1,40 +1,32 @@
 <template>
   <div id="code-repository-link-container">
     <a
-      :href="gitHubRepositoryLink"
+      :href=gitHubRepositoryLink
       target="_blank"
       aria-label="github link"
-    >Get the {{ projectTitle }} code
+    >See the code behind this visualization
       <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'github' }" />
     </a>
   </div>
 </template>
 
-<script>
-  export default {
-      name: 'PreFooterCodeLinks',
-      data() {
-          return {
-              gitHubRepositoryLink: process.env.VUE_APP_GITHUB_REPOSITORY_LINK,
-              projectTitle: process.env.VUE_APP_TITLE
-          }
-      }
-  }
-
+<script setup>
+  const gitHubRepositoryLink = import.meta.env.VITE_APP_GITHUB_REPOSITORY_LINK;
 </script>
 
 <style lang="scss">
+
   #code-repository-link-container {
     display: flex;
-    justify-content: center;
+    justify-content: right;
     width: 100%;
-    background-color: white;
+    background-color: #c2c4c5;
     margin: 0 auto;
-    padding-bottom: 0.4rem;
+    padding: 0.4rem;
     a {
-      color: #281d31;
+      color: #090211;
+      margin-left: 10px;
       font-family: 'Source Sans Pro',sans-serif;
-      font-size: 12px;
       text-decoration: none
     }
   }

@@ -1,75 +1,26 @@
-# From Snow to Flow Visualization
+# vue3-template
 
-![A screencapture of the Snow to Flow header, which shows an abstract collage of snowy mountains and a frozen lake under a series of snow and discharge line charts.](https://github.com/USGS-VIZLAB/snow-to-flow/blob/main/public/SnowToFlowCover.jpg)
+This project serves as a template for our site builds. It uses Vue 3 and Vite (currently version 5), and is configured to be built from GitLab using Jenkins.
 
-See the page live: https://labs.waterdata.usgs.gov/visualizations/snow-to-flow/index.html#/
+## To build the website locally
 
-A majority of the water in the Western United States comes from snowmelt. Winter snow accumulation, as well as spring snowmelt, affect streamflow and water availability for the rest of the year. Changes in the timing, magnitude, and duration of snowmelt may substantially alter downstream water availability. In fact, approximately 2 billion people are expected to experience diminished water supplies because of seasonal snowpack decline this century.
+Clone the repo. In the directory, run `npm install` to install the required modules. This repository requires node `v20` to run. If you are using a later version of `npm`, you may [try using `nvm` to manage multiple versions of npm](https://betterprogramming.pub/how-to-change-node-js-version-between-projects-using-nvm-3ad2416bda7e).
 
-This data visualization explores the fundamentals of USGS snow hydrology research. The graphics describe important dynamics that determine how snow turns into flow, and the charts show the connection between snowpack (measured as snow water equivalent) and streamflow (measured as discharge). An R-based data pipeline using the `targets` package is used to fetch and process data that are displayed in the website. These files are contained in the `data_processing_pipeline` subdirectory.
+Once the dependencies have been installed, run `npm run dev` to run locally from your browser.
 
-All charts, data, and diagrams are free and open to the public. Take screencaptures of what you need, or browse through some extra images at: https://github.com/USGS-VIZLAB/snow-to-flow/tree/main/public/public_images
+## Project name handling
 
-## The Code
+The environment variable `VITE_APP_TITLE` (set in `'.env'`) is a key variable. It should match the repo name (here `vue3-template`). The value for `name` in `'package.json'` should be set to match `VITE_APP_TITLE`. This `VITE_APP_TITLE` parameter also needs to be set up in the Jenkins configuration. Once set up, it will be used to set all of the build paths used in `'Jenkinsfile.build'` and `'Dockerfile'`, including the website extension (`labs.waterdata.usgs.gov/visualizations/{VITE_APP_TITLE}`). `VITE_APP_TITLE` is also used to set the base path for the vite build in `'vite.config.mjs'`. It is also used to configure the metadata in `'index.html'`. The environment variables `VITE_APP_LONG_TITLE` and `VITE_APP_DESCRIPTION` are also used to configure the metadata.
 
-The project is Open Source and uses the Vue JavaScript framework in conjunction with animated Scalable Vector Graphics (SVG) and raster graphics. The build process uses the Jenkins task runner.
+When preparing to migrate a repo built from this template to DGEC, the name of the GitHub repo (`vizlab-{project_name}`) in the DGEC required files `'code.json'` and `'CONTRIBUTING.md'` will need to be updated, so that the value of `VITE_APP_TITLE` is used to replace `{project_name}`, e.g., a `VITE_APP_TITLE` of `vue3-template` would mean a GitHub repo named `vizlab-vue3-template`
 
-## Project Setup
+## New Vue syntax for components
 
-First, clone the project to your local system and `cd` to the cloned directory.
+Vue syntax has changed with the shift to Vue 3. We can now use the `<script setup>` composition API syntax to build our components, which requires less boilerplate. See the [`<script setup>` guide](https://vuejs.org/api/sfc-script-setup.html). Any top-level defined variables or imported components are directly available for use in the `<template>`. Components now no longer need to be explicitly named, and can be imported directly by name using the filename, e.g. `import HeaderUSWDSBanner from "./components/HeaderUSWDSBanner.vue"`.
 
-To run the data processing pipeline:
-- Within the `data_processing_pipeline` subdirectory, open the `data_processing_pipeline.Rproj` in R
-- Install the `targets` package for R `install.packages('targets')` and load it `library(targets)`
-- In the console run `tar_make()` to start the pipeline
-- To update the data to a new date, modify `p1_today` on the `1_fetch/src/1_fetch.R` script
+## Example components
 
-To build the website locally:
-- Download the Node Package Manager(NPM) dependencies by running `npm install` in your terminal window
-- Start the project by running `npm run serve` -- the address of the project will show on completion usually `localhost:8080`
-- Start your browser, enter the address found above
+At the moment this repo contains two example components, both of which use `D3`.
 
-
-### Notes on Setup
-
-- You will need 'node.js' installed on your system
-- If you run into trouble starting the project, it is usually fixed by running `npm rebuild node-sass`
-
-To fix that, do the following:
-
-- Open the 'package.json' at the root of the project
-- Go to the 'scripts' name value pair
-- Go to the 'serve' name value pair
-- Delete `NODE_ENV=development` from that value
-- That value should now look like `"serve": "vue-cli-service serve --mode test_tier",`
-- Run `npm run serve` again, and the project should start
-  On Windows -
-  You might get this error when running `npm run serve`
-
-`'vue-cli-service' is not recognized as an internal or external command, operable program or batch file.`
-
-- To fix, run `npm install @vue/cli-service -g` to install the Vue CLI-Service globally.
-
-## Data processing
-
-The data processing steps behind the charts and maps on the Snow-to-flow page are documented in the `data_processing_pipeline` subdirectory of this repo. Briefly, daily snow water equivalent values were pulled from all USDA NRCS snow telemetry sites since 1981 in `1_fetch/src/fetch_SNOTEL.R`. This data was used to calculate peak SWE and SM50 at all sites with a minimum of 20 years of data in the historic record (1981-2011) in `2_process/src/prep_SNOTEL.R`. In addition, April 1st SWE was accessed through time for each site and used to find the percentile in WY2021. These metrics were used to draw mouseover SWE curves and trendlines, that were pre-defined in R `6_visualize/src/trend_coords.R`. The trendline charts are displayed with an svg map of the Western U.S., that was also first pre-processed in R `6_visualize/src/make_map.R` and brought to life using D3.js and Vue.js. The final data files used to draw these charts are labelled `SNOTEL_...csv` here:https://github.com/USGS-VIZLAB/snow-to-flow/tree/main/public/data
-
-The SWE and streamflow ridgelines are drawn using daily gridded SWE values at 4-km resolution were obtained for the 2011 and 2012 water years at each location from the National Snow & Ice Data Center. Streamflow was obtained from the USGS National Water Information System. The data generating these charts is available here: https://github.com/USGS-VIZLAB/snow-to-flow/tree/main/public/data (`mmd_df_2011.csv`, `mmd_df_2012.csv`, `swe_df_2011.csv`, `swe_df_2012.csv`).
-
-## Disclaimer
-
-This software is preliminary or provisional and is subject to revision. It is
-being provided to meet the need for timely best science. The software has not
-received final approval by the U.S. Geological Survey (USGS). No warranty,
-expressed or implied, is made by the USGS or the U.S. Government as to the
-functionality of the software and related material nor shall the fact of release
-constitute any such warranty. The software is provided on the condition that
-neither the USGS nor the U.S. Government shall be held liable for any damages
-resulting from the authorized or unauthorized use of the software.
-
-This software is provided "AS IS."
-
-
-[
-  ![CC0](http://i.creativecommons.org/p/zero/1.0/88x31.png)
-](http://creativecommons.org/publicdomain/zero/1.0/)
+- `RegionalViolins.vue` pulls in part of the regional section from [Drought timeline](https://labs.waterdata.usgs.gov/visualizations/drought-timeline/index.html#/). Here, a R-generated svg is loaded into the component, and `D3` is used to layer on interaction, showing and hiding map images and violin charts for different regions. The images were added using a `v-for` pattern and dynamic filepath urls. This component also has a mobile-specific layout.
+- `BarChartExample.vue` pulls in the water bottling facility bar chart and state dropdown from [Bottled water](https://labs.waterdata.usgs.gov/visualizations/bottled-water/index.html). It loads in a csv and uses it to build an updating `D3` bar chart.

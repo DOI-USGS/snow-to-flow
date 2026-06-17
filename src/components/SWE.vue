@@ -38,7 +38,7 @@
       </p>
     </template>
     <template #belowExplanation>
-      <Sidebar>
+      <ExpandingSidebar>
         <template #sidebarTitle>
           What is a "water year"?
         </template>
@@ -46,36 +46,15 @@
           <p>A water year is the 12-month period from October 1st to September 30th of the following year. Water Year 2021 (WY2021) began on October 1st, 2020 and will end on September 30th, 2021.</p>
           <p>Hydrologists use the concept of a water year because hydrologic activity in the fall and winter sets the stage for the streamflow in the following spring and summer.</p>
         </template>
-      </Sidebar>
+      </ExpandingSidebar>
     </template>
   </VizSection>
 </template>
 
-<script>
-import VizSection from '@/components/VizSection';
-import LineChart from '@/components/LineChart';
-import Sidebar from '@/components/Sidebar';
-import * as d3 from 'd3';
-
-export default {
-    name: "SWE",
-    components:{
-        VizSection,
-        LineChart,
-        Sidebar
-    },
-    data() {
-      return {
-         publicPath: process.env.BASE_URL,
-      }      
-    },
-    mounted() {
-      
-    },
-    methods: {
-      
-    }
-}
+<script setup>
+  import VizSection from '@/components/VizSection.vue';
+  import LineChart from '@/components/LineChart.vue';
+  import ExpandingSidebar from '@/components/ExpandingSidebar.vue';
 </script>
 
 <style lang="scss" scoped>

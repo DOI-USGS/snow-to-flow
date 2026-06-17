@@ -97,16 +97,8 @@
   </div>
 </template>
 
-<script>
+<script setup>
     import { Carousel, Slide } from 'vue-carousel';
-
-    export default {
-        name: 'DiagramCarouselNormal',
-        components:{
-            Carousel,
-            Slide
-        }
-    }
 </script>
 
 <style scoped lang="scss">

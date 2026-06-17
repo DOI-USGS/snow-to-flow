@@ -1,68 +1,28 @@
 <template>
-  <div id="header">
-    <header
-      id="navbar"
-      class="header-nav"
-      role="banner"
-    >
-      <div class="tmp-container">
-        <a
-          class="logo-header"
-          href="https://www.usgs.gov/mission-areas/water-resources/science/water-data-visualizations?qt-science_center_objects=0#qt-science_center_objects"
-          title="Home"
-          target="_blank"
-        >
-          <img
-            class="img"
-            src="@/assets/usgsHeaderAndFooter/images/usgsLogo_white-01.png"
-            alt="Home"
-          >
-        </a>
-      </div>
-    </header>
-  </div>
+  <header id="navbar" class="header-nav"  role="banner">
+    <div class="tmp-container">
+        <!-- primary navigation bar -->
+        <!-- search bar-->
+        <div class="header-search">
+        <a class="logo-header" href="https://www.usgs.gov/" target="_blank" title="USGS.gov homepage" aria-label="USGS.gov homepage">
+            <img class="img"  src="@/assets/usgsHeaderAndFooter/images/usgsLogo_white-01.png"  alt="USGS logo. Science for a changing world." target="_blank"/>
+          </a>
+          <form action="https://www.usgs.gov/science-explorer-results" method="GET" id="search-box">
+          <div class="fa-wrapper"><label for="se_search" class="only">Search</label>
+            <input id="se_search" type="search" name="es" placeholder="Search">
+            <button class="fa fa-search" type="submit">
+              <span class="only">Search</span>
+        </button></div>
+          </form>
+        </div>
+        <!-- end search bar-->
+    </div> 
+    <!-- end header-container-->
+  </header>
 </template>
 
-<script>
-    export default {
-        name: 'HeaderUSGS'
-    }
+<script setup>
 </script>
 
-<style scoped lang="scss">
-  header {
-    display: block;
-  }
-  .tmp-container {
-    margin-right: auto;
-    margin-left: auto;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  .tmp-container a {
-    text-decoration: none;
-    background: transparent;
-  }
-  .tmp-container:after {
-    clear: both;
-  }
-  @media only screen and (max-width:490px) {
-    hr {
-      margin-top: 60px;
-    }
-  }
-  /* header (only) nav */
-  .header-nav {
-    background: #292b30;
-  }
-  .logo-header img {
-    margin-top: 8px;
-    margin-bottom: 8px;
-    border: 0;
-    max-width: 100%;
-    height: auto;
-  }
-  .logo-header img {
-    height: 65px;
-  }
+<style scoped>
 </style>
