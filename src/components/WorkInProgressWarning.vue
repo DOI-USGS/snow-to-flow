@@ -5,7 +5,7 @@
       class="warning-open"
     >
       ATTENTION! - You are viewing a prototype application that is in active development.
-      Contents seen here are for place holding and development only. <strong>DO NOT USE</strong> information
+      Contents seen here are for placeholding and development only. <strong>DO NOT USE</strong> information
       contained in this application for ANY purpose.
     </p>
     <button @click="toggleWarning">
@@ -33,12 +33,12 @@
     p {
       max-width: 60em;
       text-align: center;
-      margin: 0 auto 5px 0;
+      margin: 0 auto 5px auto;
     }
     button {
       display: block;
       margin: 0 auto;
-      background: #003366;
+      background: var(--color-USGS-header-footer);
       color: #ffffff;
       border: none;
       outline: none;

@@ -137,7 +137,8 @@
   .chapterTitle{
     position: relative;
     z-index: 2;
-    font-family: $familyMain;
+    font-family: sans-serif; // fallback for old browsers
+    font-family: var(--title-font);
     font-size:clamp(3em, 20vw, 2em); // changed to not be bigger than the h1 at the top of the splash
     font-weight: 800;
     color: white;

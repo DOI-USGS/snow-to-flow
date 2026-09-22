@@ -2,6 +2,7 @@
   <div>
     <WindowSize v-if="typeOfEnv === '-test build-'" />
     <HeaderUSWDSBanner v-if="typeOfEnv !== '-test build-'" />
+    <SiteNotice />
     <HeaderUSGS />
     <WorkInProgressWarning v-if="typeOfEnv === '-beta build-'" />
     <RouterView />
@@ -15,6 +16,9 @@
   import { RouterView } from 'vue-router'
   import WindowSize from "./components/WindowSize.vue";
   import HeaderUSWDSBanner from "./components/HeaderUSWDSBanner.vue";
+  // Always mounted; renders a banner only when the shared status file has an
+  // active notice. See README for how to raise one.
+  import SiteNotice from "@/components/SiteNotice.vue";
   import HeaderUSGS from './components/HeaderUSGS.vue';
   import WorkInProgressWarning from "./components/WorkInProgressWarning.vue";
   import PreFooterCodeLinks from "./components/PreFooterCodeLinks.vue";

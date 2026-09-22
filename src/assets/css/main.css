@@ -1,0 +1,34 @@
+@import './base.css';
+@import './common.css'; /* USGS Viz ID Stylesheet */
+@import './custom.css'; /* USGS Viz ID Stylesheet */
+
+/* whole page except header fit within viewport - no scrolling */
+#app {
+  /* height: calc(100vh + 87px); 87 is the height of the USGS header */
+  margin: 0 auto;
+}
+
+/* css styles specific to page content exclusive of header and footer*/
+/* NOT component-specific */
+.title {
+  font-family: sans-serif; /* This is fallback font for old browsers */
+  font-family: var(--title-font);
+  color: var(--color-title-text);
+}
+/* set color of links throughout */
+a {
+  color: var(--color-link);
+}
+/* sets width of text column throughout components */
+.text-container {
+  max-width: 70rem;
+  margin: 0 auto 0 auto;
+}
+.text-container.mobile {
+  max-width: 90vw; /* 90% of view width on mobile */
+}
+/* sets max-width of figure elements throughout components */
+.figure-container {
+  max-width: 80vw;
+  margin: 0 auto 0 auto;
+}

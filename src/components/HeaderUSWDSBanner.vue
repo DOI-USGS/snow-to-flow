@@ -29,14 +29,14 @@
             type="button"
             class="usa-accordion__button usa-banner__button"
             aria-expanded="false"
-            aria-controls="gov-banner-default-default"
+            aria-controls="gov-banner-default"
           >
             <span class="usa-banner__button-text">Here’s how you know</span>
           </button>
         </div>
       </header>
       <div
-        id="gov-banner-default-default"
+        id="gov-banner-default"
         class="usa-banner__content usa-accordion__content"
       >
         <div class="grid-row grid-gap-lg">
@@ -68,24 +68,25 @@
               <p>
                 <strong>Secure .gov websites use HTTPS</strong><br>A
                 <strong>lock</strong> (
-                <span class="icon-lock"><svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="52"
-                  height="64"
-                  viewBox="0 0 52 64"
-                  class="usa-banner__lock-image"
-                  role="img"
-                  aria-labelledby="banner-lock-description-default"
-                  focusable="false"
-                >
-                  <title id="banner-lock-title-default">Lock</title>
-                  <desc id="banner-lock-description-default">Locked padlock icon</desc>
-                  <path
-                    fill="#000000"
-                    fill-rule="evenodd"
-                    d="M26 0c10.493 0 19 8.507 19 19v9h3a4 4 0 0 1 4 4v28a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V32a4 4 0 0 1 4-4h3v-9C7 8.507 15.507 0 26 0zm0 8c-5.979 0-10.843 4.77-10.996 10.712L15 19v9h22v-9c0-6.075-4.925-11-11-11z"
-                  />
-                </svg> </span>) or <strong>https://</strong> means you’ve safely connected to
+                <span class="icon-lock">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="52"
+                    height="64"
+                    viewBox="0 0 52 64"
+                    class="usa-banner__lock-image"
+                    role="img"
+                    aria-labelledby="banner-lock-description-default"
+                    focusable="false"
+                  >
+                    <title id="banner-lock-title-default">Lock</title>
+                    <desc id="banner-lock-description-default">Locked padlock icon</desc>
+                    <path
+                      fill="#000000"
+                      fill-rule="evenodd"
+                      d="M26 0c10.493 0 19 8.507 19 19v9h3a4 4 0 0 1 4 4v28a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V32a4 4 0 0 1 4-4h3v-9C7 8.507 15.507 0 26 0zm0 8c-5.979 0-10.843 4.77-10.996 10.712L15 19v9h22v-9c0-6.075-4.925-11-11-11z"
+                    />
+                  </svg> </span>) or <strong>https://</strong> means you’ve safely connected to
                 the .gov website. Share sensitive information only on official,
                 secure websites.
               </p>
@@ -107,6 +108,7 @@
   }
   .usa-banner p, text {
     color: #F0F0F0;
+    padding: 0;
   }
   .usa-banner__inner {
     margin-left: 1rem;
@@ -120,18 +122,91 @@
     width: 1.6rem;
     margin-right: 0.75rem;
   }
-  .usa-banner__header-text {
-    font-size: 1.4rem;
-  }
   .usa-banner__button {
-    font-size: 1.4rem;
     color: #78B4E8;
+  }
+  .usa-accordion__button[aria-expanded=false] {
+    background-size: 2.4rem;
+  }
+  @media (min-width: 600px) {
+    .usa-banner__header {
+      padding-top: 0.4rem;
+      padding-bottom: 0.4rem;
+    }
+    .usa-banner__header-text {
+      font-size: 1.4rem;
+    }
+    .usa-banner__button {
+      font-size: 1.4rem;
+    }
+    .usa-banner__button::after {
+      background-size:1.6rem 1.6rem;
+      height: 1.6rem;
+      width: 1.6rem;
+    }
+    .usa-banner__button[aria-expanded=true]::after {
+      height: 1.6rem;
+      width: 1.6rem;
+    }
+    @supports ((-webkit-mask: url("")) or (mask: url(""))) {
+      .usa-banner__button::after {
+        -webkit-mask-size: 1.6rem 1.6rem;
+        mask-size: 1.6rem 1.6rem;
+      }
+      .usa-banner__button[aria-expanded=true]::after {
+        -webkit-mask-size: 1.6rem 1.6rem;
+        mask-size: 1.6rem 1.6rem;
+      }
+    }
+  }
+  .usa-banner__header-action::after{
+    background-size:1.6rem 1.6rem;
+    height: 1.6rem;
+    width: 1.6rem;
+  }
+  @supports ((-webkit-mask: url("")) or (mask: url(""))){
+    .usa-banner__header-action::after{
+      -webkit-mask-size:1.6rem 1.6rem;
+              mask-size:1.6rem 1.6rem;
+      background-color:#78B4E8;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    .usa-banner__header {
+      padding-top: 0.8rem;
+      padding-bottom: 0.8rem;
+    }
+    .usa-banner__header-text {
+      font-size: 1.35rem;
+    }
+    .usa-banner__header-action {
+      font-size: 1.35rem;
+    }
+    .usa-banner__button[aria-expanded=true]::before {
+      background-color: #e6e6e6;
+      height: 4.8rem;
+      width: 4.8rem;
+    }
+    .usa-banner__button[aria-expanded=true]::after {
+      height: 4.8rem;
+      width: 4.8rem;
+    }
+    @supports ((-webkit-mask: url("")) or (mask: url(""))) {
+      .usa-banner__button::after {
+        -webkit-mask-size: 2.4rem 2.4rem;
+        mask-size: 2.4rem 2.4rem;
+      }
+      .usa-banner__button[aria-expanded=true]::after {
+        -webkit-mask-size: 2.4rem 2.4rem;
+        mask-size: 2.4rem 2.4em;
+      }
+    }
   }
   .usa-banner__button::after {
     background-color: #78B4E8;
   }
   .usa-banner__button[aria-expanded=true]::before {
-    background-color: #00264C;
+    background-color: transparent; /* #00264C;*/
   }
   .usa-banner__button[aria-expanded=true]::after {
     background-color: #78B4E8;
@@ -155,6 +230,9 @@
   .usa-banner__content {
     font-size: 1.6rem;
     max-width: 100rem;
+  }
+  .usa-banner__content p {
+    font-size: 1.6rem;
   }
   .usa-banner__icon {
     width: 4rem;

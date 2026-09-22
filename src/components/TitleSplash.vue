@@ -262,8 +262,10 @@
       margin-bottom: 20px;
       padding: 0 15px;
       h1{
+          font-family: sans-serif; /* fallback for old browsers */
+          font-family: var(--title-font);
           font-size:clamp(4em, 20vw, 2em);
-          font-weight: 800;
+          font-weight: 700;
       }
       h2 {
         font-family: $familySerif;
