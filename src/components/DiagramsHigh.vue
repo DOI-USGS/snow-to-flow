@@ -12,7 +12,7 @@
     </template>
     <!-- FIGURES -->
     <template #figures>
-      <DiagramCarouselHigh />
+      <CarouselGallery :items="diagrams.high" />
     </template>
     <!-- FIGURE CAPTION -->
     <template #figureCaption>
@@ -20,26 +20,14 @@
         Click to enlarge.
       </p>
     </template>
-    <!-- EXPLANATION -->
-    <template #belowExplanation>
-      <p />
-    </template>
   </VizSection>
 </template>
-<script>
-import VizSection from '@/components/VizSection';
-import DiagramCarouselHigh from '@/components/DiagramCarouselHigh';
-// import Fig from '@/components/Figure';
 
-export default {
-    name: "DiagramsHigh",
-    components:{
-        VizSection,
-        DiagramCarouselHigh
-    }
-}
+<script setup>
+  import VizSection from '@/components/VizSection.vue';
+  import CarouselGallery from '@/components/CarouselGallery.vue';
+  import diagrams from '@/assets/text/diagrams.js';
 </script>
+
 <style lang="scss" scoped>
-
-
 </style>

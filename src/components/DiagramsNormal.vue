@@ -10,7 +10,7 @@
     </template>
     <!-- FIGURES -->
     <template #figures>
-      <DiagramCarouselNormal />
+      <CarouselGallery :items="diagrams.typical" />
     </template>
     <!-- FIGURE CAPTION -->
     <template #figureCaption>
@@ -23,7 +23,8 @@
 
 <script setup>
   import VizSection from '@/components/VizSection.vue';
-  import DiagramCarouselNormal from '@/components/DiagramCarouselNormal.vue';
+  import CarouselGallery from '@/components/CarouselGallery.vue';
+  import diagrams from '@/assets/text/diagrams.js';
 </script>
 
 <style lang="scss" scoped>

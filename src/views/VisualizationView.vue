@@ -16,10 +16,9 @@
       </template>
     </SectionTitle>
     <KeyDynamics />
-    <!--DiagramsNormal 
-      v-if="checkIfSplashIsRendered"
-      id="diagrams-normal"
-    /-->
+    <DiagramsNormal v-if="checkIfSplashIsRendered" />
+    <DiagramsHigh v-if="checkIfSplashIsRendered" />
+    <DiagramsLow v-if="checkIfSplashIsRendered" />
     <SectionTitle
       v-if="checkIfSplashIsRendered"
       id="chapter1"
@@ -31,6 +30,7 @@
         Measuring Snowpack
       </template>
     </SectionTitle>
+    <MeasuringSWE v-if="checkIfSplashIsRendered" />
     <SWE v-if="checkIfSplashIsRendered" />
     <SectionTitle
       v-if="checkIfSplashIsRendered"
@@ -59,6 +59,7 @@
       <ReferencesSection 
         v-if="checkIfSplashIsRendered"
       />
+      <Methods v-if="checkIfSplashIsRendered" />
     </div>
   </section>
 </template>
@@ -74,9 +75,13 @@
   import IntroSection from '@/components/IntroSection.vue';
   import SectionTitle from '@/components/SectionTitle.vue';
   import KeyDynamics from '@/components/KeyDynamics.vue';
-  // import DiagramsNormal from '@/components/DiagramsNormal.vue';
+  import DiagramsNormal from '@/components/DiagramsNormal.vue';
+  import DiagramsHigh from '@/components/DiagramsHigh.vue';
+  import DiagramsLow from '@/components/DiagramsLow.vue';
+  import MeasuringSWE from '@/components/MeasuringSWE.vue';
   import SWE from '@/components/SWE.vue';
   import ReferencesSection from '@/components/ReferencesSection.vue';
+  import Methods from '@/components/Methods.vue';
 
   // ADD CHECK IF SPLASH IS RENDERED
   const checkIfSplashIsRendered = computed(() => {

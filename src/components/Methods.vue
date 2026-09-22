@@ -28,29 +28,27 @@
   </section>
 </template>
 
-<script>
-    import referencesText from "@/assets/text/methodsText";
-    
-    export default {
-        name: 'Methods',
-        data() {
-            return {
-                text: referencesText.referencesContent,
-                titleImage:require('@/assets/titleImages/image2.png'), // insert link to parallax image used for this section
-            }
-        },
-        mounted(){
-          // This is a fix for the weird USWDS glitch that causes the Methods section accordion menus to be open on page load
-            const targetAccordionDivs = document.querySelectorAll('.target');
-            targetAccordionDivs.forEach((div) => {
-                div.setAttribute('hidden', '""');
-            });
-        }
-    }
+<script setup>
+  import { onMounted } from 'vue';
+  import referencesText from '@/assets/text/methodsText.js';
+
+  const text = referencesText.referencesContent;
+
+  onMounted(() => {
+    // This is a fix for the weird USWDS glitch that causes the Methods section
+    // accordion menus to be open on page load
+    const targetAccordionDivs = document.querySelectorAll('.target');
+    targetAccordionDivs.forEach((div) => {
+      div.setAttribute('hidden', '""');
+    });
+  });
 </script>
-/*Scope USWDS styles*/
-<style scoped src="../../node_modules/uswds/dist/css/uswds.min.css"></style>
+
+<!-- Scope USWDS styles -->
+<style scoped src="../../node_modules/@uswds/uswds/dist/css/uswds.min.css"></style>
 <style scoped lang="scss">
+@use 'sass:map';
+@use 'sass:string';
 
 /*https://css-tricks.com/creating-a-maintainable-icon-system-with-sass/ icon system code */
 $icons:(
@@ -61,14 +59,14 @@ $data-svg-prefix: 'data:image/svg+xml;utf-8,';
 $brightBlue: rgb(9,98,178);
 
 @function str-replace($string, $search, $replace: ""){
-  $index: str-index($string, $search);
+  $index: string.index($string, $search);
   @if $index{
-    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search , $replace );
+    @return string.slice($string, 1, $index - 1) + $replace + str-replace(string.slice($string, $index + string.length($search)), $search , $replace );
   }
   @return $string;
 }
 @function get-icon($icon, $color: #000){
-  $icon: map-get($icons, $icon);
+  $icon: map.get($icons, $icon);
   $placeholder: "%%COLOR%%";
   $data-uri: str-replace(url($data-svg-prefix + $icon), $placeholder, $color);
   @return str-replace($data-uri, "#", "%23");

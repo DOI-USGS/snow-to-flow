@@ -11,8 +11,10 @@
     <template #figures>
       <div class="group single maxWidth">
         <figure id="swe-chart-container">
-          <!-- <img src="@/assets/diagrams/SWE-sketch.png"> -->
-          <ImgCarousel />
+          <CarouselGallery
+            :items="methodsPhotos"
+            :per-page="4"
+          />
         </figure>
       </div>
     </template>
@@ -43,30 +45,10 @@
   </VizSection>
 </template>
 
-<script>
-import VizSection from '@/components/VizSection';
-import ImgCarousel from '@/components/ImgCarousel';
-import * as d3 from 'd3';
-
-export default {
-    name: "MeasuringSWE",
-    components:{
-        VizSection,
-        ImgCarousel
-    },
-    data() {
-      return {
-         publicPath: process.env.BASE_URL,
-        //  message: "hey"
-      }      
-    },
-    mounted() {
-      
-    },
-    methods: {
-      
-    }
-}
+<script setup>
+  import VizSection from '@/components/VizSection.vue';
+  import CarouselGallery from '@/components/CarouselGallery.vue';
+  import methodsPhotos from '@/assets/text/methodsPhotos.js';
 </script>
 
 <style lang="scss" scoped>
