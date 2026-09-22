@@ -2,16 +2,15 @@
 <html lang="en">
   <head>
     <!-- VIZLAB GTM CODE -->
-    <!-- Google Tag Manager -->
-    <!-- Place GTM script here -->
-    <!-- End Google Tag Manager -->
-    <!-- USGS VIZ ID GTM CODE -->
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-TKQR8KP');</script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V443MQ3V1S"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-V443MQ3V1S');
+    </script>
     <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <link rel="icon" href="/favicon.ico">
@@ -28,53 +27,66 @@
     <meta name="description" content="%VITE_APP_DESCRIPTION%">
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://labs.waterdata.usgs.gov/visualizations/%VITE_APP_TITLE%">
+    <meta property="og:url" content="https://water.usgs.gov/vizlab/%VITE_APP_TITLE%">
     <meta property="og:title" content="%VITE_APP_LONG_TITLE%">
     <meta property="og:description" content="%VITE_APP_DESCRIPTION%">
-    <meta property="og:image" content="https://labs.waterdata.usgs.gov/visualizations/images/%VITE_APP_TITLE%_metacard.webp">
+    <meta property="og:image" content="%VITE_APP_S3_PROD_URL%thumbnails/%VITE_APP_TITLE%_metacard.png">
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://labs.waterdata.usgs.gov/visualizations/%VITE_APP_TITLE%">
+    <meta property="twitter:url" content="https://water.usgs.gov/vizlab/%VITE_APP_TITLE%">
     <meta property="twitter:title" content="%VITE_APP_LONG_TITLE%">
     <meta property="twitter:description" content="%VITE_APP_DESCRIPTION%">
-    <meta property="twitter:image" content="https://labs.waterdata.usgs.gov/visualizations/images/%VITE_APP_TITLE%_metacard.webp">
+    <meta property="twitter:image" content="%VITE_APP_S3_PROD_URL%thumbnails/%VITE_APP_TITLE%_metacard.png">
     <script type='application/ld+json'>
       { "@context": "http://www.schema.org",
-        "@type": "WebSite", "name": %VITE_APP_LONG_TITLE%,
-        "url": "https://labs.waterdata.usgs.gov/visualizations/%VITE_APP_TITLE%",
-        "about": "",
-        "datePublished": "November 30, 2023",
+        "@type": "WebSite", "name": "%VITE_APP_LONG_TITLE%",
+        "url": "https://water.usgs.gov/vizlab/%VITE_APP_TITLE%",
+        "about": "%VITE_APP_DESCRIPTION%",
+        "datePublished": "2021-04-27",
+        "dateModified": "2026-09-22",
         "contributor": [
+          { "@type": "Person",
+            "name": "Cee Nell",
+            "email": "cnell@usgs.gov",
+            "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
+          },
+          { "@type": "Person",
+            "name": "Martin Wernimont",
+            "email": "mwernimont@usgs.gov",
+            "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
+          },
           { "@type": "Person",
             "name": "Hayley Corson-Dosch",
             "email": "hcorson-dosch@usgs.gov",
             "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
           },
           { "@type": "Person",
-            "name": "Cee Nell",
-            "email": "cnell@usgs.gov",
+            "name": "John Hammond",
+            "email": "jhammond@usgs.gov",
+            "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
+          },
+          { "@type": "Person",
+            "name": "Lindsay Platt",
+            "email": "lplatt@usgs.gov",
+            "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
+          },
+          { "@type": "Person",
+            "name": "Jessica Driscoll",
+            "email": "jdriscoll@usgs.gov",
             "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
           }
-          ]
-      },
-      "audience": { "@context": "http://schema.org", "@type": "Audience", "audienceType": "General public"},
-      "publisher": { "@context": "http://schema.org", "@type": "Organization", "legalName": "U.S. Geological Survey" },
-      "keywords": { "water, data viz, data visualization" }
+        ],
+        "audience": { "@type": "Audience", "audienceType": "General public" },
+        "publisher": { "@type": "Organization", "legalName": "U.S. Geological Survey" },
+        "keywords": "water, data viz, data visualization, snow, snowpack, snow water equivalent, SWE, snowmelt, streamflow, SNOTEL, western United States"
+      }
     </script>
+    <!-- We participate in the US government's analytics program. See the data at analytics.usa.gov. -->
+    <script async type="text/javascript" src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=USGS" id="_fed_an_ua_tag"></script>
   </head>
   <body>
-    <!-- VIZLAB GTM CODE -->
-    <!-- Google Tag Manager (noscript) -->
-    <!-- Place GTM noscript here -->
-    <!-- End Google Tag Manager (noscript) -->
-    <!-- USGS VIZ ID GTM CODE -->
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe sandbox src="https://www.googletagmanager.com/ns.html?id=GTM-TKQR8KP"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
-    <!-- End Google Tag Manager (noscript) -->
     <!-- USDWS js -->
     <script type="module" src="/node_modules/@uswds/uswds/dist/js/uswds.js"></script>
   </body>
