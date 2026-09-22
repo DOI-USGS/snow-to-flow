@@ -14,11 +14,20 @@
             ><span v-html="reference.title" /></a>
             <span v-if="reference.data_release">: U.S. Geological Survey data release</span>.
             <span v-if="reference.journal">
-              <span v-html="reference.journal_name" class="journal-name"></span>
+              <span
+                class="journal-name"
+                v-html="reference.journal_name"
+              />
               <span v-if="reference.journal_issue">, {{ reference.journal_issue }}</span>.
             </span>
-            <span v-if="reference.doi" v-html="reference.doi"></span>
-            <span v-else v-html="reference.link"></span>
+            <span
+              v-if="reference.doi"
+              v-html="reference.doi"
+            />
+            <span
+              v-else
+              v-html="reference.link"
+            />
           </p>
         </div>
       </div>

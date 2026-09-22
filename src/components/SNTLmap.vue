@@ -1522,7 +1522,7 @@
     </template>
     <!-- EXPLANATION -->
     <template #belowExplanation>
-      <!--       <Sidebar>
+      <!--       <ExpandingSidebar>
         <template v-slot:sidebarTitle>
           What are the small charts?
         </template>
@@ -1530,23 +1530,23 @@
           <p>The left chart shows SWE in the current water year (2021) to date.</p>
           <p>The panels on the right show peak SWE and the melt date (SM50) for all years with data at a given site.</p>
         </template>
-      </Sidebar> -->
-      <Sidebar>
+      </ExpandingSidebar> -->
+      <ExpandingSidebar>
         <template #sidebarTitle>
           What is a percentile?
         </template>
         <template #sidebarMessage>
           <p>Percentiles indicate how snow today (in 2021) compares to snow in past years where data are available. The SWE percentile can be interpreted as the percent of years when the site had lower SWE than in 2021. For example, if SWE at a particular SNOTEL site is in the 90th percentile, that means the current year's SWE is greater than 90% of the years on record for this date.</p>
         </template>
-      </Sidebar>
-      <Sidebar>
+      </ExpandingSidebar>
+      <ExpandingSidebar>
         <template #sidebarTitle>
           When is peak SWE in 2021?
         </template>
         <template #sidebarMessage>
           <p>Peak SWE has not happened yet for many places in the western U.S. This map shows <span class="emph">April 1st, 2021</span> which has traditionally been used as an indicator of peak SWE for the season.</p>
         </template>
-      </Sidebar>
+      </ExpandingSidebar>
       <p>
         The USGS is undertaking new efforts to advance snow science through both measuring and modeling snowpack and linking these results to streamflow. As a part of the <a
           href="https://www.usgs.gov/mission-areas/water-resources/science/usgs-next-generation-water-observing-system-ngwos?qt-science_center_objects=0#qt-science_center_objects"
@@ -1562,291 +1562,346 @@
     </template>
   </VizSection>
 </template>
-<script>
-import VizSection from '@/components/VizSection';
-import * as d3Base from "d3";
-import { isMobile } from 'mobile-device-detect';
-import Sidebar from '@/components/Sidebar';
+<script setup>
+  import { onMounted } from 'vue';
+  import * as d3 from 'd3';
+  import { isMobile } from 'mobile-device-detect';
+  import VizSection from '@/components/VizSection.vue';
+  import ExpandingSidebar from '@/components/ExpandingSidebar.vue';
 
-export default {
-    name: "SNTLmap",
-    components:{
-        VizSection,
-        Sidebar
-    },
-    data() {
-            return {
-              publicPath: process.env.BASE_URL,
-              d3: null,
-              mobileView: isMobile,
-              tickDates: ["Oct '20","Jan '21", "Apr '21", "Jul '21"],
-              meltDates: ["Oct 1","Jan 1", "Apr 1", "Jul 1", "Oct 1"],
-              miniSWE: ["0"," ", " ", " ", "130"],
+  const publicPath = import.meta.env.BASE_URL;
+  const mobileView = isMobile;
 
+  const tickDates = ["Oct '20", "Jan '21", "Apr '21", "Jul '21"];
+  const meltDates = ["Oct 1", "Jan 1", "Apr 1", "Jul 1", "Oct 1"];
+  const miniSWE = ["0", " ", " ", " ", "130"];
 
-              sntl_variable: "ptile_swe", // map site colors
+  const sntl_variable = "ptile_swe"; // map site colors
 
-              sntl_data: [], // sntl data
-              ak_data: [],
+  // sntl data
+  let sntl_data = [];
+  let ak_data = [];
 
-              // set up chart elements
-              sntl_map: null, //  the svg
-              ak_map: null,
-              sntl_sites: null, // g for sites in svg
-              ak_sites: null,
-              corr_plot: null,
+  // chart elements
+  let sntl_map = null;   // the svg
+  let ak_map = null;
+  let legend_map = null;
+  let peak = null;
+  let melt = null;
+  let wy21 = null;
+  let sntl_sites = null; // g for sites in svg
+  let ak_sites = null;
+  let peak_mini = null;
+  let corr_plot = null;
 
-            // variables of interest for map - could toggle
-              site_vars: {
-                swe: 'swe',
-                ptile: 'ptile_swe'
-                },
+  // variables of interest for map - could toggle
+  const site_vars = {
+    swe: 'swe',
+    ptile: 'ptile_swe'
+  };
 
-              // chart opts
-              xScale: null,
-              yScale: null,
-              site_radius: 2.5,
-              colorValueInches: null,
-              xwy: null,
-            }
-        },
-    mounted() {
-          const self = this;
-          this.d3 = Object.assign(d3Base);
+  // chart opts
+  let xScale = null;
+  let yScale = null;
+  const site_radius = 2.5;
+  let colorValueInches = null;
+  let xwy = null;
+  // Colour scale shared across the map, legend, and mini plots. This was an
+  // implicit global in the Options API version; it is scoped to the component
+  // now.
+  let threshold = null;
 
-          // sntl site map
-          this.sntl_map = this.d3.select("svg#usa-sntl");
-          this.ak_map = this.d3.select("svg#ak-sntl");
-          this.legend_map = this.d3.select("svg#legend-sntl");
-          this.peak = this.d3.select("svg#peak-svg");
-          this.melt = this.d3.select("svg#melt-svg");
-          this.wy21 = this.d3.select("svg#wy21-svg");
+  onMounted(() => {
+    // sntl site map
+    sntl_map = d3.select("svg#usa-sntl");
+    ak_map = d3.select("svg#ak-sntl");
+    legend_map = d3.select("svg#legend-sntl");
+    peak = d3.select("svg#peak-svg");
+    melt = d3.select("svg#melt-svg");
+    wy21 = d3.select("svg#wy21-svg");
 
-          // read in data and bind with svg sites
-          this.loadData();
-          this.site_vars.setColor = this.sntl_variable; // set chart color to selected color
+    // read in data and bind with svg sites
+    loadData();
+    site_vars.setColor = sntl_variable; // set chart color to selected color
+  });
 
-        },
-    methods: {
-      isMobile() {
-                if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                    return true
-                } else {
-                    return false
-                }
-            },
-      loadData() {
-        const self = this;
-        // read in data 
-        let promises = [
-        self.d3.csv(self.publicPath + "data/SNOTEL_conus_d_test.csv", this.d3.autoType),
-        self.d3.csv(self.publicPath + "data/SNOTEL_ak_d_test.csv", this.d3.autoType)]; 
-        Promise.all(promises).then(self.callback); 
-      },
-      callback(data) {
-        const self  = this;
-        // org data
-        this.sntl_data = data[0];
-        this.ak_data = data[1];
+  function loadData() {
+    // read in data 
+    let promises = [
+    d3.csv(publicPath + "data/SNOTEL_conus_d_test.csv", d3.autoType),
+    d3.csv(publicPath + "data/SNOTEL_ak_d_test.csv", d3.autoType)]; 
+    Promise.all(promises).then(callback); 
+  }
+  function callback(data) {
+    // org data
+    sntl_data = data[0];
+    ak_data = data[1];
 
-        // site groupings for svgs 
-        this.sntl_sites = this.sntl_map.append("g").classed("sites", true)
-        this.ak_sites = this.ak_map.append("g").classed("sites", true)
-        this.peak_mini = this.peak.append("g").classed("sites", true)
+    // site groupings for svgs 
+    sntl_sites = sntl_map.append("g").classed("sites", true)
+    ak_sites = ak_map.append("g").classed("sites", true)
+    peak_mini = peak.append("g").classed("sites", true)
 
-        this.site_vars.setColor = this.sntl_variable; // set chart color to selected color
-        
-        // draw sites on map
-        this.addSites(700, 840, this.sntl_sites, this.sntl_data); // add westen sites
-        this.addSites(606.9, 476.2, this.ak_sites, this.ak_data); // add ak sites
-        
-        self.setColor(this.sntl_data, this.sntl_sites); // set initial site color
-        self.setColor(this.ak_data, this.ak_sites); // set initial site color
+    site_vars.setColor = sntl_variable; // set chart color to selected color
+    
+    // draw sites on map
+    addSites(700, 840, sntl_sites, sntl_data); // add westen sites
+    addSites(606.9, 476.2, ak_sites, ak_data); // add ak sites
+    
+    setColor(sntl_data, sntl_sites); // set initial site color
+    setColor(ak_data, ak_sites); // set initial site color
 
-        this.makeTrend(); // makes mini plots
+    makeTrend(); // makes mini plots
 
-        // nudge ak sites for repositioning 
-        this.ak_sites.attr("transform", "translate(0,100)")
-      },
-      makeTrend(){
-        // set up mini plots
-        const self = this;
+    // nudge ak sites for repositioning 
+    ak_sites.attr("transform", "translate(0,100)")
+  }
+  function makeTrend() {
+    // set up mini plots
+    // axis scales
+    setColor();
 
-        // axis scales
-        self.setColor();
+    var yCorr = d3.scaleLinear()
+      .range([110, 10])
+      .domain([0, 130]);
 
-        var yCorr = this.d3.scaleLinear()
-          .range([110, 10])
-          .domain([0, 130]);
+    var xCorr = d3.scaleLinear()
+      .range([0,  200])
+      .domain([1981, 2021]);
 
-        var xCorr = this.d3.scaleLinear()
-          .range([0,  200])
-          .domain([1981, 2021]);
+    d3.select("svg#peak-svg")
+      .append("g")
+      .classed("corr-legend", true)
+      .call(d3.axisBottom(xCorr)
+        .ticks(0).tickSize(0)
+        //.tickValues(["1981", "1991", "2001", "2011", "2021"])
+        //.tickFormat(d3.format("d"))
+        )
+      .attr("transform", "translate(" + (0) + "," + 110 + ")");
 
-        this.d3.select("svg#peak-svg")
-          .append("g")
-          .classed("corr-legend", true)
-          .call(this.d3.axisBottom(xCorr)
-            .ticks(0).tickSize(0)
-            //.tickValues(["1981", "1991", "2001", "2011", "2021"])
-            //.tickFormat(this.d3.format("d"))
-            )
-          .attr("transform", "translate(" + (0) + "," + 110 + ")");
-
-        this.d3.select("svg#peak-svg")
-          .append("g")
-          .classed("corr-legend", true)
-          .call(this.d3.axisLeft(yCorr)
-            .ticks(3)
-            .tickValues(["10","40","70","100",  "130"]).tickSize(2))
-          .attr("transform", "translate(" + (0) + "," + 0 + ")");
+    d3.select("svg#peak-svg")
+      .append("g")
+      .classed("corr-legend", true)
+      .call(d3.axisLeft(yCorr)
+        .ticks(3)
+        .tickValues(["10","40","70","100",  "130"]).tickSize(2))
+      .attr("transform", "translate(" + (0) + "," + 0 + ")");
 
 
-        this.d3.select("svg#peak-svg").append("text")
-          .classed("ele", true)
-            .attr("fill", "black")
-            .attr("font-size", ".9em")
-            .attr("text-anchor", "start")
-            .attr("font-style", "italic")
-            .attr("y", 120)
-            .attr("x", 35)
-            .attr("transform", "rotate(-90) translate(-110, -150)")
-            .text("inches");
+    d3.select("svg#peak-svg").append("text")
+      .classed("ele", true)
+        .attr("fill", "black")
+        .attr("font-size", ".9em")
+        .attr("text-anchor", "start")
+        .attr("font-style", "italic")
+        .attr("y", 120)
+        .attr("x", 35)
+        .attr("transform", "rotate(-90) translate(-110, -150)")
+        .text("inches");
 
-              this.d3.select("svg#peak-svg").append("text")
-          .classed("ele", true)
-            .attr("fill", "black")
-            .attr("font-size", "1em")
-            .attr("font-weight", "bold")
-            .attr("text-anchor", "start")
-            .attr("y", 0)
-            .attr("x", -25)
-            .text("Peak SWE");
+          d3.select("svg#peak-svg").append("text")
+      .classed("ele", true)
+        .attr("fill", "black")
+        .attr("font-size", "1em")
+        .attr("font-weight", "bold")
+        .attr("text-anchor", "start")
+        .attr("y", 0)
+        .attr("x", -25)
+        .text("Peak SWE");
 
-      // melt mini
-       var ymelt = this.d3.scaleLinear()
-          .range([110, 10])
-          .domain([0, 350]);
+  // melt mini
+   var ymelt = d3.scaleLinear()
+      .range([110, 10])
+      .domain([0, 350]);
 
-        var yr_list = ["1981", "1991", "2001", "2011", "2021"];
-        this.d3.select("svg#melt-svg")
-          .append("g")
-          .classed("melt-legend", true)
-          .call(this.d3.axisBottom(xCorr)
-            .ticks(5)
-            .tickValues(["1982", "1991", "2001", "2011", "2021"]).tickSize(0)
-            .tickFormat(function(d,i) { return yr_list[i] }))
-          .attr("transform", "translate(" + (0) + "," + 110 + ")");
+    var yr_list = ["1981", "1991", "2001", "2011", "2021"];
+    d3.select("svg#melt-svg")
+      .append("g")
+      .classed("melt-legend", true)
+      .call(d3.axisBottom(xCorr)
+        .ticks(5)
+        .tickValues(["1982", "1991", "2001", "2011", "2021"]).tickSize(0)
+        .tickFormat(function(d,i) { return yr_list[i] }))
+      .attr("transform", "translate(" + (0) + "," + 110 + ")");
 
-          this.d3.select("svg#peak-svg")
-          .append("g")
-          .classed("peak-legend", true)
-          .call(this.d3.axisBottom(xCorr)
-            .ticks(5)
-            .tickValues(["1982", "1991", "2001", "2011", "2021"]).tickSize(0)
-            .tickFormat(function(d,i) { return yr_list[i] }))
-          .attr("transform", "translate(" + (0) + "," + 110 + ")")
-          .attr("z-index",  1);
+      d3.select("svg#peak-svg")
+      .append("g")
+      .classed("peak-legend", true)
+      .call(d3.axisBottom(xCorr)
+        .ticks(5)
+        .tickValues(["1982", "1991", "2001", "2011", "2021"]).tickSize(0)
+        .tickFormat(function(d,i) { return yr_list[i] }))
+      .attr("transform", "translate(" + (0) + "," + 110 + ")")
+      .attr("z-index",  1);
 
-        this.d3.select("svg#melt-svg")
-          .append("g")
-          .classed("melt-legend", true)
-          .call(this.d3.axisLeft(ymelt)
-          .tickValues([10, 93, 183, 273])
-              .tickFormat(function(d,i) { return self.meltDates[i] })
-              .tickSizeOuter(2).tickSize(2))
-          .attr("transform", "translate(" + (0) + "," + 0 + ")");
+    d3.select("svg#melt-svg")
+      .append("g")
+      .classed("melt-legend", true)
+      .call(d3.axisLeft(ymelt)
+      .tickValues([10, 93, 183, 273])
+          .tickFormat(function(d,i) { return meltDates[i] })
+          .tickSizeOuter(2).tickSize(2))
+      .attr("transform", "translate(" + (0) + "," + 0 + ")");
 
-      // position axis labels
-        this.d3.select("svg#melt-svg").append("text")
-          .attr("fill", "black")
-          .attr("font-size", "1em")
-          .attr("text-anchor", "start")
-          .attr("font-weight", "bold")
-          .attr("y", 140)
-          .attr("x", 75)
-          .text("Year");
+  // position axis labels
+    d3.select("svg#melt-svg").append("text")
+      .attr("fill", "black")
+      .attr("font-size", "1em")
+      .attr("text-anchor", "start")
+      .attr("font-weight", "bold")
+      .attr("y", 140)
+      .attr("x", 75)
+      .text("Year");
 
-  /*       this.d3.select("svg#melt-svg").append("text")
-          .classed("ele", true)
-            .attr("fill", "black")
-            .attr("font-size", ".9em")
-            .attr("text-anchor", "start")
-            .attr("font-style", "italic")
-            .attr("y", 120)
-            .attr("x", 15)
-            .attr("transform", "rotate(-90) translate(-110, -150)")
-            .text("date");
+  /*       d3.select("svg#melt-svg").append("text")
+      .classed("ele", true)
+        .attr("fill", "black")
+        .attr("font-size", ".9em")
+        .attr("text-anchor", "start")
+        .attr("font-style", "italic")
+        .attr("y", 120)
+        .attr("x", 15)
+        .attr("transform", "rotate(-90) translate(-110, -150)")
+        .text("date");
  */
-            this.d3.select("svg#melt-svg").append("text")
-          .classed("ele", true)
-            .attr("fill", "black")
-            .attr("font-size", "1em")
-            .attr("font-weight", "bold")
-            .attr("text-anchor", "start")
-            .attr("y", 0)
-            .attr("x", -25)
-            .text("Melt date (SM50)");
+        d3.select("svg#melt-svg").append("text")
+      .classed("ele", true)
+        .attr("fill", "black")
+        .attr("font-size", "1em")
+        .attr("font-weight", "bold")
+        .attr("text-anchor", "start")
+        .attr("y", 0)
+        .attr("x", -25)
+        .text("Melt date (SM50)");
 
-        // wy mini
-       self.ywy = this.d3.scaleLinear()
-          .range([270, 10])
-          .domain([1, 130]);
+    // wy mini
+   ywy = d3.scaleLinear()
+      .range([270, 10])
+      .domain([1, 130]);
 
-        self.xwy = this.d3.scaleLinear()
-          .range([0,  200])
-          .domain([1, 204]); // this is the date that the generated paths are las tupdated to
+    xwy = d3.scaleLinear()
+      .range([0,  200])
+      .domain([1, 204]); // this is the date that the generated paths are las tupdated to
 
-        this.d3.select("svg#wy21-svg")
-          .append("g")
-          .classed("melt-legend", true)
-          .call(this.d3.axisBottom(self.xwy)
-            .tickValues([1, 93, 183, 273])
-              .tickFormat(function(d,i) { return self.tickDates[i] })
-              .tickSizeOuter(0).tickSize(0))
-          .attr("transform", "translate(" + (0) + "," + 270 + ")");
+    d3.select("svg#wy21-svg")
+      .append("g")
+      .classed("melt-legend", true)
+      .call(d3.axisBottom(xwy)
+        .tickValues([1, 93, 183, 273])
+          .tickFormat(function(d,i) { return tickDates[i] })
+          .tickSizeOuter(0).tickSize(0))
+      .attr("transform", "translate(" + (0) + "," + 270 + ")");
 
-        this.d3.select("svg#wy21-svg")
-          .append("g")
-          .classed("melt-legend", true)
-          .call(this.d3.axisLeft(self.ywy)
-            .tickValues([10, 40, 70, 100, 130])
-              .tickSizeOuter(0).tickSize(0))
-          .attr("transform", "translate(" + (0) + "," + 0 + ")");
+    d3.select("svg#wy21-svg")
+      .append("g")
+      .classed("melt-legend", true)
+      .call(d3.axisLeft(ywy)
+        .tickValues([10, 40, 70, 100, 130])
+          .tickSizeOuter(0).tickSize(0))
+      .attr("transform", "translate(" + (0) + "," + 0 + ")");
 
-      // position axis labels
-        this.d3.select("svg#wy21-svg").append("text")
-          .attr("fill", "black")
-          .attr("font-size", "1em")
-          .attr("text-anchor", "center")
-          .attr("font-weight", "bold")
-          .attr("y", 305)
-          .attr("x", 50)
-          .text("2021 Water year");
+  // position axis labels
+    d3.select("svg#wy21-svg").append("text")
+      .attr("fill", "black")
+      .attr("font-size", "1em")
+      .attr("text-anchor", "center")
+      .attr("font-weight", "bold")
+      .attr("y", 305)
+      .attr("x", 50)
+      .text("2021 Water year");
 
-        this.d3.select("svg#wy21-svg").append("text")
-          .classed("ele", true)
-            .attr("fill", "black")
-            .attr("font-size", ".9em")
-            .attr("text-anchor", "start")
-            .attr("font-style", "italic")
-            .attr("y", 130)
-            .attr("x", -35)
-            .attr("transform", "rotate(-90) translate(-110, -150)")
-            .text("inches");
+    d3.select("svg#wy21-svg").append("text")
+      .classed("ele", true)
+        .attr("fill", "black")
+        .attr("font-size", ".9em")
+        .attr("text-anchor", "start")
+        .attr("font-style", "italic")
+        .attr("y", 130)
+        .attr("x", -35)
+        .attr("transform", "rotate(-90) translate(-110, -150)")
+        .text("inches");
 
-         this.d3.select("svg#wy21-svg").append("text")
-          .classed("ele", true)
-            .attr("fill", "black")
-            .attr("font-size", "1em")
-            .attr("font-weight", "bold")
-            .attr("text-anchor", "start")
-            .attr("y", 0)
-            .attr("x", -25)
-            .text("SWE");
+     d3.select("svg#wy21-svg").append("text")
+      .classed("ele", true)
+        .attr("fill", "black")
+        .attr("font-size", "1em")
+        .attr("font-weight", "bold")
+        .attr("text-anchor", "start")
+        .attr("y", 0)
+        .attr("x", -25)
+        .text("SWE");
+
+  //hover/click prompt
+  d3.select("svg#wy21-svg").append("text")
+    .classed("hover_info", true)
+    .attr("fill", "#000")
+    .attr("font-size", "1.2em")
+    .attr("text-anchor", "start")
+    .attr("font-style", "italic")
+    .attr("y", 50)
+    .attr("x", 30)
+    .text("Hover over a site");
+
+  }
+  function addSites(x_max, y_max, sites, data) {
+    // adds sites to AK and CONUS maps, triggers color function
+    let data_filt = data.filter(site => site.ptile_swe > -1); // data with swe percentiles
+    let data_not = data.filter(site => isNaN(site.ptile_swe)); // data without swe percentiles
+
+    // axis scales
+    xScale = d3.scaleLinear()
+      .range([0,  x_max])
+      .domain([0, x_max]);
+
+      yScale = d3.scaleLinear()
+      .range([y_max,  0])
+      .domain([y_max, 0]);
+
+    // sites with no percentile data are drawn as empty circles
+    sites.selectAll("SNTL")
+    .data(data_not, function(d) { return d.site_id; }) // the key for each  site for updating data
+    .enter()
+    .append("circle")
+      .attr("cx", function (d) { return xScale(d.x); })
+      .attr("cy", function (d) { return yScale(d.y); } )
+      .classed("SNTL_nodata",  true)
+      .attr("id", function(d) { return d.sntl_id })
+      .attr("opacity", .6)
+      .attr("stroke", "rgb(101, 101, 101)")
+      .attr("fill", "rgb(171, 171, 171)")
+      .attr("stroke-width", .3)
+      .attr("r", site_radius*.9)
+      .attr("z-index", -1)
+
+    // draw sites with percentile data
+    sites.selectAll("SNTL")
+    .data(data_filt, function(d) { return d.site_id; }) // the key for each  site for updating data
+    .enter()
+    .append("circle")
+      .attr("cx", function (d) { return xScale(d.x); })
+      .attr("cy", function (d) { return yScale(d.y); } )
+      .classed("SNTL",  true)
+      .attr("id", function(d) { return d.sntl_id })
+      .attr("opacity", .85)
+      .attr("stroke", "black")
+      .attr("stroke-width", .35)
+      .attr("r", site_radius)
+      .attr("z-index", 10)
+
+    // add hover effect to percentile sites sites
+    d3.selectAll(".SNTL")
+      // d3 v6 changed listener arguments to (event, datum); the original
+      // signature bound the event to `data`, so the lookup by site id never
+      // matched and the hover highlight did not fire.
+      .on("mouseover", function(event, data) {
+        hover(data, site_radius*2, "orchid");
+        d3.select("text.hover_info").remove()
+      })
+      .on("mouseout", function(event, data){
+        hoverOut(data, site_radius);
 
       //hover/click prompt
-      this.d3.select("svg#wy21-svg").append("text")
+      d3.select("svg#wy21-svg").append("text")
         .classed("hover_info", true)
         .attr("fill", "#000")
         .attr("font-size", "1.2em")
@@ -1855,297 +1910,219 @@ export default {
         .attr("y", 50)
         .attr("x", 30)
         .text("Hover over a site");
+          }) 
+      
+  }
+  function hover(data, to, color) {
+      d3.select('circle#' + data.sntl_id)
+        .transition()
+        .duration(50)
+        .attr("r", to)
+        .attr('fill', color);
 
-      },
+    // draw peak SWE trendline for site
+    var peaky = peak.append("g")
+    .classed("trend", true)
+    .classed("peak", true)
 
-      addSites(x_max, y_max, sites, data) {
-        // adds sites to AK and CONUS maps, triggers color function
-        const self = this;
+      peaky.append("path")
+        .attr("id", data.sntl_id)
+        .attr("d", data.d_peak)
+        .attr("fill", "transparent")
+        .attr("stroke", "black")
+        .attr("stroke-width", "2px")
 
-        let data_filt = data.filter(site => site.ptile_swe > -1); // data with swe percentiles
-        let data_not = data.filter(site => isNaN(site.ptile_swe)); // data without swe percentiles
+    // draw 2021 SWE  curve for site
+    var melty = melt.append("g")
+      .classed("trend", true)
+      .classed("melt", true)
 
-        // axis scales
-        this.xScale = this.d3.scaleLinear()
-          .range([0,  x_max])
-          .domain([0, x_max]);
-
-          this.yScale = this.d3.scaleLinear()
-          .range([y_max,  0])
-          .domain([y_max, 0]);
-
-        // sites with no percentile data are drawn as empty circles
-        sites.selectAll("SNTL")
-        .data(data_not, function(d) { return d.site_id; }) // the key for each  site for updating data
-        .enter()
-        .append("circle")
-          .attr("cx", function (d) { return self.xScale(d.x); })
-          .attr("cy", function (d) { return self.yScale(d.y); } )
-          .classed("SNTL_nodata",  true)
-          .attr("id", function(d) { return d.sntl_id })
-          .attr("opacity", .6)
-          .attr("stroke", "rgb(101, 101, 101)")
-          .attr("fill", "rgb(171, 171, 171)")
-          .attr("stroke-width", .3)
-          .attr("r", this.site_radius*.9)
-          .attr("z-index", -1)
-
-        // draw sites with percentile data
-        sites.selectAll("SNTL")
-        .data(data_filt, function(d) { return d.site_id; }) // the key for each  site for updating data
-        .enter()
-        .append("circle")
-          .attr("cx", function (d) { return self.xScale(d.x); })
-          .attr("cy", function (d) { return self.yScale(d.y); } )
-          .classed("SNTL",  true)
-          .attr("id", function(d) { return d.sntl_id })
-          .attr("opacity", .85)
-          .attr("stroke", "black")
-          .attr("stroke-width", .35)
-          .attr("r", this.site_radius)
-          .attr("z-index", 10)
-
-        // add hover effect to percentile sites sites
-        this.d3.selectAll(".SNTL")
-          .on("mouseover", function(data) {
-            self.hover(data, self.site_radius*2, "orchid");
-            self.d3.select("text.hover_info").remove()
-          })
-          .on("mouseout", function(data){
-            self.hoverOut(data, self.site_radius);
-
-          //hover/click prompt
-          self.d3.select("svg#wy21-svg").append("text")
-            .classed("hover_info", true)
-            .attr("fill", "#000")
-            .attr("font-size", "1.2em")
-            .attr("text-anchor", "start")
-            .attr("font-style", "italic")
-            .attr("y", 50)
-            .attr("x", 30)
-            .text("Hover over a site");
-              }) 
-          
-        },
-        hover(data, to, color){
-          const self = this;
-
-          self.d3.select('circle#' + data.sntl_id)
-            .transition()
-            .duration(50)
-            .attr("r", to)
-            .attr('fill', color);
-
-        // draw peak SWE trendline for site
-        var peaky = this.peak.append("g")
-        .classed("trend", true)
-        .classed("peak", true)
-
-          peaky.append("path")
-            .attr("id", data.sntl_id)
-            .attr("d", data.d_peak)
-            .attr("fill", "transparent")
-            .attr("stroke", "black")
-            .attr("stroke-width", "2px")
+      melty.append("path").attr("id", data.sntl_id)
+        .attr("d", data.d_sm50)
+        .attr("fill", "transparent")
+        .attr("stroke", "black")
+        .attr("stroke-width", "2px")
 
         // draw 2021 SWE  curve for site
-        var melty = this.melt.append("g")
-          .classed("trend", true)
+    var wy = wy21.append("g")
+      .classed("trend", true)
+      .classed("melt", true)
+
+      wy.append("path").attr("id", data.sntl_id)
+        .attr("d", data.d_swe)
+        .attr("fill", "transparent")
+        .attr("stroke", "black")
+        .attr("stroke-width", 2)
+        .attr("transform", "translate(" + (0) + "," + 10 + ")")
+
+        // add peak swe and sm50 date to wy chart
+        wy.append("circle")
+        .attr("cx", data.peak_x)
+        .attr("cy", data.peak_y )
+        .attr("r",4)
+        .classed(data.peak_met, true)
+        .classed("peak", true)
+        .attr("fill", "orchid")
+        .attr("opacity", 1)
+        .attr("transform", "translate(" + (0) + "," + 10 + ")")
+
+        wy.selectAll(".peak.TBD")
+        .remove()
+
+      wy.append("circle")
+        .attr("cx", data.sm50_x)
+        .attr("cy", data.sm50_y )
+        .attr("r",4)
+        .classed(data.sm50_met, true)
+        .classed("melt", true)
+        .attr("fill", "white")
+        .attr("stroke", "orchid")
+        .attr("stroke-width", 1.5)
+        .attr("opacity", 1)
+        .attr("transform", "translate(" + (0) + "," + 10 + ")")
+
+        wy.selectAll(".melt.TBD")
+        .remove()
+
+        // add sm50 and peak to mini timeseries
+
+          peaky.append("circle")
+          .attr("cx", data.mini_peak_x)
+          .attr("cy", data.mini_peak_y )
+          .attr("r",4)
+          .classed(data.peak_met, true)
+          .classed("peak", true)
+          .attr("fill", "orchid")
+          .attr("opacity", 1)
+          .attr("transform", "translate(" + (0) + "," + 0 + ")") // need to check this out
+
+          melty.append("circle")
+          .attr("cx", data.mini_sm50_x)
+          .attr("cy", data.mini_sm50_y )
+          .attr("r",4)
+          .classed(data.sm50_met, true)
           .classed("melt", true)
+          .attr("fill", "white")
+        .attr("stroke", "orchid")
+        .attr("stroke-width", 1.5)
+          .attr("opacity", 1)
+          .attr("transform", "translate(" + (0) + "," + 0 + ")") // need to check this out
 
-          melty.append("path").attr("id", data.sntl_id)
-            .attr("d", data.d_sm50)
-            .attr("fill", "transparent")
-            .attr("stroke", "black")
-            .attr("stroke-width", "2px")
+          peaky.selectAll(".peak.TBD")
+        .remove()
+                      
+      melty.selectAll(".melt.TBD")
+        .remove()
 
-            // draw 2021 SWE  curve for site
-        var wy = this.wy21.append("g")
-          .classed("trend", true)
-          .classed("melt", true)
+  d3.select("svg#wy21-svg").append("text")
+    .classed("site_name", true)
+    .attr("fill", "#000")
+    .attr("font-size", "1em")
+    .attr("font-weight", "bold")
+    .attr("text-anchor", "start")
+    .attr("y", 20)
+    .attr("x", 10)
+    .text(data.site_name);
 
-          wy.append("path").attr("id", data.sntl_id)
-            .attr("d", data.d_swe)
-            .attr("fill", "transparent")
-            .attr("stroke", "black")
-            .attr("stroke-width", 2)
-            .attr("transform", "translate(" + (0) + "," + 10 + ")")
-
-            // add peak swe and sm50 date to wy chart
-            wy.append("circle")
-            .attr("cx", data.peak_x)
-            .attr("cy", data.peak_y )
-            .attr("r",4)
-            .classed(data.peak_met, true)
-            .classed("peak", true)
-            .attr("fill", "orchid")
-            .attr("opacity", 1)
-            .attr("transform", "translate(" + (0) + "," + 10 + ")")
-
-            wy.selectAll(".peak.TBD")
-            .remove()
-
-          wy.append("circle")
-            .attr("cx", data.sm50_x)
-            .attr("cy", data.sm50_y )
-            .attr("r",4)
-            .classed(data.sm50_met, true)
-            .classed("melt", true)
-            .attr("fill", "white")
-            .attr("stroke", "orchid")
-            .attr("stroke-width", 1.5)
-            .attr("opacity", 1)
-            .attr("transform", "translate(" + (0) + "," + 10 + ")")
-
-            wy.selectAll(".melt.TBD")
-            .remove()
-
-            // add sm50 and peak to mini timeseries
-
-              peaky.append("circle")
-              .attr("cx", data.mini_peak_x)
-              .attr("cy", data.mini_peak_y )
-              .attr("r",4)
-              .classed(data.peak_met, true)
-              .classed("peak", true)
-              .attr("fill", "orchid")
-              .attr("opacity", 1)
-              .attr("transform", "translate(" + (0) + "," + 0 + ")") // need to check this out
-
-              melty.append("circle")
-              .attr("cx", data.mini_sm50_x)
-              .attr("cy", data.mini_sm50_y )
-              .attr("r",4)
-              .classed(data.sm50_met, true)
-              .classed("melt", true)
-              .attr("fill", "white")
-            .attr("stroke", "orchid")
-            .attr("stroke-width", 1.5)
-              .attr("opacity", 1)
-              .attr("transform", "translate(" + (0) + "," + 0 + ")") // need to check this out
-
-              peaky.selectAll(".peak.TBD")
-            .remove()
-                          
-          melty.selectAll(".melt.TBD")
-            .remove()
-
-      this.d3.select("svg#wy21-svg").append("text")
-        .classed("site_name", true)
-        .attr("fill", "#000")
-        .attr("font-size", "1em")
-        .attr("font-weight", "bold")
-        .attr("text-anchor", "start")
-        .attr("y", 20)
-        .attr("x", 10)
-        .text(data.site_name);
-
-        this.d3.select("svg#wy21-svg").append("text")
-        .classed("site_name", true)
-        .attr("fill", "#000")
-        .attr("font-size", "1em")
-        .attr("font-weight", "bold")
-        .attr("text-anchor", "start")
-        .attr("y", 40)
-        .attr("x", 10)
-        .text(data.elev_ft + " ft");
-      },
-      hoverOut(data, to){
-        const self = this;
-
-      // shrink site
-        self.d3.select('circle#' + data.sntl_id)
-          .transition()
-          .duration(50)
-          .attr("r", to)
-          .attr("fill", function(d) { return self.threshold(d[self.site_vars.setColor]) } );
-
-        this.d3.selectAll(".trend").remove() // take off prior lines
-        this.d3.selectAll(".site_name").remove() 
-
-      },
-      setColor() {
-        const self = this;
-
-        // make threshold color scale for percentile data
-        this.threshold = this.d3.scaleThreshold()
-          .domain([0, 0.1, 0.25,0.4,0.6, 0.75, .9, 1])
-          .range(["white","#5C3406", "#C28D3D", "#ECD8A6", "#F0F0E6", "#AADDD6","#2A8C83", "#004439"]);
-
-          var x = this.d3.scaleLinear()
-            .domain([0, 1])
-            .range([0, 250]);
-
-            var xAxis = this.d3.axisBottom(x)
-              .tickSize(10)
-              .tickValues(self.threshold.domain())
-              .tickFormat(function(d) { return d*100 + '%' });
-
-          var g = this.d3.select("svg#legend-percentile").append("g")
-          .classed("thresh-legend", true).call(xAxis)
-          .attr("transform", "translate(" + (20) + "," + 45 + ")");
-
-
-          g.select(".domain").remove();
-
-              g.selectAll("rect")
-              .data(self.threshold.range().map(function(color) {
-                var d = self.threshold.invertExtent(color);
-                if (d[0] == null) d[0] = x.domain()[0];
-                if (d[1] == null) d[1] = x.domain()[1];
-                return d;
-              }))
-              .enter().insert("rect", ".tick")
-                .attr("height", 6)
-                .attr("x", function(d) { return x(d[0]); })
-                .attr("width", function(d) { return x(d[1]) - x(d[0]); })
-                .attr("fill", function(d) { return self.threshold(d[0]); });
-
-                g.append("text")
-                  .attr("fill", "#000")
-                  .attr("font-size", "1.25em")
-                  .attr("text-anchor", "start")
-                  .attr("y", -10)
-                  .text("April 1st SWE percentile");
-
-                  g.append("text")
-                  .attr("fill", "#000")
-                  .attr("font-size", "1.25em")
-                  .attr("text-anchor", "start")
-                  .attr("y", 15)
-                  .text(" ");
-
-                  g.append("text")
-                  .attr("fill", "#000")
-                  .attr("font-size", "2em")
-                  .attr("font-weight", "bold")
-                  .attr("text-anchor", "start")
-                  .attr("x", 0)
-                  .attr("y", -30)
-                  .text("Snow this year");
-
-                  g.append("text")
-                  .attr("fill", "#000")
-                  .attr("font-size", "2em")
-                  .attr("font-weight", "bold")
-                  .attr("text-anchor", "start")
-                  .attr("x", -100)
-                  .attr("y", -25)
-                  .text("");
-
-       // set color for both maps using the same color scale
-       this.sntl_sites.selectAll("circle.SNTL")
-          .attr("fill", function(d) { return self.threshold(d[self.site_vars.setColor]) })
-
-          this.ak_sites.selectAll("circle.SNTL")
-          .attr("fill", function(d) { return self.threshold(d[self.site_vars.setColor]) })
-
-          this.peak.selectAll("circle.dots")
-          .attr("fill", function(d) { return self.threshold(d[self.site_vars.setColor]) })
-
-    }
+    d3.select("svg#wy21-svg").append("text")
+    .classed("site_name", true)
+    .attr("fill", "#000")
+    .attr("font-size", "1em")
+    .attr("font-weight", "bold")
+    .attr("text-anchor", "start")
+    .attr("y", 40)
+    .attr("x", 10)
+    .text(data.elev_ft + " ft");
   }
-}
+  function hoverOut(data, to) {
+  // shrink site
+    d3.select('circle#' + data.sntl_id)
+      .transition()
+      .duration(50)
+      .attr("r", to)
+      .attr("fill", function(d) { return threshold(d[site_vars.setColor]) } );
+
+    d3.selectAll(".trend").remove() // take off prior lines
+    d3.selectAll(".site_name").remove() 
+
+  }
+  function setColor() {
+    // make threshold color scale for percentile data
+    threshold = d3.scaleThreshold()
+      .domain([0, 0.1, 0.25,0.4,0.6, 0.75, .9, 1])
+      .range(["white","#5C3406", "#C28D3D", "#ECD8A6", "#F0F0E6", "#AADDD6","#2A8C83", "#004439"]);
+
+      var x = d3.scaleLinear()
+        .domain([0, 1])
+        .range([0, 250]);
+
+        var xAxis = d3.axisBottom(x)
+          .tickSize(10)
+          .tickValues(threshold.domain())
+          .tickFormat(function(d) { return d*100 + '%' });
+
+      var g = d3.select("svg#legend-percentile").append("g")
+      .classed("thresh-legend", true).call(xAxis)
+      .attr("transform", "translate(" + (20) + "," + 45 + ")");
+
+
+      g.select(".domain").remove();
+
+          g.selectAll("rect")
+          .data(threshold.range().map(function(color) {
+            var d = threshold.invertExtent(color);
+            if (d[0] == null) d[0] = x.domain()[0];
+            if (d[1] == null) d[1] = x.domain()[1];
+            return d;
+          }))
+          .enter().insert("rect", ".tick")
+            .attr("height", 6)
+            .attr("x", function(d) { return x(d[0]); })
+            .attr("width", function(d) { return x(d[1]) - x(d[0]); })
+            .attr("fill", function(d) { return threshold(d[0]); });
+
+            g.append("text")
+              .attr("fill", "#000")
+              .attr("font-size", "1.25em")
+              .attr("text-anchor", "start")
+              .attr("y", -10)
+              .text("April 1st SWE percentile");
+
+              g.append("text")
+              .attr("fill", "#000")
+              .attr("font-size", "1.25em")
+              .attr("text-anchor", "start")
+              .attr("y", 15)
+              .text(" ");
+
+              g.append("text")
+              .attr("fill", "#000")
+              .attr("font-size", "2em")
+              .attr("font-weight", "bold")
+              .attr("text-anchor", "start")
+              .attr("x", 0)
+              .attr("y", -30)
+              .text("Snow this year");
+
+              g.append("text")
+              .attr("fill", "#000")
+              .attr("font-size", "2em")
+              .attr("font-weight", "bold")
+              .attr("text-anchor", "start")
+              .attr("x", -100)
+              .attr("y", -25)
+              .text("");
+
+   // set color for both maps using the same color scale
+   sntl_sites.selectAll("circle.SNTL")
+      .attr("fill", function(d) { return threshold(d[site_vars.setColor]) })
+
+      ak_sites.selectAll("circle.SNTL")
+      .attr("fill", function(d) { return threshold(d[site_vars.setColor]) })
+
+      peak.selectAll("circle.dots")
+      .attr("fill", function(d) { return threshold(d[site_vars.setColor]) })
+  }
 </script>
 <style lang="scss" scoped>
   .leggy {

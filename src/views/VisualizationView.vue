@@ -32,6 +32,7 @@
     </SectionTitle>
     <MeasuringSWE v-if="checkIfSplashIsRendered" />
     <SWE v-if="checkIfSplashIsRendered" />
+    <SWEanim v-if="checkIfSplashIsRendered" />
     <SectionTitle
       v-if="checkIfSplashIsRendered"
       id="chapterLast"
@@ -43,7 +44,7 @@
         Snowmelt season has already begun
       </template>
     </SectionTitle>
-    <div>Gap</div>
+    <SNTLmap v-if="checkIfSplashIsRendered" />
     <SectionTitle
       v-if="checkIfSplashIsRendered"
       id="chapterLast"
@@ -59,7 +60,7 @@
       <ReferencesSection 
         v-if="checkIfSplashIsRendered"
       />
-      <Methods v-if="checkIfSplashIsRendered" />
+      <MethodsSection v-if="checkIfSplashIsRendered" />
     </div>
   </section>
 </template>
@@ -80,8 +81,10 @@
   import DiagramsLow from '@/components/DiagramsLow.vue';
   import MeasuringSWE from '@/components/MeasuringSWE.vue';
   import SWE from '@/components/SWE.vue';
+  import SWEanim from '@/components/SWEanim.vue';
+  import SNTLmap from '@/components/SNTLmap.vue';
   import ReferencesSection from '@/components/ReferencesSection.vue';
-  import Methods from '@/components/Methods.vue';
+  import MethodsSection from '@/components/MethodsSection.vue';
 
   // ADD CHECK IF SPLASH IS RENDERED
   const checkIfSplashIsRendered = computed(() => {

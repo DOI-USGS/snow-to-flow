@@ -1,5 +1,8 @@
 <template>
-  <div ref="root" class="sidebar collapsed opacity">
+  <div
+    ref="root"
+    class="sidebar collapsed opacity"
+  >
     <div class="sidebarContent">
       <div class="titleAndExit">
         <button
