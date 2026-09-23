@@ -38,8 +38,9 @@
             media="(min-width: 800px)"
             :data-srcset="getImageUrl(image, '2', 'jpg')"
           >
-          <img 
+          <img
             :srcset="getImageUrl(image, '2', 'jpg')"
+            :alt="alt"
           >
         </picture>
         <div
@@ -62,6 +63,10 @@
     image: {
         type: String,
         default: `chapter1`
+    },
+    alt: {
+        type: String,
+        default: ''
     },
     height:{
         type: Number,
