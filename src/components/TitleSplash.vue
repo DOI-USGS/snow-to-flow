@@ -16,35 +16,45 @@
       data-depth="0.10"
     >
       <picture>
-        <!--         <source srcset="@/assets/titleImages/splash/mountainMG.png"> -->
-        <!-- Most compressed -->
+        <!-- per screen size: WebP, with a PNG fallback -->
         <source
           type="image/webp"
-          srcset="@/assets/titleImages/splash/mountainMG.webp"
-        > 
-        <!-- Smallest Screen -->
+          media="(max-width: 499px)"
+          srcset="@/assets/titleImages/splash/mountainMG-sm.webp"
+        >
         <source
-          media="(min-width: 350px) and (max-width: 499px)"
+          media="(max-width: 499px)"
           srcset="@/assets/titleImages/splash/mountainMG-sm.png"
         >
-        <!-- Medium Screen -->
+        <source
+          type="image/webp"
+          media="(min-width: 500px) and (max-width: 799px)"
+          srcset="@/assets/titleImages/splash/mountainMG-m.webp"
+        >
         <source
           media="(min-width: 500px) and (max-width: 799px)"
           srcset="@/assets/titleImages/splash/mountainMG-m.png"
         >
-        <!-- Large screen -->
+        <source
+          type="image/webp"
+          media="(min-width: 800px) and (max-width: 1199px)"
+          srcset="@/assets/titleImages/splash/mountainMG-l.webp"
+        >
         <source
           media="(min-width: 800px) and (max-width: 1199px)"
           srcset="@/assets/titleImages/splash/mountainMG-l.png"
         >
-        <!-- X Large Screen -->
+        <source
+          type="image/webp"
+          media="(min-width: 1200px)"
+          srcset="@/assets/titleImages/splash/mountainMG-xl.webp"
+        >
         <source
           media="(min-width: 1200px)"
           srcset="@/assets/titleImages/splash/mountainMG-xl.png"
         >
-        <img 
+        <img
           src="@/assets/titleImages/splash/mountainMG-xl.png"
-          href="@/assets/titleImages/splash/mountainMG-xl.png"
           alt="A scene of snowy mountains topped with clouds"
         >
       </picture>
@@ -55,36 +65,45 @@
       data-depth="0.30"
     >
       <picture>
-        <!-- Not sure what the browser wants to do with this first one, but it's the largest original -->
-        <!--         <source srcset="@/assets/titleImages/splash/frozen-lakeFG.png"> -->
-        <!-- Smallest Screen -->
+        <!-- per screen size: WebP, with a PNG fallback -->
         <source
-          media="(min-width: 350px) and (max-width: 499px)"
+          type="image/webp"
+          media="(max-width: 499px)"
+          srcset="@/assets/titleImages/splash/frozen-lakeFG-sm.webp"
+        >
+        <source
+          media="(max-width: 499px)"
           srcset="@/assets/titleImages/splash/frozen-lakeFG-sm.png"
         >
-        <!-- Medium Screen -->
+        <source
+          type="image/webp"
+          media="(min-width: 500px) and (max-width: 799px)"
+          srcset="@/assets/titleImages/splash/frozen-lakeFG-m.webp"
+        >
         <source
           media="(min-width: 500px) and (max-width: 799px)"
           srcset="@/assets/titleImages/splash/frozen-lakeFG-m.png"
         >
-        <!-- Large screen -->
+        <source
+          type="image/webp"
+          media="(min-width: 800px) and (max-width: 1199px)"
+          srcset="@/assets/titleImages/splash/frozen-lakeFG-l.webp"
+        >
         <source
           media="(min-width: 800px) and (max-width: 1199px)"
           srcset="@/assets/titleImages/splash/frozen-lakeFG-l.png"
         >
-        <!-- X Large Screen -->
+        <source
+          type="image/webp"
+          media="(min-width: 1200px)"
+          srcset="@/assets/titleImages/splash/frozen-lakeFG-xl.webp"
+        >
         <source
           media="(min-width: 1200px)"
           srcset="@/assets/titleImages/splash/frozen-lakeFG-xl.png"
         >
-        <!-- Most compressed -->
-        <source
-          type="image/webp"
-          srcset="@/assets/titleImages/splash/frozen-lakeFG.webp"
-        > 
-        <img 
+        <img
           src="@/assets/titleImages/splash/frozen-lakeFG-xl.png"
-          href="@/assets/titleImages/splash/frozen-lakeFG.png"
           alt="A frozen lake in front of rocky, snow-covered mountains."
         >
       </picture>
@@ -96,34 +115,36 @@
       data-depth="0.80"
     >
       <picture>
-        <!-- Most compressed -->
+        <!-- per screen size: WebP, with a PNG fallback -->
         <source
           type="image/webp"
-          srcset="@/assets/titleImages/splash/cloud.webp"
-        > 
-        <!-- Smallest Screen -->
+          media="(max-width: 499px)"
+          srcset="@/assets/titleImages/splash/cloud-sm.webp"
+        >
         <source
           media="(max-width: 499px)"
           srcset="@/assets/titleImages/splash/cloud-sm.png"
         >
-        <!-- Medium Screen -->
+        <source
+          type="image/webp"
+          media="(min-width: 500px) and (max-width: 799px)"
+          srcset="@/assets/titleImages/splash/cloud-m.webp"
+        >
         <source
           media="(min-width: 500px) and (max-width: 799px)"
           srcset="@/assets/titleImages/splash/cloud-m.png"
         >
-        <!-- Large screen -->
         <source
-          media="(min-width: 800px) and (max-width: 1199px)"
+          type="image/webp"
+          media="(min-width: 800px)"
+          srcset="@/assets/titleImages/splash/cloud-l.webp"
+        >
+        <source
+          media="(min-width: 800px)"
           srcset="@/assets/titleImages/splash/cloud-l.png"
         >
-        <!-- X Large Screen -->
-        <source
-          media="(min-width: 1200px)"
-          srcset="@/assets/titleImages/splash/cloud-l.png"
-        >
-        <img 
+        <img
           src="@/assets/titleImages/splash/cloud-l.png"
-          href="@/assets/titleImages/splash/cloud-l.png"
           alt="Clouds lifting over the snowy mountain"
         >
       </picture>
@@ -134,36 +155,36 @@
       data-depth="0.90"
     >
       <picture>
-        <!-- Not sure what the browser wants to do with this first one, but it's the largest original -->
-        <!--    <source srcset="@/assets/titleImages/splash/more-clouds.png"> -->
-        <!-- Most compressed -->
+        <!-- per screen size: WebP, with a PNG fallback -->
         <source
           type="image/webp"
-          srcset="@/assets/titleImages/splash/more-clouds.webp"
-        > 
-        <!-- Smallest Screen -->
+          media="(max-width: 499px)"
+          srcset="@/assets/titleImages/splash/more-clouds-sm.webp"
+        >
         <source
           media="(max-width: 499px)"
           srcset="@/assets/titleImages/splash/more-clouds-sm.png"
         >
-        <!-- Medium Screen -->
+        <source
+          type="image/webp"
+          media="(min-width: 500px) and (max-width: 799px)"
+          srcset="@/assets/titleImages/splash/more-clouds-m.webp"
+        >
         <source
           media="(min-width: 500px) and (max-width: 799px)"
           srcset="@/assets/titleImages/splash/more-clouds-m.png"
         >
-        <!-- Large screen -->
         <source
-          media="(min-width: 800px) and (max-width: 1199px)"
+          type="image/webp"
+          media="(min-width: 800px)"
+          srcset="@/assets/titleImages/splash/more-clouds.webp"
+        >
+        <source
+          media="(min-width: 800px)"
           srcset="@/assets/titleImages/splash/more-clouds.png"
         >
-        <!-- X Large Screen -->
-        <source
-          media="(min-width: 1200px)"
-          srcset="@/assets/titleImages/splash/more-clouds.png"
-        >
-        <img 
+        <img
           src="@/assets/titleImages/splash/more-clouds.png"
-          href="@/assets/titleImages/splash/more-clouds.png"
           alt="Clouds rising over the snowy mountain"
         >
       </picture>
