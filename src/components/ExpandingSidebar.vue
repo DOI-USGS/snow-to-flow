@@ -138,6 +138,10 @@
         width: 0;
         height: 0;
         opacity: 0;
+        // Without these the zero-size box's content still overflows,
+        // invisibly covering and blocking clicks on the text below
+        overflow: hidden;
+        visibility: hidden;
     }
   }
   .hidden{
