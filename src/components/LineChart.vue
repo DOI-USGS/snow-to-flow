@@ -292,7 +292,6 @@
   import { onMounted, nextTick, ref } from "vue";
   import * as d3 from 'd3';
   import { gsap } from "gsap"
-  import { ScrollToPlugin } from "gsap/ScrollToPlugin"; // to trigger scroll events
   import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
 
   // Set up dynamically updating variables as refs
@@ -311,7 +310,7 @@
 
   // Functions
   function animateAreas() {
-    gsap.registerPlugin(ScrollToPlugin, ScrollTrigger); // register gsap plugins for scrollTrigger 
+    gsap.registerPlugin(ScrollTrigger);
 
     // Set origins and locations
     gsap.set("#discharge-reveal-rect", {transformOrigin: "100% 0%", width: 0});

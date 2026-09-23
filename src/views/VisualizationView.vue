@@ -72,8 +72,6 @@
 
 <script setup>
   import {computed} from 'vue'
-  // import { ScrollToPlugin } from "gsap/ScrollToPlugin"; // to trigger scroll events
-  // import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
   import { useSplashRenderStore } from '@/stores/SplashRenderStore';
   const splashRenderStore = useSplashRenderStore();
   

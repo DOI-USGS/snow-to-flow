@@ -174,7 +174,6 @@
 <script setup>
   import { onMounted, nextTick } from "vue";
   import { gsap } from "gsap"
-  import { ScrollToPlugin } from "gsap/ScrollToPlugin"; // to trigger scroll events
   import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
 
   import { useSplashRenderStore } from '@/stores/SplashRenderStore';
@@ -190,7 +189,7 @@
   });
 
   function splashParallax() {
-    gsap.registerPlugin(ScrollToPlugin, ScrollTrigger); // register gsap plugins for scrollTrigger 
+    gsap.registerPlugin(ScrollTrigger);
     ScrollTrigger.matchMedia({
       // mobile
       "(max-width: 799px)": function(){
