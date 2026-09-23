@@ -1,81 +1,74 @@
-# Changelog
-
-## Unreleased
-
-v2.0.0
-
-Migration to Vue 3 and the water.usgs.gov/vizlab domain.
-
+# Change Log
+All notable changes to this project will be documented in this file.
+ 
+The format is based on [Keep a Changelog](http://keepachangelog.com/)
+and this project adheres to [Semantic Versioning](http://semver.org/).
+ 
+## [Unreleased]
+ 
+Here we track upcoming changes.
+ 
 ### Added
-
+- Added a change log in the Vizlab template format
 - Vizlab authorship section with published and last-updated dates
-- In-text citation numbers link to their entries in the References section
-- USWDS government banner, and site-wide notices driven by the shared `status.json`
-- Centered, equal-height photo carousel for the measuring-snowpack section, and an in-house carousel with an accessible lightbox for the snow-year diagrams
-- Changelog entries for this release
-
+- In-text citations link to the References section
+- USWDS government banner and site-wide notices from the shared `status.json`
+- Centered, equal-height photo carousel for the measuring snowpack section
+ 
 ### Changed
-
-- Switched from Vue 2 to Vue 3 (`<script setup>`), from Vue CLI to Vite, and to Pinia for shared state
-- Moved the site from labs.waterdata.usgs.gov/visualizations to water.usgs.gov/vizlab, and updated links and metadata to match
-- Adopted the vue3-template header, footer, prefooter, and stylesheet structure while keeping the site's own palette and fonts
+- Updated dependencies; switch from Vue 2 to Vue 3 and composition API
+- Switched the build from Vue CLI to Vite, and to Pinia for state
+- Site moved to the water.usgs.gov/vizlab domain; updated links and metadata to match
+- Adopted the vue3-template header, footer, prefooter, and CSS structure, keeping the site's palette and fonts
 - Switched analytics to the shared Vizlab Google Analytics property
-- Larger hero title and section titles, sans-serif hero subtitle, lighter image overlays (contrast kept at 4.5:1 or better), and more space below section images
-- The SNOTEL mini charts keep showing the last hovered site until a new one is hovered
-- Removed the Jenkins and Docker build files, and dropped unused dependencies
-
+- Replaced the Vue 2 carousels with an in-house carousel and lightbox
+- Larger hero and section titles, sans-serif subtitle, and lighter image overlays
+- SNOTEL mini charts keep the last hovered site until a new one is hovered
+- Removed Jenkins and Docker build files and unused dependencies
+ 
 ### Fixed
-
-- Ridgeline chart hover no longer leaves lines stuck or highlights several sites at once
-- Restored the axes and labels on the current-year SWE chart
-- Methods text is back to body size
-- A collapsed sidebar no longer blocks clicks on the text below it
-- Corrected the structured data (JSON-LD) block in `index.html`, which was not valid JSON
-
-## April 30, 2021
-
-v1.0.3
-
-Clean splash - removed people from images on splash
-
-## April 28, 2021
-
-v1.0.2
-
-Mobile images fix: Merged pull request to omit people in images on mobile
-
-## April 27, 2021
-
-v1.0.1 (and v1.0.0)
-
-Public release
-
-## April 22, 2021
-
-v0.2.4
-
-Beta Release for EC Review with Pull Limit Fix. This release includes a few more bug fixes, especially ones that help us get around the Docker pull rate limit so that Jenkins will build.
-
-## April 21, 2021
-
-v0.2.3
-
-Beta Release for EC Review
-
-## April 8, 2021
-
-v0.2.2
-
-Release for IPDS Review
-
-## March 30, 2021
-
-v0.2.0
-
-Beta Release for Text Review: This release includes code and text edits up to March 30th. There is still lots of refining to do, but we wanted to see all the pieces together as a whole to assess the revisions needed from here.
-
-## March 11, 2021
-
-Pre-Release v0.0.2
-
-Purpose: First release as a test site with placeholder images. 
+- Ridgeline hover leaving lines stuck or several sites highlighted
+- Missing axes on the current-year SWE chart
+- Methods text rendering too small
+- Collapsed sidebar blocking clicks on the text below it
+- Invalid structured data (JSON-LD) block in `index.html`
+ 
+## [1.0.3] - 2021-04-30
+ 
+### Changed
+- Clean splash: removed people from images on splash
+ 
+## [1.0.2] - 2021-04-28
+ 
+### Fixed
+- Mobile images: omit people in images on mobile
+ 
+## [1.0.1] - 2021-04-27
+ 
+### Added
+- Public release (also tagged 1.0.0)
+ 
+## [0.2.4] - 2021-04-22
+ 
+### Fixed
+- Beta release for EC review with fixes to get around the Docker pull rate limit so Jenkins builds
+ 
+## [0.2.3] - 2021-04-21
+ 
+### Added
+- Beta release for EC review
+ 
+## [0.2.2] - 2021-04-08
+ 
+### Added
+- Release for IPDS review
+ 
+## [0.2.0] - 2021-03-30
+ 
+### Added
+- Beta release for text review, with code and text edits up to March 30
+ 
+## [0.0.2] - 2021-03-11
+ 
+### Added
+- First pre-release as a test site with placeholder images
