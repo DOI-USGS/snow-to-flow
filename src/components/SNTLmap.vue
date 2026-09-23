@@ -1610,6 +1610,8 @@
   // implicit global in the Options API version; it is scoped to the component
   // now.
   let threshold = null;
+  // Site currently shown in the mini charts, or null before the first hover
+  let selectedSite = null;
 
   onMounted(() => {
     // sntl site map
@@ -1893,25 +1895,15 @@
       // d3 v6 changed listener arguments to (event, datum); the original
       // signature bound the event to `data`, so the lookup by site id never
       // matched and the hover highlight did not fire.
+      // The last site hovered stays selected, and its data stays in the
+      // mini charts, until the pointer reaches a different site.
       .on("mouseover", function(event, data) {
+        if (selectedSite === data) return;
+        if (selectedSite) hoverOut(selectedSite, site_radius);
+        selectedSite = data;
         hover(data, site_radius*2, "orchid");
         d3.select("text.hover_info").remove()
       })
-      .on("mouseout", function(event, data){
-        hoverOut(data, site_radius);
-
-      //hover/click prompt
-      d3.select("svg#wy21-svg").append("text")
-        .classed("hover_info", true)
-        .attr("fill", "#000")
-        .attr("font-size", "1.2em")
-        .attr("text-anchor", "start")
-        .attr("font-style", "italic")
-        .attr("y", 50)
-        .attr("x", 30)
-        .text("Hover over a site");
-          }) 
-      
   }
   function hover(data, to, color) {
       d3.select('circle#' + data.sntl_id)
