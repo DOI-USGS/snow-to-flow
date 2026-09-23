@@ -42,7 +42,7 @@
         v-if="!mobileView"
         class="explain figureCaption"
       >
-        Mouseover a site to see this year's SWE and the magnitude (peak SWE <svg
+        Mouseover a site, or choose one from the list, to see this year's SWE and the magnitude (peak SWE <svg
           class="leggy"
           viewBox="0 0 10 10"
           width="10"
@@ -70,6 +70,28 @@
     </template>
     <!-- FIGURES -->
     <template #figures>
+      <!-- keyboard and screen reader alternative to hovering the map -->
+      <label class="site-picker">
+        <span class="site-picker__label">Choose a site</span>
+        <select
+          :value="selectedId"
+          @change="onSitePicked"
+        >
+          <option
+            value=""
+            disabled
+          >
+            Select a SNOTEL site
+          </option>
+          <option
+            v-for="site in siteOptions"
+            :key="site.id"
+            :value="site.id"
+          >
+            {{ site.name }} ({{ site.elev }} ft)
+          </option>
+        </select>
+      </label>
       <div class="map-grid">
         <!-- LEGEND -->
         <div id="legendContainer">
@@ -1563,7 +1585,7 @@
   </VizSection>
 </template>
 <script setup>
-  import { onMounted } from 'vue';
+  import { onMounted, ref } from 'vue';
   import * as d3 from 'd3';
   import { isMobile } from 'mobile-device-detect';
   import VizSection from '@/components/VizSection.vue';
@@ -1612,6 +1634,10 @@
   let threshold = null;
   // Site currently shown in the mini charts, or null before the first hover
   let selectedSite = null;
+  // Options for the site picker, and a lookup from its value to the site
+  const siteOptions = ref([]);
+  const selectedId = ref('');
+  const siteById = new Map();
 
   onMounted(() => {
     // sntl site map
@@ -1655,6 +1681,13 @@
     setColor();
 
     makeTrend(); // makes mini plots
+
+    // sites with percentile data, the ones that respond to hover
+    const pickable = [...sntl_data, ...ak_data].filter(site => site.ptile_swe > -1);
+    pickable.forEach(site => siteById.set(site.sntl_id, site));
+    siteOptions.value = pickable
+      .map(site => ({ id: site.sntl_id, name: site.site_name, elev: site.elev_ft }))
+      .sort((a, b) => a.name.localeCompare(b.name));
 
     // nudge ak sites for repositioning 
     ak_sites.attr("transform", "translate(0,100)")
@@ -1894,15 +1927,21 @@
       // d3 v6 changed listener arguments to (event, datum); the original
       // signature bound the event to `data`, so the lookup by site id never
       // matched and the hover highlight did not fire.
-      // The last site hovered stays selected, and its data stays in the
-      // mini charts, until the pointer reaches a different site.
-      .on("mouseover", function(event, data) {
-        if (selectedSite === data) return;
-        if (selectedSite) hoverOut(selectedSite, site_radius);
-        selectedSite = data;
-        hover(data, site_radius*2, "orchid");
-        d3.select("text.hover_info").remove()
-      })
+      .on("mouseover", (event, data) => selectSite(data))
+  }
+  // The last site hovered (or picked from the list) stays selected, and its
+  // data stays in the mini charts, until a different site is chosen.
+  function selectSite(data) {
+    if (selectedSite === data) return;
+    if (selectedSite) hoverOut(selectedSite, site_radius);
+    selectedSite = data;
+    selectedId.value = data.sntl_id;
+    hover(data, site_radius*2, "orchid");
+    d3.select("text.hover_info").remove()
+  }
+  function onSitePicked(event) {
+    const data = siteById.get(event.target.value);
+    if (data) selectSite(data);
   }
   function hover(data, to, color) {
       d3.select('circle#' + data.sntl_id)
@@ -2117,6 +2156,24 @@
 <style lang="scss" scoped>
   .leggy {
     display: inline-block;
+  }
+  .site-picker {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    max-width: 700px;
+    margin: 0 auto 1rem auto;
+    padding: 0 10px;
+    font-size: 0.8em;
+    text-align: left;
+    select {
+      max-width: 100%;
+      padding: 0.25rem;
+      font: inherit;
+    }
+  }
+  .site-picker__label {
+    font-weight: 700;
   }
   // the explanatory paragraphs reuse .figureCaption for its type styles;
   // keep them block so the inline legend symbols lay out in the text
