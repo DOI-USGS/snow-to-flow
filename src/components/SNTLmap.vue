@@ -1650,8 +1650,9 @@
     addSites(700, 840, sntl_sites, sntl_data); // add westen sites
     addSites(606.9, 476.2, ak_sites, ak_data); // add ak sites
     
-    setColor(sntl_data, sntl_sites); // set initial site color
-    setColor(ak_data, ak_sites); // set initial site color
+    // colour the sites on both maps and draw the percentile legend. Call
+    // once: each call appends another legend
+    setColor();
 
     makeTrend(); // makes mini plots
 
@@ -1661,8 +1662,6 @@
   function makeTrend() {
     // set up mini plots
     // axis scales
-    setColor();
-
     var yCorr = d3.scaleLinear()
       .range([110, 10])
       .domain([0, 130]);
@@ -1918,7 +1917,6 @@
     .classed("peak", true)
 
       peaky.append("path")
-        .attr("id", data.sntl_id)
         .attr("d", data.d_peak)
         .attr("fill", "transparent")
         .attr("stroke", "black")
@@ -1929,7 +1927,7 @@
       .classed("trend", true)
       .classed("melt", true)
 
-      melty.append("path").attr("id", data.sntl_id)
+      melty.append("path")
         .attr("d", data.d_sm50)
         .attr("fill", "transparent")
         .attr("stroke", "black")
@@ -1940,7 +1938,7 @@
       .classed("trend", true)
       .classed("melt", true)
 
-      wy.append("path").attr("id", data.sntl_id)
+      wy.append("path")
         .attr("d", data.d_swe)
         .attr("fill", "transparent")
         .attr("stroke", "black")
