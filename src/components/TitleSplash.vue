@@ -245,8 +245,6 @@
 </script>
 
 <style lang="scss" scoped>
-  $familySerif:  'Noto Serif', serif;
-
   .splash{
       position: relative;
       height: 100vh;
@@ -261,14 +259,16 @@
       z-index: 22;
       margin-bottom: 20px;
       padding: 0 15px;
+      text-align: center;
       h1{
           font-family: sans-serif; /* fallback for old browsers */
           font-family: var(--title-font);
-          font-size:clamp(4em, 20vw, 2em);
+          font-size: clamp(4.5em, 9vw, 7.5em);
           font-weight: 700;
       }
       h2 {
-        font-family: $familySerif;
+        font-family: sans-serif; /* fallback for old browsers */
+        font-family: var(--default-font), sans-serif;
         font-size:1.4em;
         line-height: 1.4em;
         // font-weight: 400;
