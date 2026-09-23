@@ -10,7 +10,7 @@
     <!-- FIGURES -->
     <template #figures>
       <div class="group single maxWidth">
-        <figure id="swe-chart-container">
+        <figure id="swe-photos-container">
           <CarouselGallery
             :items="methodsPhotos"
             layout="centered"
@@ -52,7 +52,7 @@
 </script>
 
 <style lang="scss" scoped>
-  #swe-chart-container {
+  #swe-photos-container {
     width: 100%;
     height: auto;
   }

@@ -6,7 +6,7 @@
     />
     <SectionTitle
       v-if="checkIfSplashIsRendered"
-      id="chapter2"
+      id="chapter-snow-to-flow"
       image="chapter5"
       alt="An image of a greenish-blue river winding through a snowy forest, faded into the background to serve as a backdrop for the section title."
       :height="50"
@@ -21,7 +21,7 @@
     <DiagramsLow v-if="checkIfSplashIsRendered" />
     <SectionTitle
       v-if="checkIfSplashIsRendered"
-      id="chapter1"
+      id="chapter-measuring-snowpack"
       image="chapter4"
       alt="An image of snowpack with wind-swept ripples on top, faded into the background to serve as a backdrop for the section title."
       :height="50"
@@ -35,7 +35,7 @@
     <SWEanim v-if="checkIfSplashIsRendered" />
     <SectionTitle
       v-if="checkIfSplashIsRendered"
-      id="chapterLast"
+      id="chapter-snowmelt-season"
       image="chapter11"
       alt="An image of two bighorn sheep looking at each other standing in snow with a bright green lake of meltwater behind them.  The image is faded into the background to serve as a backdrop for the section title."
       :height="50"
@@ -47,7 +47,7 @@
     <SNTLmap v-if="checkIfSplashIsRendered" />
     <SectionTitle
       v-if="checkIfSplashIsRendered"
-      id="chapterLast"
+      id="chapter-learn-more"
       image="chapter15"
       alt="An image of a mossy mountaintop with fog rising over the peaks and small patches of snow melting into the green ground.  The image is faded into the background to serve as a backdrop for the section title."
       :height="50"

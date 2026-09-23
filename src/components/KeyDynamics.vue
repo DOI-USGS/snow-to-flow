@@ -1,7 +1,7 @@
 <template>
   <!---VizSection-->
   <VizSection
-    id="diagrams-normal"
+    id="key-dynamics"
     :take-away="false"
   >
     <template #aboveExplanation>

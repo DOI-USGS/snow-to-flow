@@ -18,7 +18,7 @@
     <!-- FIGURES -->
     <template #figures>
       <div
-        id="figs"
+        id="ridgeline-controls"
         class="single one"
       >
         <div class="compare">
@@ -63,7 +63,7 @@
         </div>
       </div>
       <div
-        id="figs"
+        id="ridgeline-chart"
         class="single one"
       >
         <div id="mmd-container-both">
