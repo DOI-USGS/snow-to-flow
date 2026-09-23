@@ -5,7 +5,9 @@
       <div>
         <div
           v-for="reference in references.references"
+          :id="`ref-${reference.num}`"
           :key="reference.num"
+          class="reference"
         >
           <p>
             <span v-html="reference.num" />. <span v-html="reference.authors" /> (<span v-html="reference.year" />). <a
@@ -42,5 +44,13 @@
 <style scoped lang="scss">
   .journal-name {
     font-style: italic;
+  }
+  // targets of the in-text citation links
+  .reference {
+    scroll-margin-top: 2rem;
+    transition: background-color 0.3s;
+  }
+  .reference:target {
+    background-color: #fff5c2;
   }
 </style>

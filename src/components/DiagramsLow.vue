@@ -34,7 +34,7 @@
             Some snow evaporates directly back into the atmosphere in a process called <a
               href="https://www.usgs.gov/centers/co-water/science/snowpack-sublimation-measurements-and-modeling-colorado-river-basin?qt-science_center_objects=0#qt-science_center_objects"
               target="_blank"
-            >sublimation</a>. Cold sunny weather contributes to the amount of snow vaporized directly back into the atmosphere<sup>11</sup> and higher wind speeds can accelerate sublimation.
+            >sublimation</a>. Cold sunny weather contributes to the amount of snow vaporized directly back into the atmosphere<sup class="citation"><a href="#ref-11">11</a></sup> and higher wind speeds can accelerate sublimation.
           </p>
         </template>
       </ExpandingSidebar>
@@ -67,7 +67,7 @@
           Wind
         </template>
         <template #sidebarMessage>
-          <p>Wind patterns can also affect snow accumulation and melt. Snow fall can be intercepted by trees and then sublimated, reducing the total snow accumulation on the ground. Fallen snow can also be blown over ridges, scouring windward rises or trees and accumulating on the leeward side of the ridge. This spatial variation in snowpack depth can result in different snowmelt timing and rates, in addition to other climatic factors<sup>12</sup>.</p>
+          <p>Wind patterns can also affect snow accumulation and melt. Snow fall can be intercepted by trees and then sublimated, reducing the total snow accumulation on the ground. Fallen snow can also be blown over ridges, scouring windward rises or trees and accumulating on the leeward side of the ridge. This spatial variation in snowpack depth can result in different snowmelt timing and rates, in addition to other climatic factors<sup class="citation"><a href="#ref-12">12</a></sup>.</p>
         </template>
       </ExpandingSidebar>
       <ExpandingSidebar>
@@ -76,7 +76,7 @@
         </template>
         <template #sidebarMessage>
           <p>
-            Snow fall can be intercepted by trees and then sublimated, reducing the on the ground total snowpack. Lower, slower, and earlier snowmelt can also mean that more meltwater is lost to plant uptake and soil absorption<sup>10</sup>. Drier soils can lead to less water for plants, which can set up conditions that increase the risk of <a
+            Snow fall can be intercepted by trees and then sublimated, reducing the on the ground total snowpack. Lower, slower, and earlier snowmelt can also mean that more meltwater is lost to plant uptake and soil absorption<sup class="citation"><a href="#ref-10">10</a></sup>. Drier soils can lead to less water for plants, which can set up conditions that increase the risk of <a
               href="https://labs.waterdata.usgs.gov/visualizations/fire-hydro/index.html#/"
               target="_blank"
             >wildfire</a>.

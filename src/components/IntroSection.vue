@@ -17,11 +17,11 @@
     </template>
     <template #aboveExplanation>
       <p>
-        Snow-capped mountains, where snow accumulates all winter and often well into spring, function as <span class="emph">frozen water towers</span> by storing water as snow into late spring and summer<sup>1</sup>. When spring weather arrives, and the snow melts, the high elevation areas produce a large pulse of streamflow that redistributes water downstream through the landscape. These seasonal dynamics are critical components of the surface water cycle in the Western U.S., for both humans and ecosystems<sup>2,3</sup>.
+        Snow-capped mountains, where snow accumulates all winter and often well into spring, function as <span class="emph">frozen water towers</span> by storing water as snow into late spring and summer<sup class="citation"><a href="#ref-1">1</a></sup>. When spring weather arrives, and the snow melts, the high elevation areas produce a large pulse of streamflow that redistributes water downstream through the landscape. These seasonal dynamics are critical components of the surface water cycle in the Western U.S., for both humans and ecosystems<sup class="citation"><a href="#ref-2">2</a>,<a href="#ref-3">3</a></sup>.
       </p>
       <p>
-        Changes in the <span class="emph">timing, magnitude</span> and <span class="emph">duration</span> of snowmelt may substantially alter downstream water availability<sup>2,4</sup>. 
-        Approximately 2 billion people are expected to experience diminished water supplies because of seasonal snowpack decline this century<sup>5,6</sup>. Over the last half century, particularly in some regions of the Western U.S., annual snowpack levels have <span class="emph">declined</span><sup>7–9</sup> and contributed to <span class="emph">reduced of streamflow</span>, a trend supported by both models and on-the-ground observations<sup>2,4</sup>.
+        Changes in the <span class="emph">timing, magnitude</span> and <span class="emph">duration</span> of snowmelt may substantially alter downstream water availability<sup class="citation"><a href="#ref-2">2</a>,<a href="#ref-4">4</a></sup>. 
+        Approximately 2 billion people are expected to experience diminished water supplies because of seasonal snowpack decline this century<sup class="citation"><a href="#ref-5">5</a>,<a href="#ref-6">6</a></sup>. Over the last half century, particularly in some regions of the Western U.S., annual snowpack levels have <span class="emph">declined</span><sup class="citation"><a href="#ref-7">7</a>–<a href="#ref-9">9</a></sup> and contributed to <span class="emph">reduced of streamflow</span>, a trend supported by both models and on-the-ground observations<sup class="citation"><a href="#ref-2">2</a>,<a href="#ref-4">4</a></sup>.
       </p>
     </template>
     <!-- EXPLANATION -->
