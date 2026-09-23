@@ -467,6 +467,9 @@
   }
 
   .lightbox {
+    // base.css resets margin on every element; a modal dialog relies on
+    // margin: auto to centre in the viewport
+    margin: auto;
     width: min(92vw, 110rem);
     max-height: 92vh;
     padding: 0;
