@@ -209,7 +209,8 @@
           .fromTo("#mountains", {yPercent: 30}, {yPercent: 0}, 0)
       },
       //desktop 
-      "(min-width: 700px) and (max-width: 2619px)": function(){
+      // starts at 800px, where the mobile range ends and the splash images switch size
+      "(min-width: 800px) and (max-width: 2619px)": function(){
           gsap.timeline({
               scrollTrigger:{
                   trigger: ".splash",
