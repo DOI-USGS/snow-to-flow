@@ -4,7 +4,7 @@
     <HeaderUSWDSBanner v-if="typeOfEnv !== '-test build-'" />
     <SiteNotice />
     <HeaderUSGS />
-    <WorkInProgressWarning v-if="typeOfEnv === '-beta build-'" />
+    <WorkInProgressWarning v-if="typeOfEnv !== ''" />
     <RouterView />
     <PreFooterCodeLinks />
     <FooterUSGS />
@@ -14,16 +14,16 @@
 <script setup>
   import { onMounted } from "vue";
   import { RouterView } from 'vue-router'
-  import WindowSize from "./components/WindowSize.vue";
-  import HeaderUSWDSBanner from "./components/HeaderUSWDSBanner.vue";
+  import WindowSize from "@/components/WindowSize.vue";
+  import HeaderUSWDSBanner from "@/components/HeaderUSWDSBanner.vue";
   // Always mounted; renders a banner only when the shared status file has an
   // active notice. See README for how to raise one.
   import SiteNotice from "@/components/SiteNotice.vue";
-  import HeaderUSGS from './components/HeaderUSGS.vue';
-  import WorkInProgressWarning from "./components/WorkInProgressWarning.vue";
-  import PreFooterCodeLinks from "./components/PreFooterCodeLinks.vue";
-  import FooterUSGS from './components/FooterUSGS.vue';
-  import { useWindowSizeStore } from './stores/WindowSizeStore';
+  import HeaderUSGS from '@/components/HeaderUSGS.vue';
+  import WorkInProgressWarning from "@/components/WorkInProgressWarning.vue";
+  import PreFooterCodeLinks from "@/components/PreFooterCodeLinks.vue";
+  import FooterUSGS from '@/components/FooterUSGS.vue';
+  import { useWindowSizeStore } from '@/stores/WindowSizeStore';
 
   const windowSizeStore = useWindowSizeStore();
   const typeOfEnv = import.meta.env.VITE_APP_TIER;
