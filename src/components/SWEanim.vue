@@ -43,7 +43,7 @@
                 <label
                   class="butt"
                   for="cb1"
-                >SWE (in)</label>
+                >SWE (inches)</label>
                 <input
                   id="cb2"
                   class="butt"
@@ -756,23 +756,7 @@
 </script>
 
 <style lang="scss" scoped>
-// Toggle buttons are styled in main.css; these are this chart's variations
-.butt {
-  padding: 5px 10px;
-}
-@media screen and (width < 650px) {
-  .compare {
-    padding: 15px 0px;
-  }
-}
-.inputsContainer{
-  .inputs{
-    font-size:.85em;
-    @media screen and (min-width: 650px) {
-      font-size: 18px;
-    }
-  }
-}
+// Toggle buttons are styled in main.css
 .yr-label {
   font-size: 16px;
   font-weight: 400;

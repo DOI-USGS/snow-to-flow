@@ -131,7 +131,7 @@ a {
   margin-bottom: 15px;
 }
 .butt {
-  padding: 5px 5px;
+  padding: 5px 10px;
   margin: 5px 5px;
   cursor: pointer;
   display: inline-block;
@@ -141,10 +141,16 @@ a {
 }
 .compare input + label {
   background-color: rgb(221, 221, 221);
-  border: 2px solid transparent;
+  /* same width as the checked border, so buttons don't resize on toggle */
+  border: 7px solid rgb(221, 221, 221);
   color: black;
-  font-weight: 400;
+  font-weight: 700;
   transition: background-color .1s, border .1s;
+}
+/* keep units like mm/day from stretching the button's line height */
+.compare label sup,
+.compare label sub {
+  line-height: 0;
 }
 .compare input:checked + label {
   border: 7px solid var(--dodger-blue);
