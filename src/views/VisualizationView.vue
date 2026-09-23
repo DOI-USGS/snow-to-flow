@@ -61,6 +61,11 @@
         v-if="checkIfSplashIsRendered"
       />
       <MethodsSection v-if="checkIfSplashIsRendered" />
+      <AuthorshipSection
+        v-if="checkIfSplashIsRendered"
+        title-level="2"
+        :authors="authors"
+      />
     </div>
   </section>
 </template>
@@ -85,6 +90,8 @@
   import SNTLmap from '@/components/SNTLmap.vue';
   import ReferencesSection from '@/components/ReferencesSection.vue';
   import MethodsSection from '@/components/MethodsSection.vue';
+  import AuthorshipSection from '@/components/AuthorshipSection.vue';
+  import authors from '@/assets/text/authors';
 
   // ADD CHECK IF SPLASH IS RENDERED
   const checkIfSplashIsRendered = computed(() => {

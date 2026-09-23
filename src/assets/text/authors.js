@@ -1,64 +1,47 @@
 export default {
-    // do not delete section. delete individuals as needed. modify content as needed
-    // currently only 'fullName', 'firstName', 'initials', 'profile_link', and 'contribution' are used
-    primaryAuthors: [
+    // Do not update title w/o checking with Cee/Hayley - we want this to be consistent across sites
+    title: "USGS Vizlab",
+    // ISO dates (YYYY-MM-DD). datePublished is the initial public release; update dateModified
+    // whenever content changes. Keep in sync with the JSON-LD block in index.html.
+    datePublished: "2021-04-27",
+    dateModified: "2026-09-22",
+    // Do not update author text w/o checking with Cee/Hayley - we want this to be consistent across sites
+    authorText: "This site was created by the {projectTeam}. {leadAuthors} led the project with contributions from {additionalAuthors}, and {lastAuthor}.",
+    projectTeam: [
       {
-        firstName: 'Cee',
-        lastName: 'Nell',
-        fullName: 'Cee Nell',
-        initials: 'CN',
-        profile_link: 'https://www.usgs.gov/staff-profiles/cee-nell',
-        role: 'lead developer',
-        contribution: 'led the design and development of the website'
+        name: 'USGS Vizlab',
+        link: 'https://water.usgs.gov/vizlab/'
+      }
+    ],
+    leadAuthors: [
+      {
+        name: 'Cee Nell',
+        link: 'https://www.usgs.gov/staff-profiles/cee-nell'
       }
     ],
     // do not delete section. delete any or all individuals as needed. modify content as needed
-    // currently only 'fullName', 'firstName', 'initials', 'profile_link', and 'contribution' are used
     additionalAuthors: [
       {
-        firstName: 'Martin',
-        lastName: 'Wernimont',
-        fullName: 'Martin Wernimont',
-        initials: 'MW',
-        profile_link: null,
-        role: 'contributor',
-        contribution: 'contributed to website development'
+        name: 'Martin Wernimont',
+        link: null
       },
       {
-        firstName: 'Hayley',
-        lastName: 'Corson-Dosch',
-        fullName: 'Hayley Corson-Dosch',
-        initials: 'HCD',
-        profile_link: 'https://www.usgs.gov/staff-profiles/hayley-corson-dosch',
-        role: 'lead developer',
-        contribution: 'contributed to website development'
+        name: 'Hayley Corson-Dosch',
+        link: 'https://www.usgs.gov/staff-profiles/hayley-corson-dosch'
       },
       {
-        firstName: 'John',
-        lastName: 'Hammond',
-        fullName: 'John Hammond',
-        initials: 'JH',
-        profile_link: 'https://www.usgs.gov/staff-profiles/john-hammond',
-        role: 'SME',
-        contribution: 'advised on site content as a subject matter expert'
+        name: 'John Hammond',
+        link: 'https://www.usgs.gov/staff-profiles/john-hammond'
       },
       {
-        firstName: 'Lindsay',
-        lastName: 'Platt',
-        fullName: 'Lindsay Platt',
-        initials: 'LP',
-        profile_link: null,
-        role: 'contributor',
-        contribution: 'contributed to data processing and website development'
-      },
+        name: 'Lindsay Platt',
+        link: 'https://www.usgs.gov/staff-profiles/lindsay-rc-platt'
+      }
+    ],
+    lastAuthor: [
       {
-        firstName: 'Jessica',
-        lastName: 'Driscoll',
-        fullName: 'Jessica Driscoll',
-        initials: 'JD',
-        profile_link: 'https://www.usgs.gov/staff-profiles/jessica-driscoll',
-        role: 'SME',
-        contribution: 'advised on site content as a subject matter expert'
+        name: 'Jessica Driscoll',
+        link: 'https://www.usgs.gov/staff-profiles/jessica-driscoll'
       }
     ]
 };
