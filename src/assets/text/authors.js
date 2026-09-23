@@ -4,7 +4,7 @@ export default {
     // ISO dates (YYYY-MM-DD). datePublished is the initial public release; update dateModified
     // whenever content changes. Keep in sync with the JSON-LD block in index.html.
     datePublished: "2021-04-27",
-    dateModified: "2026-09-22",
+    dateModified: "2026-09-23",
     // Do not update author text w/o checking with Cee/Hayley - we want this to be consistent across sites
     authorText: "This site was created by the {projectTeam}. {leadAuthors} led the project with contributions from {additionalAuthors}, and {lastAuthor}.",
     projectTeam: [

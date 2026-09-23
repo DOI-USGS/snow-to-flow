@@ -8,12 +8,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
  
 Here we track upcoming changes.
  
+## [2.0.0] - 2026-09-23
+ 
 ### Added
 - Added a change log in the Vizlab template format
 - Vizlab authorship section with published and last-updated dates
 - In-text citations link to the References section
 - USWDS government banner and site-wide notices from the shared `status.json`
 - Centered, equal-height photo carousel for the measuring snowpack section
+- Site picker for the SNOTEL map, and keyboard access to the chart toggles
  
 ### Changed
 - Updated dependencies; switch from Vue 2 to Vue 3 and composition API
@@ -25,6 +28,13 @@ Here we track upcoming changes.
 - Larger hero and section titles, sans-serif subtitle, and lighter image overlays
 - SNOTEL mini charts keep the last hovered site until a new one is hovered
 - Removed Jenkins and Docker build files and unused dependencies
+- README rewritten for this site
+- Vizlab template 404 page
+- Bold, consistently sized chart toggle buttons
+- Shared styles consolidated into `assets/css`; dead CSS removed
+- Methods accordion no longer loads the full USWDS stylesheet
+- Hero and section images served as WebP sized to the screen
+- Unused images, video, and data moved out of the repo
  
 ### Fixed
 - Ridgeline hover leaving lines stuck or several sites highlighted
@@ -32,6 +42,13 @@ Here we track upcoming changes.
 - Methods text rendering too small
 - Collapsed sidebar blocking clicks on the text below it
 - Invalid structured data (JSON-LD) block in `index.html`
+- Bold emphasis lost in the migration
+- SNOTEL legend drawn three times
+- Sidebars invisible when mounted after page load
+- Overlapping hero parallax breakpoints
+- Duplicate element ids and missing section image alt text
+- Carousel lightbox not centered
+- Typos in copy and references
  
 ## [1.0.3] - 2021-04-30
  
