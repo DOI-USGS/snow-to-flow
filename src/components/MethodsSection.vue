@@ -2,23 +2,26 @@
   <section id="methods">       
     <div class="text-content">
       <h2>{{ text.title }}</h2>
-      <div class="usa-accordion usa-accordion--bordered">
+      <div class="accordion">
         <div
           v-for="reference in text.references"
           :key="reference.subTitle"
         >
-          <h3 class="usa-accordion__heading">
+          <h3 class="accordion__heading">
             <button
-              class="usa-accordion__button"
-              aria-expanded="false"
+              type="button"
+              class="accordion__button"
+              :aria-expanded="openId === reference.id"
               :aria-controls="reference.id"
+              @click="toggle(reference.id)"
             >
               {{ reference.subTitle }}
             </button>
           </h3>
           <div
             :id="reference.id"
-            class="usa-accordion__content usa-prose target"
+            class="accordion__content"
+            :hidden="openId !== reference.id"
           >
             <p><span v-html="reference.reference" /></p>
           </div>
@@ -29,23 +32,20 @@
 </template>
 
 <script setup>
-  import { onMounted } from 'vue';
+  import { ref } from 'vue';
   import referencesText from '@/assets/text/methodsText.js';
 
   const text = referencesText.referencesContent;
 
-  onMounted(() => {
-    // This is a fix for the weird USWDS glitch that causes the Methods section
-    // accordion menus to be open on page load
-    const targetAccordionDivs = document.querySelectorAll('.target');
-    targetAccordionDivs.forEach((div) => {
-      div.setAttribute('hidden', '""');
-    });
-  });
+  // One panel open at a time, all closed to start (as the USWDS accordion
+  // this replaces behaved)
+  const openId = ref(null);
+
+  function toggle(id) {
+    openId.value = openId.value === id ? null : id;
+  }
 </script>
 
-<!-- Scope USWDS styles -->
-<style scoped src="../../node_modules/@uswds/uswds/dist/css/uswds.min.css"></style>
 <style scoped lang="scss">
 @use 'sass:map';
 @use 'sass:string';
@@ -76,23 +76,49 @@ $brightBlue: rgb(9,98,178);
 .text-content h2{
   text-align: left;
 }
-button:not([disabled]):focus{
-  outline: none;
+/* Accordion, after the USWDS bordered accordion but at the page's type size */
+.accordion{
+  color: #1b1b1b;
+  line-height: 1.5;
 }
-/* USWDS sizes the accordion in rem, which renders far smaller than the
-   body text here; match the surrounding page instead */
-.usa-accordion,
-.usa-accordion__heading,
-.usa-accordion__button,
-.usa-accordion__content,
-.usa-prose{
-  font-family: inherit;
-  font-size: inherit;
-}
-.usa-accordion__heading{
+.accordion__heading{
   font-size: 1em;
+  line-height: .9;
 }
-.usa-accordion__button{
+.accordion__button{
+  display: inline-block;
+  width: 100%;
+  margin: 0;
+  padding: 1rem 3.5rem 1rem 1.25rem;
+  border: 0;
+  border-radius: 0;
+  font: inherit;
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: left;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: right 1.25rem center;
+  &:focus-visible{
+    outline: 3px solid var(--color-text);
+    outline-offset: 2px;
+  }
+}
+.accordion__content{
+  overflow: auto;
+  padding: 1rem 1.25rem;
+  background-color: #fff;
+  border: .25rem solid #f0f0f0;
+  border-top: 0;
+  p{
+    max-width: 68ex;
+    margin: 0;
+    padding: 0;
+    font-size: 1em;
+    line-height: 1.5em;
+  }
+}
+.accordion__button{
   background-image: get-icon("chevronDown", #fff);
   background-size: 15px 10px;
   background-color: $brightBlue;
@@ -103,7 +129,7 @@ button:not([disabled]):focus{
     color: white;
   }
 }
-.usa-accordion__button[aria-expanded=false]{
+.accordion__button[aria-expanded=false]{
   background-image: get-icon("chevronLeft", $brightBlue);
   background-size: 10px 15px;
   background-color: rgb(241, 240, 240);
@@ -113,10 +139,5 @@ button:not([disabled]):focus{
     background-color: $brightBlue;
     color: white;
   }
-}
-.target p{
-  padding: 0;
-  font-size: 1em;
-  line-height: 1.5em; 
 }
 </style>
