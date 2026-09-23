@@ -79,8 +79,18 @@ $brightBlue: rgb(9,98,178);
 button:not([disabled]):focus{
   outline: none;
 }
+/* USWDS sizes the accordion in rem, which renders far smaller than the
+   body text here; match the surrounding page instead */
+.usa-accordion,
+.usa-accordion__heading,
+.usa-accordion__button,
+.usa-accordion__content,
+.usa-prose{
+  font-family: inherit;
+  font-size: inherit;
+}
 .usa-accordion__heading{
-  font-size: 1.2em;
+  font-size: 1em;
 }
 .usa-accordion__button{
   background-image: get-icon("chevronDown", #fff);
