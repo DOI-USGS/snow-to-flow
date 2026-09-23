@@ -31,7 +31,7 @@ export default {
       },
       {
         name: 'John Hammond',
-        link: 'https://www.usgs.gov/staff-profiles/john-hammond'
+        link: 'https://www.usgs.gov/staff-profiles/john-c-hammond'
       },
       {
         name: 'Lindsay Platt',

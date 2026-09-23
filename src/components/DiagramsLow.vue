@@ -32,7 +32,7 @@
         <template #sidebarMessage>
           <p>
             Some snow evaporates directly back into the atmosphere in a process called <a
-              href="https://www.usgs.gov/centers/co-water/science/snowpack-sublimation-measurements-and-modeling-colorado-river-basin?qt-science_center_objects=0#qt-science_center_objects"
+              href="https://www.usgs.gov/centers/colorado-water-science-center/science/snowpack-sublimation-measurements-and-modeling"
               target="_blank"
             >sublimation</a>. Cold sunny weather contributes to the amount of snow vaporized directly back into the atmosphere<sup class="citation"><a href="#ref-11">11</a></sup> and higher wind speeds can accelerate sublimation.
           </p>

@@ -28,10 +28,10 @@
     <template #belowExplanation>
       <p>
         The <a
-          href="https://www.nrcs.usda.gov/wps/portal/nrcs/site/national/home/"
+          href="https://www.nrcs.usda.gov/"
           target="_blank"
         >Natural Resources Conservation Service (NRCS)</a> operates a snow monitoring program that includes over 800 automated <a
-          href="https://www.wcc.nrcs.usda.gov/snow/"
+          href="https://www.nrcs.usda.gov/programs-initiatives/sswsf-snow-survey-and-water-supply-forecasting-program"
           target="_blank"
         >Snow Telemetry (SNOTEL)</a> data collection sites that monitor SWE, snow depth, precipitation, temperature, and other related meteorological variables.
       </p>

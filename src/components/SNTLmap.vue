@@ -1537,7 +1537,7 @@
     <template #figureCaption>
       <p id="explain-bottom">
         The map shows April 1st snow as a percentile of this date in the historic record (1981-2010). Snow is quantified as the daily snow-water equivalent (SWE) at  <a
-          href="https://www.wcc.nrcs.usda.gov/snow/"
+          href="https://www.nrcs.usda.gov/programs-initiatives/sswsf-snow-survey-and-water-supply-forecasting-program"
           target="_blank"
         >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites </a> across the Western U.S. SNOTEL sites with less than 20 years in the historic record are faded out in grey.
       </p>
@@ -1571,10 +1571,10 @@
       </ExpandingSidebar>
       <p>
         The USGS is undertaking new efforts to advance snow science through both measuring and modeling snowpack and linking these results to streamflow. As a part of the <a
-          href="https://www.usgs.gov/mission-areas/water-resources/science/usgs-next-generation-water-observing-system-ngwos?qt-science_center_objects=0#qt-science_center_objects"
+          href="https://www.usgs.gov/mission-areas/water-resources/science/next-generation-water-observing-system-ngwos"
           target="_blank"
         >USGS Next Generation Water Observing System (NGWOS)</a>, new spatial and temporal snow and streamflow observations are being planned for unmonitored areas. These observations will provide valuable data to inform predictive modeling of water-cycle components in the Upper Colorado River Basin. New snow monitoring will include continuous snowpack and soil moisture stations, remotely sensed mapping of snow conditions, and manual snow surveys. In addition, USGS is involved in the development and production of the Landsat snow covered area product, available through <a
-          href="https://www.usgs.gov/core-science-systems/nli/landsat/landsat-fractional-snow-covered-area"
+          href="https://www.usgs.gov/landsat-missions/landsat-fractional-snow-covered-area-science-products"
           target="_blank"
         > Earth Explorer.</a>
       </p>

@@ -49,6 +49,7 @@ Here we track upcoming changes.
 - Duplicate element ids and missing section image alt text
 - Carousel lightbox not centered
 - Typos in copy and references
+- Outdated links updated to their current addresses (NRCS, USGS, pubs.usgs.gov, DOI-USGS GitHub)
  
 ## [1.0.3] - 2021-04-30
  
