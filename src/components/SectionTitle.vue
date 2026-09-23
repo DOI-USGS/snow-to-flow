@@ -94,10 +94,6 @@
 </script>
 
 <style lang="scss" scoped>
-  $familyMain: 'Public sans', sans-serif;
-  $familySerif:  'Noto Serif', serif;
-  $darkGrey: #212122;
-
   .chapterContainer{
     margin-bottom: 3rem;
   }

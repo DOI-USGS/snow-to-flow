@@ -85,6 +85,6 @@
   .byline {
     margin-top: 1em;
     font-size: 0.85em;
-    color: #5c5c5c;
+    color: var(--medium-grey-dark);
   }
 </style>

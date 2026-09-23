@@ -2118,24 +2118,10 @@
   .leggy {
     display: inline-block;
   }
+  // the explanatory paragraphs reuse .figureCaption for its type styles;
+  // keep them block so the inline legend symbols lay out in the text
   .figureCaption {
     display: block;
-  }
-  .dot_peak {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: orchid;
-    border: 0.35px solid orchid;
-    display: inline-block;  
-  }
-  .dot_melt {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: white;
-    border: 1.5px solid orchid;
-    display: inline-block;
   }
 
   .map-grid{

@@ -391,7 +391,7 @@
   $strokeOpacity: .5;
   $fillOpacity: .3;
   $grey: grey;
-  $blue: dodgerblue;
+  $blue: var(--dodger-blue);
   
   sup {
     color: white;
@@ -402,7 +402,7 @@
     height: 100%;
   }
 
-  .axis-tick, .annotation-line {
+  .axis-tick {
     fill: none;
     stroke: #d9d9d9;
     stroke-width: 0.75px;
@@ -422,7 +422,6 @@
     font-style: italic;
     opacity: .3;
     font-size: 1.4em;
-    z-index: 999;
   }
   .area{
     stroke-linejoin: round;
@@ -459,112 +458,4 @@
     stroke: lightgrey;
     opacity: .3;
   }
-  // Copy button style from SWEanim
-  .compare {
-    border: 0px solid black;
-    display: inline-block;
-    width: 80vw;
-    max-width: 600px;
-    font-size: 18px;
-    text-align: center;
-    padding: 15px 10px;
-    margin: auto;
-    position: relative;
-    h4{
-      margin-bottom: 15px;
-    }
-  }
-  .butt {
-    padding: 5px 5px;
-    margin: 5px 5px;
-    cursor: pointer;
-    display: inline-block;
-  }
-  input[name="radiogroup1"] {
-    display: none;
-  }
-  input[name="radiogroup1"]+label {
-    /* style passive state as you like */
-    border: 2px solid transparent;
-    color: black;
-    font-weight: 400;
-  }
-  input[name="radiogroup1"]:checked+label {
-    /* style checked state as you like */
-    border: 7px solid dodgerblue;
-    background-color: dodgerblue;
-    color: white;
-  }
-  input[name="checkboxgroup1"] {
-    display: none;
-  }
-  input[name="checkboxgroup1"]+label {
-    /* style passive state as you like */
-    background-color: rgb(221, 221, 221);
-    border: 2px solid transparent;
-    color: black;
-    font-weight: 400;
-    transition: background-color .1s, border .1s;
-  }
-  input[name="checkboxgroup1"]:checked+label {
-    /* style checked state as you like */
-    border: 7px solid dodgerblue;
-    background-color: dodgerblue;
-    color: white;
-  }
-  input[name="checkboxgroup2"] {
-        display: none;
-      }
-  input[name="checkboxgroup2"]+label {
-    /* style passive state as you like */
-    background-color: rgb(221, 221, 221);
-    border: 2px solid transparent;
-    color: black;
-    font-weight: 400;
-    transition: background-color .1s, border .1s;
-  }
-  input[name="checkboxgroup2"]:checked+label {
-    /* style checked state as you like */
-    border: 7px solid grey;
-    background-color: grey;
-    color: white;
-  }
-  @media screen and (min-width: 650px){
-    .compare{
-      width: 100%;
-      max-width: 600px;
-      padding: 5px 5px;
-      .btn-group{
-        display: flex;
-        align-items: center;
-        .inputsContainer{
-          flex: 2;
-          position: relative;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          .inputs{
-            position: absolute;
-            left: 10px;
-            .butt{
-              margin-right: 10px;
-            }
-            .butt:last-child{
-              margin-right: 0;
-            }
-          }
-        }
-        #mmd-container-both {
-          width: 90vw;
-          max-width: 1200px;
-          margin: auto;
-        }
-        h4{
-          flex: 1;
-          margin-bottom: 0;
-        }
-      }
-    } 
-  }
 </style>
-

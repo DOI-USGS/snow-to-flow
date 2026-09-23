@@ -36,3 +36,155 @@ a {
   max-width: 80vw;
   margin: 0 auto 0 auto;
 }
+
+/* ##### VizSection layout #####
+   Structure classes from VizSection.vue, plus layout helpers applied to
+   the content slotted into it. */
+.vizSectionContent {
+  flex: 1;
+}
+.takeAway {
+  margin: 0 auto 20px auto;
+  max-width: 700px;
+  font-weight: 800;
+}
+.takeAway h2 {
+  font-size: 1.4em;
+}
+.figures > * {
+  margin-bottom: 20px;
+}
+.figures img {
+  width: 100%;
+}
+.figureCaption {
+  display: flex;
+  justify-content: center;
+  font-size: .85em;
+  line-height: 1.5em;
+  font-style: italic;
+}
+.explanation {
+  font-size: 1em;
+  line-height: 1.75em;
+}
+.explanation p {
+  padding: 0 0 10px 0;
+}
+.explanation ul {
+  margin-left: 40px;
+  margin-bottom: 20px;
+}
+.takeAway,
+.figureCaption,
+.explanation {
+  padding: 0 10px;
+}
+.figureCaption,
+.explanation {
+  max-width: 700px;
+  margin: 0 auto 20px auto;
+}
+.maxWidth {
+  max-width: 1500px;
+  margin: 0 auto 15px auto;
+}
+.maxWidth p {
+  max-width: 700px;
+  margin: 0 auto;
+}
+.single {
+  text-align: center;
+}
+.group {
+  /* prevent too large mobile graphs from creating a x scroll */
+  overflow: hidden;
+  align-items: center;
+}
+.group figure {
+  margin-bottom: 20px;
+}
+@media screen and (min-width: 1024px) {
+  .takeAway h2 {
+    font-size: 1.7em;
+  }
+  .group {
+    display: grid;
+    gap: 15px;
+  }
+}
+
+/* ##### Chart toggle buttons #####
+   The SWE / streamflow / year toggles in LineChart.vue and SWEanim.vue.
+   Each input is hidden and its label styled as the button. */
+.compare {
+  display: inline-block;
+  width: 80vw;
+  max-width: 600px;
+  font-size: 18px;
+  text-align: center;
+  padding: 15px 10px;
+  margin: auto;
+  position: relative;
+}
+.compare h4 {
+  margin-bottom: 15px;
+}
+.butt {
+  padding: 5px 5px;
+  margin: 5px 5px;
+  cursor: pointer;
+  display: inline-block;
+}
+.compare input {
+  display: none;
+}
+.compare input + label {
+  background-color: rgb(221, 221, 221);
+  border: 2px solid transparent;
+  color: black;
+  font-weight: 400;
+  transition: background-color .1s, border .1s;
+}
+.compare input:checked + label {
+  border: 7px solid var(--dodger-blue);
+  background-color: var(--dodger-blue);
+  color: white;
+}
+/* the SWE toggle is grey, matching the SWE series */
+.compare input[name="checkboxgroup2"]:checked + label {
+  border-color: grey;
+  background-color: grey;
+}
+@media screen and (min-width: 650px) {
+  .compare {
+    width: 100%;
+    max-width: 600px;
+    padding: 5px 5px;
+  }
+  .compare .btn-group {
+    display: flex;
+    align-items: center;
+  }
+  .compare .btn-group h4 {
+    flex: 1;
+    margin-bottom: 0;
+  }
+  .compare .inputsContainer {
+    flex: 2;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .compare .inputs {
+    position: absolute;
+    left: 10px;
+  }
+  .compare .inputs .butt {
+    margin-right: 10px;
+  }
+  .compare .inputs .butt:last-child {
+    margin-right: 0;
+  }
+}

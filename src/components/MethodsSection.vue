@@ -119,8 +119,4 @@ button:not([disabled]):focus{
   font-size: 1em;
   line-height: 1.5em; 
 }
-/*Accordion title CSS*/
-h2.usa-accordion__heading {
-  margin: 0;
-}
 </style>

@@ -98,6 +98,3 @@
     return splashRenderStore.splashRenderedOnInitialLoad
   })
 </script>
-
-<style scoped>
-</style>

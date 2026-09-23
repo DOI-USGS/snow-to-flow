@@ -74,13 +74,12 @@
 </script>
 
 <style lang="scss" scoped>
-  $deepBlue: #00478F;
+  $deepBlue: var(--deep-blue);
   $familyMain: 'Public sans', sans-serif;
   .sidebar {
     display: flex;
     flex-direction: row;
     margin: 15px 20px;
-    transition: width 2s, height 2s, transform 2s;
     will-change: width;
     background: $deepBlue;
     border-radius: 5px;

@@ -754,34 +754,24 @@
       .attr("transform", "translate(270, 0) scale(.49, 1)")
   }
 </script>
-<style lang="scss" scoped>
-$familySerif:  'Noto Serif', serif;
-.maxWidth {
-  width: 90vw;
-  margin-left: 5vw;
-  max-width: 700px;
-  margin: auto;
-}
 
-.compare {
-  border: 0px solid black;
-  display: inline-block;
-  width: 80vw;
-  max-width: 600px;
-  font-size: 18px;
-  text-align: center;
-  padding: 15px 0px;
-  margin: auto;
-  position: relative;
-  h4{
-    margin-bottom: 15px;
-  }
-}
+<style lang="scss" scoped>
+// Toggle buttons are styled in main.css; these are this chart's variations
 .butt {
   padding: 5px 10px;
-  margin: 5px 5px;
-  cursor: pointer;
-  display: inline-block;
+}
+@media screen and (width < 650px) {
+  .compare {
+    padding: 15px 0px;
+  }
+}
+.inputsContainer{
+  .inputs{
+    font-size:.85em;
+    @media screen and (min-width: 650px) {
+      font-size: 18px;
+    }
+  }
 }
 .yr-label {
   font-size: 16px;
@@ -789,11 +779,6 @@ $familySerif:  'Noto Serif', serif;
   text-anchor: middle;
   font-style: italic;
   fill: rgb(165, 163, 163);
-}
-.inputsContainer{
-  .inputs{
-    font-size:.85em;
-  }
 }
 #mmd-container-both {
   width: 90vw;
@@ -803,109 +788,10 @@ $familySerif:  'Noto Serif', serif;
 svg#mmd-line-both{
   transform: translate(-5px, 0);
 }
-
-input[name="radiogroup1"] {
-            display: none;
-        }
-         input[name="radiogroup1"]+label {
-            /* style passive state as you like */
-            background-color: rgb(221,221,221);
-            border: 2px solid transparent;
-            color: black;
-            font-weight: 400;
-            transition: background-color .1s, border .1s;
-        }
-
-    input[name="radiogroup1"]:checked+label {
-        /* style checked state as you like */
-        border: 7px solid dodgerblue;
-        background-color: dodgerblue;
-        color: white;
-    }
-input[name="checkboxgroup1"] {
-            display: none;
-        }
-         input[name="checkboxgroup1"]+label {
-            /* style passive state as you like */
-            background-color: rgb(221,221,221);
-            border: 2px solid transparent;
-            color: black;
-            font-weight: 400;
-            transition: background-color .1s, border .1s;
-        }
-
-    input[name="checkboxgroup1"]:checked+label {
-        /* style checked state as you like */
-        border: 7px solid dodgerblue;
-        background-color: dodgerblue;
-        color: white;
-    }
-    input[name="checkboxgroup2"] {
-            display: none;
-        }
-         input[name="checkboxgroup2"]+label {
-            /* style passive state as you like */
-            background-color: rgb(221,221,221);
-            border: 2px solid transparent;
-            color: black;
-            font-weight: 400;
-            transition: background-color .1s, border .1s;
-        }
-
-    input[name="checkboxgroup2"]:checked+label {
-        /* style checked state as you like */
-        border: 7px solid grey;
-        background-color: grey;
-        color: white;
-        transition: background-color .1s, border .1s;
-    }
-    
-
-@media screen and (min-width: 650px){
-  .compare{
-    width: 100%;
-    max-width: 600px;
-    padding: 5px 5px;
-    .btn-group{
-      display: flex;
-      align-items: center;
-      .inputsContainer{
-        flex: 2;
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        .inputs{
-          position: absolute;
-          left: 10px;
-          font-size: 18px;
-          .butt{
-            margin-right: 10px;
-          }
-          .butt:last-child{
-            margin-right: 0;
-          }
-        }
-      }
-      #mmd-container-both {
-        width: 90vw;
-        max-width: 1200px;
-        margin: auto;
-      }
-      h4{
-        flex: 1;
-        margin-bottom: 0;
-      }
-    }
-  } 
-}
 // adding a break for full screen laptop adjustments
 @media screen and (max-height: 750px){
   #mmd-container-both {
-    width: 90vw;
     max-width: 700px;
-    margin: auto;
   }
-
 }
 </style>

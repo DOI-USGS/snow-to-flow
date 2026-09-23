@@ -92,8 +92,3 @@
   import ExpandingSidebar from '@/components/ExpandingSidebar.vue';
   import diagrams from '@/assets/text/diagrams.js';
 </script>
-<style lang="scss" scoped>
-.diagram figure img { 
-    width: 100%;
-  }
-</style>

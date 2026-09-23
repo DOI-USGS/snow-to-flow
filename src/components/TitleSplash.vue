@@ -252,7 +252,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background-image: linear-gradient(#00478F 0%, #fff 70%);
+      background-image: linear-gradient(var(--deep-blue) 0%, #fff 70%);
   }
   .splashTitle{
       position: absolute;
@@ -272,23 +272,11 @@
         font-family: var(--default-font), sans-serif;
         font-size:1.4em;
         line-height: 1.4em;
-        // font-weight: 400;
       }
-      h1, h2, p{
+      h1, h2{
           color: #fff;
           margin: 10px auto;
       } 
-      p{
-          padding-top: 10px;
-          font-weight: 400;
-      }
-  }
-  .splashOverlay{
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,.3);
-      z-index: 21
   }
   .element{
       position: absolute;
@@ -309,9 +297,6 @@
   }
   #water{
       z-index: 15;
-  }
-  #people{
-      z-index: 20;
   }
   #clouds{
       z-index: 25;

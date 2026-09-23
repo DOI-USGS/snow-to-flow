@@ -446,7 +446,7 @@
     margin: 1rem 0 0;
     text-align: center;
     font-size: 0.85em;
-    color: #5c5c5c;
+    color: var(--medium-grey-dark);
   }
 
   .coverflow-fade-enter-active,

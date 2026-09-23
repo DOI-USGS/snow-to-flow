@@ -26,6 +26,3 @@
   import CarouselGallery from '@/components/CarouselGallery.vue';
   import diagrams from '@/assets/text/diagrams.js';
 </script>
-
-<style lang="scss" scoped>
-</style>
