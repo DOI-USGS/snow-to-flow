@@ -14,33 +14,28 @@
         class="bg"
         :style="overlayVars"
       >
-        <picture class="lazy">
-          <!-- Media size suggestions https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images -->
+        <picture>
+          <!-- 1x on phones, 2x otherwise; WebP where supported, with JPEG fallbacks.
+               Media size suggestions https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images -->
           <source
             type="image/webp"
             media="(max-width: 799px)"
             :srcset="getImageUrl(image, '1', 'webp')"
-            :data-srcset="getImageUrl(image, '1', 'webp')"
           >
           <source
             type="image/webp"
             media="(min-width: 800px)"
-            :data-srcset="getImageUrl(image, '2', 'webp')"
+            :srcset="getImageUrl(image, '2', 'webp')"
           >
-          <!--BACKUP IF BROWSER DOESN'T ACCEPT WEBP (TESTED AND WORKING ON SAFARI)-->
           <source
-            type="image/jpg"
+            type="image/jpeg"
             media="(max-width: 799px)"
-            :data-srcset="getImageUrl(image, '1', 'jpg')"
-          >
-          <source
-            type="image/jpg"
-            media="(min-width: 800px)"
-            :data-srcset="getImageUrl(image, '2', 'jpg')"
+            :srcset="getImageUrl(image, '1', 'jpg')"
           >
           <img
-            :srcset="getImageUrl(image, '2', 'jpg')"
+            :src="getImageUrl(image, '2', 'jpg')"
             :alt="alt"
+            loading="lazy"
           >
         </picture>
         <div
