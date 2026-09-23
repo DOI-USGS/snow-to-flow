@@ -1,26 +1,33 @@
-# vue3-template
+# From Snow to Flow
 
-This project serves as a template for our site builds. It uses Vue 3 and Vite (currently version 5), and is configured to be built from GitLab using Jenkins.
+**The data visualization website can be viewed at [https://water.usgs.gov/vizlab/snow-to-flow](https://water.usgs.gov/vizlab/snow-to-flow).**
 
-## To build the website locally
+A majority of the water in the western U.S. comes from snowmelt. This site explores the fundamentals of USGS snow hydrology research: the dynamics that determine how snow turns into flow, and the connection between snowpack (measured as snow water equivalent, SWE) and streamflow.
 
-Clone the repo. In the directory, run `npm install` to install the required modules. This repository requires node `v20` to run. If you are using a later version of `npm`, you may [try using `nvm` to manage multiple versions of npm](https://betterprogramming.pub/how-to-change-node-js-version-between-projects-using-nvm-3ad2416bda7e).
+## To build pipeline and reproduce figures
+The data shown on the site are fetched and processed by an R pipeline built with the `targets` package, in the `data_processing_pipeline` subdirectory.
 
-Once the dependencies have been installed, run `npm run dev` to run locally from your browser.
+Clone the repo. In RStudio, open `data_processing_pipeline/data_processing_pipeline.Rproj`, then run `library(targets)` and `tar_make()`. To update the data to a new date, set `p1_today`, which `1_fetch.R` uses to filter recent sites.
 
-## Project name handling
+## Data processing
+Daily SWE values are pulled from all USDA NRCS snow telemetry (SNOTEL) sites since 1981 (`1_fetch/src/fetch_SNOTEL.R`). These are used to calculate peak SWE and SM50 at every site with at least 20 years in the historic record, 1981-2011 (`2_process/src/prep_SNOTEL.R`), and to find each site's April 1st SWE percentile. Hover curves and trendlines for the map are pre-computed in `6_visualize/src/trend_coords.R`, and the map itself in `6_visualize/src/make_map.R`. The resulting `SNOTEL_*.csv` files are in [`public/data`](https://github.com/DOI-USGS/snow-to-flow/tree/main/public/data).
 
-The environment variable `VITE_APP_TITLE` (set in `'.env'`) is a key variable. It should match the repo name (here `vue3-template`). The value for `name` in `'package.json'` should be set to match `VITE_APP_TITLE`. This `VITE_APP_TITLE` parameter also needs to be set up in the Jenkins configuration. Once set up, it will be used to set all of the build paths used in `'Jenkinsfile.build'` and `'Dockerfile'`, including the website extension (`labs.waterdata.usgs.gov/visualizations/{VITE_APP_TITLE}`). `VITE_APP_TITLE` is also used to set the base path for the vite build in `'vite.config.mjs'`. It is also used to configure the metadata in `'index.html'`. The environment variables `VITE_APP_LONG_TITLE` and `VITE_APP_DESCRIPTION` are also used to configure the metadata.
+The SWE and streamflow ridgelines use daily gridded SWE at 4-km resolution from the National Snow & Ice Data Center for the 2011 and 2012 water years, and streamflow from the USGS National Water Information System. Their data are `mmd_df_2011.csv`, `mmd_df_2012.csv`, `swe_df_2011.csv`, and `swe_df_2012.csv` in [`public/data`](https://github.com/DOI-USGS/snow-to-flow/tree/main/public/data).
 
-When preparing to migrate a repo built from this template to DGEC, the name of the GitHub repo (`vizlab-{project_name}`) in the DGEC required files `'code.json'` and `'CONTRIBUTING.md'` will need to be updated, so that the value of `VITE_APP_TITLE` is used to replace `{project_name}`, e.g., a `VITE_APP_TITLE` of `vue3-template` would mean a GitHub repo named `vizlab-vue3-template`
+## Building the website locally
 
-## New Vue syntax for components
+Clone the repo. In the directory, run `npm install` to install the required modules. Once the dependencies have been installed, run `npm run dev` to run locally from your browser.
 
-Vue syntax has changed with the shift to Vue 3. We can now use the `<script setup>` composition API syntax to build our components, which requires less boilerplate. See the [`<script setup>` guide](https://vuejs.org/api/sfc-script-setup.html). Any top-level defined variables or imported components are directly available for use in the `<template>`. Components now no longer need to be explicitly named, and can be imported directly by name using the filename, e.g. `import HeaderUSWDSBanner from "./components/HeaderUSWDSBanner.vue"`.
+To build the website locally you'll need `node.js` `v22.14.0` and `npm` `v10.9.2` or higher installed. To manage multiple versions of `npm`, you may [try using `nvm`](https://betterprogramming.pub/how-to-change-node-js-version-between-projects-using-nvm-3ad2416bda7e).
 
-## Example components
+## Citation
 
-At the moment this repo contains two example components, both of which use `D3`.
+Nell, C., Wernimont, M., Corson-Dosch, H., and Platt, L. From Snow to Flow. U.S. Geological Survey website. Reston, VA. [https://water.usgs.gov/vizlab/snow-to-flow](https://water.usgs.gov/vizlab/snow-to-flow)
 
-- `RegionalViolins.vue` pulls in part of the regional section from [Drought timeline](https://labs.waterdata.usgs.gov/visualizations/drought-timeline/index.html#/). Here, a R-generated svg is loaded into the component, and `D3` is used to layer on interaction, showing and hiding map images and violin charts for different regions. The images were added using a `v-for` pattern and dynamic filepath urls. This component also has a mobile-specific layout.
-- `BarChartExample.vue` pulls in the water bottling facility bar chart and state dropdown from [Bottled water](https://labs.waterdata.usgs.gov/visualizations/bottled-water/index.html). It loads in a csv and uses it to build an updating `D3` bar chart.
+## Consulting subject matter experts
+John Hammond and Jessica Driscoll consulted on the development of this website as subject matter experts.
+
+## Additional information
+* We welcome contributions from the community. See the [guidelines for contributing](https://github.com/DOI-USGS/snow-to-flow/) to this repository on GitHub.
+* [Disclaimer](https://github.com/DOI-USGS/snow-to-flow/blob/main/DISCLAIMER.md)
+* [License](https://github.com/DOI-USGS/snow-to-flow/blob/main/LICENSE.md)
