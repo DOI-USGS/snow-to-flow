@@ -220,6 +220,9 @@
   // Ordering of gages
   let site_elev = [];
 
+  // Site currently highlighted on hover, or null
+  let activeSite = null;
+
   // d3 selections and generators, assigned during setup and reused by the
   // transition helpers below. These are plain references, not reactive state.
   let svgboth = null;
@@ -322,6 +325,16 @@
     // first draw is MMD
     initRidges(svgboth, 'ridge_2011', data.mmd11, data.days, 0, x_long, 0, height / 2 - 10);
     initRidges(svgboth, 'ridge_2012', data.mmd12, data.days, 0, x_long, height / 2 + 10, height);
+
+    // Hover is resolved from whatever is under the pointer on every move,
+    // rather than per-path mouseover/mouseout. Raising the hovered ridge moves
+    // it in the DOM, which can swallow its mouseout and leave it stuck on.
+    svgboth
+      .on("pointermove", (event) => {
+        const target = d3.select(event.target);
+        setActiveSite(target.classed("ridge") ? target.datum().key : null);
+      })
+      .on("pointerleave", () => setActiveSite(null));
   }
 
   function initRidges(svg, ridge_class, data_nest, days, x_start, x_end, y_start, y_end) {
@@ -404,9 +417,7 @@
       .attr("class", d => d.key)
       .classed("ridge", true)
       .classed("mmd", true)
-      .attr('pointer-events', 'visibleStroke')
-      .on("mouseover", (event, d) => hover(d))
-      .on("mouseout", (event, d) => hoverOut(d));
+      .attr('pointer-events', 'visibleStroke');
 
     // draw SWE curves
     group.append("path")
@@ -419,9 +430,7 @@
       .attr("class", d => d.key)
       .classed("ridge", true)
       .classed("swe", true)
-      .attr('pointer-events', 'visibleStroke')
-      .on("mouseover", (event, d) => hover(d))
-      .on("mouseout", (event, d) => hoverOut(d));
+      .attr('pointer-events', 'visibleStroke');
 
     y2011 = svgboth.selectAll("g.ridge_2011") // ridge group
     y2012 = svgboth.selectAll("g.ridge_2012")
@@ -450,37 +459,9 @@
     fast.transition().duration(0).attr("opacity", 1)
   }
 
-  function hover(data) {
-    d3.selectAll('g.ridge_group')
-      .lower()
-
-    d3.selectAll('g.ridge_group.' + data.key)
-      .raise()
-
-    d3.selectAll('g.curve path.mmd.' + data.key)
-      .attr('stroke-width', "2px")
-      .attr('stroke', "darkblue")
-      .attr('stroke-opacity', .8)
-
-    d3.selectAll('g.curve path.swe.' + data.key)
-      .attr('stroke-width', "2px")
-      .attr('stroke', "black")
-      .attr('stroke-opacity', .8)
-  }
-
-  function hoverOut(data) {
-    d3.selectAll('g.ridge_group')
-      .lower()
-
-    d3.selectAll('g.curve path.mmd.' + data.key)
-      .attr("stroke-width", "1px")
-      .attr("stroke", color_mmd)
-      .attr('stroke-opacity', .5)
-
-    d3.selectAll('g.curve path.swe.' + data.key)
-      .attr("stroke-width", "1px")
-      .attr("stroke", color_swe)
-      .attr('stroke-opacity', .5)
+  function setActiveSite(key) {
+    if (key === activeSite) return;
+    activeSite = key;
 
     d3.selectAll('g.curve path.mmd')
       .attr("stroke-width", "1px")
@@ -491,6 +472,21 @@
       .attr("stroke-width", "1px")
       .attr("stroke", color_swe)
       .attr('stroke-opacity', .5)
+
+    if (key === null) return;
+
+    d3.selectAll('g.ridge_group.' + key)
+      .raise()
+
+    d3.selectAll('g.curve path.mmd.' + key)
+      .attr('stroke-width', "2px")
+      .attr('stroke', "darkblue")
+      .attr('stroke-opacity', .8)
+
+    d3.selectAll('g.curve path.swe.' + key)
+      .attr('stroke-width', "2px")
+      .attr('stroke', "black")
+      .attr('stroke-opacity', .8)
   }
 
   function showSWE() {
