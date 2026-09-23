@@ -39,11 +39,16 @@
   // Declare behavior on mounted
   // functions called here
   onMounted(() => {
-    window.addEventListener('load', setDimensions);
+    // Size the collapsed sidebar to its button once the button's font has
+    // loaded. Unlike window 'load', this also resolves when the component
+    // mounts after the page has finished loading (e.g. navigating back
+    // from the 404 page), which otherwise left the sidebar invisible.
+    document.fonts.ready.then(setDimensions);
   });
 
   function setDimensions(){
     const sidebar = root.value;
+    if (!sidebar) return; // unmounted before fonts were ready
     const button = sidebar.querySelector(".reveal")
     const buttonDimensions = button.getBoundingClientRect();
     sidebar.style.height = `${buttonDimensions.height}px`;
