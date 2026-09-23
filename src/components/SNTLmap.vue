@@ -1775,7 +1775,7 @@
         .text("Melt date (SM50)");
 
     // wy mini
-   ywy = d3.scaleLinear()
+   const ywy = d3.scaleLinear()
       .range([270, 10])
       .domain([1, 130]);
 
