@@ -26,3 +26,6 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+# Unused images, video, and data kept locally only; not part of the site
+unused_assets/
