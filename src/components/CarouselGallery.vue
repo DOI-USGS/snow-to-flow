@@ -1,5 +1,74 @@
 <template>
-  <div class="carousel">
+  <div
+    v-if="layout === 'centered'"
+    class="coverflow"
+    @keydown.left.prevent="go(-1)"
+    @keydown.right.prevent="go(1)"
+  >
+    <div class="coverflow__stage">
+      <!-- Side images are previews only; the nav buttons are the accessible
+           controls, so the previews stay out of the tab order -->
+      <div
+        v-for="slot in slots"
+        :key="slot.name"
+        :class="['coverflow__slot', `coverflow__slot--${slot.name}`]"
+      >
+        <Transition
+          name="coverflow-fade"
+          mode="out-in"
+        >
+          <button
+            :key="items[slot.index].id"
+            :class="slot.name === 'center' ? 'carousel__thumb' : 'coverflow__peek'"
+            type="button"
+            :tabindex="slot.name === 'center' ? 0 : -1"
+            :aria-hidden="slot.name === 'center' ? null : 'true'"
+            :aria-label="slot.name === 'center' ? `Enlarge: ${items[slot.index].alt}` : null"
+            @click="slot.name === 'center' ? open(slot.index) : go(slot.offset)"
+          >
+            <picture>
+              <source
+                :srcset="items[slot.index].webp"
+                type="image/webp"
+              >
+              <img
+                class="coverflow__image"
+                :src="items[slot.index].jpg"
+                :alt="slot.name === 'center' ? items[slot.index].alt : ''"
+              >
+            </picture>
+          </button>
+        </Transition>
+      </div>
+    </div>
+    <button
+      class="carousel__nav coverflow__nav coverflow__nav--prev"
+      type="button"
+      aria-label="Previous image"
+      @click="go(-1)"
+    >
+      <span aria-hidden="true">&#8249;</span>
+    </button>
+    <button
+      class="carousel__nav coverflow__nav coverflow__nav--next"
+      type="button"
+      aria-label="Next image"
+      @click="go(1)"
+    >
+      <span aria-hidden="true">&#8250;</span>
+    </button>
+    <p
+      class="coverflow__status"
+      aria-live="polite"
+    >
+      Image {{ current + 1 }} of {{ items.length }}
+    </p>
+  </div>
+
+  <div
+    v-else
+    class="carousel"
+  >
     <button
       class="carousel__nav carousel__nav--prev"
       type="button"
@@ -52,69 +121,69 @@
     >
       <span aria-hidden="true">&#8250;</span>
     </button>
+  </div>
 
-    <!-- Lightbox. A native <dialog> gives us the focus trap, the backdrop, and
-         Escape-to-close for free, so there is no need for a library here. -->
-    <dialog
-      ref="lightbox"
-      class="lightbox"
-      @click="onBackdropClick"
-      @close="activeIndex = null"
+  <!-- Lightbox. A native <dialog> gives us the focus trap, the backdrop, and
+       Escape-to-close for free, so there is no need for a library here. -->
+  <dialog
+    ref="lightbox"
+    class="lightbox"
+    @click="onBackdropClick"
+    @close="activeIndex = null"
+  >
+    <div
+      v-if="active"
+      class="lightbox__inner"
     >
+      <button
+        class="lightbox__close"
+        type="button"
+        aria-label="Close enlarged image"
+        @click="close"
+      >
+        &times;
+      </button>
+      <figure class="lightbox__figure">
+        <picture>
+          <source
+            :srcset="active.webp"
+            type="image/webp"
+          >
+          <img
+            class="lightbox__image"
+            :src="active.jpg"
+            :alt="active.alt"
+          >
+        </picture>
+        <figcaption
+          v-if="active.title"
+          class="lightbox__caption"
+        >
+          {{ active.title }}
+        </figcaption>
+      </figure>
       <div
-        v-if="active"
-        class="lightbox__inner"
+        v-if="items.length > 1"
+        class="lightbox__controls"
       >
         <button
-          class="lightbox__close"
           type="button"
-          aria-label="Close enlarged image"
-          @click="close"
+          aria-label="Previous image"
+          @click="step(-1)"
         >
-          &times;
+          &#8249; Previous
         </button>
-        <figure class="lightbox__figure">
-          <picture>
-            <source
-              :srcset="active.webp"
-              type="image/webp"
-            >
-            <img
-              class="lightbox__image"
-              :src="active.jpg"
-              :alt="active.alt"
-            >
-          </picture>
-          <figcaption
-            v-if="active.title"
-            class="lightbox__caption"
-          >
-            {{ active.title }}
-          </figcaption>
-        </figure>
-        <div
-          v-if="items.length > 1"
-          class="lightbox__controls"
+        <span class="lightbox__count">{{ activeIndex + 1 }} of {{ items.length }}</span>
+        <button
+          type="button"
+          aria-label="Next image"
+          @click="step(1)"
         >
-          <button
-            type="button"
-            aria-label="Previous image"
-            @click="step(-1)"
-          >
-            &#8249; Previous
-          </button>
-          <span class="lightbox__count">{{ activeIndex + 1 }} of {{ items.length }}</span>
-          <button
-            type="button"
-            aria-label="Next image"
-            @click="step(1)"
-          >
-            Next &#8250;
-          </button>
-        </div>
+          Next &#8250;
+        </button>
       </div>
-    </dialog>
-  </div>
+    </div>
+  </dialog>
 </template>
 
 <script setup>
@@ -126,10 +195,18 @@
       type: Array,
       required: true
     },
-    // How many slides are visible at once on a wide screen.
+    // How many slides are visible at once on a wide screen ('strip' only).
     perPage: {
       type: Number,
       default: 3
+    },
+    // 'strip': a scrolling row of equal-width slides, for images that share
+    // an aspect ratio. 'centered': one large image flanked by previews of its
+    // neighbours, all at the same height, for mixed portrait/landscape photos.
+    layout: {
+      type: String,
+      default: 'strip',
+      validator: (value) => ['strip', 'centered'].includes(value)
     }
   });
 
@@ -138,6 +215,24 @@
   const activeIndex = ref(null);
   const atStart = ref(true);
   const atEnd = ref(false);
+
+  // Index of the image in the middle of the 'centered' layout
+  const current = ref(0);
+
+  function wrap(index) {
+    const count = props.items.length;
+    return (index + count) % count;
+  }
+
+  const slots = computed(() => [
+    { name: 'prev', offset: -1, index: wrap(current.value - 1) },
+    { name: 'center', offset: 0, index: current.value },
+    { name: 'next', offset: 1, index: wrap(current.value + 1) }
+  ]);
+
+  function go(direction) {
+    current.value = wrap(current.value + direction);
+  }
 
   const active = computed(() =>
     activeIndex.value === null ? null : props.items[activeIndex.value]
@@ -268,6 +363,109 @@
     }
   }
 
+  /*##### CENTERED LAYOUT #####*/
+  .coverflow {
+    // every image shares this height, whatever its aspect ratio
+    --coverflow-height: clamp(22rem, 32vw, 44rem);
+    position: relative;
+    width: 100%;
+    max-width: 120rem;
+    margin: 0 auto;
+  }
+
+  .coverflow__stage {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .coverflow__slot {
+    display: flex;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  // previews hug the centre image and are cropped at the outer edge
+  .coverflow__slot--prev {
+    justify-content: flex-end;
+  }
+
+  .coverflow__slot--next {
+    justify-content: flex-start;
+  }
+
+  .coverflow__peek {
+    flex: 0 0 auto;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    opacity: 0.45;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  .coverflow__image {
+    display: block;
+    width: auto;
+    max-width: none;
+    height: var(--coverflow-height);
+  }
+
+  .coverflow__peek .coverflow__image {
+    height: calc(var(--coverflow-height) * 0.75);
+  }
+
+  .coverflow__slot--center .coverflow__image {
+    // keep very wide photos from crowding out the previews
+    max-width: min(60vw, 90rem);
+    object-fit: contain;
+  }
+
+  .coverflow__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    // sit above the (translucent) side previews, and above the status line
+    margin-top: -1.2rem;
+
+    &--prev {
+      left: 0;
+    }
+
+    &--next {
+      right: 0;
+    }
+  }
+
+  .coverflow__status {
+    margin: 1rem 0 0;
+    text-align: center;
+    font-size: 0.85em;
+    color: #5c5c5c;
+  }
+
+  .coverflow-fade-enter-active,
+  .coverflow-fade-leave-active {
+    transition: opacity 0.2s ease;
+  }
+
+  .coverflow-fade-enter-from,
+  .coverflow-fade-leave-to {
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .coverflow-fade-enter-active,
+    .coverflow-fade-leave-active {
+      transition: none;
+    }
+  }
+
   .lightbox {
     width: min(92vw, 110rem);
     max-height: 92vh;
@@ -346,6 +544,15 @@
     }
     .lightbox__caption {
       font-size: 1.4rem;
+    }
+    .coverflow {
+      --coverflow-height: 24rem;
+    }
+    .coverflow__stage {
+      gap: 0.75rem;
+    }
+    .coverflow__slot--center .coverflow__image {
+      max-width: 72vw;
     }
   }
 </style>

@@ -13,7 +13,7 @@
         <figure id="swe-chart-container">
           <CarouselGallery
             :items="methodsPhotos"
-            :per-page="4"
+            layout="centered"
           />
         </figure>
       </div>
