@@ -63,6 +63,10 @@
 </script>
 
 <style lang="scss" scoped>
+  // clear the splash clouds, which extend below the splash
+  #intro {
+    padding-top: 5rem;
+  }
   #byline {
     font-weight: 400;
     margin-bottom: 64px;

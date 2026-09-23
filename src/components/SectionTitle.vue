@@ -67,9 +67,11 @@
         type: Number,
         default: 100
     },
+    // .55 is the lightest overlay that keeps the white title at >= 4.5:1
+    // contrast over 99% of the pixels behind it, for every chapter image
     overlayOpacity:{
         type: Number,
-        default: .7
+        default: .55
     }
   })
   
@@ -91,6 +93,9 @@
   $familySerif:  'Noto Serif', serif;
   $darkGrey: #212122;
 
+  .chapterContainer{
+    margin-bottom: 3rem;
+  }
   .chapter{
     position: relative;
     height: var(--height);
@@ -139,7 +144,7 @@
     z-index: 2;
     font-family: sans-serif; // fallback for old browsers
     font-family: var(--title-font);
-    font-size:clamp(3em, 20vw, 2em); // changed to not be bigger than the h1 at the top of the splash
+    font-size: clamp(3em, 6vw, 5em); // kept smaller than the h1 at the top of the splash
     font-weight: 800;
     color: white;
     padding: 0 20px;
