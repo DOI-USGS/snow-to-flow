@@ -21,7 +21,7 @@
       </p>
       <p>
         Changes in the <span class="emph">timing, magnitude</span> and <span class="emph">duration</span> of snowmelt may substantially alter downstream water availability<sup class="citation"><a href="#ref-2">2</a>,<a href="#ref-4">4</a></sup>. 
-        Approximately 2 billion people are expected to experience diminished water supplies because of seasonal snowpack decline this century<sup class="citation"><a href="#ref-5">5</a>,<a href="#ref-6">6</a></sup>. Over the last half century, particularly in some regions of the Western U.S., annual snowpack levels have <span class="emph">declined</span><sup class="citation"><a href="#ref-7">7</a>–<a href="#ref-9">9</a></sup> and contributed to <span class="emph">reduced of streamflow</span>, a trend supported by both models and on-the-ground observations<sup class="citation"><a href="#ref-2">2</a>,<a href="#ref-4">4</a></sup>.
+        Approximately 2 billion people are expected to experience diminished water supplies because of seasonal snowpack decline this century<sup class="citation"><a href="#ref-5">5</a>,<a href="#ref-6">6</a></sup>. Over the last half century, particularly in some regions of the Western U.S., annual snowpack levels have <span class="emph">declined</span><sup class="citation"><a href="#ref-7">7</a>–<a href="#ref-9">9</a></sup> and contributed to <span class="emph">reduced streamflow</span>, a trend supported by both models and on-the-ground observations<sup class="citation"><a href="#ref-2">2</a>,<a href="#ref-4">4</a></sup>.
       </p>
     </template>
     <!-- EXPLANATION -->

@@ -41,9 +41,9 @@ export default {
       
     },
     {
-      reference: "4. Barnhart, T. B., Molotoch, N. P., Livneh, B., Harpold, A. A.,  Knowles, J. F., & Schneider, D. Snowmelt rate dictates streamflow. Geophys. Res. Lett. 43, 8006–8016 (2016).",
+      reference: "4. Barnhart, T. B., Molotch, N. P., Livneh, B., Harpold, A. A.,  Knowles, J. F., & Schneider, D. Snowmelt rate dictates streamflow. Geophys. Res. Lett. 43, 8006–8016 (2016).",
       num: "4",
-      authors: "Barnhart, T. B., Molotoch, N. P., Livneh, B., Harpold, A. A.,  Knowles, J. F., & Schneider, D.",
+      authors: "Barnhart, T. B., Molotch, N. P., Livneh, B., Harpold, A. A.,  Knowles, J. F., & Schneider, D.",
       year: "2016",
       title: "Snowmelt rate dictates streamflow",
       link: "https://agupubs.onlinelibrary.wiley.com/doi/full/10.1002/2016GL069690",

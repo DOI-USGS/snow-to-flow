@@ -124,7 +124,7 @@
         <img 
           src="@/assets/titleImages/splash/cloud-l.png"
           href="@/assets/titleImages/splash/cloud-l.png"
-          alt="Clouds liftng over the snowy mountain"
+          alt="Clouds lifting over the snowy mountain"
         >
       </picture>
     </div>
