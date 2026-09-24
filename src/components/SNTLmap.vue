@@ -7,13 +7,13 @@
     <!-- EXPLANATION -->
     <template #aboveExplanation>
       <p>
-        As springtime temperatures warm and snow begins to melt, the Western U.S. enters an important phase of the water cycle. Looking at this year's snow (WY {{ info.water_year }}) - and how it turns into streamflow - can indicate the potential for water availability in the coming summer and fall.
+        As springtime temperatures warm and snow begins to melt, the Western U.S. enters an important phase of the water cycle. Snow on {{ percentileDayLabel }}, and how it turns into streamflow, indicates the potential for water availability in the summer and fall. In water year {{ info.water_year }}, snowpack at most SNOTEL sites peaked early and melted early.
       </p>
       <p
         v-if="mobileView"
         class="explain figureCaption"
       >
-        Select a site to see this year's SWE and the magnitude (peak SWE <svg
+        Select a site to see its SWE through water year {{ info.water_year }}, and the magnitude (peak SWE <svg
           class="leggy"
           viewBox="0 0 10 10"
           width="10"
@@ -36,13 +36,13 @@
             r="4"
             style="fill: white; stroke: orchid; stroke-width: 1.3px;"
           />
-        </svg>) of snow since {{ info.record_start_wy }}. 
+        </svg>) of snow for every year since {{ info.record_start_wy }}. A symbol is left off if the peak or SM50 had not happened by {{ dataEndLabel }}.
       </p>
       <p
         v-if="!mobileView"
         class="explain figureCaption"
       >
-        Mouseover a site, or choose one from the list, to see this year's SWE and the magnitude (peak SWE <svg
+        Mouseover a site, or choose one from the list, to see its SWE through water year {{ info.water_year }}, and the magnitude (peak SWE <svg
           class="leggy"
           viewBox="0 0 10 10"
           width="10"
@@ -65,7 +65,7 @@
             r="4"
             style="fill: white; stroke: orchid; stroke-width: 1.3px;"
           />
-        </svg> ) of snow since {{ info.record_start_wy }}. Symbols not shown if peak SWE or SM50 have not been met as of {{ dataEndLabel }}.
+        </svg> ) of snow for every year since {{ info.record_start_wy }}. A symbol is left off if the peak or SM50 had not happened by {{ dataEndLabel }}.
       </p>
     </template>
     <!-- FIGURES -->
@@ -234,7 +234,7 @@
           What is a percentile?
         </template>
         <template #sidebarMessage>
-          <p>Percentiles indicate how snow today (in {{ info.water_year }}) compares to snow in past years where data are available. The SWE percentile can be interpreted as the percent of years when the site had lower SWE than in {{ info.water_year }}. For example, if SWE at a particular SNOTEL site is in the 90th percentile, that means the current year's SWE is greater than 90% of the years on record for this date.</p>
+          <p>Percentiles show how SWE on {{ percentileDateLabel }} compares with {{ percentileDayLabel }} in every other year of the site's record. A site in the 90th percentile had as much or more SWE than in 90% of the other years on record, and a site at 0 had its lowest {{ percentileDayLabel }} on record.</p>
         </template>
       </ExpandingSidebar>
       <ExpandingSidebar>
@@ -242,7 +242,7 @@
           When was peak SWE in {{ info.water_year }}?
         </template>
         <template #sidebarMessage>
-          <p>Peak SWE has not happened yet for many places in the western U.S. This map shows <span class="emph">{{ percentileDateLabel }}</span> which has traditionally been used as an indicator of peak SWE for the season.</p>
+          <p>{{ percentileDayLabel }} has traditionally been used as an indicator of peak SWE for the season. In {{ info.water_year }}, most sites peaked well before {{ percentileDayLabel }}, about three weeks earlier than usual, and half their snow had melted about a month earlier than usual. The charts show each site's actual peak (●) and the date half of it had melted (○).</p>
         </template>
       </ExpandingSidebar>
       <p>
@@ -318,9 +318,9 @@
 
   // Run settings from snotel_run_info.csv: water year, dates, and thresholds
   const info = ref({});
-  const formatShortDate = d3.utcFormat('%-m/%-d/%Y');
+  const formatLongDate = d3.utcFormat('%B %-d, %Y');
   const dataEndLabel = computed(() =>
-    info.value.data_end_date ? formatShortDate(info.value.data_end_date) : ''
+    info.value.data_end_date ? formatLongDate(info.value.data_end_date) : ''
   );
   // e.g. "April 1st", and "April 1st, 2026"
   const percentileDayLabel = computed(() => {
