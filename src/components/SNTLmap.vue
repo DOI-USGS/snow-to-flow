@@ -23,7 +23,7 @@
           <!-- LEGEND -->
           <div class="snotel-legend">
             <h3 class="snotel-legend__title">
-              Snow this year
+              Snow in {{ info.water_year }}
             </h3>
             <p class="snotel-legend__subtitle">
               {{ percentileDayLabel }} SWE percentile
