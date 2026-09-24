@@ -3,7 +3,6 @@
   <VizSection
     id="SNTLtimeseries"
     :take-away="false"
-    :fig-caption="false"
   >
     <!-- EXPLANATION -->
     <template #aboveExplanation>
@@ -12,7 +11,7 @@
         When snow peaks and how much of it there is shape how much water is available downstream, and when. A smaller snowpack holds less water for the dry months, and an early melt sends that water downstream sooner, when demand is lower and reservoirs may not be able to store it all. Streams can then run lower in late summer and fall, when water is needed for farms, cities, and ecosystems. Changes in the timing and magnitude of snowmelt from year to year, and over decades, affect how water is managed across the West.
       </p>
       <p>
-        How does {{ info.water_year }} compare with other years? Each dot below is one SNOTEL site in one year, compared with that site's own 1991&ndash;2020 normal, so high and low sites can be read together. The line follows the middle site each year, and the shaded band the middle half of sites. Select a dot, or choose a site from the list, to follow one site through time.
+        How does {{ info.water_year }} compare with other years? Select a dot, or choose a site from the list, to follow one site through time.
       </p>
     </template>
     <!-- FIGURES -->
@@ -142,11 +141,14 @@
               </div>
             </figure>
           </div>
-          <p class="ts-note">
-            {{ sitesWithNormals }} sites with at least 20 years of record in 1991&ndash;2020. Values beyond an axis are shown at its edge.
-          </p>
         </template>
       </div>
+    </template>
+    <!-- FIGURE CAPTION -->
+    <template #figureCaption>
+      <p>
+        Each dot is one SNOTEL site in one year, compared with that site's own 1991&ndash;2020 normal, so high and low sites can be read together. The dark line follows the middle site each year, and the shaded band the middle half of sites. Shown are the {{ sitesWithNormals }} sites with at least 20 years of record in 1991&ndash;2020; values beyond an axis are drawn at its edge.
+      </p>
     </template>
     <!-- EXPLANATION -->
     <template #belowExplanation>
@@ -712,10 +714,6 @@
       top: 0;
       left: 0;
     }
-  }
-  .ts-note {
-    font-size: 1.4rem;
-    color: var(--medium-grey-dark);
   }
   .ts-tip {
     position: absolute;
