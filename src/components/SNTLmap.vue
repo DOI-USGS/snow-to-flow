@@ -23,86 +23,19 @@
           {{ summaryText }}
         </p>
 
-        <!-- LEGEND -->
-        <div class="map-legend">
-          <p class="map-legend__title">
-            {{ percentileDayLabel }} SWE percentile
-          </p>
-          <ul class="map-legend__items">
-            <li
-              v-for="item in legendItems"
-              :key="item.label"
-            >
-              <span
-                class="swatch"
-                :style="{ background: item.fill, borderColor: item.stroke }"
-                aria-hidden="true"
-              />
-              <span>{{ item.label }}</span>
-              <span class="map-legend__count">({{ item.count }})</span>
-            </li>
-          </ul>
-        </div>
-
-        <div class="map-layout">
-          <!-- MAP -->
-          <figure class="map-figure">
-            <div
-              ref="westStack"
-              class="map-stack"
-              :style="stackStyle('west')"
-            >
-              <img
-                class="map-layer"
-                :src="layers.west.hillshade"
-                alt=""
-              >
-              <div
-                class="map-layer map-states"
-                v-html="layers.west.states"
-              />
-              <div
-                class="map-layer map-outline"
-                v-html="layers.west.outline"
-              />
-              <svg
-                id="west-sites"
-                class="map-layer map-sites"
-                xmlns="http://www.w3.org/2000/svg"
-                :viewBox="viewBox('west')"
-                role="img"
-                :aria-label="mapLabel('the western U.S.')"
-              />
-
-              <!-- ALASKA INSET -->
-              <div class="ak-inset">
-                <div
-                  ref="akStack"
-                  class="map-stack"
-                  :style="stackStyle('ak')"
-                >
-                  <img
-                    class="map-layer"
-                    :src="layers.ak.hillshade"
-                    alt=""
-                  >
-                  <div
-                    class="map-layer map-outline"
-                    v-html="layers.ak.outline"
-                  />
-                  <svg
-                    id="ak-sites"
-                    class="map-layer map-sites"
-                    xmlns="http://www.w3.org/2000/svg"
-                    :viewBox="viewBox('ak')"
-                    role="img"
-                    :aria-label="mapLabel('Alaska')"
-                  />
-                </div>
-                <span class="ak-inset__label">Alaska (not to scale)</span>
-              </div>
-            </div>
-          </figure>
+        <div class="snotel-grid">
+          <!-- LEGEND -->
+          <div class="snotel-legend">
+            <svg
+              id="legend-percentile"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 320 125"
+              preserveAspectRatio="xMinYMin"
+              width="100%"
+              role="img"
+              :aria-label="legendLabel"
+            />
+          </div>
 
           <!-- SELECTED SITE -->
           <aside class="site-card">
@@ -165,7 +98,7 @@
                       class="site-card__normal"
                     >{{ peakNormalText(selected) }}</span>
                   </dd>
-                  <dt>Half melted (SM50)</dt>
+                  <dt>Melt date (SM50)</dt>
                   <dd>
                     {{ sm50Text(selected) }}
                     <span
@@ -183,56 +116,68 @@
               </p>
             </div>
           </aside>
-        </div>
 
-        <!-- TABLE -->
-        <details class="site-table">
-          <summary>Show all sites as a table</summary>
-          <div class="site-table__scroll">
-            <table>
-              <caption>
-                SNOTEL sites on {{ percentileDateLabel }}, sorted by {{ sortLabel }}
-              </caption>
-              <thead>
-                <tr>
-                  <th
-                    v-for="col in tableColumns"
-                    :key="col.key"
-                    scope="col"
-                    :aria-sort="sortKey === col.key ? sortDir : 'none'"
-                  >
-                    <button
-                      type="button"
-                      @click="sortBy(col.key)"
-                    >
-                      {{ col.label }}
-                    </button>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="site in sortedSites"
-                  :key="site.sntl_id"
-                >
-                  <th scope="row">
-                    <button
-                      type="button"
-                      class="site-table__select"
-                      @click="selectSite(site)"
-                    >
-                      {{ site.site_name }}
-                    </button>
-                  </th>
-                  <td>{{ site.state }}</td>
-                  <td>{{ formatNumber(site.elev_ft) }}</td>
-                  <td>{{ site.swe == null ? '' : site.swe }}</td>
-                  <td>{{ site.ptile_swe == null ? '' : Math.round(site.ptile_swe * 100) }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </details>
+          <!-- WESTERN U.S. -->
+          <figure class="map-west">
+            <div
+              ref="westStack"
+              class="map-stack"
+              :style="stackStyle('west')"
+            >
+              <img
+                class="map-layer map-fade"
+                :src="layers.west.hillshade"
+                alt=""
+              >
+              <div
+                class="map-layer map-fade map-states"
+                v-html="layers.west.states"
+              />
+              <div
+                class="map-layer map-fade map-outline"
+                v-html="layers.west.outline"
+              />
+              <svg
+                id="west-sites"
+                class="map-layer map-sites"
+                xmlns="http://www.w3.org/2000/svg"
+                :viewBox="viewBox('west')"
+                role="img"
+                :aria-label="mapLabel('the western U.S.')"
+              />
+            </div>
+          </figure>
+
+          <!-- ALASKA -->
+          <figure class="map-ak">
+            <div
+              ref="akStack"
+              class="map-stack"
+              :style="stackStyle('ak')"
+            >
+              <img
+                class="map-layer"
+                :src="layers.ak.hillshade"
+                alt=""
+              >
+              <div
+                class="map-layer map-outline"
+                v-html="layers.ak.outline"
+              />
+              <svg
+                id="ak-sites"
+                class="map-layer map-sites"
+                xmlns="http://www.w3.org/2000/svg"
+                :viewBox="viewBox('ak')"
+                role="img"
+                :aria-label="mapLabel('Alaska')"
+              />
+            </div>
+            <figcaption class="map-ak__label">
+              Alaska (not to scale)
+            </figcaption>
+          </figure>
+        </div>
       </div>
     </template>
 
@@ -346,25 +291,19 @@
   // Water day (1 = October 1) of the focal water year as a date
   const waterDayDate = day => new Date(Date.UTC(info.value.water_year - 1, 9, day));
 
-  // Legend classes, with how many sites fall in each
-  const legendItems = computed(() => {
+  // Sites in each percentile class, and without a percentile
+  const classCounts = computed(() => {
+    const counts = threshold.range().map(() => 0);
+    for (const d of sites.value) {
+      if (d.ptile_swe != null) counts[threshold.range().indexOf(threshold(d.ptile_swe))] += 1;
+    }
+    return counts;
+  });
+  const noPercentileCount = computed(() => sites.value.filter(d => d.ptile_swe == null).length);
+  const legendLabel = computed(() => {
     const breaks = [0, ...threshold.domain(), 1];
-    const items = threshold.range().map((fill, i) => {
-      const [lo, hi] = [breaks[i], breaks[i + 1]];
-      return {
-        label: `${lo * 100}–${hi * 100}%`,
-        fill,
-        stroke: "black",
-        count: sites.value.filter(d => d.ptile_swe != null && threshold(d.ptile_swe) === fill).length
-      };
-    });
-    items.push({
-      label: "No percentile",
-      fill: noPercentileFill,
-      stroke: noPercentileStroke,
-      count: sites.value.filter(d => d.ptile_swe == null).length
-    });
-    return items;
+    const classes = classCounts.value.map((n, i) => `${breaks[i] * 100} to ${breaks[i + 1] * 100} percent: ${n} sites`);
+    return `${percentileDayLabel.value} SWE percentile legend. ${classes.join('; ')}; no percentile: ${noPercentileCount.value} sites.`;
   });
 
   const summaryText = computed(() => {
@@ -415,33 +354,6 @@
     const site = sites.value.find(d => d.sntl_id === event.target.value);
     if (site) selectSite(site);
   }
-
-  // Table
-  const tableColumns = [
-    { key: "site_name", label: "Site" },
-    { key: "state", label: "State" },
-    { key: "elev_ft", label: "Elevation (ft)" },
-    { key: "swe", label: "SWE (in)" },
-    { key: "ptile_swe", label: "Percentile" }
-  ];
-  const sortKey = ref("ptile_swe");
-  const sortDir = ref("ascending");
-  const sortLabel = computed(() =>
-    `${tableColumns.find(c => c.key === sortKey.value).label.toLowerCase()}, ${sortDir.value}`
-  );
-  function sortBy(key) {
-    sortDir.value = sortKey.value === key && sortDir.value === "ascending" ? "descending" : "ascending";
-    sortKey.value = key;
-  }
-  const sortedSites = computed(() => {
-    const dir = sortDir.value === "ascending" ? 1 : -1;
-    return [...sites.value].sort((a, b) => {
-      const [x, y] = [a[sortKey.value], b[sortKey.value]];
-      if (x == null) return 1; // missing values last
-      if (y == null) return -1;
-      return (typeof x === "string" ? x.localeCompare(y) : x - y) * dir;
-    });
-  });
 
   // Map drawing
   const westStack = ref(null);
@@ -499,6 +411,70 @@
   }
 
   // Keep site marks the same size on screen however large the map is drawn
+  // Legend: the percentile ramp with its breaks, the number of sites in each
+  // class, and a key for sites without a percentile
+  function drawLegend() {
+    const x = d3.scaleLinear().domain([0, 1]).range([0, 250]);
+    const breaks = [0, ...threshold.domain(), 1];
+
+    const g = d3.select("svg#legend-percentile").append("g")
+      .attr("transform", "translate(40,55)");
+
+    g.append("text")
+      .attr("font-size", "2em")
+      .attr("font-weight", "bold")
+      .attr("y", -30)
+      .text("Snow this year");
+    g.append("text")
+      .attr("font-size", "1.25em")
+      .attr("y", -10)
+      .text(`${percentileDayLabel.value} SWE percentile`);
+
+    g.selectAll("rect")
+      .data(threshold.range())
+      .join("rect")
+        .attr("x", (d, i) => x(breaks[i]))
+        .attr("width", (d, i) => x(breaks[i + 1]) - x(breaks[i]))
+        .attr("height", 6)
+        .attr("fill", d => d);
+
+    const axis = g.append("g")
+      .call(d3.axisBottom(x).tickSize(10).tickValues(breaks).tickFormat(d => d * 100 + '%'));
+    axis.select(".domain").remove();
+
+    // number of sites in each class, under the ramp
+    g.append("text")
+      .attr("font-size", "9px")
+      .attr("fill", "#5c5c5c")
+      .attr("text-anchor", "end")
+      .attr("x", -6)
+      .attr("y", 38)
+      .text("Sites");
+    g.selectAll("text.class-count")
+      .data(classCounts.value)
+      .join("text")
+        .attr("class", "class-count")
+        .attr("font-size", "9px")
+        .attr("fill", "#5c5c5c")
+        .attr("text-anchor", "middle")
+        .attr("x", (d, i) => x((breaks[i] + breaks[i + 1]) / 2))
+        .attr("y", 38)
+        .text(d => d);
+
+    g.append("circle")
+      .attr("cx", 5)
+      .attr("cy", 55)
+      .attr("r", 4)
+      .attr("fill", noPercentileFill)
+      .attr("stroke", noPercentileStroke)
+      .attr("stroke-width", 0.8);
+    g.append("text")
+      .attr("font-size", "10px")
+      .attr("x", 14)
+      .attr("y", 58.5)
+      .text(`No percentile (${noPercentileCount.value} sites)`);
+  }
+
   function sizeMarks() {
     for (const panel of Object.keys(panelMarks)) {
       const k = unitsPerPx(panel);
@@ -535,6 +511,7 @@
     loaded.value = true;
 
     await nextTick();
+    drawLegend();
     drawPanel("west");
     drawPanel("ak");
     sizeMarks();
@@ -569,32 +546,6 @@
     margin-bottom: 1rem;
   }
 
-  // Legend
-  .map-legend {
-    margin-bottom: 1rem;
-  }
-  .map-legend__title {
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-  }
-  .map-legend__items {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem 1.2rem;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    font-size: 0.8em;
-    li {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      margin: 0;
-    }
-  }
-  .map-legend__count {
-    color: var(--medium-grey-dark);
-  }
   .swatch {
     display: inline-block;
     flex: 0 0 auto;
@@ -605,20 +556,47 @@
     vertical-align: middle;
   }
 
-  // Map and details card: side by side on wide screens, stacked on narrow ones
-  .map-layout {
+  // Legend, site details, and Alaska on the left, the western U.S. on the
+  // right on wide screens; one column in reading order on narrow ones
+  .snotel-grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    gap: 1.5rem;
+    grid-template-areas:
+      "legend"
+      "card"
+      "west"
+      "ak";
+    gap: 1rem;
   }
   @media screen and (min-width: 900px) {
-    .map-layout {
-      grid-template-columns: minmax(0, 3fr) minmax(16rem, 2fr);
-      align-items: start;
+    .snotel-grid {
+      grid-template-columns: minmax(18rem, 2fr) minmax(0, 3fr);
+      grid-template-areas:
+        "legend west"
+        "card west"
+        "ak west";
+      grid-template-rows: auto auto 1fr;
+      column-gap: 2rem;
     }
   }
-  .map-figure {
+  .snotel-legend {
+    grid-area: legend;
+    max-width: 26rem;
+  }
+  .site-card {
+    grid-area: card;
+  }
+  .map-west {
+    grid-area: west;
     margin: 0;
+  }
+  .map-ak {
+    grid-area: ak;
+    margin: 0;
+  }
+  .map-ak__label {
+    font-size: 0.7em;
+    color: var(--medium-grey-dark);
   }
   .map-stack {
     position: relative;
@@ -641,29 +619,21 @@
     // touch taps select sites; vertical scrolling still works
     touch-action: pan-y;
   }
+  // The western map fades out on the right, where it is cut off
+  .map-fade {
+    -webkit-mask-image: linear-gradient(to right, #000 78%, transparent 100%);
+    mask-image: linear-gradient(to right, #000 78%, transparent 100%);
+  }
   // Map lines keep the same width on screen however large the map is drawn
   .map-states :deep(path) {
     vector-effect: non-scaling-stroke;
-    stroke-width: 1.5px;
+    stroke: #9e9e9e;
+    stroke-width: 1px;
   }
   .map-outline :deep(path) {
     vector-effect: non-scaling-stroke;
-    stroke-width: 1px;
-  }
-
-  .ak-inset {
-    position: absolute;
-    left: 1%;
-    bottom: 1%;
-    width: 36%;
-    padding: 0.25rem;
-    background: rgba(255, 255, 255, 0.85);
-    border: 1px solid #ccc;
-  }
-  .ak-inset__label {
-    display: block;
-    font-size: 0.7em;
-    color: var(--medium-grey-dark);
+    stroke: #7a7a7a;
+    stroke-width: 1.2px;
   }
 
   // Details card
@@ -717,54 +687,4 @@
     }
   }
 
-  // Table
-  .site-table {
-    margin-top: 1.5rem;
-    font-size: 0.8em;
-    summary {
-      cursor: pointer;
-      font-weight: 700;
-    }
-  }
-  .site-table__scroll {
-    max-height: 30rem;
-    overflow: auto;
-    margin-top: 0.5rem;
-  }
-  .site-table table {
-    width: 100%;
-    border-collapse: collapse;
-    caption {
-      text-align: left;
-      padding: 0.25rem 0;
-      color: var(--medium-grey-dark);
-    }
-    th,
-    td {
-      padding: 0.2rem 0.5rem;
-      text-align: left;
-      border-bottom: 1px solid #eee;
-      font-weight: 400;
-    }
-    thead th {
-      position: sticky;
-      top: 0;
-      background: #fff;
-      font-weight: 700;
-    }
-    button {
-      padding: 0;
-      border: none;
-      background: none;
-      font: inherit;
-      font-weight: inherit;
-      color: inherit;
-      cursor: pointer;
-      text-align: left;
-    }
-    .site-table__select {
-      color: var(--color-link);
-      text-decoration: underline;
-    }
-  }
 </style>

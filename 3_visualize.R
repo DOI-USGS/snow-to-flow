@@ -1,9 +1,9 @@
 source("3_visualize/src/export_web_data.R")
 source("3_visualize/src/build_map_layers.R")
 
-# Map panels: the western states, and an Alaska inset, each in the Albers
-# projection the 2021 map used. `focus` states set each panel's extent (with
-# its sites); `states` are drawn, clipped to it. The inset has its own scale.
+# Map panels: the western states, and Alaska, each in the Albers projection
+# the 2021 map used. `focus` states set each panel's extent (with its sites);
+# `states` are drawn, clipped to it. Each panel has its own scale.
 p3_map_panels <- tibble::tibble(
   panel = c("west", "ak"),
   proj = c(
@@ -18,9 +18,9 @@ p3_map_panels <- tibble::tibble(
     c("WA", "OR", "CA", "ID", "NV", "MT", "WY", "UT", "CO", "AZ", "NM"),
     "AK"
   ),
-  # westernmost longitude shown, to leave out the far western Aleutians
-  lon_min = c(-180, -170),
-  width_px = c(2400L, 1000L)
+  # westernmost longitude shown (-180 shows all of the state)
+  lon_min = c(-180, -180),
+  width_px = c(2400L, 1200L)
 )
 
 p3_targets <- list(
@@ -38,10 +38,8 @@ p3_targets <- list(
       p3_panel_bbox,
       panel_extent(p1_states_shp, focus, proj, lon_min, p3_panel_sites)
     ),
-    tar_target(
-      p3_panel_states,
-      prep_panel_states(p1_states_shp, states, proj) |> clip_to_bbox(p3_panel_bbox)
-    ),
+    tar_target(p3_panel_states_full, prep_panel_states(p1_states_shp, states, proj)),
+    tar_target(p3_panel_states, clip_to_bbox(p3_panel_states_full, p3_panel_bbox)),
 
     tar_target(
       p3_hillshade_png,
@@ -51,8 +49,11 @@ p3_targets <- list(
     ),
     tar_target(
       p3_outline_svg,
-      export_sf_layer_svg(st_union(p3_panel_states) |> st_as_sf(), p3_panel_bbox,
-                          width_px,
+      # the border is taken as lines before clipping, so the panel edge is not
+      # drawn as part of it
+      export_sf_layer_svg(st_union(p3_panel_states_full) |> st_boundary() |> st_as_sf() |>
+                            clip_to_bbox(p3_panel_bbox),
+                          p3_panel_bbox, width_px,
                           out_svg = sprintf("src/assets/maps/snotel_%s_outline.svg", panel),
                           simplify = "20%",
                           style = c("fill=none", "stroke=#808080", "stroke-width=1")),
@@ -72,11 +73,11 @@ p3_targets <- list(
   # State lines, for the western panel only (Alaska is drawn by its outline)
   tar_target(
     p3_states_svg_west,
-    export_sf_layer_svg(p3_panel_states_west, p3_panel_bbox_west, 2400L,
+    export_sf_layer_svg(st_boundary(p3_panel_states_full_west) |> clip_to_bbox(p3_panel_bbox_west),
+                        p3_panel_bbox_west, 2400L,
                         out_svg = "src/assets/maps/snotel_west_states.svg",
                         id_column = "state", simplify = "20%",
-                        style = c("fill=none", "stroke=#ffffff", "stroke-width=2",
-                                  "stroke-opacity=0.5")),
+                        style = c("fill=none", "stroke=#9e9e9e", "stroke-width=1")),
     format = "file"
   ),
 

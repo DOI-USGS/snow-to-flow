@@ -28,6 +28,7 @@ panel_extent <- function(states_shp, focus, proj, lon_min, sites, pad = 0.02) {
     filter(STUSPS %in% focus) |>
     st_transform(4326) |>
     st_crop(xmin = lon_min, xmax = 180, ymin = -90, ymax = 90) |>
+    suppressWarnings() |>
     st_transform(proj)
   site_sf <- st_as_sf(sites, coords = c("longitude", "latitude"), crs = 4326) |>
     st_transform(proj)
