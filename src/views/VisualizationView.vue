@@ -45,6 +45,7 @@
       </template>
     </SectionTitle>
     <SNTLmap v-if="checkIfSplashIsRendered" />
+    <SNTLtimeseries v-if="checkIfSplashIsRendered" />
     <SectionTitle
       v-if="checkIfSplashIsRendered"
       id="chapter-learn-more"
@@ -86,6 +87,7 @@
   import SWE from '@/components/SWE.vue';
   import SWEanim from '@/components/SWEanim.vue';
   import SNTLmap from '@/components/SNTLmap.vue';
+  import SNTLtimeseries from '@/components/SNTLtimeseries.vue';
   import ReferencesSection from '@/components/ReferencesSection.vue';
   import MethodsSection from '@/components/MethodsSection.vue';
   import AuthorshipSection from '@/components/AuthorshipSection.vue';

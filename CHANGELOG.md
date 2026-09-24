@@ -17,6 +17,7 @@ Here we track upcoming changes.
 - Site counts for each percentile class in the SNOTEL map legend
 - Tapping or clicking the SNOTEL map selects the nearest site; the site picker, grouped by state, doubles as the panel title
 - On phones, the SNOTEL site panel is a sheet at the bottom of the screen that slides up over the map and can be collapsed
+- Peak SWE and melt date time series below the map: every site and year since 1981 as a change from the site's 1991-2020 normal, with the middle site and middle half of sites each year; pointing to, selecting, or choosing a site highlights all its years
  
 ### Changed
 - The SNOTEL map shows April 1, 2026, with peak SWE and SM50 charts through the full 2026 season

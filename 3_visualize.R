@@ -97,7 +97,8 @@ p3_targets <- list(
     format = "file"
   ),
 
-  # Annual values behind the peak SWE and SM50 trend charts
+  # Annual values behind the peak SWE and melt date time series, with each
+  # year's change from the site's normal
   tar_target(
     p3_annual_csv,
     format_annual(p2_sntl_annual_stats, p2_sntl_sites,

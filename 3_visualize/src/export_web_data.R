@@ -36,10 +36,16 @@ format_sites <- function(sites, site_xy) {
     )
 }
 
-#' Annual peak SWE and SM50 day for the chart sites, for the trend charts
+#' Annual peak SWE and SM50 day for the chart sites, for the trend charts,
+#' with each year's change from the site's 1991-2020 normal
+#'
+#' `peak_swe_pct` is peak SWE as a percent of the site's normal peak SWE, and
+#' `sm50_diff` the melt date (SM50) in days after the site's normal SM50
+#' (negative when earlier). Both are missing for sites without a normal.
 #'
 #' @param annual_stats data frame from `calc_annual_stats()`
-#' @param sites data frame from `build_site_table()`
+#' @param sites data frame from `build_site_table()`, with the normals from
+#'   `calc_site_normals()`
 #' @param record_start_wy int, first water year shown in the trend charts
 format_annual <- function(annual_stats, sites, record_start_wy) {
   annual_stats |>
@@ -51,7 +57,13 @@ format_annual <- function(annual_stats, sites, record_start_wy) {
       peak_day = if_else(peak_met == "TBD", NA_integer_, peak_day),
       sm50_day = if_else(sm50_met == "TBD", NA_integer_, sm50_day)
     ) |>
-    select(site_id, water_year, peak_swe, peak_day, sm50_day, apr1_swe) |>
+    left_join(select(sites, site_id, normal_peak_swe, normal_sm50_day), by = "site_id") |>
+    mutate(
+      peak_swe_pct = if_else(normal_peak_swe > 0, round(100 * peak_swe / normal_peak_swe), NA_real_),
+      sm50_diff = round(sm50_day - normal_sm50_day)
+    ) |>
+    select(site_id, water_year, peak_swe, peak_day, sm50_day, apr1_swe,
+           peak_swe_pct, sm50_diff) |>
     arrange(site_id, water_year)
 }
 
