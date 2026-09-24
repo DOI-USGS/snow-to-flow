@@ -1,4 +1,5 @@
 source("1_fetch/src/fetch_sntl.R")
+source("1_fetch/src/fetch_census.R")
 
 p1_targets <- list(
 
@@ -38,6 +39,14 @@ p1_targets <- list(
       fetch_date = p0_fetch_date
     ),
     pattern = map(p1_sntl_states),
+    format = "file"
+  ),
+
+  # State boundaries for the basemap; the same Census file the 2021 map used
+  tar_target(
+    p1_states_shp,
+    fetch_census_shp(layer = "cb_2018_us_state_5m", out_dir = "1_fetch/out",
+                     fetch_date = p0_fetch_date),
     format = "file"
   )
 

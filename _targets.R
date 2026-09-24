@@ -7,7 +7,9 @@ tar_option_set(packages = c(
   "tidyverse",
   "lubridate",
   # fetch
-  "httr2"
+  "httr2",
+  # visualize
+  "sf"
 ))
 
 # Phase target makefiles
