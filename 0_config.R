@@ -11,8 +11,10 @@ p0_targets <- list(
   tar_target(p0_percentile_date, as.Date("2026-04-01")),
 
   # Last day of data: current-year data are pulled through this date, and
-  # peak SWE / SM50 not yet reached by then are marked TBD
-  tar_target(p0_data_end_date, as.Date("2026-04-01")),
+  # peak SWE / SM50 not yet reached by then are marked TBD. This can be later
+  # than the percentile date, so the peak SWE and SM50 charts cover the whole
+  # season while the map shows conditions on the percentile date.
+  tar_target(p0_data_end_date, as.Date("2026-09-23")),
 
   # First water year shown in the peak SWE and SM50 trend charts
   tar_target(p0_record_start_wy, 1981),
