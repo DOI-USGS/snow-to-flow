@@ -82,8 +82,8 @@ calc_annual_stats <- function(swe, focal_wy, data_end_date) {
     select(-focal)
 }
 
-#' Percentile of each site's SWE on a date, as the NRCS interactive map
-#' calculates it
+#' Percentile of each site's SWE on each of a set of dates, as the NRCS
+#' interactive map calculates it
 #'
 #' The reference is the site's period of record for that day of the year,
 #' including the current year. Percentile = 1 - (m - 1) / (n - 1), where m is
@@ -97,27 +97,31 @@ calc_annual_stats <- function(swe, focal_wy, data_end_date) {
 #'
 #' @param swe data frame from `read_sntl_swe()`
 #' @param stations data frame of station metadata, for record start dates
-#' @param percentile_date Date, the date to rank
+#' @param dates Date, the dates to rank, all in one water year
 #' @param min_share num, share of the period of record's years needed
-#' @return data frame of site_id, wy_n (years with a value), ptile_swe
-calc_swe_percentile <- function(swe, stations, percentile_date, min_share) {
-  focal_wy <- year(percentile_date) + if_else(month(percentile_date) >= 10, 1, 0)
+#' @return data frame of site_id, date, wy_n (years with a value), ptile_swe
+calc_swe_percentiles <- function(swe, stations, dates, min_share) {
+  focal_wy <- year(dates[1]) + if_else(month(dates[1]) >= 10, 1, 0)
+  days <- tibble(date = dates, md = format(dates, "%m-%d"))
 
   same_day <- swe |>
-    filter(!is.na(swe), water_year <= focal_wy,
-           month(date) == month(percentile_date),
-           day(date) == day(percentile_date))
+    filter(!is.na(swe), water_year <= focal_wy) |>
+    mutate(md = format(date, "%m-%d")) |>
+    filter(md %in% days$md)
 
-  current <- filter(same_day, date == percentile_date) |> select(site_id, current = swe)
+  current <- same_day |>
+    filter(water_year == focal_wy) |>
+    select(site_id, md, current = swe)
 
   same_day |>
-    inner_join(current, by = "site_id") |>
-    group_by(site_id) |>
+    inner_join(current, by = c("site_id", "md")) |>
+    group_by(site_id, md) |>
     summarize(
       current = first(current),
       wy_n = n(),
       m = 1L + sum(swe > first(current)),
-      share_positive = mean(swe > 0)
+      share_positive = mean(swe > 0),
+      .groups = "drop"
     ) |>
     left_join(select(stations, site_id, swe_begin), by = "site_id") |>
     mutate(
@@ -128,7 +132,8 @@ calc_swe_percentile <- function(swe, stations, percentile_date, min_share) {
       ptile_swe = if_else(enough_years & variable & wy_n > 1,
                           1 - (m - 1) / (wy_n - 1), NA_real_)
     ) |>
-    select(site_id, wy_n, ptile_swe)
+    inner_join(days, by = "md") |>
+    select(site_id, date, wy_n, ptile_swe)
 }
 
 #' Each site's normal peak SWE, peak day, and SM50 day: medians over the

@@ -55,8 +55,9 @@ format_annual <- function(annual_stats, sites, record_start_wy) {
     arrange(site_id, water_year)
 }
 
-#' Write one JSON file per chart site for its chart in the site panel: SWE
-#' percentile bands through the water year, and the focal year's daily SWE
+#' Write one JSON file per map site for the site panel: SWE percentile bands
+#' through the water year (empty for sites without charts), and the focal
+#' year's daily SWE
 #'
 #' Each file holds `band_days` (water days of the bands), `bands` (one row per
 #' band day of min, p10, p30, p50, p70, p90, max), and `swe` (the focal year's
@@ -73,9 +74,9 @@ write_site_chart_json <- function(bands, swe, sites, focal_wy, out_dir) {
   dir.create(out_dir, recursive = TRUE)
 
   focal <- swe |>
-    filter(water_year == focal_wy, site_id %in% sites$site_id[sites$has_charts])
+    filter(water_year == focal_wy, site_id %in% sites$site_id)
 
-  sites$site_id[sites$has_charts] |>
+  sites$site_id |>
     purrr::map_chr(function(id) {
       site_bands <- filter(bands, site_id == id) |> arrange(water_day)
       site_swe <- filter(focal, site_id == id)
@@ -95,14 +96,49 @@ write_site_chart_json <- function(bands, swe, sites, focal_wy, out_dir) {
     })
 }
 
+#' Write each map site's SWE percentile for every day of the snow season, as
+#' percents to one decimal, for the map's date slider. One decimal keeps every
+#' site in the same map class as its unrounded percentile.
+#'
+#' The file holds `days` (water days of the season) and `percentiles`, keyed by
+#' site_id, one value per day (null where a site has no percentile).
+#'
+#' @param daily_percentiles data frame from `calc_swe_percentiles()`
+#' @param sites data frame from `build_site_table()`
+#' @param dates Date, the season's days
+#' @param file_out chr, path of the JSON file to write
+write_daily_percentiles <- function(daily_percentiles, sites, dates, file_out) {
+  focal_wy <- year(dates[1]) + if_else(month(dates[1]) >= 10, 1, 0)
+  water_days <- as.integer(dates - as.Date(sprintf("%s-10-01", focal_wy - 1))) + 1L
+
+  by_site <- daily_percentiles |>
+    filter(site_id %in% sites$site_id) |>
+    mutate(pct = round(100 * ptile_swe, 1)) |>
+    split(~site_id)
+
+  percentiles <- sites$site_id |>
+    purrr::set_names() |>
+    purrr::map(function(id) {
+      x <- by_site[[as.character(id)]]
+      if (is.null(x)) return(rep(NA_integer_, length(dates)))
+      x$pct[match(dates, x$date)]
+    })
+
+  jsonlite::write_json(list(days = water_days, percentiles = percentiles),
+                       file_out, na = "null", auto_unbox = TRUE)
+  file_out
+}
+
 #' Settings the site's text and charts depend on, as a one-row table
 format_run_info <- function(water_year, percentile_date, data_end_date,
-                            record_start_wy, percentile_min_share,
-                            chart_min_years) {
+                            season_start, season_end, record_start_wy,
+                            percentile_min_share, chart_min_years) {
   tibble(
     water_year,
     percentile_date,
     data_end_date,
+    season_start,
+    season_end = min(season_end, data_end_date),
     record_start_wy,
     percentile_min_share = round(percentile_min_share, 4),
     chart_min_years

@@ -16,6 +16,11 @@ p0_targets <- list(
   # season while the map shows conditions on the percentile date.
   tar_target(p0_data_end_date, as.Date("2026-09-23")),
 
+  # Snow season the map's date slider covers, ending no later than the last
+  # day of data
+  tar_target(p0_season_start, as.Date("2025-11-01")),
+  tar_target(p0_season_end, as.Date("2026-07-01")),
+
   # First water year shown in the peak SWE and SM50 trend charts
   tar_target(p0_record_start_wy, 1981),
 

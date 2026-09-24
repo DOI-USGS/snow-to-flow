@@ -26,8 +26,43 @@
               Snow in {{ info.water_year }}
             </h3>
             <p class="snotel-legend__subtitle">
-              {{ percentileDayLabel }} SWE percentile
+              {{ dayLabel }} SWE percentile
             </p>
+            <div class="date-slider">
+              <label
+                for="snotel-date"
+                class="date-slider__label"
+              >
+                Date: <strong>{{ dayLongLabel }}</strong>
+              </label>
+              <input
+                id="snotel-date"
+                v-model.number="selectedDay"
+                type="range"
+                :min="daily.days[0]"
+                :max="daily.days[daily.days.length - 1]"
+                step="1"
+                :aria-valuetext="dayLongLabel"
+              >
+              <div
+                class="date-slider__months"
+                aria-hidden="true"
+              >
+                <span
+                  v-for="tick in monthTicks"
+                  :key="tick.label"
+                  :style="{ left: `${tick.pos}%` }"
+                >{{ tick.label }}</span>
+              </div>
+              <button
+                type="button"
+                class="date-slider__reset"
+                :class="{ 'is-hidden': selectedDay === defaultDay }"
+                @click="selectedDay = defaultDay"
+              >
+                Back to {{ percentileDayLabel }}
+              </button>
+            </div>
             <svg
               id="legend-percentile"
               xmlns="http://www.w3.org/2000/svg"
@@ -40,49 +75,48 @@
 
           <!-- SELECTED SITE -->
           <aside class="site-card">
-            <label class="site-picker">
-              <span class="site-picker__label">Choose a site</span>
-              <select
-                :value="selected ? selected.sntl_id : ''"
-                @change="onSitePicked"
+            <!-- the site picker doubles as the panel's title -->
+            <select
+              class="site-picker"
+              aria-label="Choose a SNOTEL site"
+              :value="selected ? selected.sntl_id : ''"
+              @change="onSitePicked"
+            >
+              <option
+                value=""
+                disabled
+              >
+                Choose a SNOTEL site
+              </option>
+              <optgroup
+                v-for="[stateName, stateSites] in sitesByState"
+                :key="stateName"
+                :label="stateName"
               >
                 <option
-                  value=""
-                  disabled
+                  v-for="site in stateSites"
+                  :key="site.sntl_id"
+                  :value="site.sntl_id"
                 >
-                  Select a SNOTEL site
+                  {{ site.site_name }}
                 </option>
-                <optgroup
-                  v-for="[stateName, stateSites] in sitesByState"
-                  :key="stateName"
-                  :label="stateName"
-                >
-                  <option
-                    v-for="site in stateSites"
-                    :key="site.sntl_id"
-                    :value="site.sntl_id"
-                  >
-                    {{ site.site_name }} ({{ site.elev_ft }} ft)
-                  </option>
-                </optgroup>
-              </select>
-            </label>
+              </optgroup>
+            </select>
 
             <div
               class="site-card__details"
               aria-live="polite"
             >
               <template v-if="selected">
-                <h3 class="site-card__name">
-                  {{ selected.site_name }}
-                  <span class="site-card__meta">&middot; {{ selected.state_name }} &middot; {{ formatNumber(selected.elev_ft) }} ft</span>
-                </h3>
+                <p class="site-card__meta">
+                  {{ selected.state_name }} &middot; {{ formatNumber(selected.elev_ft) }} ft
+                </p>
                 <div
                   ref="chartBox"
                   class="site-chart"
                 >
                   <svg
-                    v-show="chartData"
+                    v-show="chartData && selected.has_charts"
                     id="site-chart"
                     xmlns="http://www.w3.org/2000/svg"
                     role="img"
@@ -97,8 +131,8 @@
                 </div>
                 <dl>
                   <div>
-                    <dt>{{ percentileDayLabel }} SWE:</dt>
-                    <dd>{{ selected.swe == null ? 'No data' : `${selected.swe} in` }}</dd>
+                    <dt>{{ dayLabel }} SWE:</dt>
+                    <dd>{{ sweText(selected) }}</dd>
                   </div>
                   <div>
                     <dt>Percentile:</dt>
@@ -238,7 +272,7 @@
 </template>
 
 <script setup>
-  import { onBeforeUnmount, ref, computed, nextTick, onMounted } from 'vue';
+  import { onBeforeUnmount, ref, computed, nextTick, onMounted, watch } from 'vue';
   import * as d3 from 'd3';
   import VizSection from '@/components/VizSection.vue';
   import ExpandingSidebar from '@/components/ExpandingSidebar.vue';
@@ -265,6 +299,19 @@
   const panels = ref({});
   const sites = ref([]);
   const selected = ref(null);
+  // each site's percentile (whole percent) on every day of the snow season
+  const daily = ref({ days: [], percentiles: {} });
+
+  // The date shown, as a water day (1 = October 1); starts on the percentile date
+  const selectedDay = ref(null);
+  const defaultDay = computed(() => info.value.percentile_date
+    ? d3.utcDay.count(Date.UTC(info.value.water_year - 1, 9, 1), info.value.percentile_date) + 1
+    : null);
+  const dayIndex = computed(() => daily.value.days.indexOf(selectedDay.value));
+  const ptileAt = site => {
+    const pct = daily.value.percentiles[site.site_id]?.[dayIndex.value];
+    return pct == null ? null : pct / 100;
+  };
 
   // Percentile colour scale, with the NRCS interactive map's percentile breaks
   const threshold = d3.scaleThreshold()
@@ -272,8 +319,8 @@
     .range(["#5C3406", "#C28D3D", "#ECD8A6", "#AADDD6", "#2A8C83", "#004439"]);
   const noPercentileFill = "#c4c4c4";
   const noPercentileStroke = "#7a7a7a";
-  const siteFill = d => d.ptile_swe == null ? noPercentileFill : threshold(d.ptile_swe);
-  const siteStroke = d => d.ptile_swe == null ? noPercentileStroke : "black";
+  const siteFill = d => ptileAt(d) == null ? noPercentileFill : threshold(ptileAt(d));
+  const siteStroke = d => ptileAt(d) == null ? noPercentileStroke : "black";
 
   // Site marks, in screen pixels; converted to each panel's units on resize
   const siteRadiusPx = 4.5;
@@ -299,10 +346,28 @@
   const dataEndLabel = computed(() =>
     info.value.data_end_date ? formatLongDate(info.value.data_end_date) : ''
   );
-  const mapLabel = region => `Map of SNOTEL sites in ${region}, colored by ${percentileDayLabel.value} SWE percentile`;
-
   // Water day (1 = October 1) of the focal water year as a date
   const waterDayDate = day => new Date(Date.UTC(info.value.water_year - 1, 9, day));
+
+  // The selected date, e.g. "March 15th" and "March 15, 2026"
+  const dayLabel = computed(() => {
+    if (selectedDay.value == null) return '';
+    const d = waterDayDate(selectedDay.value);
+    return `${d3.utcFormat('%B')(d)} ${ordinal(d.getUTCDate())}`;
+  });
+  const dayLongLabel = computed(() =>
+    selectedDay.value == null ? '' : formatLongDate(waterDayDate(selectedDay.value))
+  );
+  // month labels along the date slider
+  const monthTicks = computed(() => {
+    const days = daily.value.days;
+    if (!days.length) return [];
+    const [first, last] = [days[0], days[days.length - 1]];
+    return days
+      .filter(day => waterDayDate(day).getUTCDate() === 1)
+      .map(day => ({ label: d3.utcFormat('%b')(waterDayDate(day)), pos: 100 * (day - first) / (last - first) }));
+  });
+  const mapLabel = region => `Map of SNOTEL sites in ${region}, colored by ${dayLabel.value} SWE percentile`;
 
   // Legend drawing size, in screen pixels
   const legendSize = { width: 340, height: 88, left: 44, rampWidth: 270 };
@@ -311,24 +376,33 @@
   const classCounts = computed(() => {
     const counts = threshold.range().map(() => 0);
     for (const d of sites.value) {
-      if (d.ptile_swe != null) counts[threshold.range().indexOf(threshold(d.ptile_swe))] += 1;
+      const p = ptileAt(d);
+      if (p != null) counts[threshold.range().indexOf(threshold(p))] += 1;
     }
     return counts;
   });
-  const noPercentileCount = computed(() => sites.value.filter(d => d.ptile_swe == null).length);
+  const noPercentileCount = computed(() => sites.value.filter(d => ptileAt(d) == null).length);
   const legendLabel = computed(() => {
     const breaks = [0, ...threshold.domain(), 1];
     const classes = classCounts.value.map((n, i) => `${breaks[i] * 100} to ${breaks[i + 1] * 100} percent: ${n} sites`);
-    return `${percentileDayLabel.value} SWE percentile legend. ${classes.join('; ')}; no percentile: ${noPercentileCount.value} sites.`;
+    return `${dayLabel.value} SWE percentile legend. ${classes.join('; ')}; no percentile: ${noPercentileCount.value} sites.`;
   });
 
   // Site details
   function percentileText(site) {
-    if (site.ptile_swe == null) return "No percentile";
-    const pct = Math.round(site.ptile_swe * 100);
-    if (site.ptile_swe === 0) return `${ordinal(pct)} percentile (lowest on record)`;
-    if (site.ptile_swe === 1) return `${ordinal(pct)} percentile (highest on record)`;
+    const p = ptileAt(site);
+    if (p == null) return "No percentile";
+    const pct = Math.round(p * 100);
+    if (p === 0) return `${ordinal(pct)} percentile (lowest on record)`;
+    if (p === 1) return `${ordinal(pct)} percentile (highest on record)`;
     return `${ordinal(pct)} percentile`;
+  }
+  // SWE on the selected date, from the site's data file once loaded
+  function sweText(site) {
+    const data = chartData.value;
+    const swe = data ? data.swe[selectedDay.value - 1] : (selectedDay.value === defaultDay.value ? site.swe : undefined);
+    if (swe === undefined) return '';
+    return swe == null ? 'No data' : `${swe} in`;
   }
   function peakText(site) {
     if (site.peak_swe == null || site.peak_met === "TBD") return `Not reached by ${dataEndLabel.value}`;
@@ -409,7 +483,6 @@
     panelMarks[panel] = { svg, circles, ring };
   }
 
-  // Keep site marks the same size on screen however large the map is drawn
   // Legend: the percentile ramp with its breaks, the number of sites in each
   // class, and a key for sites without a percentile
   function drawLegend() {
@@ -456,10 +529,16 @@
       .attr("fill", noPercentileFill)
       .attr("stroke", noPercentileStroke);
     g.append("text")
-      .attr("class", "legend-label")
+      .attr("class", "legend-label no-percentile-label")
       .attr("x", 18)
-      .attr("y", 77)
-      .text(`No percentile (${noPercentileCount.value} sites)`);
+      .attr("y", 77);
+    updateLegend();
+  }
+  // counts follow the selected date
+  function updateLegend() {
+    const svg = d3.select("svg#legend-percentile");
+    svg.selectAll("text.class-count").data(classCounts.value).text(d => d);
+    svg.select("text.no-percentile-label").text(`No percentile (${noPercentileCount.value} sites)`);
   }
 
   // Site chart: the focal year's SWE over the site's percentile bands for each
@@ -474,7 +553,6 @@
 
   async function loadChart(site) {
     chartData.value = null;
-    if (!site.has_charts) return;
     let data = chartCache.get(site.site_id);
     if (!data) {
       data = await d3.json(`${publicPath}data/snotel_sites/${site.site_id}.json`);
@@ -489,7 +567,7 @@
 
   function drawChart() {
     const data = chartData.value;
-    if (!data || !chartBox.value) return;
+    if (!data || !chartBox.value || !selected.value?.has_charts) return;
     const width = chartBox.value.clientWidth;
     const height = 170;
     const m = { top: 8, right: 8, bottom: 22, left: 34 };
@@ -535,8 +613,8 @@
       .attr("fill", "currentColor")
       .text("in");
 
-    // the percentile date, and SWE through the water year
-    const pDay = d3.utcDay.count(Date.UTC(info.value.water_year - 1, 9, 1), info.value.percentile_date) + 1;
+    // the selected date, and SWE through the water year
+    const pDay = selectedDay.value;
     svg.append("line")
       .attr("x1", x(pDay)).attr("x2", x(pDay))
       .attr("y1", m.top).attr("y2", height - m.bottom)
@@ -560,6 +638,7 @@
     }
   }
 
+  // Keep site marks the same size on screen however large the map is drawn
   function sizeMarks() {
     for (const panel of Object.keys(panelMarks)) {
       const k = unitsPerPx(panel);
@@ -586,12 +665,15 @@
   }
 
   onMounted(async () => {
-    const [runInfo, panelRows, siteRows] = await Promise.all([
+    const [runInfo, panelRows, siteRows, dailyPercentiles] = await Promise.all([
       d3.csv(publicPath + "data/snotel_run_info.csv", d3.autoType),
       d3.csv(publicPath + "data/snotel_map_panels.csv", d3.autoType),
-      d3.csv(publicPath + "data/snotel_sites.csv", d3.autoType)
+      d3.csv(publicPath + "data/snotel_sites.csv", d3.autoType),
+      d3.json(publicPath + "data/snotel_daily_percentiles.json")
     ]);
     info.value = runInfo[0];
+    daily.value = dailyPercentiles;
+    selectedDay.value = defaultDay.value;
     panels.value = Object.fromEntries(panelRows.map(d => [d.panel, d]));
     // has_charts is written as TRUE/FALSE, which d3.autoType leaves as text
     siteRows.forEach(d => { d.has_charts = d.has_charts === true || d.has_charts === "TRUE"; });
@@ -607,6 +689,20 @@
     resizeObserver.observe(westStack.value);
     resizeObserver.observe(akStack.value);
     chartObserver = new ResizeObserver(() => drawChart());
+  });
+
+  // Recolor the map, legend, and chart when the date changes, at most once a frame
+  let frame = null;
+  watch(selectedDay, () => {
+    if (frame || !loaded.value) return;
+    frame = requestAnimationFrame(() => {
+      frame = null;
+      for (const marks of Object.values(panelMarks)) {
+        marks.circles.attr("fill", siteFill).attr("stroke", siteStroke);
+      }
+      updateLegend();
+      drawChart();
+    });
   });
 
   onBeforeUnmount(() => {
@@ -751,28 +847,66 @@
     border-radius: 4px;
     background: #fafafa;
   }
+  // The site picker is the panel's title, at the site name size
   .site-picker {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    margin-bottom: 1rem;
-    font-size: 1.6rem;
-    select {
-      max-width: 100%;
-      padding: 0.25rem;
-      font: inherit;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0.2rem 0.25rem;
+    font: inherit;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--color-text);
+    background-color: #fff;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    cursor: pointer;
+    option,
+    optgroup {
+      font-size: 1.6rem;
     }
   }
-  .site-picker__label {
-    font-weight: 700;
+
+  // Date slider
+  .date-slider {
+    margin: 0.5rem 0 0.75rem;
+    font-size: 1.6rem;
+    input[type="range"] {
+      display: block;
+      width: 100%;
+      margin: 0.25rem 0 0;
+      accent-color: var(--color-text);
+    }
   }
-  .site-card__name {
-    margin: 0 0 0.5rem;
-    font-size: 2rem;
-    line-height: 1.3;
+  .date-slider__months {
+    position: relative;
+    height: 1.8rem;
+    font-size: 1.4rem;
+    color: var(--medium-grey-dark);
+    span {
+      position: absolute;
+      transform: translateX(-50%);
+    }
+  }
+  .date-slider__reset {
+    margin-top: 0.25rem;
+    padding: 0.2rem 0.6rem;
+    font: inherit;
+    font-size: 1.4rem;
+    background: #fff;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    cursor: pointer;
+    // hidden but holding its space on the default date, so nothing shifts
+    &.is-hidden {
+      visibility: hidden;
+    }
   }
   .site-card__meta {
-    font-weight: 400;
+    margin: 0.25rem 0 0.5rem;
+    font-size: 1.6rem;
     color: var(--medium-grey-dark);
   }
   .site-card__prompt,

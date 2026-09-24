@@ -106,6 +106,15 @@ p3_targets <- list(
     format = "file"
   ),
 
+  # Each site's percentile for every day of the snow season, for the slider
+  tar_target(
+    p3_daily_percentiles_json,
+    write_daily_percentiles(p2_sntl_daily_percentiles, p2_sntl_sites,
+                            dates = seq(p0_season_start, min(p0_season_end, p0_data_end_date), by = "day"),
+                            file_out = "public/data/snotel_daily_percentiles.json"),
+    format = "file"
+  ),
+
   # Chart data for each site in the site panel
   tar_target(
     p3_site_chart_json,
@@ -122,6 +131,8 @@ p3_targets <- list(
       water_year = p0_water_year,
       percentile_date = p0_percentile_date,
       data_end_date = p0_data_end_date,
+      season_start = p0_season_start,
+      season_end = p0_season_end,
       record_start_wy = p0_record_start_wy,
       percentile_min_share = p0_percentile_min_share,
       chart_min_years = p0_chart_min_years
