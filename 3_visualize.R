@@ -88,7 +88,8 @@ p3_targets <- list(
   # Annual values behind the peak SWE and SM50 trend charts
   tar_target(
     p3_annual_csv,
-    format_annual(p2_sntl_annual_stats, p2_sntl_sites) |>
+    format_annual(p2_sntl_annual_stats, p2_sntl_sites,
+                  record_start_wy = p0_record_start_wy) |>
       write_web_csv("public/data/snotel_annual.csv"),
     format = "file"
   ),
@@ -109,8 +110,7 @@ p3_targets <- list(
       percentile_date = p0_percentile_date,
       data_end_date = p0_data_end_date,
       record_start_wy = p0_record_start_wy,
-      baseline_wys = p0_baseline_wys,
-      baseline_min_years = p0_baseline_min_years,
+      percentile_min_share = p0_percentile_min_share,
       chart_min_years = p0_chart_min_years
     ) |>
       write_web_csv("public/data/snotel_run_info.csv"),

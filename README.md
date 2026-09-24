@@ -7,11 +7,11 @@ A majority of the water in the western U.S. comes from snowmelt. This site explo
 ## To build pipeline and reproduce figures
 The SNOTEL data shown on the site are fetched and processed by an R pipeline built with the `targets` package. Clone the repo. In R, from the repo root, run `library(targets)` and `tar_make()`. The first run downloads the full SNOTEL record, which takes about ten minutes.
 
-The pipeline settings are in `0_config.R`: the water year shown on the site, the date its SWE percentile is calculated for, the last day of data, the baseline years, and the thresholds for which sites get percentiles and charts. To update the site for a new year, change these settings and `p0_fetch_date`, then run `tar_make()` again.
+The pipeline settings are in `0_config.R`: the water year shown on the site, the date its SWE percentile is calculated for, the last day of data, and the thresholds for which sites get percentiles and charts. The site currently shows April 1, 2026. To update the site for a new year, change these settings and `p0_fetch_date`, then run `tar_make()` again.
 
 ## Data processing
 - `1_fetch`: SNOTEL station metadata and daily SWE (start-of-day values) come from the [NRCS Air and Water Database REST API](https://wcc.sc.egov.usda.gov/awdbRestApi/), and state boundaries from the U.S. Census Bureau.
-- `2_process`: for every site and water year since 1981, peak SWE and its date, SM50 (the first day on or after the peak when SWE has fallen to half of it), and April 1st SWE. Each site's SWE on the percentile date is ranked against the same day in the baseline years (1981-2010), for sites with at least 20 baseline years.
+- `2_process`: for every site and water year, peak SWE and its date, SM50 (the first day on or after the peak when SWE has fallen to half of it), and April 1st SWE. Each site's SWE on the percentile date is ranked against the same day in the site's period of record, as in the [NRCS interactive map](https://www.nrcs.usda.gov/sites/default/files/2023-03/iMap_Glossary.pdf): percentile = 1 - (m - 1)/(n - 1), where m is the rank from the top and n the number of years, for sites with data in at least two thirds of their record's years.
 - `3_visualize`: writes the data the site reads to [`public/data`](https://github.com/DOI-USGS/snow-to-flow/tree/main/public/data): `snotel_sites.csv`, `snotel_annual.csv`, `snotel_swe_daily.csv`, `snotel_run_info.csv`, and `snotel_states.geojson`.
 
 The map currently still reads `SNOTEL_conus_d_test.csv` and `SNOTEL_ak_d_test.csv`, made by the earlier scripts in `data_processing_pipeline`. That folder is being replaced by the pipeline above and will be removed once the map uses the new files.

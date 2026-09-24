@@ -132,7 +132,7 @@
                   xmlns="http://www.w3.org/2000/svg"
                   :viewBox="viewBox('ak')"
                   role="img"
-                  aria-label="Map of SNOTEL sites in Alaska, colored by April 1st SWE percentile"
+                  :aria-label="`Map of SNOTEL sites in Alaska, colored by ${percentileDayLabel} SWE percentile`"
                 />
               </div>
             </div>
@@ -171,7 +171,7 @@
                   xmlns="http://www.w3.org/2000/svg"
                   :viewBox="viewBox('conus')"
                   role="img"
-                  aria-label="Map of SNOTEL sites in the western U.S., colored by April 1st SWE percentile"
+                  :aria-label="`Map of SNOTEL sites in the western U.S., colored by ${percentileDayLabel} SWE percentile`"
                 />
               </div>
             </div>
@@ -212,10 +212,10 @@
     <!-- FIGURE CAPTION -->
     <template #figureCaption>
       <p id="explain-bottom">
-        The map shows April 1st snow as a percentile of this date in the historic record ({{ info.baseline_start_wy }}-{{ info.baseline_end_wy }}). Snow is quantified as the daily snow-water equivalent (SWE) at  <a
+        The map shows {{ percentileDayLabel }} snow as a percentile of this date in each site's period of record, calculated as in the NRCS interactive map. Snow is quantified as the daily snow-water equivalent (SWE) at  <a
           href="https://www.nrcs.usda.gov/programs-initiatives/sswsf-snow-survey-and-water-supply-forecasting-program"
           target="_blank"
-        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites </a> across the Western U.S. SNOTEL sites with fewer than {{ info.baseline_min_years }} years in the historic record have no percentile and are shown in grey; sites with too short a record for the charts are faded out.
+        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites </a> across the Western U.S. Sites without enough years of data for a percentile are shown in grey, and sites with too short a record for the charts are faded out.
       </p>
     </template>
     <!-- EXPLANATION -->
@@ -322,18 +322,23 @@
   const dataEndLabel = computed(() =>
     info.value.data_end_date ? formatShortDate(info.value.data_end_date) : ''
   );
-  const percentileDateLabel = computed(() => {
+  // e.g. "April 1st", and "April 1st, 2026"
+  const percentileDayLabel = computed(() => {
     const d = info.value.percentile_date;
     if (!d) return '';
     const day = d.getUTCDate();
     const suffix = [11, 12, 13].includes(day % 100) ? 'th' : ({ 1: 'st', 2: 'nd', 3: 'rd' }[day % 10] || 'th');
-    return `${d3.utcFormat('%B')(d)} ${day}${suffix}, ${d.getUTCFullYear()}`;
+    return `${d3.utcFormat('%B')(d)} ${day}${suffix}`;
   });
+  const percentileDateLabel = computed(() =>
+    percentileDayLabel.value ? `${percentileDayLabel.value}, ${info.value.percentile_date.getUTCFullYear()}` : ''
+  );
 
-  // Percentile colour scale shared by the map and legend
+  // Percentile colour scale shared by the map and legend, with the NRCS
+  // interactive map's percentile breaks
   const threshold = d3.scaleThreshold()
-    .domain([0, 0.1, 0.25, 0.4, 0.6, 0.75, 0.9, 1])
-    .range(["white", "#5C3406", "#C28D3D", "#ECD8A6", "#F0F0E6", "#AADDD6", "#2A8C83", "#004439"]);
+    .domain([0.1, 0.3, 0.5, 0.7, 0.9])
+    .range(["#5C3406", "#C28D3D", "#ECD8A6", "#AADDD6", "#2A8C83", "#004439"]);
   // Sites with charts but too short a record for a percentile
   const noPercentileFill = "#d9d9d9";
   const siteFill = d => d.ptile_swe == null ? noPercentileFill : threshold(d.ptile_swe);
@@ -509,7 +514,11 @@
         .tickValues(wyTicks)
         .tickFormat((d, i) => wyLabels[i])
         .tickSizeOuter(0).tickSize(0))
-      .attr("transform", "translate(0,270)");
+      .attr("transform", "translate(0,270)")
+      // keep a label at the end of the axis (the last day of data) inside the chart
+      .selectAll(".tick text")
+      .filter(d => xDay(d) > 185)
+      .attr("text-anchor", "end");
     wySvg.append("g")
       .classed("melt-legend", true)
       .call(d3.axisLeft(ySwe)
@@ -686,7 +695,7 @@
 
     const xAxis = d3.axisBottom(x)
       .tickSize(10)
-      .tickValues(threshold.domain())
+      .tickValues([0, ...threshold.domain(), 1])
       .tickFormat(d => d * 100 + '%');
 
     const g = d3.select("svg#legend-percentile").append("g")
@@ -713,7 +722,7 @@
       .attr("font-size", "1.25em")
       .attr("text-anchor", "start")
       .attr("y", -10)
-      .text("April 1st SWE percentile");
+      .text(`${percentileDayLabel.value} SWE percentile`);
 
     g.append("text")
       .attr("fill", "#000")

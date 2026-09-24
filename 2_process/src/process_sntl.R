@@ -3,17 +3,15 @@
 #' Read the fetched daily SWE files and add water year and water day
 #'
 #' @param swe_csvs chr, paths of the daily SWE csvs
-#' @param record_start_wy int, first water year to keep
 #' @return data frame of site_id, date, swe, water_year, water_day (1 = Oct 1)
-read_sntl_swe <- function(swe_csvs, record_start_wy) {
+read_sntl_swe <- function(swe_csvs) {
   swe_csvs |>
     purrr::map(read_csv, show_col_types = FALSE) |>
     list_rbind() |>
     mutate(
       water_year = year(date) + if_else(month(date) >= 10, 1, 0),
       water_day = as.integer(date - as.Date(sprintf("%s-10-01", water_year - 1))) + 1L
-    ) |>
-    filter(water_year >= record_start_wy)
+    )
 }
 
 #' Count complete water years of record for each site
@@ -84,35 +82,52 @@ calc_annual_stats <- function(swe, focal_wy, data_end_date) {
     select(-focal)
 }
 
-#' Percentile of each site's SWE on a date, against the same day of the year
-#' in the baseline water years
+#' Percentile of each site's SWE on a date, as the NRCS interactive map
+#' calculates it
 #'
-#' Sites need SWE on the date and at least `min_years` baseline years with SWE
-#' on that day of the year to get a percentile. `wy_n`, the number of baseline
-#' years with data, is returned for every site with SWE on the date.
+#' The reference is the site's period of record for that day of the year,
+#' including the current year. Percentile = 1 - (m - 1) / (n - 1), where m is
+#' the rank of the current value with rank 1 the maximum (ties take the top
+#' rank) and n the number of years with a value, so the record low is 0 and
+#' the record high 1. A percentile is given only when n is at least
+#' `min_share` of the years in the period of record, and it passes the NRCS
+#' data variability rule: at least 10% of the values must be above zero, or
+#' 80% if the current value is zero. See the NRCS iMap glossary:
+#' https://www.nrcs.usda.gov/sites/default/files/2023-03/iMap_Glossary.pdf
 #'
 #' @param swe data frame from `read_sntl_swe()`
+#' @param stations data frame of station metadata, for record start dates
 #' @param percentile_date Date, the date to rank
-#' @param baseline_wys int, baseline water years
-#' @param min_years int, minimum baseline years with data
-calc_swe_percentile <- function(swe, percentile_date, baseline_wys, min_years) {
+#' @param min_share num, share of the period of record's years needed
+#' @return data frame of site_id, wy_n (years with a value), ptile_swe
+calc_swe_percentile <- function(swe, stations, percentile_date, min_share) {
+  focal_wy <- year(percentile_date) + if_else(month(percentile_date) >= 10, 1, 0)
+
   same_day <- swe |>
-    filter(!is.na(swe),
+    filter(!is.na(swe), water_year <= focal_wy,
            month(date) == month(percentile_date),
            day(date) == day(percentile_date))
 
-  current <- filter(same_day, date == percentile_date)
+  current <- filter(same_day, date == percentile_date) |> select(site_id, current = swe)
 
   same_day |>
-    filter(water_year %in% baseline_wys, site_id %in% current$site_id) |>
+    inner_join(current, by = "site_id") |>
     group_by(site_id) |>
-    summarize(baseline_swe = list(swe), wy_n = n_distinct(water_year)) |>
-    inner_join(select(current, site_id, swe), by = "site_id") |>
-    mutate(ptile_swe = if_else(
-      wy_n >= min_years,
-      purrr::map2_dbl(baseline_swe, swe, ~ ecdf(.x)(.y)),
-      NA_real_
-    )) |>
+    summarize(
+      current = first(current),
+      wy_n = n(),
+      m = 1L + sum(swe > first(current)),
+      share_positive = mean(swe > 0)
+    ) |>
+    left_join(select(stations, site_id, swe_begin), by = "site_id") |>
+    mutate(
+      por_start_wy = year(swe_begin) + if_else(month(swe_begin) >= 10, 1, 0),
+      por_years = focal_wy - por_start_wy + 1,
+      enough_years = wy_n >= min_share * por_years,
+      variable = if_else(current > 0, share_positive >= 0.1, share_positive >= 0.8),
+      ptile_swe = if_else(enough_years & variable & wy_n > 1,
+                          1 - (m - 1) / (wy_n - 1), NA_real_)
+    ) |>
     select(site_id, wy_n, ptile_swe)
 }
 

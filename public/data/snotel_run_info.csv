@@ -1,2 +1,2 @@
-water_year,percentile_date,data_end_date,record_start_wy,baseline_start_wy,baseline_end_wy,baseline_min_years,chart_min_years
-2021,2021-04-01,2021-04-22,1981,1981,2010,20,10
+water_year,percentile_date,data_end_date,record_start_wy,percentile_min_share,chart_min_years
+2026,2026-04-01,2026-04-01,1981,0.6667,10

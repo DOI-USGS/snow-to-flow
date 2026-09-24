@@ -5,7 +5,7 @@ p2_targets <- list(
   # Daily SWE for all fetched sites, with water year and water day
   tar_target(
     p2_sntl_swe,
-    read_sntl_swe(p1_sntl_swe_csv, record_start_wy = p0_record_start_wy)
+    read_sntl_swe(p1_sntl_swe_csv)
   ),
 
   # Complete water years of record before the focal year, for the chart rule
@@ -22,12 +22,13 @@ p2_targets <- list(
                       data_end_date = p0_data_end_date)
   ),
 
-  # SWE percentile on the percentile date against the baseline years
+  # SWE percentile on the percentile date against each site's period of
+  # record, as the NRCS interactive map calculates it
   tar_target(
     p2_sntl_percentiles,
-    calc_swe_percentile(p2_sntl_swe, percentile_date = p0_percentile_date,
-                        baseline_wys = p0_baseline_wys,
-                        min_years = p0_baseline_min_years)
+    calc_swe_percentile(p2_sntl_swe, stations = p1_sntl_stations,
+                        percentile_date = p0_percentile_date,
+                        min_share = p0_percentile_min_share)
   ),
 
   # Every site on the map: stations active on the last day of data, with

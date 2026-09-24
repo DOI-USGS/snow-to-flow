@@ -27,13 +27,13 @@ p1_targets <- list(
     sort(unique(p1_sntl_sites$state))
   ),
 
-  # Daily SWE for each state's stations, from the start of the record through
-  # the last day of data
+  # Daily SWE for each state's stations, from the start of each station's
+  # record (the NRCS period of record) through the last day of data
   tar_target(
     p1_sntl_swe_csv,
     fetch_sntl_swe(
       station_triplets = filter(p1_sntl_sites, state == p1_sntl_states)$station_triplet,
-      begin_date = as.Date(sprintf("%s-10-01", p0_record_start_wy - 1)),
+      begin_date = min(filter(p1_sntl_sites, state == p1_sntl_states)$swe_begin),
       end_date = p0_data_end_date,
       file_out = sprintf("1_fetch/out/sntl_swe_%s.csv", p1_sntl_states),
       fetch_date = p0_fetch_date
