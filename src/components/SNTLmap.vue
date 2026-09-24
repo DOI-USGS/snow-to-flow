@@ -16,7 +16,11 @@
         v-if="loaded"
         class="snotel-map"
       >
-        <div class="snotel-grid">
+        <div
+          ref="snotelGrid"
+          class="snotel-grid"
+          :style="{ '--sheet-peek': `${sheetPeek}px` }"
+        >
           <!-- LEGEND -->
           <div class="snotel-legend">
             <h3 class="snotel-legend__title">
@@ -25,7 +29,10 @@
             <p class="snotel-legend__subtitle">
               Snow-water equivalent (SWE) percentile
             </p>
-            <div class="date-slider">
+            <div
+              class="date-slider"
+              :style="{ maxWidth: `${legendSize.width}px` }"
+            >
               <label
                 for="snotel-date"
                 class="date-slider__label"
@@ -64,36 +71,67 @@
           </div>
 
           <!-- SELECTED SITE -->
-          <aside class="site-card">
-            <!-- the site picker doubles as the panel's title -->
-            <select
-              class="site-picker"
-              aria-label="Choose a SNOTEL site"
-              :value="selected ? selected.sntl_id : ''"
-              @change="onSitePicked"
+          <!-- On narrow screens this is a sheet at the bottom of the screen, shown
+               while the map is in view: collapsed to its header until a site
+               is selected, then slid up over the map -->
+          <aside
+            ref="siteCard"
+            class="site-card"
+            :class="{ 'is-collapsed': sheetCollapsed, 'is-away': !mapInView }"
+            :style="{ '--sheet-peek': `${sheetPeek}px` }"
+            aria-label="Site details"
+          >
+            <div
+              ref="sheetHeader"
+              class="site-card__header"
             >
-              <option
-                value=""
-                disabled
-              >
-                Choose a SNOTEL site
-              </option>
-              <optgroup
-                v-for="[stateName, stateSites] in sitesByState"
-                :key="stateName"
-                :label="stateName"
+              <!-- the site picker doubles as the panel's title -->
+              <select
+                class="site-picker"
+                aria-label="Choose a SNOTEL site"
+                :value="selected ? selected.sntl_id : ''"
+                @change="onSitePicked"
               >
                 <option
-                  v-for="site in stateSites"
-                  :key="site.sntl_id"
-                  :value="site.sntl_id"
+                  value=""
+                  disabled
                 >
-                  {{ site.site_name }}
+                  Choose a SNOTEL site
                 </option>
-              </optgroup>
-            </select>
+                <optgroup
+                  v-for="[stateName, stateSites] in sitesByState"
+                  :key="stateName"
+                  :label="stateName"
+                >
+                  <option
+                    v-for="site in stateSites"
+                    :key="site.sntl_id"
+                    :value="site.sntl_id"
+                  >
+                    {{ site.site_name }}
+                  </option>
+                </optgroup>
+              </select>
+              <button
+                type="button"
+                class="site-card__toggle"
+                :aria-expanded="String(!sheetCollapsed)"
+                :aria-label="sheetCollapsed ? 'Show site details' : 'Hide site details'"
+                aria-controls="site-card-details"
+                @click="sheetCollapsed = !sheetCollapsed"
+              >
+                <svg
+                  class="site-card__chevron"
+                  viewBox="0 0 16 16"
+                  aria-hidden="true"
+                >
+                  <path d="M3 10l5-5 5 5" />
+                </svg>
+              </button>
+            </div>
 
             <div
+              id="site-card-details"
               class="site-card__details"
               aria-live="polite"
             >
@@ -122,11 +160,10 @@
                 <dl>
                   <div>
                     <dt>{{ dayLabel }} SWE:</dt>
-                    <dd>{{ sweText(selected) }}</dd>
-                  </div>
-                  <div>
-                    <dt>Percentile:</dt>
                     <dd>
+                      <template v-if="sweText(selected)">
+                        {{ sweText(selected) }},
+                      </template>
                       <span
                         class="swatch"
                         :style="{ background: siteFill(selected), borderColor: siteStroke(selected) }"
@@ -381,7 +418,7 @@
   // Site details
   function percentileText(site) {
     const p = ptileAt(site);
-    if (p == null) return "No percentile";
+    if (p == null) return "no percentile";
     const pct = Math.round(p * 100);
     if (p === 0) return `${ordinal(pct)} percentile (lowest on record)`;
     if (p === 1) return `${ordinal(pct)} percentile (highest on record)`;
@@ -413,9 +450,26 @@
       .sort(([a], [b]) => a.localeCompare(b))
       .map(([state, list]) => [state, [...list].sort((a, b) => a.site_name.localeCompare(b.site_name))])
   );
-  function onSitePicked(event) {
+  async function onSitePicked(event) {
     const site = sites.value.find(d => d.sntl_id === event.target.value);
-    if (site) selectSite(site);
+    if (!site) return;
+    selectSite(site);
+    await nextTick();
+    scrollSiteIntoView(site);
+  }
+  // On narrow screens, scroll a site chosen from the list into the part of the
+  // map above the site sheet, if it isn't there already
+  function scrollSiteIntoView(site) {
+    if (!window.matchMedia("(max-width: 899.98px)").matches) return;
+    const ring = panelMarks[site.panel]?.ring.node();
+    if (!ring || !siteCard.value) return;
+    const box = ring.getBoundingClientRect();
+    const y = box.top + box.height / 2;
+    const visibleBottom = window.innerHeight - siteCard.value.offsetHeight;
+    const margin = 40;
+    if (y >= margin && y <= visibleBottom - margin) return;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollBy({ top: y - visibleBottom / 2, behavior: reduceMotion ? "auto" : "smooth" });
   }
 
   // Map drawing
@@ -423,6 +477,18 @@
   const akStack = ref(null);
   const panelMarks = {}; // per panel: svg, site circles, selection ring, Delaunay index
   let resizeObserver = null;
+
+  // On narrow screens the site details are a sheet at the bottom of the
+  // screen: collapsed to its header until a site is selected, and shown only
+  // while the map is on screen
+  const snotelGrid = ref(null);
+  const sheetHeader = ref(null);
+  const siteCard = ref(null);
+  const sheetCollapsed = ref(true);
+  const mapInView = ref(false);
+  const sheetPeek = ref(0);
+  let sheetObserver = null;
+  let viewObserver = null;
 
   function viewBox(panel) {
     const p = panels.value[panel];
@@ -560,10 +626,16 @@
     }
     if (selected.value !== site) return; // another site was chosen meanwhile
     chartData.value = data;
-    await nextTick();
-    if (chartObserver) chartObserver.observe(chartBox.value);
-    drawChart();
   }
+  // Draw once the data and the chart's box are both in the page, however the
+  // site was chosen, and redraw if the box is replaced or resized
+  watch([chartData, chartBox], ([, box], [, oldBox]) => {
+    if (chartObserver && box !== oldBox) {
+      if (oldBox) chartObserver.unobserve(oldBox);
+      if (box) chartObserver.observe(box);
+    }
+    drawChart();
+  }, { flush: 'post' });
 
   function drawChart() {
     const data = chartData.value;
@@ -654,6 +726,7 @@
   function selectSite(site) {
     if (selected.value === site) return;
     selected.value = site;
+    sheetCollapsed.value = false;
     loadChart(site);
     for (const [panel, marks] of Object.entries(panelMarks)) {
       if (panel === site.panel) {
@@ -694,6 +767,10 @@
     resizeObserver.observe(westStack.value);
     resizeObserver.observe(akStack.value);
     chartObserver = new ResizeObserver(() => drawChart());
+    sheetObserver = new ResizeObserver(() => { sheetPeek.value = sheetHeader.value.offsetHeight; });
+    sheetObserver.observe(sheetHeader.value);
+    viewObserver = new IntersectionObserver(([entry]) => { mapInView.value = entry.isIntersecting; });
+    viewObserver.observe(snotelGrid.value);
   });
 
   // Recolor the map, legend, and chart when the date changes, at most once a frame
@@ -713,6 +790,8 @@
   onBeforeUnmount(() => {
     if (resizeObserver) resizeObserver.disconnect();
     if (chartObserver) chartObserver.disconnect();
+    if (sheetObserver) sheetObserver.disconnect();
+    if (viewObserver) viewObserver.disconnect();
   });
 </script>
 
@@ -741,10 +820,11 @@
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas:
       "legend"
-      "card"
       "west"
       "ak";
     gap: 1rem;
+    // room below Alaska for the collapsed sheet
+    padding-bottom: var(--sheet-peek);
   }
   @media screen and (min-width: 900px) {
     .snotel-grid {
@@ -755,6 +835,7 @@
         "ak west";
       grid-template-rows: auto auto 1fr;
       column-gap: 2rem;
+      padding-bottom: 0;
     }
     // Alaska extends into the western map's empty lower left, drawn on top;
     // at this width none of it covers western land or sites
@@ -848,16 +929,100 @@
     stroke-width: 1.2px;
   }
 
-  // Details card
+  // Details card: beside the maps on wide screens, a bottom sheet on narrow
+  // ones that slides up over the map
   .site-card {
     padding: 1rem;
     border: 1px solid #ddd;
     border-radius: 4px;
     background: #fafafa;
   }
+  .site-card__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .site-card__toggle {
+    display: none;
+  }
+  @media screen and (max-width: 899.98px) {
+    .site-card {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 20;
+      max-height: 60vh;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding: 0 1.2rem 1.2rem;
+      border: none;
+      border-radius: 0;
+      background: var(--color-background);
+      box-shadow: 0 -4px 4px -2px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, visibility 0s;
+      &.is-collapsed {
+        overflow-y: hidden;
+        transform: translateY(calc(100% - var(--sheet-peek)));
+      }
+      // hidden once the map scrolls away, and out of the tab order
+      &.is-away {
+        transform: translateY(100%);
+        visibility: hidden;
+        transition: transform 0.3s ease, visibility 0s 0.3s;
+      }
+    }
+    .site-card__header {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      padding: 1rem 0;
+      margin-bottom: 0.75rem;
+      background: var(--color-background);
+      border-bottom: 1px solid #ccc;
+    }
+    .site-card__toggle {
+      display: block;
+      flex: none;
+      width: 4.4rem;
+      height: 4.4rem;
+      padding: 1rem;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+    .site-card__chevron {
+      display: block;
+      width: 100%;
+      height: 100%;
+      fill: none;
+      stroke: var(--color-text);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: 0.55;
+      transform: rotate(180deg);
+      transition: transform 0.3s ease;
+    }
+    .is-collapsed .site-card__chevron {
+      transform: none;
+    }
+    // the sheet doesn't push anything around, so no need to hold its height
+    .site-card__details {
+      min-height: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .site-card,
+    .site-card__chevron {
+      transition: none !important;
+    }
+  }
   // The site picker is the panel's title, at the site name size
   .site-picker {
     display: block;
+    flex: 1 1 auto;
+    min-width: 0;
     width: 100%;
     max-width: 100%;
     margin: 0;
