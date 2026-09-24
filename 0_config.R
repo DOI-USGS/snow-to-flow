@@ -6,10 +6,13 @@ p0_targets <- list(
   # Water year shown on the site
   tar_target(p0_water_year, 2021),
 
-  # Date the site's snapshot is taken: current-year data are pulled through
-  # this date, the SWE percentile is calculated for this day of the year, and
-  # peak SWE / SM50 not yet reached by this date are marked TBD
-  tar_target(p0_reference_date, as.Date("2021-04-26")),
+  # Date the SWE percentile is calculated for (the map shows April 1st SWE
+  # as a percentile of that date in the baseline years)
+  tar_target(p0_percentile_date, as.Date("2021-04-01")),
+
+  # Last day of data: current-year data are pulled through this date, and
+  # peak SWE / SM50 not yet reached by then are marked TBD
+  tar_target(p0_data_end_date, as.Date("2021-04-22")),
 
   # First water year of the record used for the peak SWE and SM50 trends
   tar_target(p0_record_start_wy, 1981),

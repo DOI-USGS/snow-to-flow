@@ -5,7 +5,9 @@ options(tidyverse.quiet = TRUE)
 tar_option_set(packages = c(
   # global
   "tidyverse",
-  "lubridate"
+  "lubridate",
+  # fetch
+  "httr2"
 ))
 
 # Phase target makefiles
