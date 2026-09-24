@@ -9,9 +9,6 @@
       <p>
         As springtime temperatures warm and snow begins to melt, the Western U.S. enters an important phase of the water cycle. Snow on {{ percentileDayLabel }}, and how it turns into streamflow, indicates the potential for water availability in the summer and fall. In water year {{ info.water_year }}, snowpack at most SNOTEL sites peaked early and melted early.
       </p>
-      <p class="explain figureCaption">
-        Select a site on the map, or choose one from the list, to see its {{ percentileDayLabel }} SWE and when its snow peaked and melted in water year {{ info.water_year }}.
-      </p>
     </template>
     <!-- FIGURES -->
     <template #figures>
@@ -26,7 +23,7 @@
               Snow in {{ info.water_year }}
             </h3>
             <p class="snotel-legend__subtitle">
-              {{ dayLabel }} SWE percentile
+              Snow-water equivalent (SWE) percentile
             </p>
             <div class="date-slider">
               <label
@@ -54,20 +51,13 @@
                   :style="{ left: `${tick.pos}%` }"
                 >{{ tick.label }}</span>
               </div>
-              <button
-                type="button"
-                class="date-slider__reset"
-                :class="{ 'is-hidden': selectedDay === defaultDay }"
-                @click="selectedDay = defaultDay"
-              >
-                Back to {{ percentileDayLabel }}
-              </button>
             </div>
             <svg
               id="legend-percentile"
               xmlns="http://www.w3.org/2000/svg"
               :width="legendSize.width"
               :height="legendSize.height"
+              :viewBox="`0 0 ${legendSize.width} ${legendSize.height}`"
               role="img"
               :aria-label="legendLabel"
             />
@@ -370,7 +360,7 @@
   const mapLabel = region => `Map of SNOTEL sites in ${region}, colored by ${dayLabel.value} SWE percentile`;
 
   // Legend drawing size, in screen pixels
-  const legendSize = { width: 340, height: 88, left: 44, rampWidth: 270 };
+  const legendSize = { width: 412, height: 76, left: 44, rampWidth: 280, gap: 36, noneWidth: 28 };
 
   // Sites in each percentile class, and without a percentile
   const classCounts = computed(() => {
@@ -384,7 +374,7 @@
   const noPercentileCount = computed(() => sites.value.filter(d => ptileAt(d) == null).length);
   const legendLabel = computed(() => {
     const breaks = [0, ...threshold.domain(), 1];
-    const classes = classCounts.value.map((n, i) => `${breaks[i] * 100} to ${breaks[i + 1] * 100} percent: ${n} sites`);
+    const classes = classCounts.value.map((n, i) => `${breaks[i] * 100} to ${breaks[i + 1] * 100}: ${n} sites`);
     return `${dayLabel.value} SWE percentile legend. ${classes.join('; ')}; no percentile: ${noPercentileCount.value} sites.`;
   });
 
@@ -466,27 +456,28 @@
       .attr("stroke", "#111")
       .attr("display", "none");
     const delaunay = d3.Delaunay.from(data, d => d.x, d => d.y);
+    panelMarks[panel] = { svg, circles, ring, data, delaunay };
+  }
 
-    // A mouse selects the nearest site as it moves, and the selection stays
-    // until another site is reached; a tap or click selects too
-    const pick = event => {
+  // Select the site nearest the pointer on either map, if it is close enough.
+  // Alaska overlaps the western map's empty corner on wide screens, so both
+  // maps are checked for every pointer event.
+  function pickSite(event) {
+    let best = null;
+    for (const [panel, { svg, data, delaunay }] of Object.entries(panelMarks)) {
       const [px, py] = d3.pointer(event, svg.node());
       const site = data[delaunay.find(px, py)];
-      if (site && Math.hypot(site.x - px, site.y - py) / unitsPerPx(panel) <= hitRadiusPx) {
-        selectSite(site);
-      }
-    };
-    svg
-      .on("pointermove", event => { if (event.pointerType === "mouse") pick(event); })
-      .on("click", pick);
-
-    panelMarks[panel] = { svg, circles, ring };
+      if (!site) continue;
+      const distance = Math.hypot(site.x - px, site.y - py) / unitsPerPx(panel);
+      if (distance <= hitRadiusPx && (!best || distance < best.distance)) best = { site, distance };
+    }
+    if (best) selectSite(best.site);
   }
 
   // Legend: the percentile ramp with its breaks, the number of sites in each
   // class, and a key for sites without a percentile
   function drawLegend() {
-    const { left, rampWidth } = legendSize;
+    const { left, rampWidth, gap, noneWidth } = legendSize;
     const x = d3.scaleLinear().domain([0, 1]).range([0, rampWidth]);
     const breaks = [0, ...threshold.domain(), 1];
 
@@ -503,15 +494,31 @@
 
     const axis = g.append("g")
       .attr("class", "legend-axis")
-      .call(d3.axisBottom(x).tickSize(14).tickValues(breaks).tickFormat(d => d * 100 + '%'));
+      .call(d3.axisBottom(x).tickSize(14).tickValues(breaks).tickFormat(d => d * 100));
     axis.select(".domain").remove();
+
+    // sites without a percentile, as a grey segment beside the ramp
+    const noneX = rampWidth + gap;
+    g.append("rect")
+      .attr("x", noneX)
+      .attr("width", noneWidth)
+      .attr("height", 10)
+      .attr("fill", noPercentileFill)
+      .attr("stroke", noPercentileStroke)
+      .attr("stroke-width", 0.75);
+    const noneLabel = g.append("text")
+      .attr("class", "legend-label")
+      .attr("text-anchor", "middle")
+      .attr("y", 30);
+    noneLabel.append("tspan").attr("x", noneX + noneWidth / 2).text("No");
+    noneLabel.append("tspan").attr("x", noneX + noneWidth / 2).attr("dy", "1.1em").text("percentile");
 
     // number of sites in each class, under the ramp
     g.append("text")
       .attr("class", "legend-note")
       .attr("text-anchor", "end")
       .attr("x", -8)
-      .attr("y", 52)
+      .attr("y", 66)
       .text("Sites");
     g.selectAll("text.class-count")
       .data(classCounts.value)
@@ -519,26 +526,19 @@
         .attr("class", "class-count legend-note")
         .attr("text-anchor", "middle")
         .attr("x", (d, i) => x((breaks[i] + breaks[i + 1]) / 2))
-        .attr("y", 52)
-        .text(d => d);
-
-    g.append("circle")
-      .attr("cx", 6)
-      .attr("cy", 72)
-      .attr("r", 5.5)
-      .attr("fill", noPercentileFill)
-      .attr("stroke", noPercentileStroke);
+        .attr("y", 66);
     g.append("text")
-      .attr("class", "legend-label no-percentile-label")
-      .attr("x", 18)
-      .attr("y", 77);
+      .attr("class", "no-percentile-count legend-note")
+      .attr("text-anchor", "middle")
+      .attr("x", noneX + noneWidth / 2)
+      .attr("y", 66);
     updateLegend();
   }
   // counts follow the selected date
   function updateLegend() {
     const svg = d3.select("svg#legend-percentile");
     svg.selectAll("text.class-count").data(classCounts.value).text(d => d);
-    svg.select("text.no-percentile-label").text(`No percentile (${noPercentileCount.value} sites)`);
+    svg.select("text.no-percentile-count").text(noPercentileCount.value);
   }
 
   // Site chart: the focal year's SWE over the site's percentile bands for each
@@ -684,6 +684,11 @@
     drawLegend();
     drawPanel("west");
     drawPanel("ak");
+    // A mouse selects the nearest site as it moves, and the selection stays
+    // until another site is reached; a tap or click selects too
+    d3.selectAll(".map-west, .map-ak")
+      .on("pointermove", event => { if (event.pointerType === "mouse") pickSite(event); })
+      .on("click", pickSite);
     sizeMarks();
     resizeObserver = new ResizeObserver(sizeMarks);
     resizeObserver.observe(westStack.value);
@@ -712,13 +717,6 @@
 </script>
 
 <style lang="scss" scoped>
-  .explain {
-    font-style: italic;
-  }
-  // the explanatory paragraphs reuse .figureCaption for its type styles
-  .figureCaption {
-    display: block;
-  }
 
   .snotel-map {
     max-width: 1100px;
@@ -757,6 +755,13 @@
         "ak west";
       grid-template-rows: auto auto 1fr;
       column-gap: 2rem;
+    }
+    // Alaska extends into the western map's empty lower left, drawn on top;
+    // at this width none of it covers western land or sites
+    .map-ak {
+      position: relative;
+      z-index: 1;
+      width: 170%;
     }
   }
   // Text sizes follow one scale: map title 2.8rem, site name 2rem, legend
@@ -818,8 +823,11 @@
       height: 100%;
     }
   }
-  .map-sites {
+  .map-west,
+  .map-ak {
     cursor: pointer;
+  }
+  .map-sites {
     // touch taps select sites; vertical scrolling still works
     touch-action: pan-y;
   }
@@ -890,20 +898,6 @@
       transform: translateX(-50%);
     }
   }
-  .date-slider__reset {
-    margin-top: 0.25rem;
-    padding: 0.2rem 0.6rem;
-    font: inherit;
-    font-size: 1.4rem;
-    background: #fff;
-    border: 1px solid #bbb;
-    border-radius: 4px;
-    cursor: pointer;
-    // hidden but holding its space on the default date, so nothing shifts
-    &.is-hidden {
-      visibility: hidden;
-    }
-  }
   .site-card__meta {
     margin: 0.25rem 0 0.5rem;
     font-size: 1.6rem;
@@ -920,7 +914,7 @@
   // height while loading or when a site has no chart, so the layout below
   // (Alaska) doesn't jump as sites are selected
   .site-card__details {
-    min-height: 34rem;
+    min-height: 30rem;
   }
   .site-chart {
     height: 170px;
