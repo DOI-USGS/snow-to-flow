@@ -77,25 +77,3 @@ format_run_info <- function(water_year, percentile_date, data_end_date,
     chart_min_years
   )
 }
-
-#' State boundaries for the basemap: CONUS states and Alaska, in longitude and
-#' latitude (d3 projects them), simplified for the web
-#'
-#' @param states_shp chr, path of the Census states shapefile
-#' @param keep num, share of vertices to keep when simplifying
-prep_states <- function(states_shp, keep) {
-  st_read(states_shp, quiet = TRUE) |>
-    filter(!STUSPS %in% c("HI", "PR", "GU", "AS", "MP", "VI")) |>
-    select(state = STUSPS, name = NAME) |>
-    st_transform(4326) |>
-    rmapshaper::ms_simplify(keep = keep, keep_shapes = TRUE)
-}
-
-#' Write an sf object to GeoJSON and return the path, for `format = "file"`
-#'
-#' @param digits int, decimal places kept in coordinates
-write_web_geojson <- function(data, file_out, digits = 4) {
-  geojsonsf::sf_geojson(data, digits = digits) |>
-    writeLines(file_out)
-  return(file_out)
-}

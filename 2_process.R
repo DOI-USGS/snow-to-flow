@@ -31,7 +31,7 @@ p2_targets <- list(
                         min_share = p0_percentile_min_share)
   ),
 
-  # Every site on the map: stations active on the last day of data, with
+  # Every site on the map: stations active on the percentile date, with
   # their focal year values and whether they get mini charts
   tar_target(
     p2_sntl_sites,

@@ -76,7 +76,7 @@
           <svg
             id="legend-percentile"
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 300 70" 
+            viewBox="0 0 300 90" 
             preserveAspectRatio="xMinYMin"
             width="100%"
           />
@@ -215,7 +215,7 @@
         The map shows {{ percentileDayLabel }} snow as a percentile of this date in each site's period of record, calculated as in the NRCS interactive map. Snow is quantified as the daily snow-water equivalent (SWE) at  <a
           href="https://www.nrcs.usda.gov/programs-initiatives/sswsf-snow-survey-and-water-supply-forecasting-program"
           target="_blank"
-        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites </a> across the Western U.S. Sites without enough years of data for a percentile are shown in grey, and sites with too short a record for the charts are faded out.
+        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites </a> across the Western U.S. Sites without a percentile are shown in grey.
       </p>
     </template>
     <!-- EXPLANATION -->
@@ -339,9 +339,11 @@
   const threshold = d3.scaleThreshold()
     .domain([0.1, 0.3, 0.5, 0.7, 0.9])
     .range(["#5C3406", "#C28D3D", "#ECD8A6", "#AADDD6", "#2A8C83", "#004439"]);
-  // Sites with charts but too short a record for a percentile
-  const noPercentileFill = "#d9d9d9";
+  // Sites without a percentile, whether or not they have charts
+  const noPercentileFill = "#c4c4c4";
+  const noPercentileStroke = "#7a7a7a";
   const siteFill = d => d.ptile_swe == null ? noPercentileFill : threshold(d.ptile_swe);
+  const siteStroke = d => d.ptile_swe == null ? noPercentileStroke : "black";
   const site_radius = 2.5;
 
   // Chart scales, set once the run settings are loaded
@@ -400,7 +402,8 @@
   function addSites(svg, sites) {
     const g = svg.append("g").classed("sites", true);
 
-    // sites without charts are faded out
+    // sites without charts look like any other site without a percentile,
+    // but don't respond to hover
     g.selectAll("circle.SNTL_nodata")
       .data(sites.filter(d => !d.has_charts))
       .join("circle")
@@ -408,11 +411,11 @@
         .attr("id", d => d.sntl_id)
         .attr("cx", d => d.x)
         .attr("cy", d => d.y)
-        .attr("r", d => site_radius * 0.9 * d.unit)
-        .attr("opacity", .6)
-        .attr("stroke", "rgb(101, 101, 101)")
-        .attr("fill", "rgb(171, 171, 171)")
-        .attr("stroke-width", d => .3 * d.unit);
+        .attr("r", d => site_radius * d.unit)
+        .attr("opacity", .85)
+        .attr("stroke", noPercentileStroke)
+        .attr("fill", noPercentileFill)
+        .attr("stroke-width", d => .35 * d.unit);
 
     // sites with charts respond to hover
     g.selectAll("circle.SNTL")
@@ -424,7 +427,7 @@
         .attr("cy", d => d.y)
         .attr("r", d => site_radius * d.unit)
         .attr("opacity", .85)
-        .attr("stroke", "black")
+        .attr("stroke", siteStroke)
         .attr("stroke-width", d => .35 * d.unit)
         .attr("fill", siteFill)
         .on("mouseover", (event, data) => selectSite(data));
@@ -433,7 +436,11 @@
   function makeTrend() {
     const wy = info.value.water_year;
     const yy = y => `'${String(y).slice(-2)}`;
-    const years = d3.range(info.value.record_start_wy, wy + 1, 10);
+    // every ten years back from the water year, so it is always labelled
+    const years = d3.range(wy, info.value.record_start_wy - 1, -10).reverse();
+    const endAnchor = axis => axis.selectAll(".tick text")
+      .filter(d => d === wy)
+      .attr("text-anchor", "end");
 
     // peak SWE and melt date by year
     xYear = d3.scaleLinear().range([0, 200]).domain([info.value.record_start_wy, wy]);
@@ -455,7 +462,8 @@
     peakSvg.append("g")
       .classed("peak-legend", true)
       .call(d3.axisBottom(xYear).tickValues(years).tickFormat(d3.format("d")).tickSize(0))
-      .attr("transform", "translate(0,110)");
+      .attr("transform", "translate(0,110)")
+      .call(endAnchor);
     peakSvg.append("text")
       .classed("ele", true)
       .attr("fill", "black")
@@ -481,7 +489,8 @@
     meltSvg.append("g")
       .classed("melt-legend", true)
       .call(d3.axisBottom(xYear).tickValues(years).tickFormat(d3.format("d")).tickSize(0))
-      .attr("transform", "translate(0,110)");
+      .attr("transform", "translate(0,110)")
+      .call(endAnchor);
     meltSvg.append("g")
       .classed("melt-legend", true)
       .call(d3.axisLeft(yMelt)
@@ -732,6 +741,22 @@
       .attr("x", 0)
       .attr("y", -30)
       .text("Snow this year");
+
+    // key for sites without a percentile
+    g.append("circle")
+      .attr("cx", 5)
+      .attr("cy", 36)
+      .attr("r", 4)
+      .attr("fill", noPercentileFill)
+      .attr("stroke", noPercentileStroke)
+      .attr("stroke-width", 0.8);
+    g.append("text")
+      .attr("fill", "#000")
+      .attr("font-size", "10px")
+      .attr("text-anchor", "start")
+      .attr("x", 14)
+      .attr("y", 39.5)
+      .text("No percentile");
   }
 </script>
 <style lang="scss" scoped>

@@ -139,7 +139,8 @@ calc_swe_percentile <- function(swe, stations, percentile_date, min_share) {
 #' @param percentiles data frame from `calc_swe_percentile()`
 #' @param record_years data frame from `count_record_years()`
 #' @param focal_wy int, the water year shown on the site
-#' @param percentile_date Date, the date the percentile is for
+#' @param percentile_date Date, the date the map shows; its active stations
+#'   are the map sites
 #' @param data_end_date Date, last day of data
 #' @param chart_min_years int, complete years of record needed for charts
 build_site_table <- function(stations, swe, annual_stats, percentiles,
@@ -151,7 +152,7 @@ build_site_table <- function(stations, swe, annual_stats, percentiles,
     summarize(focal_days = sum(!is.na(swe)))
 
   stations |>
-    filter(station_begin <= data_end_date, station_end >= data_end_date) |>
+    filter(station_begin <= percentile_date, station_end >= percentile_date) |>
     select(site_id, station_triplet, state, site_name, elev_ft, latitude, longitude) |>
     left_join(filter(swe, date == percentile_date) |> select(site_id, swe), by = "site_id") |>
     left_join(filter(annual_stats, water_year == focal_wy) |> select(-water_year), by = "site_id") |>

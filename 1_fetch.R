@@ -15,12 +15,13 @@ p1_targets <- list(
     read_csv(p1_sntl_stations_csv, show_col_types = FALSE)
   ),
 
-  # Stations with a SWE record open on the last day of data. This is the
-  # superset fetched; which of them appear on the map is decided in 2_process
+  # Stations with a SWE record open at some point from the percentile date to
+  # the last day of data. This is the superset fetched; which of them appear
+  # on the map is decided in 2_process
   tar_target(
     p1_sntl_sites,
     p1_sntl_stations |>
-      filter(swe_begin <= p0_data_end_date, swe_end >= p0_data_end_date)
+      filter(swe_begin <= p0_data_end_date, swe_end >= p0_percentile_date)
   ),
   tar_target(
     p1_sntl_states,

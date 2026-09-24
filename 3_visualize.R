@@ -33,15 +33,6 @@ p3_targets <- list(
       format = "file"
     ),
     tar_target(
-      p3_states_svg,
-      export_sf_layer_svg(p3_panel_states, p3_panel_bbox, p3_panel_width_px,
-                          out_svg = sprintf("src/assets/maps/snotel_%s_states.svg", panel),
-                          id_column = "state", simplify = "20%",
-                          style = c("fill=none", "stroke=#ffffff", "stroke-width=2",
-                                    "stroke-opacity=0.5")),
-      format = "file"
-    ),
-    tar_target(
       p3_outline_svg,
       export_sf_layer_svg(st_union(p3_panel_states) |> st_as_sf(), p3_panel_bbox,
                           p3_panel_width_px,
@@ -60,6 +51,17 @@ p3_targets <- list(
       tibble(panel = panel, width_px = p3_panel_width_px,
              height_px = panel_height_px(p3_panel_bbox, p3_panel_width_px))
     )
+  ),
+
+  # State lines, for CONUS only (Alaska is a single state, drawn by its outline)
+  tar_target(
+    p3_states_svg_conus,
+    export_sf_layer_svg(p3_panel_states_conus, p3_panel_bbox_conus, p3_panel_width_px_conus,
+                        out_svg = "src/assets/maps/snotel_conus_states.svg",
+                        id_column = "state", simplify = "20%",
+                        style = c("fill=none", "stroke=#ffffff", "stroke-width=2",
+                                  "stroke-opacity=0.5")),
+    format = "file"
   ),
 
   # Map scale shared by both panels: the CONUS panel is 2400 pixels wide
@@ -114,17 +116,6 @@ p3_targets <- list(
       chart_min_years = p0_chart_min_years
     ) |>
       write_web_csv("public/data/snotel_run_info.csv"),
-    format = "file"
-  ),
-
-  # State boundaries for the basemap
-  tar_target(
-    p3_states_sf,
-    prep_states(p1_states_shp, keep = 0.2)
-  ),
-  tar_target(
-    p3_states_geojson,
-    write_web_geojson(p3_states_sf, "public/data/snotel_states.geojson"),
     format = "file"
   )
 
