@@ -11,7 +11,11 @@ awdb_get <- function(endpoint, ...) {
   httr2::request(awdb_url) |>
     httr2::req_url_path_append(endpoint) |>
     httr2::req_url_query(...) |>
-    httr2::req_retry(max_tries = 5) |>
+    # NRCS occasionally returns server errors under load; retry those too
+    httr2::req_retry(
+      max_tries = 5,
+      is_transient = \(resp) httr2::resp_status(resp) %in% c(429, 500, 502, 503, 504)
+    ) |>
     httr2::req_timeout(300) |>
     httr2::req_perform() |>
     httr2::resp_body_json(simplifyVector = FALSE)
