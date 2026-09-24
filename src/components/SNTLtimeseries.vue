@@ -148,6 +148,21 @@
         </template>
       </div>
     </template>
+    <!-- EXPLANATION -->
+    <template #belowExplanation>
+      <p>
+        The USGS is undertaking new efforts to advance snow science through both measuring and modeling snowpack and linking these results to streamflow. As a part of the <a
+          href="https://www.usgs.gov/mission-areas/water-resources/science/next-generation-water-observing-system-ngwos"
+          target="_blank"
+        >USGS Next Generation Water Observing System (NGWOS)</a>, new spatial and temporal snow and streamflow observations are being planned for unmonitored areas. These observations will provide valuable data to inform predictive modeling of water-cycle components in the Upper Colorado River Basin. New snow monitoring will include continuous snowpack and soil moisture stations, remotely sensed mapping of snow conditions, and manual snow surveys. In addition, USGS is involved in the development and production of the Landsat snow covered area product, available through <a
+          href="https://www.usgs.gov/landsat-missions/landsat-fractional-snow-covered-area-science-products"
+          target="_blank"
+        > Earth Explorer.</a>
+      </p>
+      <p>
+        The USGS also contributes to snow science research through modeling snowpack and snowmelt dynamics at local to National scales. These models use data for snow, landscape, vegetation, and meteorologic variables to understand how the annual snowpack evolves from accumulation through melt, and how these changes influence streamflow and ultimately, water availability.
+      </p>
+    </template>
   </VizSection>
 </template>
 
