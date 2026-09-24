@@ -61,10 +61,11 @@ panel_height_px <- function(bbox, width_px) {
 #' @param z int, elevatr zoom level
 #' @param z_factor num, vertical exaggeration so gentle relief reads
 #' @param flat_grey,shadow_floor,highlight_ceiling num, tone of flat ground
-#'   (0-255) and the darkest and lightest shading relative to it
+#'   (0-255) and the darkest and lightest shading relative to it. The defaults
+#'   match the tones of the 2021 map's CONUS hillshade
 build_hillshade_png <- function(panel_states, bbox, width_px, out_png, z = 5,
-                                z_factor = 8, flat_grey = 222,
-                                shadow_floor = 0.5, highlight_ceiling = 1.12) {
+                                z_factor = 8, flat_grey = 227,
+                                shadow_floor = 0.41, highlight_ceiling = 1.12) {
   # One raster cell per SVG pixel, covering the whole SVG canvas
   height_px <- panel_height_px(bbox, width_px)
   px <- 1 / panel_scale(bbox, width_px) # metres per pixel

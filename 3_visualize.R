@@ -47,7 +47,7 @@ p3_targets <- list(
                           p3_panel_width_px,
                           out_svg = sprintf("src/assets/maps/snotel_%s_outline.svg", panel),
                           simplify = "20%",
-                          style = c("fill=none", "stroke=#a9a9a9", "stroke-width=1")),
+                          style = c("fill=none", "stroke=#808080", "stroke-width=1")),
       format = "file"
     ),
     tar_target(
