@@ -149,6 +149,35 @@ calc_site_normals <- function(annual_stats, wys, min_years) {
     )
 }
 
+#' SWE percentile bands for each day of the water year, for each site's chart
+#'
+#' Quantiles of SWE on each water day across the site's earlier water years
+#' (quantile type 7, which ranks as the NRCS percentile does), at the map's
+#' percentile breaks plus the minimum and maximum.
+#'
+#' @param swe data frame from `read_sntl_swe()`
+#' @param site_ids int, sites to calculate bands for
+#' @param focal_wy int, the water year shown; only earlier years are used
+#' @param step int, calculate every `step` days of the water year
+#' @param min_years int, fewest years with a value needed on a day
+calc_daily_bands <- function(swe, site_ids, focal_wy, step, min_years) {
+  swe |>
+    filter(site_id %in% site_ids, water_year < focal_wy, !is.na(swe),
+           (water_day - 1) %% step == 0) |>
+    group_by(site_id, water_day) |>
+    filter(n() >= min_years) |>
+    summarize(
+      min = min(swe),
+      p10 = quantile(swe, 0.1),
+      p30 = quantile(swe, 0.3),
+      p50 = quantile(swe, 0.5),
+      p70 = quantile(swe, 0.7),
+      p90 = quantile(swe, 0.9),
+      max = max(swe),
+      .groups = "drop"
+    )
+}
+
 #' One row per map site: metadata, focal year values, and display flags
 #'
 #' @param stations data frame of station metadata

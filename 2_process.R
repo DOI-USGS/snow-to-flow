@@ -38,6 +38,15 @@ p2_targets <- list(
                       min_years = p0_normal_min_years)
   ),
 
+  # SWE percentile bands through the water year, for the site charts
+  tar_target(
+    p2_sntl_daily_bands,
+    calc_daily_bands(p2_sntl_swe,
+                     site_ids = p2_sntl_sites$site_id[p2_sntl_sites$has_charts],
+                     focal_wy = p0_water_year, step = 5,
+                     min_years = p0_chart_min_years)
+  ),
+
   # Every site on the map: stations active on the percentile date, with
   # their focal year values and whether they get mini charts
   tar_target(

@@ -55,18 +55,44 @@ format_annual <- function(annual_stats, sites, record_start_wy) {
     arrange(site_id, water_year)
 }
 
-#' Daily SWE in the focal water year for the chart sites, for the current
-#' year chart
+#' Write one JSON file per chart site for its chart in the site panel: SWE
+#' percentile bands through the water year, and the focal year's daily SWE
 #'
+#' Each file holds `band_days` (water days of the bands), `bands` (one row per
+#' band day of min, p10, p30, p50, p70, p90, max), and `swe` (the focal year's
+#' SWE by water day from 1, null where missing).
+#'
+#' @param bands data frame from `calc_daily_bands()`
 #' @param swe data frame from `read_sntl_swe()`
 #' @param sites data frame from `build_site_table()`
 #' @param focal_wy int, the water year shown on the site
-format_daily_swe <- function(swe, sites, focal_wy) {
-  swe |>
-    filter(water_year == focal_wy, site_id %in% sites$site_id[sites$has_charts],
-           !is.na(swe)) |>
-    select(site_id, water_day, swe) |>
-    arrange(site_id, water_day)
+#' @param out_dir chr, folder to write into; files already there are removed
+#' @return chr, paths of the files written
+write_site_chart_json <- function(bands, swe, sites, focal_wy, out_dir) {
+  unlink(out_dir, recursive = TRUE)
+  dir.create(out_dir, recursive = TRUE)
+
+  focal <- swe |>
+    filter(water_year == focal_wy, site_id %in% sites$site_id[sites$has_charts])
+
+  sites$site_id[sites$has_charts] |>
+    purrr::map_chr(function(id) {
+      site_bands <- filter(bands, site_id == id) |> arrange(water_day)
+      site_swe <- filter(focal, site_id == id)
+      daily <- rep(NA_real_, max(c(site_swe$water_day, 1L)))
+      daily[site_swe$water_day] <- site_swe$swe
+      file_out <- file.path(out_dir, paste0(id, ".json"))
+      jsonlite::write_json(
+        list(
+          band_days = site_bands$water_day,
+          bands = as.matrix(site_bands[, c("min", "p10", "p30", "p50", "p70", "p90", "max")]) |>
+            round(1) |> unname(),
+          swe = daily
+        ),
+        file_out, digits = 1, na = "null", auto_unbox = TRUE
+      )
+      file_out
+    })
 }
 
 #' Settings the site's text and charts depend on, as a one-row table

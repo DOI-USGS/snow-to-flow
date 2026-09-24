@@ -106,11 +106,12 @@ p3_targets <- list(
     format = "file"
   ),
 
-  # Daily SWE behind the current water year chart
+  # Chart data for each site in the site panel
   tar_target(
-    p3_swe_daily_csv,
-    format_daily_swe(p2_sntl_swe, p2_sntl_sites, focal_wy = p0_water_year) |>
-      write_web_csv("public/data/snotel_swe_daily.csv"),
+    p3_site_chart_json,
+    write_site_chart_json(p2_sntl_daily_bands, p2_sntl_swe, p2_sntl_sites,
+                          focal_wy = p0_water_year,
+                          out_dir = "public/data/snotel_sites"),
     format = "file"
   ),
 
