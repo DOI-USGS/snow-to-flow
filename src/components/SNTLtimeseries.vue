@@ -222,9 +222,10 @@
     }
   ];
 
-  // Colors run from the map's browns (less snow, earlier melt) through grey
-  // at normal to its teals (more snow, later melt)
-  const colorRange = ["#5C3406", "#C28D3D", "#9a9a9a", "#2A8C83", "#004439"];
+  // Colors run from brown (less snow, earlier melt) through grey at normal to
+  // teal (more snow, later melt), the map's hues with ends light enough to
+  // tell apart as small dots (checked for color vision deficiency)
+  const colorRange = ["#B06A1C", "#D1A15E", "#a3a3a3", "#5FB3AA", "#008C80"];
   const colorScales = Object.fromEntries(panels.map(p => [p.key,
     d3.scaleLinear().domain(p.colorStops).range(colorRange).interpolate(d3.interpolateLab).clamp(true)]));
   const lessColor = colorRange[0];
