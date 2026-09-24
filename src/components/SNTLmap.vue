@@ -70,28 +70,6 @@
     </template>
     <!-- FIGURES -->
     <template #figures>
-      <!-- keyboard and screen reader alternative to hovering the map -->
-      <label class="site-picker">
-        <span class="site-picker__label">Choose a site</span>
-        <select
-          :value="selectedId"
-          @change="onSitePicked"
-        >
-          <option
-            value=""
-            disabled
-          >
-            Select a SNOTEL site
-          </option>
-          <option
-            v-for="site in siteOptions"
-            :key="site.id"
-            :value="site.id"
-          >
-            {{ site.name }} ({{ site.elev }} ft)
-          </option>
-        </select>
-      </label>
       <div class="map-grid">
         <!-- LEGEND -->
         <div id="legendContainer">
@@ -101,8 +79,29 @@
             viewBox="0 0 300 70" 
             preserveAspectRatio="xMinYMin"
             width="100%"
-            height="100%"
           />
+          <!-- keyboard and screen reader alternative to hovering the map -->
+          <label class="site-picker">
+            <span class="site-picker__label">Choose a site</span>
+            <select
+              :value="selectedId"
+              @change="onSitePicked"
+            >
+              <option
+                value=""
+                disabled
+              >
+                Select a SNOTEL site
+              </option>
+              <option
+                v-for="site in siteOptions"
+                :key="site.id"
+                :value="site.id"
+              >
+                {{ site.name }} ({{ site.elev }} ft)
+              </option>
+            </select>
+          </label>
         </div>
         <!-- ALASKA -->
         <div id="grid-left">
