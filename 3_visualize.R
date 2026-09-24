@@ -1,10 +1,11 @@
 source("3_visualize/src/export_web_data.R")
 source("3_visualize/src/build_map_layers.R")
 
-# Map panels: CONUS and Alaska, each in its own Albers projection (the ones the
-# 2021 map used), drawn at the same scale
+# Map panels: the western states, and an Alaska inset, each in the Albers
+# projection the 2021 map used. `focus` states set each panel's extent (with
+# its sites); `states` are drawn, clipped to it. The inset has its own scale.
 p3_map_panels <- tibble::tibble(
-  panel = c("conus", "ak"),
+  panel = c("west", "ak"),
   proj = c(
     "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs",
     "+proj=aea +lat_1=55 +lat_2=65 +lat_0=50 +lon_0=-154 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"
@@ -12,7 +13,14 @@ p3_map_panels <- tibble::tibble(
   states = list(
     setdiff(c(state.abb, "DC"), c("AK", "HI")),
     "AK"
-  )
+  ),
+  focus = list(
+    c("WA", "OR", "CA", "ID", "NV", "MT", "WY", "UT", "CO", "AZ", "NM"),
+    "AK"
+  ),
+  # westernmost longitude shown, to leave out the far western Aleutians
+  lon_min = c(-180, -170),
+  width_px = c(2400L, 1000L)
 )
 
 p3_targets <- list(
@@ -22,20 +30,29 @@ p3_targets <- list(
     values = p3_map_panels,
     names = panel,
 
-    tar_target(p3_panel_states, prep_panel_states(p1_states_shp, states, proj)),
-    tar_target(p3_panel_bbox, panel_bbox(p3_panel_states)),
-    tar_target(p3_panel_width_px, panel_width_px(p3_panel_bbox, p3_map_m_per_px)),
+    tar_target(
+      p3_panel_sites,
+      filter(p2_sntl_sites, (state == "AK") == (panel == "ak"))
+    ),
+    tar_target(
+      p3_panel_bbox,
+      panel_extent(p1_states_shp, focus, proj, lon_min, p3_panel_sites)
+    ),
+    tar_target(
+      p3_panel_states,
+      prep_panel_states(p1_states_shp, states, proj) |> clip_to_bbox(p3_panel_bbox)
+    ),
 
     tar_target(
       p3_hillshade_png,
-      build_hillshade_png(p3_panel_states, p3_panel_bbox, p3_panel_width_px,
+      build_hillshade_png(p3_panel_states, p3_panel_bbox, width_px,
                           out_png = sprintf("src/assets/maps/snotel_%s_hillshade.png", panel)),
       format = "file"
     ),
     tar_target(
       p3_outline_svg,
       export_sf_layer_svg(st_union(p3_panel_states) |> st_as_sf(), p3_panel_bbox,
-                          p3_panel_width_px,
+                          width_px,
                           out_svg = sprintf("src/assets/maps/snotel_%s_outline.svg", panel),
                           simplify = "20%",
                           style = c("fill=none", "stroke=#808080", "stroke-width=1")),
@@ -43,38 +60,30 @@ p3_targets <- list(
     ),
     tar_target(
       p3_site_xy,
-      site_panel_xy(filter(p2_sntl_sites, (state == "AK") == (panel == "ak")),
-                    panel, proj, p3_panel_bbox, p3_panel_width_px)
+      site_panel_xy(p3_panel_sites, panel, proj, p3_panel_bbox, width_px)
     ),
     tar_target(
       p3_panel_info,
-      tibble(panel = panel, width_px = p3_panel_width_px,
-             height_px = panel_height_px(p3_panel_bbox, p3_panel_width_px))
+      tibble(panel = panel, width_px = width_px,
+             height_px = panel_height_px(p3_panel_bbox, width_px))
     )
   ),
 
-  # State lines, for CONUS only (Alaska is a single state, drawn by its outline)
+  # State lines, for the western panel only (Alaska is drawn by its outline)
   tar_target(
-    p3_states_svg_conus,
-    export_sf_layer_svg(p3_panel_states_conus, p3_panel_bbox_conus, p3_panel_width_px_conus,
-                        out_svg = "src/assets/maps/snotel_conus_states.svg",
+    p3_states_svg_west,
+    export_sf_layer_svg(p3_panel_states_west, p3_panel_bbox_west, 2400L,
+                        out_svg = "src/assets/maps/snotel_west_states.svg",
                         id_column = "state", simplify = "20%",
                         style = c("fill=none", "stroke=#ffffff", "stroke-width=2",
                                   "stroke-opacity=0.5")),
     format = "file"
   ),
 
-  # Map scale shared by both panels: the CONUS panel is 2400 pixels wide
-  tar_target(
-    p3_map_m_per_px,
-    unname(diff(panel_bbox(prep_panel_states(p1_states_shp, p3_map_panels$states[[1]],
-                                             p3_map_panels$proj[[1]]))[c("xmin", "xmax")])) / 2400
-  ),
-
   # Panel sizes, for the front end's SVG viewBoxes
   tar_target(
     p3_map_panels_csv,
-    bind_rows(p3_panel_info_conus, p3_panel_info_ak) |>
+    bind_rows(p3_panel_info_west, p3_panel_info_ak) |>
       write_web_csv("public/data/snotel_map_panels.csv"),
     format = "file"
   ),
@@ -82,7 +91,7 @@ p3_targets <- list(
   # Every site on the map, with its position on its map panel
   tar_target(
     p3_sites_csv,
-    format_sites(p2_sntl_sites, bind_rows(p3_site_xy_conus, p3_site_xy_ak)) |>
+    format_sites(p2_sntl_sites, bind_rows(p3_site_xy_west, p3_site_xy_ak)) |>
       write_web_csv("public/data/snotel_sites.csv"),
     format = "file"
   ),

@@ -131,6 +131,24 @@ calc_swe_percentile <- function(swe, stations, percentile_date, min_share) {
     select(site_id, wy_n, ptile_swe)
 }
 
+#' Each site's normal peak SWE, peak day, and SM50 day: medians over the
+#' normals water years
+#'
+#' @param annual_stats data frame from `calc_annual_stats()`
+#' @param wys int, normals water years
+#' @param min_years int, fewest years with a value needed for a normal
+calc_site_normals <- function(annual_stats, wys, min_years) {
+  normal <- function(x) if (sum(!is.na(x)) >= min_years) median(x, na.rm = TRUE) else NA_real_
+  annual_stats |>
+    filter(water_year %in% wys) |>
+    group_by(site_id) |>
+    summarize(
+      normal_peak_swe = normal(peak_swe),
+      normal_peak_day = normal(peak_day),
+      normal_sm50_day = normal(sm50_day)
+    )
+}
+
 #' One row per map site: metadata, focal year values, and display flags
 #'
 #' @param stations data frame of station metadata
@@ -138,13 +156,14 @@ calc_swe_percentile <- function(swe, stations, percentile_date, min_share) {
 #' @param annual_stats data frame from `calc_annual_stats()`
 #' @param percentiles data frame from `calc_swe_percentile()`
 #' @param record_years data frame from `count_record_years()`
+#' @param normals data frame from `calc_site_normals()`
 #' @param focal_wy int, the water year shown on the site
 #' @param percentile_date Date, the date the map shows; its active stations
 #'   are the map sites
 #' @param data_end_date Date, last day of data
 #' @param chart_min_years int, complete years of record needed for charts
 build_site_table <- function(stations, swe, annual_stats, percentiles,
-                             record_years, focal_wy, percentile_date,
+                             record_years, normals, focal_wy, percentile_date,
                              data_end_date, chart_min_years) {
   focal_days <- swe |>
     filter(water_year == focal_wy) |>
@@ -158,6 +177,7 @@ build_site_table <- function(stations, swe, annual_stats, percentiles,
     left_join(filter(annual_stats, water_year == focal_wy) |> select(-water_year), by = "site_id") |>
     left_join(percentiles, by = "site_id") |>
     left_join(record_years, by = "site_id") |>
+    left_join(normals, by = "site_id") |>
     left_join(focal_days, by = "site_id") |>
     mutate(
       record_years = replace_na(record_years, 0L),

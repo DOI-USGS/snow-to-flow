@@ -1,5 +1,5 @@
-# Map layers the site stacks in the browser: for each map panel (CONUS and
-# Alaska), a hillshade PNG and state and outline SVGs on one shared pixel
+# Map layers the site stacks in the browser: for each map panel (the western
+# states and an Alaska inset), a hillshade PNG and state and outline SVGs on one shared pixel
 # grid, plus the site positions on that grid. The pattern follows
 # gulf-hypoxia's map layers.
 
@@ -15,22 +15,30 @@ prep_panel_states <- function(states_shp, states, proj) {
     st_transform(proj)
 }
 
-#' Map panel extent: the states' bounding box, padded
+#' Map panel extent: the focus states and the panel's sites, padded
 #'
-#' @param panel_states sf, projected states from `prep_panel_states()`
+#' @param states_shp chr, path of the Census states shapefile
+#' @param focus chr, state abbreviations that set the extent
+#' @param proj chr, proj4 string for the panel
+#' @param lon_min num, westernmost longitude of the focus area
+#' @param sites data frame with longitude and latitude
 #' @param pad num, padding as a share of the larger side
-panel_bbox <- function(panel_states, pad = 0.01) {
-  bbox <- st_bbox(panel_states)
+panel_extent <- function(states_shp, focus, proj, lon_min, sites, pad = 0.02) {
+  focus_sf <- st_read(states_shp, quiet = TRUE) |>
+    filter(STUSPS %in% focus) |>
+    st_transform(4326) |>
+    st_crop(xmin = lon_min, xmax = 180, ymin = -90, ymax = 90) |>
+    st_transform(proj)
+  site_sf <- st_as_sf(sites, coords = c("longitude", "latitude"), crs = 4326) |>
+    st_transform(proj)
+  bbox <- st_bbox(c(st_geometry(focus_sf), st_geometry(site_sf)))
   margin <- pad * max(bbox["xmax"] - bbox["xmin"], bbox["ymax"] - bbox["ymin"])
   bbox + c(-margin, -margin, margin, margin)
 }
 
-#' Pixel width for a panel at a given scale
-#'
-#' @param bbox bbox of the panel
-#' @param m_per_px num, metres per pixel
-panel_width_px <- function(bbox, m_per_px) {
-  as.integer(round((bbox["xmax"] - bbox["xmin"]) / m_per_px))
+#' Clip projected features to a panel's extent
+clip_to_bbox <- function(sf_obj, bbox) {
+  suppressWarnings(st_crop(st_make_valid(sf_obj), bbox))
 }
 
 #' Pixels per metre in a panel's SVGs

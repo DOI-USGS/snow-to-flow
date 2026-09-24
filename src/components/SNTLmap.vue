@@ -9,206 +9,233 @@
       <p>
         As springtime temperatures warm and snow begins to melt, the Western U.S. enters an important phase of the water cycle. Snow on {{ percentileDayLabel }}, and how it turns into streamflow, indicates the potential for water availability in the summer and fall. In water year {{ info.water_year }}, snowpack at most SNOTEL sites peaked early and melted early.
       </p>
-      <p
-        v-if="mobileView"
-        class="explain figureCaption"
-      >
-        Select a site to see its SWE through water year {{ info.water_year }}, and the magnitude (peak SWE <svg
-          class="leggy"
-          viewBox="0 0 10 10"
-          width="10"
-          height="10"
-        >
-          <circle
-            cx="5"
-            cy="5"
-            r="4"
-            style="fill: orchid; stroke: orchid;stroke-width: 1px;"
-          />
-        </svg>) and timing (SM50 <svg
-          viewBox="0 0 10 10"
-          width="10"
-          height="10"
-        >
-          <circle
-            cx="5"
-            cy="5"
-            r="4"
-            style="fill: white; stroke: orchid; stroke-width: 1.3px;"
-          />
-        </svg>) of snow for every year since {{ info.record_start_wy }}. A symbol is left off if the peak or SM50 had not happened by {{ dataEndLabel }}.
-      </p>
-      <p
-        v-if="!mobileView"
-        class="explain figureCaption"
-      >
-        Mouseover a site, or choose one from the list, to see its SWE through water year {{ info.water_year }}, and the magnitude (peak SWE <svg
-          class="leggy"
-          viewBox="0 0 10 10"
-          width="10"
-          height="10"
-        >
-          <circle
-            cx="5"
-            cy="5"
-            r="4"
-            style="fill: orchid; stroke: orchid;stroke-width: 1px;"
-          />
-        </svg> ) and timing (SM50 <svg
-          viewBox="0 0 10 10"
-          width="10"
-          height="10"
-        >
-          <circle
-            cx="5"
-            cy="5"
-            r="4"
-            style="fill: white; stroke: orchid; stroke-width: 1.3px;"
-          />
-        </svg> ) of snow for every year since {{ info.record_start_wy }}. A symbol is left off if the peak or SM50 had not happened by {{ dataEndLabel }}.
+      <p class="explain figureCaption">
+        Select a site on the map, or choose one from the list, to see its {{ percentileDayLabel }} SWE and when its snow peaked and melted in water year {{ info.water_year }}.
       </p>
     </template>
     <!-- FIGURES -->
     <template #figures>
-      <div class="map-grid">
+      <div
+        v-if="loaded"
+        class="snotel-map"
+      >
+        <p class="map-summary">
+          {{ summaryText }}
+        </p>
+
         <!-- LEGEND -->
-        <div id="legendContainer">
-          <svg
-            id="legend-percentile"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 300 90" 
-            preserveAspectRatio="xMinYMin"
-            width="100%"
-          />
-          <!-- keyboard and screen reader alternative to hovering the map -->
-          <label class="site-picker">
-            <span class="site-picker__label">Choose a site</span>
-            <select
-              :value="selectedId"
-              @change="onSitePicked"
+        <div class="map-legend">
+          <p class="map-legend__title">
+            {{ percentileDayLabel }} SWE percentile
+          </p>
+          <ul class="map-legend__items">
+            <li
+              v-for="item in legendItems"
+              :key="item.label"
             >
-              <option
-                value=""
-                disabled
-              >
-                Select a SNOTEL site
-              </option>
-              <option
-                v-for="site in siteOptions"
-                :key="site.id"
-                :value="site.id"
-              >
-                {{ site.name }} ({{ site.elev }} ft)
-              </option>
-            </select>
-          </label>
+              <span
+                class="swatch"
+                :style="{ background: item.fill, borderColor: item.stroke }"
+                aria-hidden="true"
+              />
+              <span>{{ item.label }}</span>
+              <span class="map-legend__count">({{ item.count }})</span>
+            </li>
+          </ul>
         </div>
-        <!-- ALASKA -->
-        <div id="grid-left">
-          <div
-            id="ak"
-            class="map-container"
-          >
+
+        <div class="map-layout">
+          <!-- MAP -->
+          <figure class="map-figure">
             <div
-              class="map-frame"
-              :style="frameStyle('ak')"
+              ref="westStack"
+              class="map-stack"
+              :style="stackStyle('west')"
             >
-              <div
-                class="map-stack"
-                :style="stackStyle('ak')"
+              <img
+                class="map-layer"
+                :src="layers.west.hillshade"
+                alt=""
               >
-                <img
-                  class="map-layer"
-                  :src="layers.ak.hillshade"
-                  alt=""
-                >
+              <div
+                class="map-layer map-states"
+                v-html="layers.west.states"
+              />
+              <div
+                class="map-layer map-outline"
+                v-html="layers.west.outline"
+              />
+              <svg
+                id="west-sites"
+                class="map-layer map-sites"
+                xmlns="http://www.w3.org/2000/svg"
+                :viewBox="viewBox('west')"
+                role="img"
+                :aria-label="mapLabel('the western U.S.')"
+              />
+
+              <!-- ALASKA INSET -->
+              <div class="ak-inset">
                 <div
-                  class="map-layer map-outline"
-                  v-html="layers.ak.outline"
-                />
-                <svg
-                  id="ak-sntl"
-                  class="map-layer"
-                  xmlns="http://www.w3.org/2000/svg"
-                  :viewBox="viewBox('ak')"
-                  role="img"
-                  :aria-label="`Map of SNOTEL sites in Alaska, colored by ${percentileDayLabel} SWE percentile`"
-                />
+                  ref="akStack"
+                  class="map-stack"
+                  :style="stackStyle('ak')"
+                >
+                  <img
+                    class="map-layer"
+                    :src="layers.ak.hillshade"
+                    alt=""
+                  >
+                  <div
+                    class="map-layer map-outline"
+                    v-html="layers.ak.outline"
+                  />
+                  <svg
+                    id="ak-sites"
+                    class="map-layer map-sites"
+                    xmlns="http://www.w3.org/2000/svg"
+                    :viewBox="viewBox('ak')"
+                    role="img"
+                    :aria-label="mapLabel('Alaska')"
+                  />
+                </div>
+                <span class="ak-inset__label">Alaska (not to scale)</span>
               </div>
             </div>
-          </div>
-        </div>
-        <!-- CONTINENTAL USA -->
-        <div id="grid-right">
-          <div
-            id="usa"
-            class="map-container"
-          >
-            <div
-              class="map-frame"
-              :style="frameStyle('conus')"
-            >
-              <div
-                class="map-stack"
-                :style="stackStyle('conus')"
+          </figure>
+
+          <!-- SELECTED SITE -->
+          <aside class="site-card">
+            <label class="site-picker">
+              <span class="site-picker__label">Choose a site</span>
+              <select
+                :value="selected ? selected.sntl_id : ''"
+                @change="onSitePicked"
               >
-                <img
-                  class="map-layer"
-                  :src="layers.conus.hillshade"
-                  alt=""
+                <option
+                  value=""
+                  disabled
                 >
-                <div
-                  class="map-layer map-states"
-                  v-html="layers.conus.states"
-                />
-                <div
-                  class="map-layer map-outline"
-                  v-html="layers.conus.outline"
-                />
-                <svg
-                  id="usa-sntl"
-                  class="map-layer"
-                  xmlns="http://www.w3.org/2000/svg"
-                  :viewBox="viewBox('conus')"
-                  role="img"
-                  :aria-label="`Map of SNOTEL sites in the western U.S., colored by ${percentileDayLabel} SWE percentile`"
-                />
-              </div>
+                  Select a SNOTEL site
+                </option>
+                <optgroup
+                  v-for="[stateName, stateSites] in sitesByState"
+                  :key="stateName"
+                  :label="stateName"
+                >
+                  <option
+                    v-for="site in stateSites"
+                    :key="site.sntl_id"
+                    :value="site.sntl_id"
+                  >
+                    {{ site.site_name }} ({{ site.elev_ft }} ft)
+                  </option>
+                </optgroup>
+              </select>
+            </label>
+
+            <div
+              class="site-card__details"
+              aria-live="polite"
+            >
+              <template v-if="selected">
+                <h3 class="site-card__name">
+                  {{ selected.site_name }}
+                </h3>
+                <p class="site-card__meta">
+                  {{ selected.state_name }} &middot; {{ formatNumber(selected.elev_ft) }} ft
+                </p>
+                <dl>
+                  <dt>{{ percentileDayLabel }} SWE</dt>
+                  <dd>{{ selected.swe == null ? 'No data' : `${selected.swe} in` }}</dd>
+                  <dt>Percentile</dt>
+                  <dd>
+                    <span
+                      class="swatch"
+                      :style="{ background: siteFill(selected), borderColor: siteStroke(selected) }"
+                      aria-hidden="true"
+                    />
+                    {{ percentileText(selected) }}
+                  </dd>
+                  <dt>Peak SWE in {{ info.water_year }}</dt>
+                  <dd>
+                    {{ peakText(selected) }}
+                    <span
+                      v-if="peakNormalText(selected)"
+                      class="site-card__normal"
+                    >{{ peakNormalText(selected) }}</span>
+                  </dd>
+                  <dt>Half melted (SM50)</dt>
+                  <dd>
+                    {{ sm50Text(selected) }}
+                    <span
+                      v-if="sm50NormalText(selected)"
+                      class="site-card__normal"
+                    >{{ sm50NormalText(selected) }}</span>
+                  </dd>
+                </dl>
+              </template>
+              <p
+                v-else
+                class="site-card__prompt"
+              >
+                Select a site on the map to see its details here.
+              </p>
             </div>
+          </aside>
+        </div>
+
+        <!-- TABLE -->
+        <details class="site-table">
+          <summary>Show all sites as a table</summary>
+          <div class="site-table__scroll">
+            <table>
+              <caption>
+                SNOTEL sites on {{ percentileDateLabel }}, sorted by {{ sortLabel }}
+              </caption>
+              <thead>
+                <tr>
+                  <th
+                    v-for="col in tableColumns"
+                    :key="col.key"
+                    scope="col"
+                    :aria-sort="sortKey === col.key ? sortDir : 'none'"
+                  >
+                    <button
+                      type="button"
+                      @click="sortBy(col.key)"
+                    >
+                      {{ col.label }}
+                    </button>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="site in sortedSites"
+                  :key="site.sntl_id"
+                >
+                  <th scope="row">
+                    <button
+                      type="button"
+                      class="site-table__select"
+                      @click="selectSite(site)"
+                    >
+                      {{ site.site_name }}
+                    </button>
+                  </th>
+                  <td>{{ site.state }}</td>
+                  <td>{{ formatNumber(site.elev_ft) }}</td>
+                  <td>{{ site.swe == null ? '' : site.swe }}</td>
+                  <td>{{ site.ptile_swe == null ? '' : Math.round(site.ptile_swe * 100) }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-        </div>
-        <!-- PEAK SWE MINI -->
-        <div id="peak-container">
-          <svg
-            id="peak-svg"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="-50 -20 260 150" 
-            preserveAspectRatio="xMinYMin slice"
-          />
-        </div>
-        
-        <!-- WY21 MINI -->
-        <div id="wy21-container">
-          <svg
-            id="wy21-svg"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="-50 -20 260 330" 
-            preserveAspectRatio="xMinYMin slice"
-          />
-        </div>
-        
-        <!-- MELT DATE MINI -->
-        <div id="melt-container">
-          <svg
-            id="melt-svg"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="-50 -20 260 170" 
-            preserveAspectRatio="xMinYMin slice"
-          />
-        </div>
+        </details>
       </div>
     </template>
-    
+
     <!-- FIGURE CAPTION -->
     <template #figureCaption>
       <p id="explain-bottom">
@@ -220,15 +247,6 @@
     </template>
     <!-- EXPLANATION -->
     <template #belowExplanation>
-      <!--       <ExpandingSidebar>
-        <template v-slot:sidebarTitle>
-          What are the small charts?
-        </template>
-        <template v-slot:sidebarMessage>
-          <p>The left chart shows SWE in the current water year (2021) to date.</p>
-          <p>The panels on the right show peak SWE and the melt date (SM50) for all years with data at a given site.</p>
-        </template>
-      </ExpandingSidebar> -->
       <ExpandingSidebar>
         <template #sidebarTitle>
           What is a percentile?
@@ -242,7 +260,7 @@
           When was peak SWE in {{ info.water_year }}?
         </template>
         <template #sidebarMessage>
-          <p>{{ percentileDayLabel }} has traditionally been used as an indicator of peak SWE for the season. In {{ info.water_year }}, most sites peaked well before {{ percentileDayLabel }}, about three weeks earlier than usual, and half their snow had melted about a month earlier than usual. The charts show each site's actual peak (●) and the date half of it had melted (○).</p>
+          <p>{{ percentileDayLabel }} has traditionally been used as an indicator of peak SWE for the season. In {{ info.water_year }}, most sites peaked well before {{ percentileDayLabel }}, about three weeks earlier than usual, and half their snow had melted about a month earlier than usual. Select a site to see when its snow peaked and when half of it had melted.</p>
         </template>
       </ExpandingSidebar>
       <p>
@@ -260,567 +278,351 @@
     </template>
   </VizSection>
 </template>
+
 <script setup>
-  import { onMounted, ref, computed } from 'vue';
+  import { onBeforeUnmount, ref, computed, nextTick, onMounted } from 'vue';
   import * as d3 from 'd3';
-  import { isMobile } from 'mobile-device-detect';
   import VizSection from '@/components/VizSection.vue';
   import ExpandingSidebar from '@/components/ExpandingSidebar.vue';
 
   // Map layers built by the targets pipeline (3_visualize): a hillshade and
-  // state and outline SVGs per panel, all on one pixel grid per panel. Alaska
-  // uses only its outline, as on the 2021 map.
-  import conusHillshade from '@/assets/maps/snotel_conus_hillshade.png';
-  import conusStates from '@/assets/maps/snotel_conus_states.svg?raw';
-  import conusOutline from '@/assets/maps/snotel_conus_outline.svg?raw';
+  // state and outline SVGs, on one pixel grid per panel. Alaska is an inset
+  // with its own scale, drawn by its outline.
+  import westHillshade from '@/assets/maps/snotel_west_hillshade.png';
+  import westStates from '@/assets/maps/snotel_west_states.svg?raw';
+  import westOutline from '@/assets/maps/snotel_west_outline.svg?raw';
   import akHillshade from '@/assets/maps/snotel_ak_hillshade.png';
   import akOutline from '@/assets/maps/snotel_ak_outline.svg?raw';
 
   const publicPath = import.meta.env.BASE_URL;
-  const mobileView = isMobile;
 
   const layers = {
-    conus: { hillshade: conusHillshade, states: conusStates, outline: conusOutline },
+    west: { hillshade: westHillshade, states: westStates, outline: westOutline },
     ak: { hillshade: akHillshade, outline: akOutline }
   };
 
-  // The part of each panel shown on the page, in panel pixels: the framing of
-  // the 2021 map. `unit` is the size of one 2021 map unit in panel pixels, so
-  // site sizes and strokes match the 2021 map.
-  const frames = {
-    conus: { x: -236.6, y: 24.5, w: 2349.8, h: 1488.2, unit: 2.611 },
-    ak: { x: 328.9, y: 19.6, w: 1876.8, h: 1005, unit: 3.092 }
-  };
-  // Panel sizes in pixels, from snotel_map_panels.csv
-  const panels = ref({
-    conus: { width_px: 2400, height_px: 1529 },
-    ak: { width_px: 1904, height_px: 1037 }
-  });
-
-  function viewBox(panel) {
-    const p = panels.value[panel];
-    return `0 0 ${p.width_px} ${p.height_px}`;
-  }
-  function frameStyle(panel) {
-    const f = frames[panel];
-    return { aspectRatio: `${f.w} / ${f.h}` };
-  }
-  function stackStyle(panel) {
-    const f = frames[panel];
-    const p = panels.value[panel];
-    return {
-      width: `${(p.width_px / f.w) * 100}%`,
-      height: `${(p.height_px / f.h) * 100}%`,
-      left: `${(-f.x / f.w) * 100}%`,
-      top: `${(-f.y / f.h) * 100}%`
-    };
-  }
-
-  // Run settings from snotel_run_info.csv: water year, dates, and thresholds
+  // Data, loaded on mount
+  const loaded = ref(false);
   const info = ref({});
-  const formatLongDate = d3.utcFormat('%B %-d, %Y');
-  const dataEndLabel = computed(() =>
-    info.value.data_end_date ? formatLongDate(info.value.data_end_date) : ''
-  );
-  // e.g. "April 1st", and "April 1st, 2026"
-  const percentileDayLabel = computed(() => {
-    const d = info.value.percentile_date;
-    if (!d) return '';
-    const day = d.getUTCDate();
-    const suffix = [11, 12, 13].includes(day % 100) ? 'th' : ({ 1: 'st', 2: 'nd', 3: 'rd' }[day % 10] || 'th');
-    return `${d3.utcFormat('%B')(d)} ${day}${suffix}`;
-  });
-  const percentileDateLabel = computed(() =>
-    percentileDayLabel.value ? `${percentileDayLabel.value}, ${info.value.percentile_date.getUTCFullYear()}` : ''
-  );
+  const panels = ref({});
+  const sites = ref([]);
+  const selected = ref(null);
 
-  // Percentile colour scale shared by the map and legend, with the NRCS
-  // interactive map's percentile breaks
+  // Percentile colour scale, with the NRCS interactive map's percentile breaks
   const threshold = d3.scaleThreshold()
     .domain([0.1, 0.3, 0.5, 0.7, 0.9])
     .range(["#5C3406", "#C28D3D", "#ECD8A6", "#AADDD6", "#2A8C83", "#004439"]);
-  // Sites without a percentile, whether or not they have charts
   const noPercentileFill = "#c4c4c4";
   const noPercentileStroke = "#7a7a7a";
   const siteFill = d => d.ptile_swe == null ? noPercentileFill : threshold(d.ptile_swe);
   const siteStroke = d => d.ptile_swe == null ? noPercentileStroke : "black";
-  const site_radius = 2.5;
 
-  // Chart scales, set once the run settings are loaded
-  let xYear = null;
-  let yPeak = null;
-  let yMelt = null;
-  let xDay = null;
-  let ySwe = null;
-  let lastDay = null;
+  // Site marks, in screen pixels; converted to each panel's units on resize
+  const siteRadiusPx = 4.5;
+  const selectedRadiusPx = 8;
+  const hitRadiusPx = 24; // how far from a site a tap or click still selects it
 
-  // Per-site series for the charts, keyed by site_id
-  let annualBySite = new Map();
-  let dailyBySite = new Map();
+  // Labels
+  const formatNumber = d3.format(",");
+  const formatLongDate = d3.utcFormat('%B %-d, %Y');
+  const formatMonthDay = d3.utcFormat('%B %-d');
+  const ordinal = n => {
+    const suffix = [11, 12, 13].includes(n % 100) ? 'th' : ({ 1: 'st', 2: 'nd', 3: 'rd' }[n % 10] || 'th');
+    return `${n}${suffix}`;
+  };
+  // e.g. "April 1st", and "April 1st, 2026"
+  const percentileDayLabel = computed(() => {
+    const d = info.value.percentile_date;
+    return d ? `${d3.utcFormat('%B')(d)} ${ordinal(d.getUTCDate())}` : '';
+  });
+  const percentileDateLabel = computed(() =>
+    percentileDayLabel.value ? `${percentileDayLabel.value}, ${info.value.percentile_date.getUTCFullYear()}` : ''
+  );
+  const dataEndLabel = computed(() =>
+    info.value.data_end_date ? formatLongDate(info.value.data_end_date) : ''
+  );
+  const mapLabel = region => `Map of SNOTEL sites in ${region}, colored by ${percentileDayLabel.value} SWE percentile`;
 
-  // Site currently shown in the mini charts, or null before the first hover
-  let selectedSite = null;
-  // Options for the site picker, and a lookup from its value to the site
-  const siteOptions = ref([]);
-  const selectedId = ref('');
-  const siteById = new Map();
+  // Water day (1 = October 1) of the focal water year as a date
+  const waterDayDate = day => new Date(Date.UTC(info.value.water_year - 1, 9, day));
 
-  onMounted(() => {
-    Promise.all([
-      d3.csv(publicPath + "data/snotel_run_info.csv", d3.autoType),
-      d3.csv(publicPath + "data/snotel_map_panels.csv", d3.autoType),
-      d3.csv(publicPath + "data/snotel_sites.csv", d3.autoType),
-      d3.csv(publicPath + "data/snotel_annual.csv", d3.autoType),
-      d3.csv(publicPath + "data/snotel_swe_daily.csv", d3.autoType)
-    ]).then(callback);
+  // Legend classes, with how many sites fall in each
+  const legendItems = computed(() => {
+    const breaks = [0, ...threshold.domain(), 1];
+    const items = threshold.range().map((fill, i) => {
+      const [lo, hi] = [breaks[i], breaks[i + 1]];
+      return {
+        label: `${lo * 100}–${hi * 100}%`,
+        fill,
+        stroke: "black",
+        count: sites.value.filter(d => d.ptile_swe != null && threshold(d.ptile_swe) === fill).length
+      };
+    });
+    items.push({
+      label: "No percentile",
+      fill: noPercentileFill,
+      stroke: noPercentileStroke,
+      count: sites.value.filter(d => d.ptile_swe == null).length
+    });
+    return items;
   });
 
-  function callback([runInfo, panelRows, sites, annual, daily]) {
+  const summaryText = computed(() => {
+    const withPercentile = sites.value.filter(d => d.ptile_swe != null);
+    const low = withPercentile.filter(d => d.ptile_swe < 0.1).length;
+    const high = withPercentile.filter(d => d.ptile_swe >= 0.9).length;
+    const share = Math.round(100 * low / withPercentile.length);
+    return `On ${percentileDateLabel.value}, ${low} of the ${withPercentile.length} SNOTEL sites with a percentile (${share}%) were below the 10th percentile, and ${high} were at or above the 90th.`;
+  });
+
+  // Site details
+  function percentileText(site) {
+    if (site.ptile_swe == null) return "No percentile";
+    const pct = Math.round(site.ptile_swe * 100);
+    if (site.ptile_swe === 0) return `${ordinal(pct)} percentile (lowest on record)`;
+    if (site.ptile_swe === 1) return `${ordinal(pct)} percentile (highest on record)`;
+    return `${ordinal(pct)} percentile`;
+  }
+  function daysFromNormal(day, normalDay) {
+    const diff = Math.round(day - normalDay);
+    if (diff === 0) return "same day as normal";
+    return `${Math.abs(diff)} day${Math.abs(diff) === 1 ? '' : 's'} ${diff < 0 ? 'earlier' : 'later'} than normal`;
+  }
+  function peakText(site) {
+    if (site.peak_swe == null || site.peak_met === "TBD") return `Not reached by ${dataEndLabel.value}`;
+    return `${site.peak_swe} in on ${formatMonthDay(site.peak_date)}`;
+  }
+  function peakNormalText(site) {
+    if (site.normal_peak_swe == null || site.peak_swe == null || site.peak_met === "TBD") return '';
+    return `Normal: ${site.normal_peak_swe} in around ${formatMonthDay(waterDayDate(site.normal_peak_day))} (${daysFromNormal(site.peak_day, site.normal_peak_day)})`;
+  }
+  function sm50Text(site) {
+    if (site.sm50_day == null || site.sm50_met === "TBD") return `Not reached by ${dataEndLabel.value}`;
+    return formatMonthDay(site.sm50_date);
+  }
+  function sm50NormalText(site) {
+    if (site.normal_sm50_day == null || site.sm50_day == null || site.sm50_met === "TBD") return '';
+    return `Normal: around ${formatMonthDay(waterDayDate(site.normal_sm50_day))} (${daysFromNormal(site.sm50_day, site.normal_sm50_day)})`;
+  }
+
+  // Site picker, grouped by state
+  const sitesByState = computed(() =>
+    d3.groups(sites.value, d => d.state_name)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([state, list]) => [state, [...list].sort((a, b) => a.site_name.localeCompare(b.site_name))])
+  );
+  function onSitePicked(event) {
+    const site = sites.value.find(d => d.sntl_id === event.target.value);
+    if (site) selectSite(site);
+  }
+
+  // Table
+  const tableColumns = [
+    { key: "site_name", label: "Site" },
+    { key: "state", label: "State" },
+    { key: "elev_ft", label: "Elevation (ft)" },
+    { key: "swe", label: "SWE (in)" },
+    { key: "ptile_swe", label: "Percentile" }
+  ];
+  const sortKey = ref("ptile_swe");
+  const sortDir = ref("ascending");
+  const sortLabel = computed(() =>
+    `${tableColumns.find(c => c.key === sortKey.value).label.toLowerCase()}, ${sortDir.value}`
+  );
+  function sortBy(key) {
+    sortDir.value = sortKey.value === key && sortDir.value === "ascending" ? "descending" : "ascending";
+    sortKey.value = key;
+  }
+  const sortedSites = computed(() => {
+    const dir = sortDir.value === "ascending" ? 1 : -1;
+    return [...sites.value].sort((a, b) => {
+      const [x, y] = [a[sortKey.value], b[sortKey.value]];
+      if (x == null) return 1; // missing values last
+      if (y == null) return -1;
+      return (typeof x === "string" ? x.localeCompare(y) : x - y) * dir;
+    });
+  });
+
+  // Map drawing
+  const westStack = ref(null);
+  const akStack = ref(null);
+  const panelMarks = {}; // per panel: svg, site circles, selection ring, Delaunay index
+  let resizeObserver = null;
+
+  function viewBox(panel) {
+    const p = panels.value[panel];
+    return p ? `0 0 ${p.width_px} ${p.height_px}` : undefined;
+  }
+  function stackStyle(panel) {
+    const p = panels.value[panel];
+    return p ? { aspectRatio: `${p.width_px} / ${p.height_px}` } : {};
+  }
+  // panel units per screen pixel
+  function unitsPerPx(panel) {
+    const width = panelMarks[panel].svg.node().getBoundingClientRect().width;
+    return width ? panels.value[panel].width_px / width : 1;
+  }
+
+  function drawPanel(panel) {
+    const svg = d3.select(`#${panel}-sites`);
+    const data = sites.value.filter(d => d.panel === panel);
+    const circles = svg.append("g")
+      .selectAll("circle")
+      .data(data)
+      .join("circle")
+        .attr("class", "site")
+        .attr("cx", d => d.x)
+        .attr("cy", d => d.y)
+        .attr("fill", siteFill)
+        .attr("stroke", siteStroke);
+    const ring = svg.append("circle")
+      .attr("class", "site-ring")
+      .attr("fill", "none")
+      .attr("stroke", "#111")
+      .attr("display", "none");
+    const delaunay = d3.Delaunay.from(data, d => d.x, d => d.y);
+
+    // A mouse selects the nearest site as it moves, and the selection stays
+    // until another site is reached; a tap or click selects too
+    const pick = event => {
+      const [px, py] = d3.pointer(event, svg.node());
+      const site = data[delaunay.find(px, py)];
+      if (site && Math.hypot(site.x - px, site.y - py) / unitsPerPx(panel) <= hitRadiusPx) {
+        selectSite(site);
+      }
+    };
+    svg
+      .on("pointermove", event => { if (event.pointerType === "mouse") pick(event); })
+      .on("click", pick);
+
+    panelMarks[panel] = { svg, circles, ring };
+  }
+
+  // Keep site marks the same size on screen however large the map is drawn
+  function sizeMarks() {
+    for (const panel of Object.keys(panelMarks)) {
+      const k = unitsPerPx(panel);
+      panelMarks[panel].circles
+        .attr("r", siteRadiusPx * k)
+        .attr("stroke-width", 0.75 * k);
+      panelMarks[panel].ring
+        .attr("r", selectedRadiusPx * k)
+        .attr("stroke-width", 2.5 * k);
+    }
+  }
+
+  function selectSite(site) {
+    if (selected.value === site) return;
+    selected.value = site;
+    for (const [panel, marks] of Object.entries(panelMarks)) {
+      if (panel === site.panel) {
+        marks.ring.attr("cx", site.x).attr("cy", site.y).attr("display", null).raise();
+      } else {
+        marks.ring.attr("display", "none");
+      }
+    }
+  }
+
+  onMounted(async () => {
+    const [runInfo, panelRows, siteRows] = await Promise.all([
+      d3.csv(publicPath + "data/snotel_run_info.csv", d3.autoType),
+      d3.csv(publicPath + "data/snotel_map_panels.csv", d3.autoType),
+      d3.csv(publicPath + "data/snotel_sites.csv", d3.autoType)
+    ]);
     info.value = runInfo[0];
     panels.value = Object.fromEntries(panelRows.map(d => [d.panel, d]));
-    annualBySite = d3.group(annual, d => d.site_id);
-    dailyBySite = d3.group(daily, d => d.site_id);
+    sites.value = siteRows;
+    loaded.value = true;
 
-    sites.forEach(d => {
-      d.has_charts = d.has_charts === true || d.has_charts === "TRUE";
-      d.unit = frames[d.panel].unit;
-    });
+    await nextTick();
+    drawPanel("west");
+    drawPanel("ak");
+    sizeMarks();
+    resizeObserver = new ResizeObserver(sizeMarks);
+    resizeObserver.observe(westStack.value);
+    resizeObserver.observe(akStack.value);
+  });
 
-    addSites(d3.select("svg#usa-sntl"), sites.filter(d => d.panel === "conus"));
-    addSites(d3.select("svg#ak-sntl"), sites.filter(d => d.panel === "ak"));
-    drawLegend();
-    makeTrend();
-
-    // sites with charts, the ones that respond to hover
-    const pickable = sites.filter(d => d.has_charts);
-    pickable.forEach(site => siteById.set(site.sntl_id, site));
-    siteOptions.value = pickable
-      .map(site => ({ id: site.sntl_id, name: site.site_name, elev: site.elev_ft }))
-      .sort((a, b) => a.name.localeCompare(b.name));
-  }
-
-  function addSites(svg, sites) {
-    const g = svg.append("g").classed("sites", true);
-
-    // sites without charts look like any other site without a percentile,
-    // but don't respond to hover
-    g.selectAll("circle.SNTL_nodata")
-      .data(sites.filter(d => !d.has_charts))
-      .join("circle")
-        .classed("SNTL_nodata", true)
-        .attr("id", d => d.sntl_id)
-        .attr("cx", d => d.x)
-        .attr("cy", d => d.y)
-        .attr("r", d => site_radius * d.unit)
-        .attr("opacity", .85)
-        .attr("stroke", noPercentileStroke)
-        .attr("fill", noPercentileFill)
-        .attr("stroke-width", d => .35 * d.unit);
-
-    // sites with charts respond to hover
-    g.selectAll("circle.SNTL")
-      .data(sites.filter(d => d.has_charts))
-      .join("circle")
-        .classed("SNTL", true)
-        .attr("id", d => d.sntl_id)
-        .attr("cx", d => d.x)
-        .attr("cy", d => d.y)
-        .attr("r", d => site_radius * d.unit)
-        .attr("opacity", .85)
-        .attr("stroke", siteStroke)
-        .attr("stroke-width", d => .35 * d.unit)
-        .attr("fill", siteFill)
-        .on("mouseover", (event, data) => selectSite(data));
-  }
-
-  function makeTrend() {
-    const wy = info.value.water_year;
-    const yy = y => `'${String(y).slice(-2)}`;
-    // every ten years back from the water year, so it is always labelled
-    const years = d3.range(wy, info.value.record_start_wy - 1, -10).reverse();
-    const endAnchor = axis => axis.selectAll(".tick text")
-      .filter(d => d === wy)
-      .attr("text-anchor", "end");
-
-    // peak SWE and melt date by year
-    xYear = d3.scaleLinear().range([0, 200]).domain([info.value.record_start_wy, wy]);
-    yPeak = d3.scaleLinear().range([110, 10]).domain([0, 130]);
-    yMelt = d3.scaleLinear().range([110, 10]).domain([0, 350]);
-
-    // SWE through the focal water year, to the last day of data
-    lastDay = d3.utcDay.count(Date.UTC(wy - 1, 9, 1), info.value.data_end_date) + 1;
-    xDay = d3.scaleLinear().range([0, 200]).domain([1, lastDay]);
-    ySwe = d3.scaleLinear().range([270, 10]).domain([0, 130]);
-
-    const peakSvg = d3.select("svg#peak-svg");
-    const meltSvg = d3.select("svg#melt-svg");
-    const wySvg = d3.select("svg#wy21-svg");
-
-    peakSvg.append("g")
-      .classed("corr-legend", true)
-      .call(d3.axisLeft(yPeak).tickValues([10, 40, 70, 100, 130]).tickSize(2));
-    peakSvg.append("g")
-      .classed("peak-legend", true)
-      .call(d3.axisBottom(xYear).tickValues(years).tickFormat(d3.format("d")).tickSize(0))
-      .attr("transform", "translate(0,110)")
-      .call(endAnchor);
-    peakSvg.append("text")
-      .classed("ele", true)
-      .attr("fill", "black")
-      .attr("font-size", ".9em")
-      .attr("text-anchor", "start")
-      .attr("font-style", "italic")
-      .attr("y", 120)
-      .attr("x", 35)
-      .attr("transform", "rotate(-90) translate(-110, -150)")
-      .text("inches");
-    peakSvg.append("text")
-      .classed("ele", true)
-      .attr("fill", "black")
-      .attr("font-size", "1em")
-      .attr("font-weight", "bold")
-      .attr("text-anchor", "start")
-      .attr("y", 0)
-      .attr("x", -25)
-      .text("Peak SWE");
-
-    const meltDays = [1, 93, 183, 274];
-    const meltDates = ["Oct 1", "Jan 1", "Apr 1", "Jul 1"];
-    meltSvg.append("g")
-      .classed("melt-legend", true)
-      .call(d3.axisBottom(xYear).tickValues(years).tickFormat(d3.format("d")).tickSize(0))
-      .attr("transform", "translate(0,110)")
-      .call(endAnchor);
-    meltSvg.append("g")
-      .classed("melt-legend", true)
-      .call(d3.axisLeft(yMelt)
-        .tickValues(meltDays)
-        .tickFormat((d, i) => meltDates[i])
-        .tickSizeOuter(2).tickSize(2));
-    meltSvg.append("text")
-      .attr("fill", "black")
-      .attr("font-size", "1em")
-      .attr("text-anchor", "start")
-      .attr("font-weight", "bold")
-      .attr("y", 140)
-      .attr("x", 75)
-      .text("Year");
-    meltSvg.append("text")
-      .classed("ele", true)
-      .attr("fill", "black")
-      .attr("font-size", "1em")
-      .attr("font-weight", "bold")
-      .attr("text-anchor", "start")
-      .attr("y", 0)
-      .attr("x", -25)
-      .text("Melt date (SM50)");
-
-    const wyTicks = meltDays.filter(d => d <= lastDay);
-    const wyLabels = [`Oct ${yy(wy - 1)}`, `Jan ${yy(wy)}`, `Apr ${yy(wy)}`, `Jul ${yy(wy)}`];
-    wySvg.append("g")
-      .classed("melt-legend", true)
-      .call(d3.axisBottom(xDay)
-        .tickValues(wyTicks)
-        .tickFormat((d, i) => wyLabels[i])
-        .tickSizeOuter(0).tickSize(0))
-      .attr("transform", "translate(0,270)")
-      // keep a label at the end of the axis (the last day of data) inside the chart
-      .selectAll(".tick text")
-      .filter(d => xDay(d) > 185)
-      .attr("text-anchor", "end");
-    wySvg.append("g")
-      .classed("melt-legend", true)
-      .call(d3.axisLeft(ySwe)
-        .tickValues([10, 40, 70, 100, 130])
-        .tickSizeOuter(0).tickSize(0));
-    wySvg.append("text")
-      .attr("fill", "black")
-      .attr("font-size", "1em")
-      .attr("font-weight", "bold")
-      .attr("y", 305)
-      .attr("x", 50)
-      .text(`${wy} Water year`);
-    wySvg.append("text")
-      .classed("ele", true)
-      .attr("fill", "black")
-      .attr("font-size", ".9em")
-      .attr("text-anchor", "start")
-      .attr("font-style", "italic")
-      .attr("y", 130)
-      .attr("x", -35)
-      .attr("transform", "rotate(-90) translate(-110, -150)")
-      .text("inches");
-    wySvg.append("text")
-      .classed("ele", true)
-      .attr("fill", "black")
-      .attr("font-size", "1em")
-      .attr("font-weight", "bold")
-      .attr("text-anchor", "start")
-      .attr("y", 0)
-      .attr("x", -25)
-      .text("SWE");
-
-    // hover/click prompt
-    wySvg.append("text")
-      .classed("hover_info", true)
-      .attr("fill", "#000")
-      .attr("font-size", "1.2em")
-      .attr("text-anchor", "start")
-      .attr("font-style", "italic")
-      .attr("y", 50)
-      .attr("x", 30)
-      .text("Hover over a site");
-  }
-
-  // The last site hovered (or picked from the list) stays selected, and its
-  // data stays in the mini charts, until a different site is chosen.
-  function selectSite(data) {
-    if (selectedSite === data) return;
-    if (selectedSite) hoverOut(selectedSite);
-    selectedSite = data;
-    selectedId.value = data.sntl_id;
-    hover(data);
-    d3.select("text.hover_info").remove();
-  }
-  function onSitePicked(event) {
-    const data = siteById.get(event.target.value);
-    if (data) selectSite(data);
-  }
-
-  function hover(data) {
-    d3.select('circle#' + data.sntl_id)
-      .raise()
-      .transition()
-      .duration(50)
-      .attr("r", site_radius * 2 * data.unit)
-      .attr("fill", "orchid");
-    drawCharts(data);
-  }
-  function hoverOut(data) {
-    d3.select('circle#' + data.sntl_id)
-      .transition()
-      .duration(50)
-      .attr("r", site_radius * data.unit)
-      .attr("fill", siteFill(data));
-    d3.selectAll(".trend").remove();
-    d3.selectAll(".site_name").remove();
-  }
-
-  // Draw the three mini charts for a site from its annual and daily data
-  function drawCharts(site) {
-    const wy = info.value.water_year;
-    const byYear = new Map((annualBySite.get(site.site_id) || []).map(d => [d.water_year, d]));
-    const years = d3.range(info.value.record_start_wy, wy + 1).map(y => byYear.get(y) || { water_year: y });
-    const byDay = new Map((dailyBySite.get(site.site_id) || []).map(d => [d.water_day, d.swe]));
-    const days = d3.range(1, lastDay + 1).map(day => ({ day, swe: byDay.get(day) ?? null }));
-
-    const peakMet = site.peak_met !== "TBD" && site.peak_swe != null;
-    const sm50Met = site.sm50_met !== "TBD" && site.sm50_day != null;
-
-    // peak SWE by year
-    const peakG = d3.select("svg#peak-svg").append("g").classed("trend", true);
-    peakG.append("path")
-      .datum(years)
-      .attr("d", d3.line().defined(d => d.peak_swe != null).x(d => xYear(d.water_year)).y(d => yPeak(d.peak_swe)))
-      .attr("fill", "transparent")
-      .attr("stroke", "black")
-      .attr("stroke-width", "2px");
-    if (peakMet) {
-      peakG.append("circle")
-        .attr("cx", xYear(wy))
-        .attr("cy", yPeak(site.peak_swe))
-        .attr("r", 4)
-        .attr("fill", "orchid");
-    }
-
-    // melt date by year
-    const meltG = d3.select("svg#melt-svg").append("g").classed("trend", true);
-    meltG.append("path")
-      .datum(years)
-      .attr("d", d3.line().defined(d => d.sm50_day != null).x(d => xYear(d.water_year)).y(d => yMelt(d.sm50_day)))
-      .attr("fill", "transparent")
-      .attr("stroke", "black")
-      .attr("stroke-width", "2px");
-    if (sm50Met) {
-      meltG.append("circle")
-        .attr("cx", xYear(wy))
-        .attr("cy", yMelt(site.sm50_day))
-        .attr("r", 4)
-        .attr("fill", "white")
-        .attr("stroke", "orchid")
-        .attr("stroke-width", 1.5);
-    }
-
-    // SWE through the focal water year, with its peak and SM50
-    const wyG = d3.select("svg#wy21-svg").append("g").classed("trend", true);
-    wyG.append("path")
-      .datum(days)
-      .attr("d", d3.line().defined(d => d.swe != null).x(d => xDay(d.day)).y(d => ySwe(d.swe)))
-      .attr("fill", "transparent")
-      .attr("stroke", "black")
-      .attr("stroke-width", 2);
-    if (peakMet) {
-      wyG.append("circle")
-        .attr("cx", xDay(site.peak_day))
-        .attr("cy", ySwe(site.peak_swe))
-        .attr("r", 4)
-        .attr("fill", "orchid");
-    }
-    if (sm50Met) {
-      wyG.append("circle")
-        .attr("cx", xDay(site.sm50_day))
-        .attr("cy", ySwe(site.sm50_swe))
-        .attr("r", 4)
-        .attr("fill", "white")
-        .attr("stroke", "orchid")
-        .attr("stroke-width", 1.5);
-    }
-
-    const wySvg = d3.select("svg#wy21-svg");
-    wySvg.append("text")
-      .classed("site_name", true)
-      .attr("fill", "#000")
-      .attr("font-size", "1em")
-      .attr("font-weight", "bold")
-      .attr("text-anchor", "start")
-      .attr("y", 20)
-      .attr("x", 10)
-      .text(site.site_name);
-    wySvg.append("text")
-      .classed("site_name", true)
-      .attr("fill", "#000")
-      .attr("font-size", "1em")
-      .attr("font-weight", "bold")
-      .attr("text-anchor", "start")
-      .attr("y", 40)
-      .attr("x", 10)
-      .text(site.elev_ft + " ft");
-  }
-
-  function drawLegend() {
-    const x = d3.scaleLinear()
-      .domain([0, 1])
-      .range([0, 250]);
-
-    const xAxis = d3.axisBottom(x)
-      .tickSize(10)
-      .tickValues([0, ...threshold.domain(), 1])
-      .tickFormat(d => d * 100 + '%');
-
-    const g = d3.select("svg#legend-percentile").append("g")
-      .classed("thresh-legend", true).call(xAxis)
-      .attr("transform", "translate(20,45)");
-
-    g.select(".domain").remove();
-
-    g.selectAll("rect")
-      .data(threshold.range().map(color => {
-        const d = threshold.invertExtent(color);
-        if (d[0] == null) d[0] = x.domain()[0];
-        if (d[1] == null) d[1] = x.domain()[1];
-        return d;
-      }))
-      .enter().insert("rect", ".tick")
-        .attr("height", 6)
-        .attr("x", d => x(d[0]))
-        .attr("width", d => x(d[1]) - x(d[0]))
-        .attr("fill", d => threshold(d[0]));
-
-    g.append("text")
-      .attr("fill", "#000")
-      .attr("font-size", "1.25em")
-      .attr("text-anchor", "start")
-      .attr("y", -10)
-      .text(`${percentileDayLabel.value} SWE percentile`);
-
-    g.append("text")
-      .attr("fill", "#000")
-      .attr("font-size", "2em")
-      .attr("font-weight", "bold")
-      .attr("text-anchor", "start")
-      .attr("x", 0)
-      .attr("y", -30)
-      .text("Snow this year");
-
-    // key for sites without a percentile
-    g.append("circle")
-      .attr("cx", 5)
-      .attr("cy", 36)
-      .attr("r", 4)
-      .attr("fill", noPercentileFill)
-      .attr("stroke", noPercentileStroke)
-      .attr("stroke-width", 0.8);
-    g.append("text")
-      .attr("fill", "#000")
-      .attr("font-size", "10px")
-      .attr("text-anchor", "start")
-      .attr("x", 14)
-      .attr("y", 39.5)
-      .text("No percentile");
-  }
+  onBeforeUnmount(() => {
+    if (resizeObserver) resizeObserver.disconnect();
+  });
 </script>
+
 <style lang="scss" scoped>
-  .leggy {
-    display: inline-block;
+  .explain {
+    font-style: italic;
   }
-  .site-picker {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    max-width: 700px;
-    margin: 0 auto 1rem auto;
-    padding: 0 10px;
-    font-size: 0.8em;
-    text-align: left;
-    select {
-      max-width: 100%;
-      padding: 0.25rem;
-      font: inherit;
-    }
-  }
-  .site-picker__label {
-    font-weight: 700;
-  }
-  // the explanatory paragraphs reuse .figureCaption for its type styles;
-  // keep them block so the inline legend symbols lay out in the text
+  // the explanatory paragraphs reuse .figureCaption for its type styles
   .figureCaption {
     display: block;
   }
 
-  .map-grid{
+  .snotel-map {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 10px;
+    text-align: left;
+  }
+  .map-summary {
+    font-size: 1em;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+
+  // Legend
+  .map-legend {
+    margin-bottom: 1rem;
+  }
+  .map-legend__title {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .map-legend__items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.8em;
+    li {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin: 0;
+    }
+  }
+  .map-legend__count {
+    color: var(--medium-grey-dark);
+  }
+  .swatch {
+    display: inline-block;
+    flex: 0 0 auto;
+    width: 1em;
+    height: 1em;
+    border: 1px solid;
+    border-radius: 50%;
+    vertical-align: middle;
+  }
+
+  // Map and details card: side by side on wide screens, stacked on narrow ones
+  .map-layout {
     display: grid;
-    grid-template-columns: repeat(6, 16.6%);
-    grid-template-areas: 
-      "legend legend legend legend legend ."
-      "ak ak ak ak ak ak"
-      "us us us us us us"
-      "peak peak peak wy21 wy21 wy21"
-      "melt melt melt wy21 wy21 wy21"
-    ;
-    overflow: hidden;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
   }
-  line, polyline, polygon, path, rect, circle {
-    fill: none;
-    stroke: grey;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-miterlimit: 10.00;
+  @media screen and (min-width: 900px) {
+    .map-layout {
+      grid-template-columns: minmax(0, 3fr) minmax(16rem, 2fr);
+      align-items: start;
+    }
   }
-  .explain {
-    font-style: italic;
-  }
-  .map-container {
-    width: 100vw;
-  }
-  // Each map is a stack of pipeline layers on one pixel grid: the frame shows
-  // the 2021 map's part of the panel, and the stack is positioned inside it
-  .map-frame {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
+  .map-figure {
+    margin: 0;
   }
   .map-stack {
-    position: absolute;
+    position: relative;
+    width: 100%;
   }
   .map-layer {
     position: absolute;
@@ -834,128 +636,135 @@
       height: 100%;
     }
   }
-  // Line widths as on the 2021 map (state lines 2 units, outline 1 unit), in
-  // panel pixels: one 2021 map unit is 2.611 CONUS or 3.092 Alaska pixels
-  #usa .map-states :deep(path) {
-    stroke-width: 5.222;
+  .map-sites {
+    cursor: pointer;
+    // touch taps select sites; vertical scrolling still works
+    touch-action: pan-y;
   }
-  #usa .map-outline :deep(path) {
-    stroke-width: 2.611;
+  // Map lines keep the same width on screen however large the map is drawn
+  .map-states :deep(path) {
+    vector-effect: non-scaling-stroke;
+    stroke-width: 1.5px;
   }
-  #ak .map-outline :deep(path) {
-    stroke-width: 3.092;
-  }
-  #legendContainer{
-    grid-area: legend;
-    margin-bottom: 0px;
-    margin-left: 30px;
-    z-index: 1;
-  }
-  #grid-left{
-    grid-area: ak;
-    width: 190vw;
-    margin-right: 2.5vw; 
-  }
-  #ak{
-    width: 110vw;// careful editing this, it's sizing the maps to be on the same scale
-  }
-  #grid-right{
-    grid-area: us;
-    width: 90vw;
-    margin-left: 70px;
-  }
-  #usa{
-    width: 160vw;// careful editing this, it's sizing the maps to be on the same scale
-  }
-  #peak-container{
-    grid-area: peak;
-  }
-  #melt-container{
-    grid-area: melt;
-  }
-  #wy21-container{
-    grid-area: wy21;
+  .map-outline :deep(path) {
+    vector-effect: non-scaling-stroke;
+    stroke-width: 1px;
   }
 
-  @media screen and (min-width: 1024px){
-    #melt-svg {
-      transform: translate(0, 0px);
+  .ak-inset {
+    position: absolute;
+    left: 1%;
+    bottom: 1%;
+    width: 36%;
+    padding: 0.25rem;
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid #ccc;
+  }
+  .ak-inset__label {
+    display: block;
+    font-size: 0.7em;
+    color: var(--medium-grey-dark);
+  }
+
+  // Details card
+  .site-card {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fafafa;
+  }
+  .site-picker {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+    font-size: 0.8em;
+    select {
+      max-width: 100%;
+      padding: 0.25rem;
+      font: inherit;
     }
-    #peak-svg {
-      transform: translate(0, -5px);
+  }
+  .site-picker__label {
+    font-weight: 700;
+  }
+  .site-card__name {
+    margin: 0;
+    font-size: 1.2em;
+  }
+  .site-card__meta {
+    margin: 0 0 0.75rem;
+    color: var(--medium-grey-dark);
+  }
+  .site-card__prompt {
+    color: var(--medium-grey-dark);
+    font-style: italic;
+  }
+  .site-card__normal {
+    display: block;
+    font-size: 0.85em;
+    color: var(--medium-grey-dark);
+  }
+  .site-card dl {
+    margin: 0;
+    font-size: 0.9em;
+    dt {
+      font-weight: 700;
+      margin-top: 0.6rem;
     }
-    .map-grid{
-      grid-template-areas: 
-        ". legend legend us us us"
-        ". wy21 peak us us us"
-        ". wy21 peak us us us"
-        ". wy21 melt us us us"
-        ". wy21 melt us us us"
-        ". ak ak us us us"
-        ". ak ak us us us"
-        ". ak ak us us us"
-        ". ak ak us us us"
-        ". . . us us us";
-    }
-    #grid-left{
-      width: 30vw; // careful editing this, it's sizing the maps to the same scale
-    }
-    #legendContainer {
-      margin-top: 0px;
-    }
-    #ak {
-      width: 55vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
-    }
-    #grid-right {
-      width: 70vw;// careful editing this, it's sizing the maps to the same scale
-      margin-right: 2.5vw;
-      margin-left: 0px;
-    }
-    #usa{
-      width: 80vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
+    dd {
+      margin: 0;
     }
   }
 
-  @media screen and (min-height: 900px){
-    #melt-svg {
-      transform: translate(0, 5px);
+  // Table
+  .site-table {
+    margin-top: 1.5rem;
+    font-size: 0.8em;
+    summary {
+      cursor: pointer;
+      font-weight: 700;
     }
-    #peak-svg {
-      transform: translate(0, 0px);
+  }
+  .site-table__scroll {
+    max-height: 30rem;
+    overflow: auto;
+    margin-top: 0.5rem;
+  }
+  .site-table table {
+    width: 100%;
+    border-collapse: collapse;
+    caption {
+      text-align: left;
+      padding: 0.25rem 0;
+      color: var(--medium-grey-dark);
     }
-    .map-grid{
-      grid-template-areas: 
-        ". legend legend us us us"
-        ". wy21 peak us us us"
-        ". wy21 peak us us us"
-        ". wy21 melt us us us"
-        ". wy21 melt us us us"
-        "ak ak . us us us"
-        "ak ak . us us us"
-        "ak ak . us us us"
-        "ak ak . us us us"
-        ". . . us us us";
+    th,
+    td {
+      padding: 0.2rem 0.5rem;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+      font-weight: 400;
     }
-    #grid-left{
-      width: 30vw; // careful editing this, it's sizing the maps to the same scale
+    thead th {
+      position: sticky;
+      top: 0;
+      background: #fff;
+      font-weight: 700;
     }
-    #legendContainer {
-      margin-top: 0px;
-      margin-left: 20px;
+    button {
+      padding: 0;
+      border: none;
+      background: none;
+      font: inherit;
+      font-weight: inherit;
+      color: inherit;
+      cursor: pointer;
+      text-align: left;
     }
-    #ak {
-      width: 60vw;// 2x the width of the containerthis needs to match with #usa to keep scaling constant
-      margin-left: 30px;
-      padding-top: 50px;
-    }
-    #grid-right {
-      width: 70vw;// careful editing this, it's sizing the maps to the same scale
-      margin-right: 2.5vw;
-      margin-left: 0px;
-    }
-    #usa{
-      width: 100vw; // 2x the width of the container, get cut off (intentionally). needs to be mirror with alaska
-      margin-left: -25px;
+    .site-table__select {
+      color: var(--color-link);
+      text-decoration: underline;
     }
   }
 </style>

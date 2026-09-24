@@ -31,6 +31,13 @@ p2_targets <- list(
                         min_share = p0_percentile_min_share)
   ),
 
+  # Each site's normal peak SWE and SM50, for comparing the focal year
+  tar_target(
+    p2_sntl_normals,
+    calc_site_normals(p2_sntl_annual_stats, wys = p0_normal_wys,
+                      min_years = p0_normal_min_years)
+  ),
+
   # Every site on the map: stations active on the percentile date, with
   # their focal year values and whether they get mini charts
   tar_target(
@@ -41,6 +48,7 @@ p2_targets <- list(
       annual_stats = p2_sntl_annual_stats,
       percentiles = p2_sntl_percentiles,
       record_years = p2_sntl_record_years,
+      normals = p2_sntl_normals,
       focal_wy = p0_water_year,
       percentile_date = p0_percentile_date,
       data_end_date = p0_data_end_date,

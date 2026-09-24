@@ -23,6 +23,11 @@ p0_targets <- list(
   # least this share of its period of record's years to get a percentile
   tar_target(p0_percentile_min_share, 2/3),
 
+  # Water years for each site's normal peak SWE and SM50 (the NRCS normals
+  # period), and the fewest of those years a site needs for a normal
+  tar_target(p0_normal_wys, 1991:2020),
+  tar_target(p0_normal_min_years, 20),
+
   # Sites get mini charts if they have at least this many complete water years
   # of record before the focal year, where a complete year has SWE on at
   # least this fraction of its days

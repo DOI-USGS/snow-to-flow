@@ -16,7 +16,9 @@ format_sites <- function(sites, site_xy) {
     transmute(
       site_id,
       sntl_id = paste0("sntl_", site_id),
-      state, site_name, elev_ft,
+      state,
+      state_name = c(state.name, "District of Columbia")[match(state, c(state.abb, "DC"))],
+      site_name, elev_ft,
       latitude = round(latitude, 5),
       longitude = round(longitude, 5),
       panel, x, y,
@@ -26,6 +28,9 @@ format_sites <- function(sites, site_xy) {
       peak_swe, peak_date, peak_day, peak_met,
       sm50_swe, sm50_date, sm50_day, sm50_met,
       apr1_swe,
+      normal_peak_swe = round(normal_peak_swe, 1),
+      normal_peak_day = round(normal_peak_day),
+      normal_sm50_day = round(normal_sm50_day),
       record_years,
       has_charts
     )
