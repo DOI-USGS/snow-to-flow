@@ -1,3 +1,50 @@
+source("2_process/src/process_sntl.R")
+
 p2_targets <- list(
+
+  # Daily SWE for all fetched sites, with water year and water day
+  tar_target(
+    p2_sntl_swe,
+    read_sntl_swe(p1_sntl_swe_csv, record_start_wy = p0_record_start_wy)
+  ),
+
+  # Complete water years of record before the focal year, for the chart rule
+  tar_target(
+    p2_sntl_record_years,
+    count_record_years(p2_sntl_swe, before_wy = p0_water_year,
+                       complete_fraction = p0_complete_wy_fraction)
+  ),
+
+  # Peak SWE, SM50, and April 1st SWE for every site and water year
+  tar_target(
+    p2_sntl_annual_stats,
+    calc_annual_stats(p2_sntl_swe, focal_wy = p0_water_year,
+                      data_end_date = p0_data_end_date)
+  ),
+
+  # SWE percentile on the percentile date against the baseline years
+  tar_target(
+    p2_sntl_percentiles,
+    calc_swe_percentile(p2_sntl_swe, percentile_date = p0_percentile_date,
+                        baseline_wys = p0_baseline_wys,
+                        min_years = p0_baseline_min_years)
+  ),
+
+  # Every site on the map: stations active on the last day of data, with
+  # their focal year values and whether they get mini charts
+  tar_target(
+    p2_sntl_sites,
+    build_site_table(
+      stations = p1_sntl_stations,
+      swe = p2_sntl_swe,
+      annual_stats = p2_sntl_annual_stats,
+      percentiles = p2_sntl_percentiles,
+      record_years = p2_sntl_record_years,
+      focal_wy = p0_water_year,
+      percentile_date = p0_percentile_date,
+      data_end_date = p0_data_end_date,
+      chart_min_years = p0_chart_min_years
+    )
+  )
 
 )

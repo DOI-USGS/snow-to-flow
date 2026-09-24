@@ -22,6 +22,12 @@ p0_targets <- list(
   tar_target(p0_baseline_wys, 1981:2010),
   tar_target(p0_baseline_min_years, 20),
 
+  # Sites get mini charts if they have at least this many complete water years
+  # of record before the focal year, where a complete year has SWE on at
+  # least this fraction of its days
+  tar_target(p0_chart_min_years, 10),
+  tar_target(p0_complete_wy_fraction, 0.9),
+
   # Date for re-fetching data. Change this to re-pull from NRCS
   tar_target(p0_fetch_date, "2026-09-23")
 
