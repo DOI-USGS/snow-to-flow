@@ -239,7 +239,7 @@
       </ExpandingSidebar>
       <ExpandingSidebar>
         <template #sidebarTitle>
-          When is peak SWE in {{ info.water_year }}?
+          When was peak SWE in {{ info.water_year }}?
         </template>
         <template #sidebarMessage>
           <p>Peak SWE has not happened yet for many places in the western U.S. This map shows <span class="emph">{{ percentileDateLabel }}</span> which has traditionally been used as an indicator of peak SWE for the season.</p>
