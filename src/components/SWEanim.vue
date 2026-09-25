@@ -209,7 +209,13 @@
   const height = 400;
   const margin = 25;
 
-  const tickDates = ["Oct", "Jan", "Apr", "July"];
+  // Axis labels for the ticks at October 1, January 1, April 1, and July 1,
+  // with the calendar year where it changes. Each ridge's axis carries its
+  // water year's class, so the label reads the year from the axis it is on
+  function tickLabel(d, i) {
+    const wy = this?.closest?.(".ridge_2012") ? 2012 : 2011;
+    return [`Oct ${wy - 1}`, `Jan ${wy}`, "Apr", "July"][i];
+  }
   const color_mmd = "dodgerblue";
   const color_swe = "grey";
 
@@ -358,7 +364,7 @@
       .attr("transform", `translate(0,${y_end})`)
       .call(d3.axisBottom(x)
         .tickValues([1, 93, 183, 273])
-        .tickFormat(function (d, i) { return tickDates[i] })
+        .tickFormat(tickLabel)
         .tickSizeOuter(0).tickSize(0))
 
     // mmd axes
@@ -727,14 +733,14 @@
       .attr("transform", `translate(0,${height})`)
       .call(d3.axisBottom(xhalfL)
         .tickValues([1, 93, 183, 273])
-        .tickFormat(function (d, i) { return tickDates[i] })
+        .tickFormat(tickLabel)
         .tickSizeOuter(0).tickSize(0))
 
     const xAxisR = g => g
       .attr("transform", `translate(0,${height})`)
       .call(d3.axisBottom(xhalfR)
         .tickValues([1, 93, 183, 273])
-        .tickFormat(function (d, i) { return tickDates[i] })
+        .tickFormat(tickLabel)
         .tickSizeOuter(0).tickSize(0))
 
     // transform axes

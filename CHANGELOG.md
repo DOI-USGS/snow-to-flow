@@ -30,6 +30,7 @@ Here we track upcoming changes.
 - Grey state lines on the SNOTEL map, which fades to white where it is cut off; map lines and site marks keep their size at any map width
 - SNOTEL legend titled "Snow in 2026" from the data
 - Pipeline calculates percentiles for every day of the snow season and writes a small data file per site
+- SWE and streamflow ridgeline dates show their years (October 2010 to July 2011, and October 2011 to July 2012)
  
 ### Fixed
 - Trend charts for 34 sites whose earlier historical data were near zero in every year
