@@ -151,7 +151,7 @@
     <!-- FIGURE CAPTION -->
     <template #figureCaption>
       <p>
-        Each dot is one SNOTEL site in one year, compared with that site's own 1991&ndash;2020 normal, so high and low sites can be read together. The dark line follows the middle site each year, and the shaded band the middle half of sites. Shown are the {{ sitesWithNormals }} sites with at least 20 years of record in 1991&ndash;2020; values beyond an axis are drawn at its edge.
+        Each dot is one SNOTEL site in one year, compared with that site's own 1991&ndash;2020 normal, so high and low sites can be read together: brown dots had less snow or melted earlier than normal, and teal dots more snow or melted later. Shown are the {{ sitesWithNormals }} sites with at least 20 years of record in 1991&ndash;2020; values beyond an axis are drawn at its edge.
       </p>
     </template>
     <!-- EXPLANATION -->
@@ -253,14 +253,11 @@
     return `melted ${date}, ${rel}`;
   }
 
-  // The middle site and middle half of sites in each year
+  // The middle site in each year, for the charts' screen reader summaries
   const summaries = computed(() => Object.fromEntries(panels.map(panel => {
     const byYear = d3.rollups(
       rows.value.filter(d => d[panel.field] != null),
-      v => {
-        const values = v.map(d => d[panel.field]).sort(d3.ascending);
-        return { n: values.length, q25: d3.quantileSorted(values, 0.25), median: d3.quantileSorted(values, 0.5), q75: d3.quantileSorted(values, 0.75) };
-      },
+      v => ({ n: v.length, median: d3.median(v, d => d[panel.field]) }),
       d => d.water_year
     ).map(([year, s]) => ({ year, ...s }))
       .filter(d => d.n >= 10)
@@ -444,15 +441,6 @@
       yAxis.select(".domain").remove();
       yAxis.selectAll(".tick text").classed("ts-focal-label", d => d === focal);
     }
-
-    // the middle half of sites, and the middle site
-    const summary = summaries.value[panel.key];
-    svg.append("path")
-      .attr("class", "ts-band")
-      .attr("d", d3.area().y(d => y(d.year)).x0(d => x(clampTo(panel, d.q25))).x1(d => x(clampTo(panel, d.q75)))(summary));
-    svg.append("path")
-      .attr("class", "ts-median")
-      .attr("d", d3.line().y(d => y(d.year)).x(d => x(clampTo(panel, d.median)))(summary));
 
     // the selected site's line takes the color of its values along the value axis
     const gradient = svg.append("defs").append("linearGradient")
@@ -805,15 +793,6 @@
   .ts-stack :deep(.ts-focal-label) {
     font-weight: 700;
     fill: var(--color-text);
-  }
-  .ts-stack :deep(.ts-band) {
-    fill: #000;
-    fill-opacity: 0.14;
-  }
-  .ts-stack :deep(.ts-median) {
-    fill: none;
-    stroke: var(--color-text);
-    stroke-width: 2px;
   }
   .ts-stack :deep(.ts-site-line) {
     fill: none;
