@@ -41,7 +41,7 @@
       :height="50"
     >
       <template #chapterTitle>
-        Snowmelt season has already begun
+        Snow in 2026
       </template>
     </SectionTitle>
     <SNTLmap v-if="checkIfSplashIsRendered" />
