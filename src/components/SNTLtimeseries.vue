@@ -70,9 +70,11 @@
               <p class="ts-details__meta">
                 {{ selected.state_name }} &middot; {{ d3.format(",")(selected.elev_ft) }} ft &middot; {{ selectedRows.length }} years since {{ firstYear }}
               </p>
+              <!-- the popup shows these values on screen, but is hidden from
+                   screen readers, so they are read from here -->
               <p
                 v-if="selectedRow"
-                class="ts-details__year"
+                class="ts-details__year sr-only"
               >
                 <strong>{{ selectedYear }}:</strong>
                 {{ peakYearText(selectedRow) }}; {{ meltYearText(selectedRow) }}
@@ -130,13 +132,14 @@
                   :aria-label="panelLabel(panel)"
                 />
                 <div
-                  v-if="hover && hover.panel === panel.key"
+                  v-if="tip && tip.panel === panel.key"
                   class="ts-tip"
                   :style="tipStyle"
                   aria-hidden="true"
                 >
-                  <strong>{{ hover.site.site_name }}</strong>, {{ hover.row.water_year }}<br>
-                  {{ panel.key === 'peak' ? peakYearText(hover.row) : meltYearText(hover.row) }}
+                  <strong>{{ tip.site.site_name }}</strong>, {{ tip.row.water_year }}<br>
+                  {{ peakYearText(tip.row) }}<br>
+                  {{ meltYearText(tip.row) }}
                 </div>
               </div>
             </figure>
@@ -276,6 +279,8 @@
   const selected = ref(null);
   const selectedYear = ref(null);
   const hover = ref(null);
+  // the panel the popup sits in: the one last pointed to or tapped
+  const tipPanel = ref("peak");
   const selectedRows = computed(() => selected.value ? rowsBySite.value.get(selected.value.site_id) ?? [] : []);
   const selectedRow = computed(() => selectedRows.value.find(d => d.water_year === selectedYear.value));
   const groupLabel = computed(() => selected.value
@@ -495,6 +500,7 @@
   function drawAll() {
     if (!loaded.value || !box.value) return;
     layout();
+    layoutVersion.value++;
     panels.forEach((panel, k) => {
       drawDots(panel);
       drawFrame(panel, k);
@@ -520,22 +526,47 @@
     if (event.pointerType !== "mouse") return;
     const hit = nearest(event, panel);
     hover.value = hit ? { ...hit, panel: panel.key } : null;
-    if (hit && (hit.site !== selected.value || hit.row.water_year !== selectedYear.value)) {
-      selectSite(hit.site, hit.row.water_year);
+    if (hit) {
+      tipPanel.value = panel.key;
+      if (hit.site !== selected.value || hit.row.water_year !== selectedYear.value) {
+        selectSite(hit.site, hit.row.water_year);
+      }
     }
   }
   function onClick(event, panel) {
     const hit = nearest(event, panel);
-    if (hit) selectSite(hit.site, hit.row.water_year);
+    if (!hit) return;
+    tipPanel.value = panel.key;
+    selectSite(hit.site, hit.row.water_year);
   }
-  const tipStyle = computed(() => {
-    if (!hover.value) return {};
-    const width = sizes[hover.value.panel].width;
-    const left = hover.value.x > width / 2;
+
+  // The popup sits on the selected site's selected year, however it was
+  // chosen (pointing, tapping, the arrow keys, or the list), in the panel last
+  // used, or the other panel if that one has no value for the year
+  const layoutVersion = ref(0);
+  const tip = computed(() => {
+    layoutVersion.value; // position again after the charts are laid out
+    const row = selectedRow.value;
+    if (!row || !height) return null;
+    const order = tipPanel.value === "melt" ? [panels[1], panels[0]] : panels;
+    const panel = order.find(p => row[p.field] != null);
+    if (!panel) return null;
     return {
-      top: `${hover.value.y}px`,
-      left: left ? "auto" : `${hover.value.x + 12}px`,
-      right: left ? `${width - hover.value.x + 12}px` : "auto"
+      panel: panel.key,
+      row,
+      site: selected.value,
+      x: xScales[panel.key](clampTo(panel, row[panel.field])),
+      y: y(row.water_year + jitter(selected.value.site_id))
+    };
+  });
+  const tipStyle = computed(() => {
+    if (!tip.value) return {};
+    const width = sizes[tip.value.panel].width;
+    const left = tip.value.x > width / 2;
+    return {
+      top: `${tip.value.y}px`,
+      left: left ? "auto" : `${tip.value.x + 12}px`,
+      right: left ? `${width - tip.value.x + 12}px` : "auto"
     };
   });
   watch(hover, h => {
@@ -645,9 +676,9 @@
     border-radius: 4px;
     cursor: pointer;
   }
-  // hold two lines so the charts don't move as sites are selected
+  // hold a line so the charts don't move as sites are selected
   .ts-details {
-    min-height: 5.4rem;
+    min-height: 2.4rem;
     margin: 0.5rem 0 0.75rem;
     font-size: 1.6rem;
     line-height: 1.5;
@@ -662,6 +693,17 @@
   }
   .ts-details__prompt {
     font-style: italic;
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
   .ts-panels {
     display: grid;
