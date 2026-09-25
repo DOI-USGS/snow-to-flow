@@ -96,6 +96,7 @@
             role="group"
             :aria-label="groupLabel"
             @keydown="onKey"
+            @pointerleave="onLeaveCharts"
           >
             <figure
               v-for="panel in panels"
@@ -281,20 +282,28 @@
   const hover = ref(null);
   // the panel the popup sits in: the one last pointed to or tapped
   const tipPanel = ref("peak");
+  // whether the mouse made the current selection, which then clears when the
+  // mouse leaves the charts; a site chosen any other way stays selected
+  let selectedByMouse = false;
   const selectedRows = computed(() => selected.value ? rowsBySite.value.get(selected.value.site_id) ?? [] : []);
   const selectedRow = computed(() => selectedRows.value.find(d => d.water_year === selectedYear.value));
   const groupLabel = computed(() => selected.value
     ? `Charts following ${selected.value.site_name}. Use the up and down arrow keys to step through its years, and Escape to clear.`
     : "Peak SWE and melt date charts. Choose a site from the list above to follow it through time.");
 
-  function selectSite(site, year) {
+  function selectSite(site, year, byMouse = false) {
+    selectedByMouse = byMouse;
     selected.value = site;
     const years = (rowsBySite.value.get(site.site_id) ?? []).map(d => d.water_year);
     selectedYear.value = years.includes(year) ? year : d3.max(years);
   }
   function clearSelection() {
+    selectedByMouse = false;
     selected.value = null;
     selectedYear.value = null;
+  }
+  function onLeaveCharts(event) {
+    if (event.pointerType === "mouse" && selectedByMouse) clearSelection();
   }
   function onSitePicked(event) {
     const site = sites.value.find(d => d.sntl_id === event.target.value);
@@ -315,6 +324,7 @@
       End: years.length - 1
     }[event.key];
     selectedYear.value = years[next];
+    selectedByMouse = false;
   }
 
   // Drawing: years run down the page, newest at the top, and each measure
@@ -529,7 +539,7 @@
     if (hit) {
       tipPanel.value = panel.key;
       if (hit.site !== selected.value || hit.row.water_year !== selectedYear.value) {
-        selectSite(hit.site, hit.row.water_year);
+        selectSite(hit.site, hit.row.water_year, true);
       }
     }
   }
@@ -679,6 +689,10 @@
   // hold a line so the charts don't move as sites are selected
   .ts-details {
     min-height: 2.4rem;
+    // the prompt wraps to two lines on phones
+    @media screen and (max-width: 600px) {
+      min-height: 4.8rem;
+    }
     margin: 0.5rem 0 0.75rem;
     font-size: 1.6rem;
     line-height: 1.5;
