@@ -1,4 +1,5 @@
 library(targets)
+library(tarchetypes)
 
 options(tidyverse.quiet = TRUE)
 

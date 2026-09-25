@@ -9,14 +9,17 @@ write_web_csv <- function(data, file_out) {
 #' Site table for the map: one row per site
 #'
 #' @param sites data frame from `build_site_table()`
-format_sites <- function(sites) {
+#' @param site_xy data frame of site_id, panel, x, y from `site_panel_xy()`
+format_sites <- function(sites, site_xy) {
   sites |>
+    left_join(site_xy, by = "site_id") |>
     transmute(
       site_id,
       sntl_id = paste0("sntl_", site_id),
       state, site_name, elev_ft,
       latitude = round(latitude, 5),
       longitude = round(longitude, 5),
+      panel, x, y,
       swe,
       ptile_swe = round(ptile_swe, 4),
       wy_n,
