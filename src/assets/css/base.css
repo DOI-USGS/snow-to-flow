@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap');
+
+/* semantic color variables for this project */
+/* Define colors */
+:root {
+  --white: #ffffff;
+  --white-soft: #F0F0F0;
+
+  --black-soft: #151515;
+  --dodger-blue: #1e90ff;
+  --usgs-blue: #00264c;
+
+  /* From Snow to Flow palette */
+  --near-black: #1a1b1c;
+  --dark-grey: #212122;
+  --light-grey: #c2c4c5;
+  --frosty-green: #90d3b5; /* good contrast against black */
+  --deep-green: #235845;   /* good contrast against white */
+  --frosty-purple: #C9ADE6;
+  --deep-purple: #301546;  /* good contrast against black */
+  --sky-blue: rgb(12, 117, 221);
+  --deep-blue: #00478F;
+  --medium-grey-dark: #5c5c5c;
+
+  font-size: 62.5%;
+
+  /* Display face used for the site title and section headings. This is the
+     font the site used originally (see commits bdf3a10 / 290b576, Feb 2021). */
+  --title-font: 'Amatic SC';
+  --serif-font: 'Noto Serif';
+  --default-font: 'Source Sans Pro';
+}
+
+/* Declare color variables */
+:root {
+  --color-background: var(--white);
+  --color-text: var(--near-black);
+  --color-title-text: var(--deep-green);
+  --color-overlay: var(--near-black);
+  --color-overlay-text: var(--white-soft);
+  --color-code-links-background: var(--light-grey);
+  --color-link: var(--sky-blue);
+  --color-USGS-header-footer: var(--usgs-blue);
+  --color-prefooter-highlight: var(--deep-green);
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: var(--black-soft);
+    --color-text: var(--white-soft);
+  }
+} */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  /* font-weight: normal; */
+}
+
+body {
+  min-height: 100vh;
+  color: var(--color-text);
+  fill: var(--color-text); /* Needed for text added w/ d3 */
+  background: var(--color-background);
+  transition:
+    color 0.5s,
+    background-color 0.5s;
+  line-height: 1.2;
+  font-family: sans-serif; /* This is fallback font for old browsers */
+  font-family: var(--default-font);
+  font-size: 2rem;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
+}
+h1 {
+  font-size: 4.5rem;
+  font-weight: 700;
+  padding: 0rem 0 1rem 0;
+}
+h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  padding: 3rem 0 1rem 0;
+}
+p, text, li {
+  margin: 0 0 1rem 0;
+}

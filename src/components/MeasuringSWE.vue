@@ -5,14 +5,16 @@
     :take-away="false"
   >
     <template #aboveExplanation>
-      <p>Using high-quality manual and station observations of snowpack and streamflow, USGS scientists are conducting research on trends in snowfall, snow cover, snow versus rain<sup>10</sup>, snow water equivalent, snowmelt runoff<sup>11</sup>, snowmelt timing<sup>12</sup> and snow chemistry in the U.S. USGS scientists are also evaluating the influence of changing climate on hydrological processes and runoff in snowmelt dominated basins<sup>13</sup>.</p>
+      <p>Using high-quality manual and station observations of snowpack and streamflow, USGS scientists are conducting research on trends in snowfall, snow cover, snow versus rain<sup class="citation"><a href="#ref-10">10</a></sup>, snow water equivalent, snowmelt runoff<sup class="citation"><a href="#ref-11">11</a></sup>, snowmelt timing<sup class="citation"><a href="#ref-12">12</a></sup> and snow chemistry in the U.S. USGS scientists are also evaluating the influence of changing climate on hydrological processes and runoff in snowmelt dominated basins<sup class="citation"><a href="#ref-13">13</a></sup>.</p>
     </template>
     <!-- FIGURES -->
     <template #figures>
       <div class="group single maxWidth">
-        <figure id="swe-chart-container">
-          <!-- <img src="@/assets/diagrams/SWE-sketch.png"> -->
-          <ImgCarousel />
+        <figure id="swe-photos-container">
+          <CarouselGallery
+            :items="methodsPhotos"
+            layout="centered"
+          />
         </figure>
       </div>
     </template>
@@ -26,10 +28,10 @@
     <template #belowExplanation>
       <p>
         The <a
-          href="https://www.nrcs.usda.gov/wps/portal/nrcs/site/national/home/"
+          href="https://www.nrcs.usda.gov/"
           target="_blank"
         >Natural Resources Conservation Service (NRCS)</a> operates a snow monitoring program that includes over 800 automated <a
-          href="https://www.wcc.nrcs.usda.gov/snow/"
+          href="https://www.nrcs.usda.gov/programs-initiatives/sswsf-snow-survey-and-water-supply-forecasting-program"
           target="_blank"
         >Snow Telemetry (SNOTEL)</a> data collection sites that monitor SWE, snow depth, precipitation, temperature, and other related meteorological variables.
       </p>
@@ -43,34 +45,14 @@
   </VizSection>
 </template>
 
-<script>
-import VizSection from '@/components/VizSection';
-import ImgCarousel from '@/components/ImgCarousel';
-import * as d3 from 'd3';
-
-export default {
-    name: "MeasuringSWE",
-    components:{
-        VizSection,
-        ImgCarousel
-    },
-    data() {
-      return {
-         publicPath: process.env.BASE_URL,
-        //  message: "hey"
-      }      
-    },
-    mounted() {
-      
-    },
-    methods: {
-      
-    }
-}
+<script setup>
+  import VizSection from '@/components/VizSection.vue';
+  import CarouselGallery from '@/components/CarouselGallery.vue';
+  import methodsPhotos from '@/assets/text/methodsPhotos.js';
 </script>
 
 <style lang="scss" scoped>
-  #swe-chart-container {
+  #swe-photos-container {
     width: 100%;
     height: auto;
   }

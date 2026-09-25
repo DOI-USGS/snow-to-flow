@@ -1,0 +1,209 @@
+@import './base.css';
+@import './common.css'; /* USGS Viz ID Stylesheet */
+@import './custom.css'; /* USGS Viz ID Stylesheet */
+
+/* whole page except header fit within viewport - no scrolling */
+#app {
+  /* height: calc(100vh + 87px); 87 is the height of the USGS header */
+  margin: 0 auto;
+}
+
+/* css styles specific to page content exclusive of header and footer*/
+/* NOT component-specific */
+.title {
+  font-family: sans-serif; /* This is fallback font for old browsers */
+  font-family: var(--title-font);
+  color: var(--color-title-text);
+}
+/* emphasized words in the body copy */
+.emph {
+  font-weight: bold;
+}
+/* set color of links throughout */
+a {
+  color: var(--color-link);
+}
+/* sets width of text column throughout components */
+.text-container {
+  max-width: 70rem;
+  margin: 0 auto 0 auto;
+}
+.text-container.mobile {
+  max-width: 90vw; /* 90% of view width on mobile */
+}
+/* sets max-width of figure elements throughout components */
+.figure-container {
+  max-width: 80vw;
+  margin: 0 auto 0 auto;
+}
+
+/* ##### VizSection layout #####
+   Structure classes from VizSection.vue, plus layout helpers applied to
+   the content slotted into it. */
+.vizSectionContent {
+  flex: 1;
+}
+.takeAway {
+  margin: 0 auto 20px auto;
+  max-width: 700px;
+  font-weight: 800;
+}
+.takeAway h2 {
+  font-size: 1.4em;
+}
+.figures > * {
+  margin-bottom: 20px;
+}
+.figures img {
+  width: 100%;
+}
+.figureCaption {
+  display: flex;
+  justify-content: center;
+  font-size: .85em;
+  line-height: 1.5em;
+  font-style: italic;
+}
+.explanation {
+  font-size: 1em;
+  line-height: 1.75em;
+}
+.explanation p {
+  padding: 0 0 10px 0;
+}
+.explanation ul {
+  margin-left: 40px;
+  margin-bottom: 20px;
+}
+.takeAway,
+.figureCaption,
+.explanation {
+  padding: 0 10px;
+}
+.figureCaption,
+.explanation {
+  max-width: 700px;
+  margin: 0 auto 20px auto;
+}
+.maxWidth {
+  max-width: 1500px;
+  margin: 0 auto 15px auto;
+}
+.maxWidth p {
+  max-width: 700px;
+  margin: 0 auto;
+}
+.single {
+  text-align: center;
+}
+.group {
+  /* prevent too large mobile graphs from creating a x scroll */
+  overflow: hidden;
+  align-items: center;
+}
+.group figure {
+  margin-bottom: 20px;
+}
+@media screen and (min-width: 1024px) {
+  .takeAway h2 {
+    font-size: 1.7em;
+  }
+  .group {
+    display: grid;
+    gap: 15px;
+  }
+}
+
+/* ##### Chart toggle buttons #####
+   The SWE / streamflow / year toggles in LineChart.vue and SWEanim.vue.
+   Each input is hidden and its label styled as the button. */
+.compare {
+  display: inline-block;
+  width: 80vw;
+  max-width: 600px;
+  font-size: 18px;
+  text-align: center;
+  padding: 15px 10px;
+  margin: auto;
+  position: relative;
+}
+.compare h4 {
+  margin-bottom: 15px;
+}
+.butt {
+  padding: 5px 10px;
+  margin: 5px 5px;
+  cursor: pointer;
+  display: inline-block;
+}
+/* visually hidden but still focusable, so the toggles work from the keyboard */
+.compare input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.compare input:focus-visible + label {
+  outline: 3px solid var(--color-text);
+  outline-offset: 2px;
+}
+.compare input + label {
+  background-color: rgb(221, 221, 221);
+  /* same width as the checked border, so buttons don't resize on toggle */
+  border: 7px solid rgb(221, 221, 221);
+  color: black;
+  font-weight: 700;
+  transition: background-color .1s, border .1s;
+}
+/* keep units like mm/day from stretching the button's line height */
+.compare label sup,
+.compare label sub {
+  line-height: 0;
+}
+.compare input:checked + label {
+  border: 7px solid var(--dodger-blue);
+  background-color: var(--dodger-blue);
+  color: white;
+}
+/* the SWE toggle is grey, matching the SWE series */
+.compare input[name="checkboxgroup2"]:checked + label {
+  border-color: grey;
+  background-color: grey;
+}
+@media screen and (min-width: 650px) {
+  .compare {
+    width: 100%;
+    max-width: 600px;
+    padding: 5px 5px;
+  }
+  .compare .btn-group {
+    display: flex;
+    align-items: center;
+  }
+  .compare .btn-group h4 {
+    flex: 1;
+    margin-bottom: 0;
+  }
+  .compare .inputsContainer {
+    flex: 2;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .compare .inputs {
+    position: absolute;
+    left: 10px;
+  }
+  .compare .inputs .butt {
+    margin-right: 10px;
+  }
+  .compare .inputs .butt:last-child {
+    margin-right: 0;
+  }
+}

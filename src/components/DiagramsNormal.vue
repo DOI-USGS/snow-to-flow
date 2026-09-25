@@ -10,7 +10,7 @@
     </template>
     <!-- FIGURES -->
     <template #figures>
-      <DiagramCarouselNormal />
+      <CarouselGallery :items="diagrams.typical" />
     </template>
     <!-- FIGURE CAPTION -->
     <template #figureCaption>
@@ -20,20 +20,9 @@
     </template>
   </VizSection>
 </template>
-<script>
-import VizSection from '@/components/VizSection';
-// import Sidebar from '@/components/Sidebar';
-import DiagramCarouselNormal from '@/components/DiagramCarouselNormal';
-export default {
-    name: "DiagramsNormal",
-    components:{
-        VizSection,
-        // Sidebar,
-        DiagramCarouselNormal
-    }
-}
+
+<script setup>
+  import VizSection from '@/components/VizSection.vue';
+  import CarouselGallery from '@/components/CarouselGallery.vue';
+  import diagrams from '@/assets/text/diagrams.js';
 </script>
-<style lang="scss" scoped>
-
-
-</style>

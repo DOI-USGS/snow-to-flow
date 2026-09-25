@@ -1,25 +1,18 @@
 Contributing
 ============
 
-Issues
-======
-Questions and Bugs can be submitted on the GitHub [issues page][1]. Before creating 
-a new issue, please take a moment to search open and closed issues
+Contributions are welcome from the community. Questions can be asked on the
+[issues page][1]. Before creating a new issue, please take a moment to search
 and make sure a similar issue does not already exist. If one does exist, you
-can comment on the existing issue to show your support for that issue.
+can comment (most simply even with just a `:+1:`) to show your support for that
+issue.
 
-Git Conventions
-===============
-Prior to contributing you will need to create a GitHub fork of the project that
-you will be pushing your changes from.
-
-Create a new branch in your fork with a name that describes the feature or bug
-you'll be addressing.
-
-Create a GitHub pull request early in the process so that the project maintainers
-will be aware of your effort and able to coordinate your changes with current
-development.
+If you have direct contributions you would like considered for incorporation
+into the project you can [fork this repository][2] and
+[submit a pull request][3] for review.
 
 
-For additional information, please see the [USGS software development best
-practices guide](https://github.com/usgs/best-practices) and the [USGS Code of Scientific Conduct](https://www.usgs.gov/about/organization/science-support/science-quality-and-integrity/fundamental-science-practices). 
+
+[1]: https://github.com/DOI-USGS/vizlab-{project_name}/issues
+[2]: https://help.github.com/articles/fork-a-repo/
+[3]: https://help.github.com/articles/about-pull-requests/

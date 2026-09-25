@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- VIZLAB GTM CODE -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V443MQ3V1S"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-V443MQ3V1S');
+    </script>
+    <!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico">
+    <!-- USDWS-init js -->
+    <script type="module" src="/node_modules/@uswds/uswds/dist/js/uswds-init.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- On beta, add robots tag to stop indexing. An empty string for VITE_APP_TIER means the 'prod' version of the application -->
+    <% if(VITE_APP_TIER !== ''){ %>
+      <meta name="robots" content="noindex,nofollow">
+    <% } %>
+    <title>%VITE_APP_LONG_TITLE%</title>
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="%VITE_APP_LONG_TITLE%">
+    <meta name="description" content="%VITE_APP_DESCRIPTION%">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://water.usgs.gov/vizlab/%VITE_APP_TITLE%">
+    <meta property="og:title" content="%VITE_APP_LONG_TITLE%">
+    <meta property="og:description" content="%VITE_APP_DESCRIPTION%">
+    <meta property="og:image" content="%VITE_APP_S3_PROD_URL%thumbnails/%VITE_APP_TITLE%_metacard.png">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://water.usgs.gov/vizlab/%VITE_APP_TITLE%">
+    <meta property="twitter:title" content="%VITE_APP_LONG_TITLE%">
+    <meta property="twitter:description" content="%VITE_APP_DESCRIPTION%">
+    <meta property="twitter:image" content="%VITE_APP_S3_PROD_URL%thumbnails/%VITE_APP_TITLE%_metacard.png">
+    <script type='application/ld+json'>
+      { "@context": "http://www.schema.org",
+        "@type": "WebSite", "name": "%VITE_APP_LONG_TITLE%",
+        "url": "https://water.usgs.gov/vizlab/%VITE_APP_TITLE%",
+        "about": "%VITE_APP_DESCRIPTION%",
+        "datePublished": "2021-04-27",
+        "dateModified": "2026-09-23",
+        "contributor": [
+          { "@type": "Person",
+            "name": "Cee Nell",
+            "email": "cnell@usgs.gov",
+            "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
+          },
+          { "@type": "Person",
+            "name": "Martin Wernimont",
+            "email": "mwernimont@usgs.gov",
+            "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
+          },
+          { "@type": "Person",
+            "name": "Hayley Corson-Dosch",
+            "email": "hcorson-dosch@usgs.gov",
+            "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
+          },
+          { "@type": "Person",
+            "name": "John Hammond",
+            "email": "jhammond@usgs.gov",
+            "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
+          },
+          { "@type": "Person",
+            "name": "Lindsay Platt",
+            "email": "lplatt@usgs.gov",
+            "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
+          },
+          { "@type": "Person",
+            "name": "Jessica Driscoll",
+            "email": "jdriscoll@usgs.gov",
+            "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
+          }
+        ],
+        "audience": { "@type": "Audience", "audienceType": "General public" },
+        "publisher": { "@type": "Organization", "legalName": "U.S. Geological Survey" },
+        "keywords": "water, data viz, data visualization, snow, snowpack, snow water equivalent, SWE, snowmelt, streamflow, SNOTEL, western United States"
+      }
+    </script>
+    <!-- We participate in the US government's analytics program. See the data at analytics.usa.gov. -->
+    <script async type="text/javascript" src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=USGS" id="_fed_an_ua_tag"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+    <!-- USDWS js -->
+    <script type="module" src="/node_modules/@uswds/uswds/dist/js/uswds.js"></script>
+  </body>
+</html>

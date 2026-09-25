@@ -12,7 +12,7 @@
           href="https://wcc.sc.egov.usda.gov/nwcc/site?sitenum=1031"
           target="_blank"
         >Never Summer SNOTEL Site 1031</a> near Rocky Mountain National Park in Colorado show a significant difference in snowpack from the winter of 2011 to 2012, and discharge measurements downstream at the <a
-          href="https://waterdata.usgs.gov/monitoring-location/06614800/#parameterCode=00065"
+          href="https://waterdata.usgs.gov/monitoring-location/USGS-06614800/"
           target="_blank"
         >USGS streamgage 06614800</a> on the Michigan River near Cameron Pass show the impact. The winter of 2011 experienced a large snowpack and subsequent spring melt. However, 2012 was a very low snow year, with some early intermittent melting and small spring melt.
       </p>
@@ -32,13 +32,13 @@
           href="https://wcc.sc.egov.usda.gov/nwcc/site?sitenum=1031"
           target="_blank"
         >Never Summer SNOTEL Site 1031</a> and discharge measurements are from <a
-          href="https://waterdata.usgs.gov/monitoring-location/06614800/#parameterCode=00065"
+          href="https://waterdata.usgs.gov/monitoring-location/USGS-06614800/"
           target="_blank"
         >USGS streamgage 06614800</a> on the Michigan River near Cameron Pass, CO.
       </p>
     </template>
     <template #belowExplanation>
-      <Sidebar>
+      <ExpandingSidebar>
         <template #sidebarTitle>
           What is a "water year"?
         </template>
@@ -46,36 +46,15 @@
           <p>A water year is the 12-month period from October 1st to September 30th of the following year. Water Year 2021 (WY2021) began on October 1st, 2020 and will end on September 30th, 2021.</p>
           <p>Hydrologists use the concept of a water year because hydrologic activity in the fall and winter sets the stage for the streamflow in the following spring and summer.</p>
         </template>
-      </Sidebar>
+      </ExpandingSidebar>
     </template>
   </VizSection>
 </template>
 
-<script>
-import VizSection from '@/components/VizSection';
-import LineChart from '@/components/LineChart';
-import Sidebar from '@/components/Sidebar';
-import * as d3 from 'd3';
-
-export default {
-    name: "SWE",
-    components:{
-        VizSection,
-        LineChart,
-        Sidebar
-    },
-    data() {
-      return {
-         publicPath: process.env.BASE_URL,
-      }      
-    },
-    mounted() {
-      
-    },
-    methods: {
-      
-    }
-}
+<script setup>
+  import VizSection from '@/components/VizSection.vue';
+  import LineChart from '@/components/LineChart.vue';
+  import ExpandingSidebar from '@/components/ExpandingSidebar.vue';
 </script>
 
 <style lang="scss" scoped>

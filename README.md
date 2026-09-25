@@ -1,75 +1,33 @@
-# From Snow to Flow Visualization
+# From Snow to Flow
 
-![A screencapture of the Snow to Flow header, which shows an abstract collage of snowy mountains and a frozen lake under a series of snow and discharge line charts.](https://github.com/USGS-VIZLAB/snow-to-flow/blob/main/public/SnowToFlowCover.jpg)
+**The data visualization website can be viewed at [https://water.usgs.gov/vizlab/snow-to-flow](https://water.usgs.gov/vizlab/snow-to-flow).**
 
-See the page live: https://labs.waterdata.usgs.gov/visualizations/snow-to-flow/index.html#/
+A majority of the water in the western U.S. comes from snowmelt. This site explores the fundamentals of USGS snow hydrology research: the dynamics that determine how snow turns into flow, and the connection between snowpack (measured as snow water equivalent, SWE) and streamflow.
 
-A majority of the water in the Western United States comes from snowmelt. Winter snow accumulation, as well as spring snowmelt, affect streamflow and water availability for the rest of the year. Changes in the timing, magnitude, and duration of snowmelt may substantially alter downstream water availability. In fact, approximately 2 billion people are expected to experience diminished water supplies because of seasonal snowpack decline this century.
+## To build pipeline and reproduce figures
+The data shown on the site are fetched and processed by an R pipeline built with the `targets` package, in the `data_processing_pipeline` subdirectory.
 
-This data visualization explores the fundamentals of USGS snow hydrology research. The graphics describe important dynamics that determine how snow turns into flow, and the charts show the connection between snowpack (measured as snow water equivalent) and streamflow (measured as discharge). An R-based data pipeline using the `targets` package is used to fetch and process data that are displayed in the website. These files are contained in the `data_processing_pipeline` subdirectory.
-
-All charts, data, and diagrams are free and open to the public. Take screencaptures of what you need, or browse through some extra images at: https://github.com/USGS-VIZLAB/snow-to-flow/tree/main/public/public_images
-
-## The Code
-
-The project is Open Source and uses the Vue JavaScript framework in conjunction with animated Scalable Vector Graphics (SVG) and raster graphics. The build process uses the Jenkins task runner.
-
-## Project Setup
-
-First, clone the project to your local system and `cd` to the cloned directory.
-
-To run the data processing pipeline:
-- Within the `data_processing_pipeline` subdirectory, open the `data_processing_pipeline.Rproj` in R
-- Install the `targets` package for R `install.packages('targets')` and load it `library(targets)`
-- In the console run `tar_make()` to start the pipeline
-- To update the data to a new date, modify `p1_today` on the `1_fetch/src/1_fetch.R` script
-
-To build the website locally:
-- Download the Node Package Manager(NPM) dependencies by running `npm install` in your terminal window
-- Start the project by running `npm run serve` -- the address of the project will show on completion usually `localhost:8080`
-- Start your browser, enter the address found above
-
-
-### Notes on Setup
-
-- You will need 'node.js' installed on your system
-- If you run into trouble starting the project, it is usually fixed by running `npm rebuild node-sass`
-
-To fix that, do the following:
-
-- Open the 'package.json' at the root of the project
-- Go to the 'scripts' name value pair
-- Go to the 'serve' name value pair
-- Delete `NODE_ENV=development` from that value
-- That value should now look like `"serve": "vue-cli-service serve --mode test_tier",`
-- Run `npm run serve` again, and the project should start
-  On Windows -
-  You might get this error when running `npm run serve`
-
-`'vue-cli-service' is not recognized as an internal or external command, operable program or batch file.`
-
-- To fix, run `npm install @vue/cli-service -g` to install the Vue CLI-Service globally.
+Clone the repo. In RStudio, open `data_processing_pipeline/data_processing_pipeline.Rproj`, then run `library(targets)` and `tar_make()`. To update the data to a new date, set `p1_today`, which `1_fetch.R` uses to filter recent sites.
 
 ## Data processing
+Daily SWE values are pulled from all USDA NRCS snow telemetry (SNOTEL) sites since 1981 (`1_fetch/src/fetch_SNOTEL.R`). These are used to calculate peak SWE and SM50 at every site with at least 20 years in the historic record, 1981-2011 (`2_process/src/prep_SNOTEL.R`), and to find each site's April 1st SWE percentile. Hover curves and trendlines for the map are pre-computed in `6_visualize/src/trend_coords.R`, and the map itself in `6_visualize/src/make_map.R`. The resulting `SNOTEL_*.csv` files are in [`public/data`](https://github.com/DOI-USGS/snow-to-flow/tree/main/public/data).
 
-The data processing steps behind the charts and maps on the Snow-to-flow page are documented in the `data_processing_pipeline` subdirectory of this repo. Briefly, daily snow water equivalent values were pulled from all USDA NRCS snow telemetry sites since 1981 in `1_fetch/src/fetch_SNOTEL.R`. This data was used to calculate peak SWE and SM50 at all sites with a minimum of 20 years of data in the historic record (1981-2011) in `2_process/src/prep_SNOTEL.R`. In addition, April 1st SWE was accessed through time for each site and used to find the percentile in WY2021. These metrics were used to draw mouseover SWE curves and trendlines, that were pre-defined in R `6_visualize/src/trend_coords.R`. The trendline charts are displayed with an svg map of the Western U.S., that was also first pre-processed in R `6_visualize/src/make_map.R` and brought to life using D3.js and Vue.js. The final data files used to draw these charts are labelled `SNOTEL_...csv` here:https://github.com/USGS-VIZLAB/snow-to-flow/tree/main/public/data
+The SWE and streamflow ridgelines use daily gridded SWE at 4-km resolution from the National Snow & Ice Data Center for the 2011 and 2012 water years, and streamflow from the USGS National Water Information System. Their data are `mmd_df_2011.csv`, `mmd_df_2012.csv`, `swe_df_2011.csv`, and `swe_df_2012.csv` in [`public/data`](https://github.com/DOI-USGS/snow-to-flow/tree/main/public/data).
 
-The SWE and streamflow ridgelines are drawn using daily gridded SWE values at 4-km resolution were obtained for the 2011 and 2012 water years at each location from the National Snow & Ice Data Center. Streamflow was obtained from the USGS National Water Information System. The data generating these charts is available here: https://github.com/USGS-VIZLAB/snow-to-flow/tree/main/public/data (`mmd_df_2011.csv`, `mmd_df_2012.csv`, `swe_df_2011.csv`, `swe_df_2012.csv`).
+## Building the website locally
 
-## Disclaimer
+Clone the repo. In the directory, run `npm install` to install the required modules. Once the dependencies have been installed, run `npm run dev` to run locally from your browser.
 
-This software is preliminary or provisional and is subject to revision. It is
-being provided to meet the need for timely best science. The software has not
-received final approval by the U.S. Geological Survey (USGS). No warranty,
-expressed or implied, is made by the USGS or the U.S. Government as to the
-functionality of the software and related material nor shall the fact of release
-constitute any such warranty. The software is provided on the condition that
-neither the USGS nor the U.S. Government shall be held liable for any damages
-resulting from the authorized or unauthorized use of the software.
+To build the website locally you'll need `node.js` `v22.14.0` and `npm` `v10.9.2` or higher installed. To manage multiple versions of `npm`, you may [try using `nvm`](https://betterprogramming.pub/how-to-change-node-js-version-between-projects-using-nvm-3ad2416bda7e).
 
-This software is provided "AS IS."
+## Citation
 
+Nell, C., Wernimont, M., Corson-Dosch, H., and Platt, L. From Snow to Flow. U.S. Geological Survey website. Reston, VA. [https://water.usgs.gov/vizlab/snow-to-flow](https://water.usgs.gov/vizlab/snow-to-flow)
 
-[
-  ![CC0](http://i.creativecommons.org/p/zero/1.0/88x31.png)
-](http://creativecommons.org/publicdomain/zero/1.0/)
+## Consulting subject matter experts
+John Hammond and Jessica Driscoll consulted on the development of this website as subject matter experts.
+
+## Additional information
+* We welcome contributions from the community. See the [guidelines for contributing](https://github.com/DOI-USGS/snow-to-flow/) to this repository on GitHub.
+* [Disclaimer](https://github.com/DOI-USGS/snow-to-flow/blob/main/DISCLAIMER.md)
+* [License](https://github.com/DOI-USGS/snow-to-flow/blob/main/LICENSE.md)
