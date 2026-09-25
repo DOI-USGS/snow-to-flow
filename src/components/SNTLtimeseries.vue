@@ -6,10 +6,6 @@
   >
     <!-- EXPLANATION -->
     <template #aboveExplanation>
-      <!-- PLACEHOLDER text, to be replaced -->
-      <p>
-        When snow peaks and how much of it there is shape how much water is available downstream, and when. A smaller snowpack holds less water for the dry months, and an early melt sends that water downstream sooner, when demand is lower and reservoirs may not be able to store it all. Streams can then run lower in late summer and fall, when water is needed for farms, cities, and ecosystems. Changes in the timing and magnitude of snowmelt from year to year, and over decades, affect how water is managed across the West.
-      </p>
       <p>
         How does {{ info.water_year }} compare with other years? Select a dot, or choose a site from the list, to follow one site through time.
       </p>
