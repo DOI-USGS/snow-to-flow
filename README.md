@@ -5,14 +5,18 @@
 A majority of the water in the western U.S. comes from snowmelt. This site explores the fundamentals of USGS snow hydrology research: the dynamics that determine how snow turns into flow, and the connection between snowpack (measured as snow water equivalent, SWE) and streamflow.
 
 ## To build pipeline and reproduce figures
-The data shown on the site are fetched and processed by an R pipeline built with the `targets` package, in the `data_processing_pipeline` subdirectory.
+The SNOTEL data shown on the site are fetched and processed by an R pipeline built with the `targets` package. Clone the repo. In R, from the repo root, run `library(targets)` and `tar_make()`. The first run downloads the full SNOTEL record, which takes about ten minutes.
 
-Clone the repo. In RStudio, open `data_processing_pipeline/data_processing_pipeline.Rproj`, then run `library(targets)` and `tar_make()`. To update the data to a new date, set `p1_today`, which `1_fetch.R` uses to filter recent sites.
+The pipeline settings are in `0_config.R`: the water year shown on the site, the date its SWE percentile is calculated for, the last day of data, the baseline years, and the thresholds for which sites get percentiles and charts. To update the site for a new year, change these settings and `p0_fetch_date`, then run `tar_make()` again.
 
 ## Data processing
-Daily SWE values are pulled from all USDA NRCS snow telemetry (SNOTEL) sites since 1981 (`1_fetch/src/fetch_SNOTEL.R`). These are used to calculate peak SWE and SM50 at every site with at least 20 years in the historic record, 1981-2011 (`2_process/src/prep_SNOTEL.R`), and to find each site's April 1st SWE percentile. Hover curves and trendlines for the map are pre-computed in `6_visualize/src/trend_coords.R`, and the map itself in `6_visualize/src/make_map.R`. The resulting `SNOTEL_*.csv` files are in [`public/data`](https://github.com/DOI-USGS/snow-to-flow/tree/main/public/data).
+- `1_fetch`: SNOTEL station metadata and daily SWE (start-of-day values) come from the [NRCS Air and Water Database REST API](https://wcc.sc.egov.usda.gov/awdbRestApi/), and state boundaries from the U.S. Census Bureau.
+- `2_process`: for every site and water year since 1981, peak SWE and its date, SM50 (the first day on or after the peak when SWE has fallen to half of it), and April 1st SWE. Each site's SWE on the percentile date is ranked against the same day in the baseline years (1981-2010), for sites with at least 20 baseline years.
+- `3_visualize`: builds the map layers the site stacks in the browser, for CONUS and Alaska: a hillshade from [AWS Terrain Tiles](https://registry.opendata.aws/terrain-tiles/) (via `elevatr`) and state and outline SVGs (via [mapshaper](https://github.com/mbloch/mapshaper)), in `src/assets/maps`. It also writes the data the site reads to [`public/data`](https://github.com/DOI-USGS/snow-to-flow/tree/main/public/data): `snotel_sites.csv` (with each site's position on the map layers), `snotel_annual.csv`, `snotel_swe_daily.csv`, `snotel_run_info.csv`, and `snotel_map_panels.csv`, plus `snotel_states.geojson`. The mapshaper command line tool must be installed.
 
-The SWE and streamflow ridgelines use daily gridded SWE at 4-km resolution from the National Snow & Ice Data Center for the 2011 and 2012 water years, and streamflow from the USGS National Water Information System. Their data are `mmd_df_2011.csv`, `mmd_df_2012.csv`, `swe_df_2011.csv`, and `swe_df_2012.csv` in [`public/data`](https://github.com/DOI-USGS/snow-to-flow/tree/main/public/data).
+The SNOTEL map and charts are drawn from these files. The earlier scripts in `data_processing_pipeline` and the files they made (`SNOTEL_conus_d_test.csv` and `SNOTEL_ak_d_test.csv`) are kept for now so the pipeline's values can be compared with them, and will be removed once the switch is reviewed.
+
+The SWE and streamflow ridgelines use daily gridded SWE at 4-km resolution from the National Snow & Ice Data Center for the 2011 and 2012 water years, and streamflow from the USGS National Water Information System. Their data are `mmd_df_2011.csv`, `mmd_df_2012.csv`, `swe_df_2011.csv`, `swe_df_2012.csv`, and `gage_sp.csv` in [`public/data`](https://github.com/DOI-USGS/snow-to-flow/tree/main/public/data). They cover fixed years and are not yet part of the pipeline.
 
 ## Building the website locally
 

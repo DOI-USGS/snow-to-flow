@@ -29,3 +29,25 @@ coverage
 
 # Unused images, video, and data kept locally only; not part of the site
 unused_assets/
+
+# Targets files
+_targets
+
+# Ignore intermediate pipeline files
+*/in/*
+*/tmp/*
+*/out/*
+
+# Allow the `.empty` files to be committed
+!*/in/.empty
+!*/tmp/.empty
+!*/out/.empty
+
+# R files
+.Rhistory
+.Rapp.history
+.RData
+.Ruserdata
+.Rprofile
+.Rproj.user/
+.Renviron
