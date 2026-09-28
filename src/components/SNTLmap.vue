@@ -7,13 +7,13 @@
     <!-- EXPLANATION -->
     <template #aboveExplanation>
       <p>
-        As springtime temperatures warm and snow begins to melt, the Western U.S. enters an important phase of the water cycle. Looking at this year's snow (WY {{ info.water_year }}) - and how it turns into streamflow - can indicate the potential for water availability in the coming summer and fall.
+        As springtime temperatures warm and snow begins to melt, the Western U.S. enters an important phase of the water cycle. Snow on {{ percentileDayLabel }}, and how it turns into streamflow, indicates the potential for water availability in the summer and fall. In water year {{ info.water_year }}, snowpack at most SNOTEL sites peaked early and melted early.
       </p>
       <p
         v-if="mobileView"
         class="explain figureCaption"
       >
-        Select a site to see this year's SWE and the magnitude (peak SWE <svg
+        Select a site to see its SWE through water year {{ info.water_year }}, and the magnitude (peak SWE <svg
           class="leggy"
           viewBox="0 0 10 10"
           width="10"
@@ -36,13 +36,13 @@
             r="4"
             style="fill: white; stroke: orchid; stroke-width: 1.3px;"
           />
-        </svg>) of snow since {{ info.record_start_wy }}. 
+        </svg>) of snow for every year since {{ info.record_start_wy }}. A symbol is left off if the peak or SM50 had not happened by {{ dataEndLabel }}.
       </p>
       <p
         v-if="!mobileView"
         class="explain figureCaption"
       >
-        Mouseover a site, or choose one from the list, to see this year's SWE and the magnitude (peak SWE <svg
+        Mouseover a site, or choose one from the list, to see its SWE through water year {{ info.water_year }}, and the magnitude (peak SWE <svg
           class="leggy"
           viewBox="0 0 10 10"
           width="10"
@@ -65,7 +65,7 @@
             r="4"
             style="fill: white; stroke: orchid; stroke-width: 1.3px;"
           />
-        </svg> ) of snow since {{ info.record_start_wy }}. Symbols not shown if peak SWE or SM50 have not been met as of {{ dataEndLabel }}.
+        </svg> ) of snow for every year since {{ info.record_start_wy }}. A symbol is left off if the peak or SM50 had not happened by {{ dataEndLabel }}.
       </p>
     </template>
     <!-- FIGURES -->
@@ -76,7 +76,7 @@
           <svg
             id="legend-percentile"
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 300 70" 
+            viewBox="0 0 300 90" 
             preserveAspectRatio="xMinYMin"
             width="100%"
           />
@@ -132,7 +132,7 @@
                   xmlns="http://www.w3.org/2000/svg"
                   :viewBox="viewBox('ak')"
                   role="img"
-                  aria-label="Map of SNOTEL sites in Alaska, colored by April 1st SWE percentile"
+                  :aria-label="`Map of SNOTEL sites in Alaska, colored by ${percentileDayLabel} SWE percentile`"
                 />
               </div>
             </div>
@@ -171,7 +171,7 @@
                   xmlns="http://www.w3.org/2000/svg"
                   :viewBox="viewBox('conus')"
                   role="img"
-                  aria-label="Map of SNOTEL sites in the western U.S., colored by April 1st SWE percentile"
+                  :aria-label="`Map of SNOTEL sites in the western U.S., colored by ${percentileDayLabel} SWE percentile`"
                 />
               </div>
             </div>
@@ -212,10 +212,10 @@
     <!-- FIGURE CAPTION -->
     <template #figureCaption>
       <p id="explain-bottom">
-        The map shows April 1st snow as a percentile of this date in the historic record ({{ info.baseline_start_wy }}-{{ info.baseline_end_wy }}). Snow is quantified as the daily snow-water equivalent (SWE) at  <a
+        The map shows {{ percentileDayLabel }} snow as a percentile of this date in each site's period of record, calculated as in the NRCS interactive map. Snow is quantified as the daily snow-water equivalent (SWE) at  <a
           href="https://www.nrcs.usda.gov/programs-initiatives/sswsf-snow-survey-and-water-supply-forecasting-program"
           target="_blank"
-        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites </a> across the Western U.S. SNOTEL sites with fewer than {{ info.baseline_min_years }} years in the historic record have no percentile and are shown in grey; sites with too short a record for the charts are faded out.
+        >the USDA Natural Resources Conservation Service (NRCS) snow telemetry (SNOTEL) sites </a> across the Western U.S. Sites without a percentile are shown in grey.
       </p>
     </template>
     <!-- EXPLANATION -->
@@ -234,15 +234,15 @@
           What is a percentile?
         </template>
         <template #sidebarMessage>
-          <p>Percentiles indicate how snow today (in {{ info.water_year }}) compares to snow in past years where data are available. The SWE percentile can be interpreted as the percent of years when the site had lower SWE than in {{ info.water_year }}. For example, if SWE at a particular SNOTEL site is in the 90th percentile, that means the current year's SWE is greater than 90% of the years on record for this date.</p>
+          <p>Percentiles show how SWE on {{ percentileDateLabel }} compares with {{ percentileDayLabel }} in every other year of the site's record. A site in the 90th percentile had as much or more SWE than in 90% of the other years on record, and a site at 0 had its lowest {{ percentileDayLabel }} on record.</p>
         </template>
       </ExpandingSidebar>
       <ExpandingSidebar>
         <template #sidebarTitle>
-          When is peak SWE in {{ info.water_year }}?
+          When was peak SWE in {{ info.water_year }}?
         </template>
         <template #sidebarMessage>
-          <p>Peak SWE has not happened yet for many places in the western U.S. This map shows <span class="emph">{{ percentileDateLabel }}</span> which has traditionally been used as an indicator of peak SWE for the season.</p>
+          <p>{{ percentileDayLabel }} has traditionally been used as an indicator of peak SWE for the season. In {{ info.water_year }}, most sites peaked well before {{ percentileDayLabel }}, about three weeks earlier than usual, and half their snow had melted about a month earlier than usual. The charts show each site's actual peak (●) and the date half of it had melted (○).</p>
         </template>
       </ExpandingSidebar>
       <p>
@@ -318,25 +318,32 @@
 
   // Run settings from snotel_run_info.csv: water year, dates, and thresholds
   const info = ref({});
-  const formatShortDate = d3.utcFormat('%-m/%-d/%Y');
+  const formatLongDate = d3.utcFormat('%B %-d, %Y');
   const dataEndLabel = computed(() =>
-    info.value.data_end_date ? formatShortDate(info.value.data_end_date) : ''
+    info.value.data_end_date ? formatLongDate(info.value.data_end_date) : ''
   );
-  const percentileDateLabel = computed(() => {
+  // e.g. "April 1st", and "April 1st, 2026"
+  const percentileDayLabel = computed(() => {
     const d = info.value.percentile_date;
     if (!d) return '';
     const day = d.getUTCDate();
     const suffix = [11, 12, 13].includes(day % 100) ? 'th' : ({ 1: 'st', 2: 'nd', 3: 'rd' }[day % 10] || 'th');
-    return `${d3.utcFormat('%B')(d)} ${day}${suffix}, ${d.getUTCFullYear()}`;
+    return `${d3.utcFormat('%B')(d)} ${day}${suffix}`;
   });
+  const percentileDateLabel = computed(() =>
+    percentileDayLabel.value ? `${percentileDayLabel.value}, ${info.value.percentile_date.getUTCFullYear()}` : ''
+  );
 
-  // Percentile colour scale shared by the map and legend
+  // Percentile colour scale shared by the map and legend, with the NRCS
+  // interactive map's percentile breaks
   const threshold = d3.scaleThreshold()
-    .domain([0, 0.1, 0.25, 0.4, 0.6, 0.75, 0.9, 1])
-    .range(["white", "#5C3406", "#C28D3D", "#ECD8A6", "#F0F0E6", "#AADDD6", "#2A8C83", "#004439"]);
-  // Sites with charts but too short a record for a percentile
-  const noPercentileFill = "#d9d9d9";
+    .domain([0.1, 0.3, 0.5, 0.7, 0.9])
+    .range(["#5C3406", "#C28D3D", "#ECD8A6", "#AADDD6", "#2A8C83", "#004439"]);
+  // Sites without a percentile, whether or not they have charts
+  const noPercentileFill = "#c4c4c4";
+  const noPercentileStroke = "#7a7a7a";
   const siteFill = d => d.ptile_swe == null ? noPercentileFill : threshold(d.ptile_swe);
+  const siteStroke = d => d.ptile_swe == null ? noPercentileStroke : "black";
   const site_radius = 2.5;
 
   // Chart scales, set once the run settings are loaded
@@ -395,7 +402,8 @@
   function addSites(svg, sites) {
     const g = svg.append("g").classed("sites", true);
 
-    // sites without charts are faded out
+    // sites without charts look like any other site without a percentile,
+    // but don't respond to hover
     g.selectAll("circle.SNTL_nodata")
       .data(sites.filter(d => !d.has_charts))
       .join("circle")
@@ -403,11 +411,11 @@
         .attr("id", d => d.sntl_id)
         .attr("cx", d => d.x)
         .attr("cy", d => d.y)
-        .attr("r", d => site_radius * 0.9 * d.unit)
-        .attr("opacity", .6)
-        .attr("stroke", "rgb(101, 101, 101)")
-        .attr("fill", "rgb(171, 171, 171)")
-        .attr("stroke-width", d => .3 * d.unit);
+        .attr("r", d => site_radius * d.unit)
+        .attr("opacity", .85)
+        .attr("stroke", noPercentileStroke)
+        .attr("fill", noPercentileFill)
+        .attr("stroke-width", d => .35 * d.unit);
 
     // sites with charts respond to hover
     g.selectAll("circle.SNTL")
@@ -419,7 +427,7 @@
         .attr("cy", d => d.y)
         .attr("r", d => site_radius * d.unit)
         .attr("opacity", .85)
-        .attr("stroke", "black")
+        .attr("stroke", siteStroke)
         .attr("stroke-width", d => .35 * d.unit)
         .attr("fill", siteFill)
         .on("mouseover", (event, data) => selectSite(data));
@@ -428,7 +436,11 @@
   function makeTrend() {
     const wy = info.value.water_year;
     const yy = y => `'${String(y).slice(-2)}`;
-    const years = d3.range(info.value.record_start_wy, wy + 1, 10);
+    // every ten years back from the water year, so it is always labelled
+    const years = d3.range(wy, info.value.record_start_wy - 1, -10).reverse();
+    const endAnchor = axis => axis.selectAll(".tick text")
+      .filter(d => d === wy)
+      .attr("text-anchor", "end");
 
     // peak SWE and melt date by year
     xYear = d3.scaleLinear().range([0, 200]).domain([info.value.record_start_wy, wy]);
@@ -450,7 +462,8 @@
     peakSvg.append("g")
       .classed("peak-legend", true)
       .call(d3.axisBottom(xYear).tickValues(years).tickFormat(d3.format("d")).tickSize(0))
-      .attr("transform", "translate(0,110)");
+      .attr("transform", "translate(0,110)")
+      .call(endAnchor);
     peakSvg.append("text")
       .classed("ele", true)
       .attr("fill", "black")
@@ -476,7 +489,8 @@
     meltSvg.append("g")
       .classed("melt-legend", true)
       .call(d3.axisBottom(xYear).tickValues(years).tickFormat(d3.format("d")).tickSize(0))
-      .attr("transform", "translate(0,110)");
+      .attr("transform", "translate(0,110)")
+      .call(endAnchor);
     meltSvg.append("g")
       .classed("melt-legend", true)
       .call(d3.axisLeft(yMelt)
@@ -509,7 +523,11 @@
         .tickValues(wyTicks)
         .tickFormat((d, i) => wyLabels[i])
         .tickSizeOuter(0).tickSize(0))
-      .attr("transform", "translate(0,270)");
+      .attr("transform", "translate(0,270)")
+      // keep a label at the end of the axis (the last day of data) inside the chart
+      .selectAll(".tick text")
+      .filter(d => xDay(d) > 185)
+      .attr("text-anchor", "end");
     wySvg.append("g")
       .classed("melt-legend", true)
       .call(d3.axisLeft(ySwe)
@@ -686,7 +704,7 @@
 
     const xAxis = d3.axisBottom(x)
       .tickSize(10)
-      .tickValues(threshold.domain())
+      .tickValues([0, ...threshold.domain(), 1])
       .tickFormat(d => d * 100 + '%');
 
     const g = d3.select("svg#legend-percentile").append("g")
@@ -713,7 +731,7 @@
       .attr("font-size", "1.25em")
       .attr("text-anchor", "start")
       .attr("y", -10)
-      .text("April 1st SWE percentile");
+      .text(`${percentileDayLabel.value} SWE percentile`);
 
     g.append("text")
       .attr("fill", "#000")
@@ -723,6 +741,22 @@
       .attr("x", 0)
       .attr("y", -30)
       .text("Snow this year");
+
+    // key for sites without a percentile
+    g.append("circle")
+      .attr("cx", 5)
+      .attr("cy", 36)
+      .attr("r", 4)
+      .attr("fill", noPercentileFill)
+      .attr("stroke", noPercentileStroke)
+      .attr("stroke-width", 0.8);
+    g.append("text")
+      .attr("fill", "#000")
+      .attr("font-size", "10px")
+      .attr("text-anchor", "start")
+      .attr("x", 14)
+      .attr("y", 39.5)
+      .text("No percentile");
   }
 </script>
 <style lang="scss" scoped>
