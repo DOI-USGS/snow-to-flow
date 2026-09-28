@@ -16,12 +16,22 @@ p0_targets <- list(
   # season while the map shows conditions on the percentile date.
   tar_target(p0_data_end_date, as.Date("2026-09-23")),
 
+  # Snow season the map's date slider covers, ending no later than the last
+  # day of data
+  tar_target(p0_season_start, as.Date("2025-11-01")),
+  tar_target(p0_season_end, as.Date("2026-07-01")),
+
   # First water year shown in the peak SWE and SM50 trend charts
   tar_target(p0_record_start_wy, 1981),
 
   # Percentiles follow the NRCS interactive map: a site needs values in at
   # least this share of its period of record's years to get a percentile
   tar_target(p0_percentile_min_share, 2/3),
+
+  # Water years for each site's normal peak SWE and SM50 (the NRCS normals
+  # period), and the fewest of those years a site needs for a normal
+  tar_target(p0_normal_wys, 1991:2020),
+  tar_target(p0_normal_min_years, 20),
 
   # Sites get mini charts if they have at least this many complete water years
   # of record before the focal year, where a complete year has SWE on at

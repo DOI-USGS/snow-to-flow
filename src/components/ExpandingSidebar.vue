@@ -32,9 +32,10 @@
 </template>
 
 <script setup>
-  import { ref, onMounted } from "vue";
+  import { ref, onMounted, onBeforeUnmount } from "vue";
 
   const root = ref(null)
+  let buttonObserver = null;
 
   // Declare behavior on mounted
   // functions called here
@@ -43,7 +44,20 @@
     // loaded. Unlike window 'load', this also resolves when the component
     // mounts after the page has finished loading (e.g. navigating back
     // from the 404 page), which otherwise left the sidebar invisible.
-    document.fonts.ready.then(setDimensions);
+    document.fonts.ready.then(() => {
+      setDimensions();
+      // Resize again if the title changes, e.g. when it includes data that
+      // loads after the page does
+      if (!root.value) return;
+      buttonObserver = new ResizeObserver(() => {
+        if (root.value.classList.contains("collapsed")) setDimensions();
+      });
+      buttonObserver.observe(root.value.querySelector(".reveal"));
+    });
+  });
+
+  onBeforeUnmount(() => {
+    if (buttonObserver) buttonObserver.disconnect();
   });
 
   function setDimensions(){
@@ -138,6 +152,10 @@
     }
   }
   .collapsed{
+    // collapsed, the sidebar is just its title, on one line
+    .reveal{
+      white-space: nowrap;
+    }
     .message{
         width: 0;
         height: 0;

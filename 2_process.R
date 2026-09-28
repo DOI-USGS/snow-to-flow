@@ -26,9 +26,34 @@ p2_targets <- list(
   # record, as the NRCS interactive map calculates it
   tar_target(
     p2_sntl_percentiles,
-    calc_swe_percentile(p2_sntl_swe, stations = p1_sntl_stations,
-                        percentile_date = p0_percentile_date,
-                        min_share = p0_percentile_min_share)
+    calc_swe_percentiles(p2_sntl_swe, stations = p1_sntl_stations,
+                         dates = p0_percentile_date,
+                         min_share = p0_percentile_min_share) |>
+      select(-date)
+  ),
+
+  # The same percentile for every day of the snow season, for the map's slider
+  tar_target(
+    p2_sntl_daily_percentiles,
+    calc_swe_percentiles(p2_sntl_swe, stations = p1_sntl_stations,
+                         dates = seq(p0_season_start, min(p0_season_end, p0_data_end_date), by = "day"),
+                         min_share = p0_percentile_min_share)
+  ),
+
+  # Each site's normal peak SWE and SM50, for comparing the focal year
+  tar_target(
+    p2_sntl_normals,
+    calc_site_normals(p2_sntl_annual_stats, wys = p0_normal_wys,
+                      min_years = p0_normal_min_years)
+  ),
+
+  # SWE percentile bands through the water year, for the site charts
+  tar_target(
+    p2_sntl_daily_bands,
+    calc_daily_bands(p2_sntl_swe,
+                     site_ids = p2_sntl_sites$site_id[p2_sntl_sites$has_charts],
+                     focal_wy = p0_water_year, step = 5,
+                     min_years = p0_chart_min_years)
   ),
 
   # Every site on the map: stations active on the percentile date, with
@@ -41,6 +66,7 @@ p2_targets <- list(
       annual_stats = p2_sntl_annual_stats,
       percentiles = p2_sntl_percentiles,
       record_years = p2_sntl_record_years,
+      normals = p2_sntl_normals,
       focal_wy = p0_water_year,
       percentile_date = p0_percentile_date,
       data_end_date = p0_data_end_date,
